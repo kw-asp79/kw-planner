@@ -27,7 +27,7 @@ namespace SampleCalendar
             year = now.Year;
             ymLbl.Text = year.ToString() + " . " + month.ToString();
 
-            displayDays(month,year);
+            displayDays(month, year);
         }
 
 
@@ -38,7 +38,7 @@ namespace SampleCalendar
             DateTime startOfMonth = new DateTime(year, month, 1);
 
             int days = DateTime.DaysInMonth(year, month);
-            int daysOfWeek = Convert.ToInt32(startOfMonth.DayOfWeek.ToString("d"))+1;
+            int daysOfWeek = Convert.ToInt32(startOfMonth.DayOfWeek.ToString("d")) + 1;
 
             for (int i = 1; i < daysOfWeek; i++)
             {
@@ -48,9 +48,9 @@ namespace SampleCalendar
 
             for (int i = 1; i <= days; i++)
             {
-               UserControlDays ucDays = new UserControlDays();
-               ucDays.days(i);
-               dayContainer.Controls.Add(ucDays);
+                UserControlDays ucDays = new UserControlDays();
+                ucDays.days(i);
+                dayContainer.Controls.Add(ucDays);
             }
 
         }
@@ -61,7 +61,7 @@ namespace SampleCalendar
             dayContainer.Controls.Clear();
 
             // if month exceeds 12, i.e, next year
-            if(++month > 12)
+            if (++month > 12)
             {
                 month = 1;
                 year++;
@@ -74,11 +74,11 @@ namespace SampleCalendar
 
         // show previous month of the calendar
         private void prevBtn_Click(object sender, EventArgs e)
-        { 
+        {
             dayContainer.Controls.Clear();
 
             // if month less than 1, i.e, previous year
-            if(--month < 1)
+            if (--month < 1)
             {
                 month = 12;
                 year--;
