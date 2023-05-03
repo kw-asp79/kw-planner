@@ -66,33 +66,37 @@
             this.calendarContainer.Controls.Add(this.label3);
             this.calendarContainer.Controls.Add(this.label2);
             this.calendarContainer.Controls.Add(this.label1);
-            this.calendarContainer.Location = new System.Drawing.Point(189, 0);
+            this.calendarContainer.Location = new System.Drawing.Point(270, 0);
+            this.calendarContainer.Margin = new System.Windows.Forms.Padding(4);
             this.calendarContainer.Name = "calendarContainer";
-            this.calendarContainer.Size = new System.Drawing.Size(749, 725);
+            this.calendarContainer.Size = new System.Drawing.Size(1070, 1088);
             this.calendarContainer.TabIndex = 0;
             // 
             // dayContainer
             // 
-            this.dayContainer.Location = new System.Drawing.Point(3, 88);
+            this.dayContainer.Location = new System.Drawing.Point(4, 132);
+            this.dayContainer.Margin = new System.Windows.Forms.Padding(4);
             this.dayContainer.Name = "dayContainer";
-            this.dayContainer.Size = new System.Drawing.Size(742, 637);
+            this.dayContainer.Size = new System.Drawing.Size(1060, 956);
             this.dayContainer.TabIndex = 9;
             // 
             // ymLbl
             // 
             this.ymLbl.AutoSize = true;
             this.ymLbl.Font = new System.Drawing.Font("Segoe Script", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ymLbl.Location = new System.Drawing.Point(327, 9);
+            this.ymLbl.Location = new System.Drawing.Point(467, 14);
+            this.ymLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ymLbl.Name = "ymLbl";
-            this.ymLbl.Size = new System.Drawing.Size(93, 34);
+            this.ymLbl.Size = new System.Drawing.Size(143, 53);
             this.ymLbl.TabIndex = 1;
             this.ymLbl.Text = "2023.4";
             // 
             // prevBtn
             // 
-            this.prevBtn.Location = new System.Drawing.Point(173, 18);
+            this.prevBtn.Location = new System.Drawing.Point(247, 27);
+            this.prevBtn.Margin = new System.Windows.Forms.Padding(4);
             this.prevBtn.Name = "prevBtn";
-            this.prevBtn.Size = new System.Drawing.Size(34, 18);
+            this.prevBtn.Size = new System.Drawing.Size(49, 27);
             this.prevBtn.TabIndex = 8;
             this.prevBtn.Text = "<";
             this.prevBtn.UseVisualStyleBackColor = true;
@@ -100,9 +104,10 @@
             // 
             // nextBtn
             // 
-            this.nextBtn.Location = new System.Drawing.Point(536, 18);
+            this.nextBtn.Location = new System.Drawing.Point(766, 27);
+            this.nextBtn.Margin = new System.Windows.Forms.Padding(4);
             this.nextBtn.Name = "nextBtn";
-            this.nextBtn.Size = new System.Drawing.Size(34, 18);
+            this.nextBtn.Size = new System.Drawing.Size(49, 27);
             this.nextBtn.TabIndex = 7;
             this.nextBtn.Text = ">";
             this.nextBtn.UseVisualStyleBackColor = true;
@@ -112,10 +117,10 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Sylfaen", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(664, 64);
-            this.label7.Margin = new System.Windows.Forms.Padding(3);
+            this.label7.Location = new System.Drawing.Point(949, 96);
+            this.label7.Margin = new System.Windows.Forms.Padding(4);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(50, 16);
+            this.label7.Size = new System.Drawing.Size(75, 23);
             this.label7.TabIndex = 6;
             this.label7.Text = "Saturday";
             // 
@@ -123,10 +128,10 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Sylfaen", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(562, 64);
-            this.label6.Margin = new System.Windows.Forms.Padding(3);
+            this.label6.Location = new System.Drawing.Point(803, 96);
+            this.label6.Margin = new System.Windows.Forms.Padding(4);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(38, 16);
+            this.label6.Size = new System.Drawing.Size(57, 23);
             this.label6.TabIndex = 5;
             this.label6.Text = "Friday";
             // 
@@ -134,10 +139,10 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Sylfaen", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(450, 64);
-            this.label5.Margin = new System.Windows.Forms.Padding(3);
+            this.label5.Location = new System.Drawing.Point(643, 96);
+            this.label5.Margin = new System.Windows.Forms.Padding(4);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(52, 16);
+            this.label5.Size = new System.Drawing.Size(80, 23);
             this.label5.TabIndex = 4;
             this.label5.Text = "Thursday";
             // 
@@ -145,10 +150,10 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Sylfaen", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(341, 64);
-            this.label4.Margin = new System.Windows.Forms.Padding(3);
+            this.label4.Location = new System.Drawing.Point(487, 96);
+            this.label4.Margin = new System.Windows.Forms.Padding(4);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(64, 16);
+            this.label4.Size = new System.Drawing.Size(96, 23);
             this.label4.TabIndex = 3;
             this.label4.Text = "Wednesday";
             // 
@@ -156,10 +161,10 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Sylfaen", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(243, 64);
-            this.label3.Margin = new System.Windows.Forms.Padding(3);
+            this.label3.Location = new System.Drawing.Point(347, 96);
+            this.label3.Margin = new System.Windows.Forms.Padding(4);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(47, 16);
+            this.label3.Size = new System.Drawing.Size(72, 23);
             this.label3.TabIndex = 2;
             this.label3.Text = "Tuesday";
             // 
@@ -167,10 +172,10 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Sylfaen", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(139, 64);
-            this.label2.Margin = new System.Windows.Forms.Padding(3);
+            this.label2.Location = new System.Drawing.Point(199, 96);
+            this.label2.Margin = new System.Windows.Forms.Padding(4);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 16);
+            this.label2.Size = new System.Drawing.Size(70, 23);
             this.label2.TabIndex = 1;
             this.label2.Text = "Monday";
             // 
@@ -178,11 +183,11 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Sylfaen", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(35, 64);
-            this.label1.Margin = new System.Windows.Forms.Padding(3);
+            this.label1.Location = new System.Drawing.Point(50, 96);
+            this.label1.Margin = new System.Windows.Forms.Padding(4);
             this.label1.Name = "label1";
             this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label1.Size = new System.Drawing.Size(42, 16);
+            this.label1.Size = new System.Drawing.Size(63, 23);
             this.label1.TabIndex = 0;
             this.label1.Text = "Sunday";
             // 
@@ -199,89 +204,101 @@
             this.panel1.Controls.Add(this.klasBtn);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(186, 730);
+            this.panel1.Size = new System.Drawing.Size(266, 1095);
             this.panel1.TabIndex = 1;
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(52, 427);
+            this.button4.Location = new System.Drawing.Point(74, 640);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(84, 25);
+            this.button4.Size = new System.Drawing.Size(120, 38);
             this.button4.TabIndex = 7;
             this.button4.Text = "Chat";
             this.button4.UseVisualStyleBackColor = true;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(52, 336);
+            this.button3.Location = new System.Drawing.Point(74, 504);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(84, 25);
+            this.button3.Size = new System.Drawing.Size(120, 38);
             this.button3.TabIndex = 6;
             this.button3.Text = "Group";
             this.button3.UseVisualStyleBackColor = true;
             // 
             // settingBtn
             // 
-            this.settingBtn.Location = new System.Drawing.Point(104, 702);
+            this.settingBtn.Location = new System.Drawing.Point(149, 1053);
+            this.settingBtn.Margin = new System.Windows.Forms.Padding(4);
             this.settingBtn.Name = "settingBtn";
-            this.settingBtn.Size = new System.Drawing.Size(62, 23);
+            this.settingBtn.Size = new System.Drawing.Size(89, 34);
             this.settingBtn.TabIndex = 5;
             this.settingBtn.Text = "setting";
             this.settingBtn.UseVisualStyleBackColor = true;
             // 
             // loginBtn
             // 
-            this.loginBtn.Location = new System.Drawing.Point(23, 702);
+            this.loginBtn.Location = new System.Drawing.Point(33, 1053);
+            this.loginBtn.Margin = new System.Windows.Forms.Padding(4);
             this.loginBtn.Name = "loginBtn";
-            this.loginBtn.Size = new System.Drawing.Size(61, 23);
+            this.loginBtn.Size = new System.Drawing.Size(87, 34);
             this.loginBtn.TabIndex = 4;
             this.loginBtn.Text = "login";
             this.loginBtn.UseVisualStyleBackColor = true;
             // 
             // todoBtn
             // 
-            this.todoBtn.Location = new System.Drawing.Point(52, 519);
+            this.todoBtn.Location = new System.Drawing.Point(74, 778);
+            this.todoBtn.Margin = new System.Windows.Forms.Padding(4);
             this.todoBtn.Name = "todoBtn";
-            this.todoBtn.Size = new System.Drawing.Size(84, 25);
+            this.todoBtn.Size = new System.Drawing.Size(120, 38);
             this.todoBtn.TabIndex = 3;
             this.todoBtn.Text = "TODO";
             this.todoBtn.UseVisualStyleBackColor = true;
             // 
             // fndBtn
             // 
-            this.fndBtn.Location = new System.Drawing.Point(52, 243);
+            this.fndBtn.Location = new System.Drawing.Point(74, 364);
+            this.fndBtn.Margin = new System.Windows.Forms.Padding(4);
             this.fndBtn.Name = "fndBtn";
-            this.fndBtn.Size = new System.Drawing.Size(84, 26);
+            this.fndBtn.Size = new System.Drawing.Size(120, 39);
             this.fndBtn.TabIndex = 2;
             this.fndBtn.Text = "Friends";
             this.fndBtn.UseVisualStyleBackColor = true;
+            this.fndBtn.Click += new System.EventHandler(this.fndBtn_Click);
             // 
             // lbyBtn
             // 
-            this.lbyBtn.Location = new System.Drawing.Point(52, 148);
+            this.lbyBtn.Location = new System.Drawing.Point(74, 222);
+            this.lbyBtn.Margin = new System.Windows.Forms.Padding(4);
             this.lbyBtn.Name = "lbyBtn";
-            this.lbyBtn.Size = new System.Drawing.Size(84, 26);
+            this.lbyBtn.Size = new System.Drawing.Size(120, 39);
             this.lbyBtn.TabIndex = 1;
             this.lbyBtn.Text = "Library";
             this.lbyBtn.UseVisualStyleBackColor = true;
             // 
             // klasBtn
             // 
-            this.klasBtn.Location = new System.Drawing.Point(52, 64);
+            this.klasBtn.Location = new System.Drawing.Point(74, 96);
+            this.klasBtn.Margin = new System.Windows.Forms.Padding(4);
             this.klasBtn.Name = "klasBtn";
-            this.klasBtn.Size = new System.Drawing.Size(84, 23);
+            this.klasBtn.Size = new System.Drawing.Size(120, 34);
             this.klasBtn.TabIndex = 0;
             this.klasBtn.Text = "KLAS";
             this.klasBtn.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(939, 730);
+            this.ClientSize = new System.Drawing.Size(1341, 1095);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.calendarContainer);
+            this.IsMdiContainer = true;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "KW-Planner";
             this.Load += new System.EventHandler(this.Form1_Load);

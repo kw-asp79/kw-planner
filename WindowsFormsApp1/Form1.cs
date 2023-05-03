@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using WindowsFormsApp1;
 
 namespace SampleCalendar
 {
@@ -86,6 +88,12 @@ namespace SampleCalendar
 
             ymLbl.Text = year.ToString() + " . " + month.ToString();
             displayDays(month, year);
+        }
+
+        private void fndBtn_Click(object sender, EventArgs e)
+        {
+            fdList fdlist = new fdList();
+            fdlist.Show();
         }
     }
 }

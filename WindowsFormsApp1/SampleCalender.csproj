@@ -46,6 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="fdAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fdAdd.Designer.cs">
+      <DependentUpon>fdAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fdList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fdList.Designer.cs">
+      <DependentUpon>fdList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +78,15 @@
     <Compile Include="UserControl2.Designer.cs">
       <DependentUpon>UserControl2.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="fdAdd.resx">
+      <DependentUpon>fdAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fdList.resx">
+      <DependentUpon>fdList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
