@@ -41,7 +41,6 @@
             this.lbDay.Size = new System.Drawing.Size(23, 16);
             this.lbDay.TabIndex = 0;
             this.lbDay.Text = "00";
-            this.lbDay.Click += new System.EventHandler(this.lbDay_Click);
             // 
             // dayLbl
             // 
@@ -64,6 +63,7 @@
             this.Size = new System.Drawing.Size(115, 115);
             this.Load += new System.EventHandler(this.UserControlDays_Load);
             this.Click += new System.EventHandler(this.UserControlDays_Click);
+            this.DoubleClick += new System.EventHandler(this.UserControlDays_DoubleClick);
             this.MouseEnter += new System.EventHandler(this.UserControlDays_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.UserControlDays_MouseLeave);
             this.ResumeLayout(false);
