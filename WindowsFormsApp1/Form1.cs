@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -23,6 +24,33 @@ namespace SampleCalendar
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ProjectDB"].ConnectionString;
+
+            MySqlConnection connection = new MySqlConnection(connectionString);
+
+
+            try
+            { 
+                connection.Open();
+
+                /*
+                string Query = "INSERT INTO `schema`.`user` (`user_id`, `pwd`, `name`) VALUES ('13', '13', 'abcd');";
+
+                MySqlCommand command = new MySqlCommand(Query, connection);
+
+                MySqlDataReader reader = command.ExecuteReader();
+                
+                while (reader.Read())
+                {
+                }
+                */
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+            }
+
             DateTime now = DateTime.Now;
             month = now.Month;
             year = now.Year;
