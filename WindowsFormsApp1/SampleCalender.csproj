@@ -91,6 +91,7 @@
     </Compile>
     <Compile Include="EventForm.Designer.cs">
       <DependentUpon>EventForm.cs</DependentUpon>
+	</Compile>
     <Compile Include="fdAdd.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,6 +126,7 @@
     </Compile>
     <EmbeddedResource Include="EventForm.resx">
       <DependentUpon>EventForm.cs</DependentUpon>
+	</EmbeddedResource>
     <EmbeddedResource Include="fdAdd.resx">
       <DependentUpon>fdAdd.cs</DependentUpon>
     </EmbeddedResource>
