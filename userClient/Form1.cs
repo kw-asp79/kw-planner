@@ -19,6 +19,8 @@ namespace SampleCalendar
         private int month;
         private int year;
 
+        List<Dictionary<DateTime, string>> publicHolidays = new List<Dictionary<DateTime, string>>();
+
         public Form1()
         {
             InitializeComponent();
@@ -61,13 +63,13 @@ namespace SampleCalendar
             displayDays(month, year);
         }
 
-        private bool IsWeekend(DateTime date)
+        private bool IsSunday(DateTime date)
         {
             return date.DayOfWeek == DayOfWeek.Sunday;
         }
 
         // Helper method to check if a given date is a holiday
-        public static bool IsHoliday(int year, int month, int day)
+        public bool IsHoliday(int year, int month, int day)
         {
             // check for weekends
             DateTime date = new DateTime(year, month, day);
@@ -77,25 +79,39 @@ namespace SampleCalendar
             }
 
             // check for public holidays
-            List<DateTime> publicHolidays = new List<DateTime>();
-            publicHolidays.Add(new DateTime(year, 1, 1)); // New Year's Day
-            publicHolidays.Add(new DateTime(year, 3, 1)); // Independence Movement Day
-            publicHolidays.Add(new DateTime(year, 5, 5)); // Children's Day
-            publicHolidays.Add(new DateTime(year, 6, 6)); // Memorial Day
-            publicHolidays.Add(new DateTime(year, 8, 15)); // Liberation Day
-            publicHolidays.Add(new DateTime(year, 10, 3)); // National Foundation Day
-            publicHolidays.Add(new DateTime(year, 10, 9)); // Hangul Day
-            publicHolidays.Add(new DateTime(year, 12, 25)); // Christmas Day
+            publicHolidays.Add(new Dictionary<DateTime, string> { { new DateTime(year, 1, 1), "신년" } }); // New Year's Day
+            publicHolidays.Add(new Dictionary<DateTime, string> { { new DateTime(year, 3, 1), "삼일절" } }); // Independence Movement Day
+            publicHolidays.Add(new Dictionary<DateTime, string> { { new DateTime(year, 5, 5), "어린이날" } }); // Children's Day
+            publicHolidays.Add(new Dictionary<DateTime, string> { { new DateTime(year, 6, 6), "현충일" } }); // Memorial Day
+            publicHolidays.Add(new Dictionary<DateTime, string> { { new DateTime(year, 8, 15), "광복절" } }); // Liberation Day
+            publicHolidays.Add(new Dictionary<DateTime, string> { { new DateTime(year, 10, 3), "개천절" } }); // National Foundation Day
+            publicHolidays.Add(new Dictionary<DateTime, string> { { new DateTime(year, 10, 9), "한글날" } }); // Hangul Day
+            publicHolidays.Add(new Dictionary<DateTime, string> { { new DateTime(year, 12, 25), "성탄절" } }); // Christmas Day
 
-            foreach (DateTime holiday in publicHolidays)
+            foreach (Dictionary<DateTime,string> holiday in publicHolidays)
             {
-                if (holiday.Year == year && holiday.Month == month && holiday.Day == day)
+                if (holiday.ContainsKey(new DateTime(year,month,day)))
                 {
                     return true;
                 }
             }
 
             return false;
+        }
+
+
+        private string getHolidayName(DateTime date)
+        {
+            string name = "";
+
+            foreach(Dictionary<DateTime,string> holiday in publicHolidays)
+            {
+                if (holiday.ContainsKey(date))
+                    return holiday[date];
+
+            }
+
+            return name;
         }
 
 
@@ -118,29 +134,25 @@ namespace SampleCalendar
                 ucDays.lbDay.ForeColor = Color.WhiteSmoke; // set text color to gray for previous month days
                 dayContainer.Controls.Add(ucDays);
             }
-            /*for (int i = 1; i < daysOfWeek; i++)
-            {
-                UserControlBlank ucBlank = new UserControlBlank();
-
-                dayContainer.Controls.Add(ucBlank);
-                
-            }*/
 
             for (int i = 1; i <= days; i++)
             {
                 DateTime date = new DateTime(startOfMonth.Year, startOfMonth.Month, i);
                 UserControlDays ucDays = new UserControlDays();
                 ucDays.SetDay(i);
-                if (IsWeekend(date) || IsHoliday(startOfMonth.Year, startOfMonth.Month, i))
+                if (IsSunday(date) || IsHoliday(startOfMonth.Year, startOfMonth.Month, i))
                 {
-                    ucDays.lbDay.ForeColor = Color.Red;
+                    ucDays.lbDay.ForeColor = Color.Red; // set text color to red if holidays or Sunday
+                    if(IsHoliday(startOfMonth.Year, startOfMonth.Month, i))
+                    {
+                        ucDays.dayLbl.Text = getHolidayName(new DateTime(startOfMonth.Year, startOfMonth.Month, i));
+                        ucDays.dayLbl.ForeColor = Color.Red;
+                 
+                    }
                 }
                 dayContainer.Controls.Add(ucDays);
 
             }
-
-
-
 
         }
 
@@ -175,40 +187,6 @@ namespace SampleCalendar
 
             ymLbl.Text = year.ToString() + " . " + month.ToString();
             displayDays(month, year);
-        }
-
-        private void dayContainer_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-
-        private void nextBtn_KeyDown(object sender, KeyEventArgs e)
-        {
-            switch (e.KeyCode)
-            {
-                case Keys.Right:
-                    dayContainer.Controls.Clear();
-
-                    // if month exceeds 12, i.e, next year
-                    if (++month > 12)
-                    {
-                        month = 1;
-                        year++;
-                    }
-
-                    ymLbl.Text = year.ToString() + " . " + month.ToString();
-                    displayDays(month, year);
-                    break;
-            }
-        }
-
-        private void dayContainer_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void button8_Click(object sender, EventArgs e)
-        {
         }
 
         private void fndBtn_Click(object sender, EventArgs e)
