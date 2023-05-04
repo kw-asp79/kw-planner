@@ -432,13 +432,13 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1341, 1095);
+            this.ClientSize = new System.Drawing.Size(1082, 923);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.calendarContainer);
             this.IsMdiContainer = true;
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Form1";
             this.Text = "KW-Planner";
             this.Load += new System.EventHandler(this.Form1_Load);
