@@ -1,4 +1,4 @@
-﻿using MySql.Data.MySqlClient;
+﻿using SampleCalendar;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,60 +8,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using WindowsFormsApp1;
 
-
-namespace SampleCalendar
+namespace WindowsFormsApp1
 {
-    public partial class Form1 : Form
+    public partial class calendarForm : UserControl
     {
+
         private int month;
         private int year;
 
         List<Dictionary<DateTime, string>> publicHolidays = new List<Dictionary<DateTime, string>>();
 
-        public Form1()
+        public calendarForm()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+
+        public void showCalendar()
         {
-            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ProjectDB"].ConnectionString;
-
-            MySqlConnection connection = new MySqlConnection(connectionString);
-
-
-            try
-            { 
-                connection.Open();
-
-                /*
-                string Query = "INSERT INTO `schema`.`user` (`user_id`, `pwd`, `name`) VALUES ('13', '13', 'abcd');";
-
-                MySqlCommand command = new MySqlCommand(Query, connection);
-
-                MySqlDataReader reader = command.ExecuteReader();
-                
-                while (reader.Read())
-                {
-                }
-                */
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message.ToString());
-            }
-
             DateTime now = DateTime.Now;
             month = now.Month;
             year = now.Year;
             ymLbl.Text = year.ToString() + " . " + month.ToString();
-            
+
             displayDays(month, year);
         }
+
 
         private bool IsSunday(DateTime date)
         {
@@ -88,9 +61,9 @@ namespace SampleCalendar
             publicHolidays.Add(new Dictionary<DateTime, string> { { new DateTime(year, 10, 9), "한글날" } }); // Hangul Day
             publicHolidays.Add(new Dictionary<DateTime, string> { { new DateTime(year, 12, 25), "성탄절" } }); // Christmas Day
 
-            foreach (Dictionary<DateTime,string> holiday in publicHolidays)
+            foreach (Dictionary<DateTime, string> holiday in publicHolidays)
             {
-                if (holiday.ContainsKey(new DateTime(year,month,day)))
+                if (holiday.ContainsKey(new DateTime(year, month, day)))
                 {
                     return true;
                 }
@@ -104,11 +77,10 @@ namespace SampleCalendar
         {
             string name = "";
 
-            foreach(Dictionary<DateTime,string> holiday in publicHolidays)
+            foreach (Dictionary<DateTime, string> holiday in publicHolidays)
             {
                 if (holiday.ContainsKey(date))
                     return holiday[date];
-
             }
 
             return name;
@@ -127,7 +99,8 @@ namespace SampleCalendar
             int daysInPreviousMonth = DateTime.DaysInMonth(previousMonth.Year, previousMonth.Month); //int 형으로 저번달의 연도와 월을 불러온다.
 
 
-            for (int i = daysInPreviousMonth - daysOfWeek + 2; i <= daysInPreviousMonth; i++) 
+            // show previous month days
+            for (int i = daysInPreviousMonth - daysOfWeek + 2; i <= daysInPreviousMonth; i++)
             {
                 UserControlDays ucDays = new UserControlDays();
                 ucDays.SetDay(i);
@@ -135,6 +108,7 @@ namespace SampleCalendar
                 dayContainer.Controls.Add(ucDays);
             }
 
+            // show current month days
             for (int i = 1; i <= days; i++)
             {
                 DateTime date = new DateTime(startOfMonth.Year, startOfMonth.Month, i);
@@ -143,11 +117,11 @@ namespace SampleCalendar
                 if (IsSunday(date) || IsHoliday(startOfMonth.Year, startOfMonth.Month, i))
                 {
                     ucDays.lbDay.ForeColor = Color.Red; // set text color to red if holidays or Sunday
-                    if(IsHoliday(startOfMonth.Year, startOfMonth.Month, i))
+                    if (IsHoliday(startOfMonth.Year, startOfMonth.Month, i))
                     {
                         ucDays.dayLbl.Text = getHolidayName(new DateTime(startOfMonth.Year, startOfMonth.Month, i));
                         ucDays.dayLbl.ForeColor = Color.Red;
-                 
+
                     }
                 }
                 dayContainer.Controls.Add(ucDays);
@@ -189,10 +163,7 @@ namespace SampleCalendar
             displayDays(month, year);
         }
 
-        private void fndBtn_Click(object sender, EventArgs e)
-        {
-            fdList fdlist = new fdList();
-            fdlist.Show();
-        }
+
+
     }
 }
