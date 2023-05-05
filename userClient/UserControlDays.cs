@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApp1;
 
 namespace SampleCalendar
 {
@@ -39,15 +40,20 @@ namespace SampleCalendar
 
         }
 
-        private void lbDay_Click(object sender, EventArgs e)
-        {
 
-        }
-
+        // when date Box clicked, show EventForm
         private void UserControlDays_Click(object sender, EventArgs e)
         {
             this.BackColor = Color.LightSlateGray;
             ((UserControlDays)sender).BorderStyle = BorderStyle.Fixed3D;
+
+        }
+
+        private void UserControlDays_DoubleClick(object sender, EventArgs e)
+        {
+            EventForm todoEventForm = new EventForm();
+            todoEventForm.ShowDialog();
+
         }
 
         private void UserControlDays_MouseEnter(object sender, EventArgs e)
@@ -61,5 +67,6 @@ namespace SampleCalendar
             ((UserControlDays)sender).BackColor = Color.Gainsboro;
             ((UserControlDays)sender).BorderStyle = BorderStyle.None;
         }
+
     }
 }

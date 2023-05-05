@@ -29,31 +29,41 @@
         private void InitializeComponent()
         {
             this.lbDay = new System.Windows.Forms.Label();
+            this.dayLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbDay
             // 
             this.lbDay.AutoSize = true;
-            this.lbDay.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbDay.Location = new System.Drawing.Point(3, 11);
+            this.lbDay.Font = new System.Drawing.Font("Ink Free", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbDay.Location = new System.Drawing.Point(3, 9);
             this.lbDay.Name = "lbDay";
-            this.lbDay.Size = new System.Drawing.Size(24, 18);
+            this.lbDay.Size = new System.Drawing.Size(23, 16);
             this.lbDay.TabIndex = 0;
             this.lbDay.Text = "00";
-            this.lbDay.Click += new System.EventHandler(this.lbDay_Click);
+            // 
+            // dayLbl
+            // 
+            this.dayLbl.AutoSize = true;
+            this.dayLbl.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dayLbl.Location = new System.Drawing.Point(43, 11);
+            this.dayLbl.Name = "dayLbl";
+            this.dayLbl.Size = new System.Drawing.Size(0, 14);
+            this.dayLbl.TabIndex = 1;
             // 
             // UserControlDays
             // 
             this.AllowDrop = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gainsboro;
+            this.Controls.Add(this.dayLbl);
             this.Controls.Add(this.lbDay);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "UserControlDays";
-            this.Size = new System.Drawing.Size(113, 124);
+            this.Size = new System.Drawing.Size(115, 115);
             this.Load += new System.EventHandler(this.UserControlDays_Load);
             this.Click += new System.EventHandler(this.UserControlDays_Click);
+            this.DoubleClick += new System.EventHandler(this.UserControlDays_DoubleClick);
             this.MouseEnter += new System.EventHandler(this.UserControlDays_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.UserControlDays_MouseLeave);
             this.ResumeLayout(false);
@@ -64,5 +74,6 @@
         #endregion
 
         public System.Windows.Forms.Label lbDay;
+        public System.Windows.Forms.Label dayLbl;
     }
 }
