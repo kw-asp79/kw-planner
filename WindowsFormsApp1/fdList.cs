@@ -97,7 +97,7 @@ namespace WindowsFormsApp1
                 this.Controls.Remove(labels[A-1]);
                 this.Controls.Remove(btn_chat[A-1]);
                 this.Controls.Remove(panel[A-1]);
-                A = A - 1;
+                
             } else
             {
                 this.Controls.Remove(labels2[idx]);
@@ -106,6 +106,7 @@ namespace WindowsFormsApp1
                 this.Controls.Remove(btn_chat[idx]);
                 this.Controls.Remove(panel[idx]);
             }
+            A--;
             cntlbl--;
         }
 

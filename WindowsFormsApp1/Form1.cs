@@ -34,23 +34,30 @@ namespace SampleCalendar
             try
             { 
                 connection.Open();
-
-                /*
-                string Query = "INSERT INTO `schema`.`user` (`user_id`, `pwd`, `name`) VALUES ('13', '13', 'abcd');";
-
-                MySqlCommand command = new MySqlCommand(Query, connection);
-
-                MySqlDataReader reader = command.ExecuteReader();
-                
-                while (reader.Read())
+                if (connection.State == ConnectionState.Open)
                 {
+                    Console.WriteLine("MySQL 데이터베이스에 연결되었습니다.");
                 }
-                */
+                else
+                {
+                    Console.WriteLine("MySQL 데이터베이스에 연결되지 않았습니다.");
+                }
+
+                //string Query = "INSERT INTO `schema`.`user` (`user_id`, `pwd`, `name`) VALUES ('13', '13', 'abcd');";
+
+                //MySqlCommand command = new MySqlCommand(Query, connection);
+
+                //MySqlDataReader reader = command.ExecuteReader();
+
+                //while (reader.Read())
+                //{
+                //}
+
 
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message.ToString());
+                Console.WriteLine("MySQL 데이터베이스 연결 오류: " + ex.Message.ToString());
             }
 
             DateTime now = DateTime.Now;
