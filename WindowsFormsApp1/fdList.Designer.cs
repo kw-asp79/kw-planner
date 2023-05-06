@@ -1,4 +1,6 @@
-﻿namespace WindowsFormsApp1
+﻿using System.Windows.Forms;
+
+namespace WindowsFormsApp1
 {
     partial class fdList
     {
@@ -36,7 +38,7 @@
             // 
             this.fdlistLbl.AutoSize = true;
             this.fdlistLbl.Font = new System.Drawing.Font("Segoe Script", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fdlistLbl.Location = new System.Drawing.Point(201, 54);
+            this.fdlistLbl.Location = new System.Drawing.Point(423, 52);
             this.fdlistLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.fdlistLbl.Name = "fdlistLbl";
             this.fdlistLbl.Size = new System.Drawing.Size(164, 53);
@@ -45,7 +47,7 @@
             // 
             // btn_addfd
             // 
-            this.btn_addfd.Location = new System.Drawing.Point(391, 62);
+            this.btn_addfd.Location = new System.Drawing.Point(887, 106);
             this.btn_addfd.Name = "btn_addfd";
             this.btn_addfd.Size = new System.Drawing.Size(97, 45);
             this.btn_addfd.TabIndex = 3;
@@ -57,7 +59,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 745);
+            this.ClientSize = new System.Drawing.Size(1100, 745);
             this.Controls.Add(this.btn_addfd);
             this.Controls.Add(this.fdlistLbl);
             this.Name = "fdList";
