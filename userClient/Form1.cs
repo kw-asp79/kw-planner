@@ -36,18 +36,20 @@ namespace SampleCalendar
             try
             { 
                 connection.Open();
+                
+                MySqlCommand command = connection.CreateCommand();
 
-                /*
-                string Query = "INSERT INTO `schema`.`user` (`user_id`, `pwd`, `name`) VALUES ('13', '13', 'abcd');";
+                string name = "testGroup";
 
-                MySqlCommand command = new MySqlCommand(Query, connection);
-
+                command.CommandText = "INSERT INTO asp.group (name) VALUES (?name);";
+                command.Parameters.AddWithValue("?name", name);
+                
                 MySqlDataReader reader = command.ExecuteReader();
                 
                 while (reader.Read())
                 {
                 }
-                */
+                
 
             }
             catch (Exception ex)
