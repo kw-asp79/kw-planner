@@ -102,9 +102,16 @@ namespace SampleCalendar
 
         private void fndBtn_Click(object sender, EventArgs e)
         {
-            fdList fdlist = new fdList();
-            fdlist.Show();
+            calendarContainer.Controls.Clear();
+            fdList fdList = new fdList() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true, FormBorderStyle = FormBorderStyle.None };
+            this.calendarContainer.Controls.Add(fdList);
+            fdList.Show();
         }
 
+        private void loginBtn_Click(object sender, EventArgs e)
+        {
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
+        }
     }
 }
