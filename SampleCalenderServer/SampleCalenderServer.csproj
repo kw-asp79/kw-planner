@@ -90,5 +90,11 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EntityLibrary\EntityLibrary.csproj">
+      <Project>{b24ce078-7f67-4c9d-94a1-f0df13a2ad96}</Project>
+      <Name>EntityLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
