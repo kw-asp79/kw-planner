@@ -7,7 +7,7 @@ using System.Net.Sockets;
 using System.Net;
 using MySql.Data.MySqlClient;
 
-namespace SampleCalenderServer
+namespace Server
 {
     internal class Program
     {

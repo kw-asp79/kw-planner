@@ -1,5 +1,4 @@
-﻿using SampleCalendar;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,7 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Net.Sockets;
 
-namespace SampleCalendar
+namespace Client
 {
     public partial class calendarForm : UserControl
     {
@@ -33,7 +32,7 @@ namespace SampleCalendar
         public void showCalendar()
         {
             // TCP 통신
-            try 
+           /* try 
             {
                 server = new TcpClient("127.0.0.1", 9050);
             }
@@ -45,7 +44,7 @@ namespace SampleCalendar
             //ns = server.GetStream();
 
             //ns.Close();
-            server.Close();
+            server.Close();*/
 
             DateTime now = DateTime.Now;
             month = now.Month;

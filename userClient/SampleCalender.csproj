@@ -110,6 +110,12 @@
     <Compile Include="libraryLoginForm.Designer.cs">
       <DependentUpon>libraryLoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="LibraryUIForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LibraryUIForm.Designer.cs">
+      <DependentUpon>LibraryUIForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="loginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -153,6 +159,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="libraryLoginForm.resx">
       <DependentUpon>libraryLoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LibraryUIForm.resx">
+      <DependentUpon>LibraryUIForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="mainForm.resx">
       <DependentUpon>mainForm.cs</DependentUpon>
