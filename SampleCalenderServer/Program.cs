@@ -13,6 +13,8 @@ namespace SampleCalenderServer
     {
         static void Main(string[] args)
         {
+            /*
+
             // 데이터베이스 연결 
             string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ProjectDB"].ConnectionString;
 
@@ -41,6 +43,8 @@ namespace SampleCalenderServer
                 Console.WriteLine(ex.Message.ToString());
             }
 
+            */
+
             // TCP 통신
             int receive;
             byte[] data = new byte[1024];
@@ -51,11 +55,11 @@ namespace SampleCalenderServer
             Console.WriteLine("Waiting for a client....");
 
             TcpClient client = newSock.AcceptTcpClient();
-            NetworkStream ns = client.GetStream();
+            // NetworkStream ns = client.GetStream();
 
             Console.WriteLine("Client Connected.. : {0}", client.Client.RemoteEndPoint);
 
-            ns.Close();
+            // ns.Close();
             client.Close();
             newSock.Stop();
         }

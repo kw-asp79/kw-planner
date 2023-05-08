@@ -42,9 +42,9 @@ namespace SampleCalendar
                 MessageBox.Show("\"Unable to connect to server\"");
             }
 
-            ns = server.GetStream();
+            //ns = server.GetStream();
 
-            ns.Close();
+            //ns.Close();
             server.Close();
 
             DateTime now = DateTime.Now;
