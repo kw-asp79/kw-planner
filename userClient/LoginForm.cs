@@ -10,20 +10,16 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
-    public partial class fdAdd : Form
+    public partial class LoginForm : Form
     {
-        fdList fdList;
-        public fdAdd(fdList form)
+        public LoginForm()
         {
             InitializeComponent();
-            fdList = form;
         }
 
-        private void btn_Add_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            fdList.add_label(this.txt_id.Text,this.txt_fd.Text);
-            txt_fd.Clear();
-            txt_id.Clear();
+            this.Close();
         }
     }
 }
