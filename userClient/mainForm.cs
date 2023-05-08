@@ -12,7 +12,7 @@ using System.IO;
 using WindowsFormsApp1;
 
 
-namespace SampleCalendar
+namespace Client
 {
     public partial class mainForm : Form
     {

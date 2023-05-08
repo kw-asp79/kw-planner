@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsFormsApp1;
 
-namespace SampleCalendar
+namespace Client
 {
     public partial class UserControlDays : UserControl
     {

@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp1
+﻿namespace Client
 {
     partial class klasLoginForm
     {
