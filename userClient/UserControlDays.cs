@@ -29,11 +29,7 @@ namespace SampleCalendar
             this.lbDay.Text = day.ToString();
             this.lbDay.ForeColor = Color.Black; // reset text color to black
         }
-        public void days(int numDay)
-        {
-            lbDay.Text = numDay.ToString();
-
-        }
+        
 
         private void UserControlDays_Load(object sender, EventArgs e)
         {
