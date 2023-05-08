@@ -20,7 +20,16 @@ namespace Client
         private void loginBtn_Click(object sender, EventArgs e)
         {
             LibraryUIForm libraryUIForm = new LibraryUIForm(idTbx.Text,pwdTbx.Text);
+            libraryUIForm.crawlLibraryData();
+            libraryUIForm.showState();
+            libraryUIForm.showBookState();
             libraryUIForm.Show();
         }
+
+
+
+
+
+
     }
 }

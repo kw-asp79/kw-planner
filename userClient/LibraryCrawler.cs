@@ -11,11 +11,21 @@ namespace Client
 {
     internal class LibraryCrawler
     {
-        List<Book> books = new List<Book>();
+        private string numOfBooks = "";
+        private string numOfOverdue = "";
+        private string priceToPay = "";
+
+        public List<Book> books = new List<Book>();
 
 
         public LibraryCrawler() { }
 
+
+        public string getNumOfBooks() { return numOfBooks; }
+
+        public string getNumOfOverdue() {  return numOfOverdue; }
+
+        public string getPriceToPay() {  return priceToPay; }
 
 
         // do all of things to do
@@ -30,11 +40,8 @@ namespace Client
 
 
 
-        public void loginLibrary()
+        public void loginLibrary(string id, string passwd)
         {
-            string id = "";
-            string passwd = "";
-
             ChromeDriverService chromeDriverService;
             ChromeDriver chromeDriver;
 
@@ -76,21 +83,24 @@ namespace Client
 
 
         // crawl user data from Library website
-        public void crawlUserDatas(ChromeDriver chromeDriver)
+        private void crawlUserDatas(ChromeDriver chromeDriver)
         {
 
             try
             {
                 // crawl number of books that I borrowed
                 var numOfBooks = chromeDriver.FindElement(By.XPath("//*[@id=\"divContents\"]/div[3]/div[3]/div[2]/ul/li[2]/span"));
+                this.numOfBooks = numOfBooks.Text.ToString();
                 Console.WriteLine(numOfBooks.Text.ToString());
 
                 // crawl number of books that are overdue
                 var numOfOverdue = chromeDriver.FindElement(By.XPath("//*[@id=\"divContents\"]/div[3]/div[3]/div[2]/ul/li[4]/span"));
+                this.numOfOverdue = numOfOverdue.Text.ToString();
                 Console.WriteLine(numOfOverdue.Text.ToString());
 
                 // crawl price that I have to pay for overdue
                 var priceToPay = chromeDriver.FindElement(By.XPath("//*[@id=\"divContents\"]/div[3]/div[3]/div[2]/ul/li[6]/span"));
+                this.priceToPay = priceToPay.Text.ToString();
                 Console.WriteLine(priceToPay.Text.ToString());
 
                 int numBooks = Int32.Parse(numOfBooks.Text.ToString());
@@ -112,67 +122,76 @@ namespace Client
         }
 
  
-        // get books that user has rent
-        public void getBorrowedBooks(ChromeDriver chromeDriver,int numOfBooks)
+        // "대출현황 조회/연장" page로 이동 and get books that user has rent
+        private void getBorrowedBooks(ChromeDriver chromeDriver,int numOfBooks)
         {
-            var element = chromeDriver.FindElement(By.XPath("//*[@id=\"divContents\"]/div[3]/div[3]/div[1]/div/ul/li[1]/a/img"));
-            element.Click();
 
-            string[] bookInfo = {"title","author","loct","call_no","accession_no","loan_date","return_plan_date","renew_count" };
-
-            // crawl book datas 
-            for (int i=0; i<numOfBooks;i++) 
+            try
             {
-                string cssSelector = "#divList > table > tbody > tr:nth-child(" + (i + 1) + ") > td.title > a";
-                var bookTitle = chromeDriver.FindElement(By.CssSelector(cssSelector));
-                Console.WriteLine("Book Title: " + bookTitle.Text.ToString());
-                string sBookTitle = bookTitle.Text.ToString();
 
-                cssSelector = "#divList > table > tbody > tr:nth-child(" + (i + 1) + ") > td.author";
-                var bookAuthor = chromeDriver.FindElement(By.CssSelector(cssSelector));
-                Console.WriteLine("Book Author: " + bookAuthor.Text.ToString());
-                string sBookAuthor = bookAuthor.Text.ToString();
+                // "대출현황 조회/연장" page로 이동
+                var element = chromeDriver.FindElement(By.XPath("//*[@id=\"divContents\"]/div[3]/div[3]/div[1]/div/ul/li[1]/a/img"));
+                element.Click();
 
-                cssSelector = "#divList > table > tbody > tr:nth-child(" + (i + 1) + ") > td.loct";
-                var bookLocation = chromeDriver.FindElement(By.CssSelector(cssSelector));
-                Console.WriteLine("Book Location: " + bookLocation.Text.ToString());
-                string sBookLocation = bookLocation.Text.ToString();    
+                string[] bookInfo = { "title", "author", "loct", "call_no", "accession_no", "loan_date", "return_plan_date", "renew_count" };
 
+                // crawl book datas 
+                for (int i = 0; i < numOfBooks; i++)
+                {
+                    string cssSelector = "#divList > table > tbody > tr:nth-child(" + (i + 1) + ") > td.title > a";
+                    var bookTitle = chromeDriver.FindElement(By.CssSelector(cssSelector));
+                    //Console.WriteLine("Book Title: " + bookTitle.Text.ToString());
+                    string sBookTitle = bookTitle.Text.ToString();
 
-                cssSelector = "#divList > table > tbody > tr:nth-child(" + (i + 1) + ") > td.call_no";
-                var bookCallNumber = chromeDriver.FindElement(By.CssSelector(cssSelector));
-                Console.WriteLine("Book CallNumber: " + bookCallNumber.Text.ToString());
-                string sBookCallNumber = bookCallNumber.Text.ToString();
+                    cssSelector = "#divList > table > tbody > tr:nth-child(" + (i + 1) + ") > td.author";
+                    var bookAuthor = chromeDriver.FindElement(By.CssSelector(cssSelector));
+                    //Console.WriteLine("Book Author: " + bookAuthor.Text.ToString());
+                    string sBookAuthor = bookAuthor.Text.ToString();
 
-                cssSelector = "#divList > table > tbody > tr:nth-child(" + (i + 1) + ") > td.accession_no";
-                var bookISBN = chromeDriver.FindElement(By.CssSelector(cssSelector));
-                Console.WriteLine("Book ISBN: " + bookISBN.Text.ToString());
-                string sBookISBN = bookISBN.Text.ToString();
-
-
-                cssSelector = "#divList > table > tbody > tr:nth-child(" + (i + 1) + ") > td.loan_date";
-                var bookLoanDate = chromeDriver.FindElement(By.CssSelector(cssSelector));
-                Console.WriteLine("Book LoanDate: " + bookLoanDate.Text.ToString());
-                string sBookLoanDate = bookLoanDate.Text.ToString();
+                    cssSelector = "#divList > table > tbody > tr:nth-child(" + (i + 1) + ") > td.loct";
+                    var bookLocation = chromeDriver.FindElement(By.CssSelector(cssSelector));
+                    //Console.WriteLine("Book Location: " + bookLocation.Text.ToString());
+                    string sBookLocation = bookLocation.Text.ToString();
 
 
-                cssSelector = "#divList > table > tbody > tr:nth-child(" + (i + 1) + ") > td.return_plan_date";
-                var bookReturnDate = chromeDriver.FindElement(By.CssSelector(cssSelector));
-                Console.WriteLine("Book Return Date: " + bookReturnDate.Text.ToString());
-                string sBookReturnDate = bookReturnDate.Text.ToString();
+                    cssSelector = "#divList > table > tbody > tr:nth-child(" + (i + 1) + ") > td.call_no";
+                    var bookCallNumber = chromeDriver.FindElement(By.CssSelector(cssSelector));
+                    //Console.WriteLine("Book CallNumber: " + bookCallNumber.Text.ToString());
+                    string sBookCallNumber = bookCallNumber.Text.ToString();
+
+                    cssSelector = "#divList > table > tbody > tr:nth-child(" + (i + 1) + ") > td.accession_no";
+                    var bookISBN = chromeDriver.FindElement(By.CssSelector(cssSelector));
+                    //Console.WriteLine("Book ISBN: " + bookISBN.Text.ToString());
+                    string sBookISBN = bookISBN.Text.ToString();
 
 
-                cssSelector = "#divList > table > tbody > tr:nth-child(" + (i + 1) + ") > td.renew_count";
-                var bookRenewCount = chromeDriver.FindElement(By.CssSelector(cssSelector));
-                Console.WriteLine("Book RenewCount: " + bookRenewCount.Text.ToString());
-                string sBookRenewCount = bookRenewCount.Text.ToString();
+                    cssSelector = "#divList > table > tbody > tr:nth-child(" + (i + 1) + ") > td.loan_date";
+                    var bookLoanDate = chromeDriver.FindElement(By.CssSelector(cssSelector));
+                    //Console.WriteLine("Book LoanDate: " + bookLoanDate.Text.ToString());
+                    string sBookLoanDate = bookLoanDate.Text.ToString();
 
 
-                Book book = new Book(sBookTitle, sBookAuthor, sBookLocation, sBookCallNumber, sBookISBN, sBookLoanDate, sBookReturnDate, sBookRenewCount);
-                books.Add(book);
+                    cssSelector = "#divList > table > tbody > tr:nth-child(" + (i + 1) + ") > td.return_plan_date";
+                    var bookReturnDate = chromeDriver.FindElement(By.CssSelector(cssSelector));
+                    //Console.WriteLine("Book Return Date: " + bookReturnDate.Text.ToString());
+                    string sBookReturnDate = bookReturnDate.Text.ToString();
+
+
+                    cssSelector = "#divList > table > tbody > tr:nth-child(" + (i + 1) + ") > td.renew_count";
+                    var bookRenewCount = chromeDriver.FindElement(By.CssSelector(cssSelector));
+                    //Console.WriteLine("Book RenewCount: " + bookRenewCount.Text.ToString());
+                    string sBookRenewCount = bookRenewCount.Text.ToString();
+
+
+                    Book book = new Book(sBookTitle, sBookAuthor, sBookLocation, sBookCallNumber, sBookISBN, sBookLoanDate, sBookReturnDate, sBookRenewCount);
+                    books.Add(book);
+                }
+
             }
-
-
+            catch(Exception e)
+            {
+                Console.WriteLine("Error while crawling getBorrowedBooks()");
+            }
 
 
         }
@@ -181,7 +200,7 @@ namespace Client
 
 
 
-        public void printBookDatas(List<Book> books)
+        private void printBookDatas(List<Book> books)
         {
             foreach (var book in books)
                 book.printBookDatas();        
@@ -203,12 +222,6 @@ namespace Client
                 return false;
             }
         }
-
-
-
-
-
-
 
     }
 }
