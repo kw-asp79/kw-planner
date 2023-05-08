@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using WindowsFormsApp1;
-
+using System.Net.Sockets;
 
 namespace SampleCalendar
 {
@@ -18,6 +18,9 @@ namespace SampleCalendar
     {
         private int month;
         private int year;
+
+        private TcpClient server;
+        private NetworkStream ns;
 
         List<Dictionary<DateTime, string>> publicHolidays = new List<Dictionary<DateTime, string>>();
 
@@ -28,34 +31,20 @@ namespace SampleCalendar
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ProjectDB"].ConnectionString;
-
-            MySqlConnection connection = new MySqlConnection(connectionString);
-
-
-            try
-            { 
-                connection.Open();
-                
-                MySqlCommand command = connection.CreateCommand();
-
-                string name = "testGroup";
-
-                command.CommandText = "INSERT INTO asp.group (name) VALUES (?name);";
-                command.Parameters.AddWithValue("?name", name);
-                
-                MySqlDataReader reader = command.ExecuteReader();
-                
-                while (reader.Read())
-                {
-                }
-                
-
-            }
-            catch (Exception ex)
+            // TCP 통신
+            try 
             {
-                Console.WriteLine(ex.Message.ToString());
+                server = new TcpClient("127.0.0.1", 9050);
             }
+            catch(SocketException ex) 
+            {
+                MessageBox.Show("\"Unable to connect to server\"");
+            }
+
+            ns = server.GetStream();
+
+            ns.Close();
+            server.Close();
 
             DateTime now = DateTime.Now;
             month = now.Month;

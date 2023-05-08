@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.SqlServer.Server;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -28,21 +29,6 @@ namespace EntityLibrary
             this.pwd = pwd;
             this.name = name;
         }
-
-        //서버에서 쓸 코드
-        public void saveUser(User user)
-        {
-
-            // MySqlCommand command = connection.CreateCommand();
-
-            // string name = "testGroup";
-
-            // command.CommandText = "INSERT INTO asp.group (name) VALUES (?name);";
-            // command.Parameters.AddWithValue("?name", name);
-
-            // MySqlDataReader reader = command.ExecuteReader();
-        }
-
         
 
     }
@@ -50,7 +36,7 @@ namespace EntityLibrary
     public class Schedule
     {
         public int id;
-        public string category;
+        public string category; // 종류는 CUSTOM, KLAS, LIBRARY
         public string title;
         public string content;
         public DateTime datetime;
@@ -64,7 +50,7 @@ namespace EntityLibrary
         }
 
         public Schedule(string category, string title, string content, DateTime datetime)
-        {
+        { 
             this.category = category;
             this.title = title;
             this.content = content;
@@ -88,6 +74,25 @@ namespace EntityLibrary
         {
             this.name = name;
         }
+    }
+
+    public class Friendship
+    {
+        public string user_id;
+        public string friend_id;
+
+        public Friendship()
+        {
+            user_id = "";
+            friend_id = "";
+        }
+
+        public Friendship(string user_id, string friend_id)
+        {
+            this.user_id = user_id;
+            this.friend_id = friend_id;
+        }
+
     }
     
 }
