@@ -8,14 +8,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Net.Sockets;
 
-namespace WindowsFormsApp1
+namespace SampleCalendar
 {
     public partial class calendarForm : UserControl
     {
 
         private int month;
         private int year;
+
+        private TcpClient server;
+        private NetworkStream ns;
 
         List<Dictionary<DateTime, string>> publicHolidays = new List<Dictionary<DateTime, string>>();
 
@@ -27,6 +32,21 @@ namespace WindowsFormsApp1
 
         public void showCalendar()
         {
+            // TCP 통신
+            try 
+            {
+                server = new TcpClient("127.0.0.1", 9050);
+            }
+            catch(SocketException ex) 
+            {
+                MessageBox.Show("\"Unable to connect to server\"");
+            }
+
+            ns = server.GetStream();
+
+            ns.Close();
+            server.Close();
+
             DateTime now = DateTime.Now;
             month = now.Month;
             year = now.Year;
