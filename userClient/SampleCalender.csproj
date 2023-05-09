@@ -110,6 +110,12 @@
     <Compile Include="libraryLoginForm.Designer.cs">
       <DependentUpon>libraryLoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="LibraryUIForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LibraryUIForm.Designer.cs">
+      <DependentUpon>LibraryUIForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="loginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -154,6 +160,9 @@
     <EmbeddedResource Include="libraryLoginForm.resx">
       <DependentUpon>libraryLoginForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="LibraryUIForm.resx">
+      <DependentUpon>LibraryUIForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="mainForm.resx">
       <DependentUpon>mainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -188,6 +197,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EntityLibrary\EntityLibrary.csproj">
+      <Project>{b24ce078-7f67-4c9d-94a1-f0df13a2ad96}</Project>
+      <Name>EntityLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

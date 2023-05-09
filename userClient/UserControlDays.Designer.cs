@@ -1,4 +1,4 @@
-﻿namespace SampleCalendar
+﻿namespace Client
 {
     partial class UserControlDays
     {

@@ -10,16 +10,32 @@ using System.Windows.Forms;
 
 namespace Client
 {
-    public partial class LoginForm : Form
+    public partial class LibraryUIForm : Form
     {
-        public LoginForm()
+        private string id;
+        private string pwd;
+
+        /*public LibraryUIForm()
         {
             InitializeComponent();
+        }*/
+
+        public LibraryUIForm(string id, string pwd)
+        {
+            InitializeComponent();
+
+            this.id = id;
+            this.pwd = pwd;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+
+
+
+
+
+
+
+
+
     }
 }
