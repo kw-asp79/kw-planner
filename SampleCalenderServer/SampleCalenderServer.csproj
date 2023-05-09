@@ -95,6 +95,10 @@
       <Project>{b24ce078-7f67-4c9d-94a1-f0df13a2ad96}</Project>
       <Name>EntityLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PacketLibrary\PacketLibrary.csproj">
+      <Project>{22ff42cd-5986-4502-8c5e-bb746a5f1c2a}</Project>
+      <Name>PacketLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

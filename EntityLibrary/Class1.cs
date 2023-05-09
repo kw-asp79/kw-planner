@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 namespace EntityLibrary
 {
 
+    [Serializable]
     public class User
     {
         public string id;
@@ -33,6 +34,7 @@ namespace EntityLibrary
 
     }
 
+    [Serializable]
     public class Schedule
     {
         public int id;
@@ -60,6 +62,7 @@ namespace EntityLibrary
 
     }
 
+    [Serializable]
     public class Group
     {
         public int id;
@@ -76,6 +79,7 @@ namespace EntityLibrary
         }
     }
 
+    [Serializable]
     public class Friendship
     {
         public string user_id;

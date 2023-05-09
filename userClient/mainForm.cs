@@ -1,5 +1,4 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,7 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using WindowsFormsApp1;
-
+using System.Net.Sockets;
+using EntityLibrary;
+using PacketLibrary;
 
 namespace Client
 {
@@ -21,6 +22,9 @@ namespace Client
         klasLoginForm klasLoginForm;
         libraryLoginForm libraryLoginForm;
 
+        private TcpClient server;
+        private NetworkStream netstrm;
+
 
         public mainForm()
         {
@@ -29,31 +33,38 @@ namespace Client
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ProjectDB"].ConnectionString;
 
-            MySqlConnection connection = new MySqlConnection(connectionString);
-
+            // TCP 통신
             try
-            { 
-                connection.Open();
-
-                /*
-                string Query = "INSERT INTO `schema`.`user` (`user_id`, `pwd`, `name`) VALUES ('13', '13', 'abcd');";
-
-                MySqlCommand command = new MySqlCommand(Query, connection);
-
-                MySqlDataReader reader = command.ExecuteReader();
-                
-                while (reader.Read())
-                {
-                }
-                */
-
-            }
-            catch (Exception ex)
             {
-                Console.WriteLine(ex.Message.ToString());
+                server = new TcpClient("127.0.0.1", 9050);
             }
+            catch (SocketException ex)
+            {
+                MessageBox.Show("\"Unable to connect to server\"");
+            }
+
+            netstrm = server.GetStream();
+
+            User user = new User("12346", "qqq", "seonghooni");
+
+            Packet packet = new Packet();
+            packet.action = ActionType.saveUser;
+            packet.data = user;
+
+            PacketInfo packetInfo = new PacketInfo();
+
+            byte[] data = Packet.Serialize(packet, packetInfo);
+            byte[] size = BitConverter.GetBytes(packetInfo.size); ;
+
+            // packet의 size를 먼저 전송
+            netstrm.Write(size, 0, 4);
+            // 그 다음 packet을 전송
+            netstrm.Write(data, 0, packetInfo.size);
+            netstrm.Flush();
+
+            netstrm.Close();
+            server.Close();
 
             // show calendar form  
             calendarForm = new calendarForm();
