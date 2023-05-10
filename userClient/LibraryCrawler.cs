@@ -49,7 +49,7 @@ namespace Client
             try
             {
                 ChromeOptions options = new ChromeOptions();
-                //options.AddArgument("--headless");
+                options.AddArgument("--headless");
                 options.AddArgument("--disable-gpu");
 
                 // network error issue: failed to resolve address for stun.services.mozilla.com error code: -105
@@ -58,10 +58,14 @@ namespace Client
                 options.AddArgument("log-level=2");
 
                 chromeDriverService = ChromeDriverService.CreateDefaultService();
+                // hide chromeDriver.exe 
+                chromeDriverService.HideCommandPromptWindow = true;
+
                 chromeDriver = new ChromeDriver(chromeDriverService, options);
                 chromeDriver.Navigate().GoToUrl("https://kupis.kw.ac.kr/");
 
-                chromeDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
+                chromeDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
+                Thread.Sleep(300);
 
                 // send id and pwd data 
                 var element = chromeDriver.FindElement(By.XPath("//*[@id=\"id\"]"));
