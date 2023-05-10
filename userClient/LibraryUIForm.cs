@@ -17,17 +17,17 @@ namespace Client
 
         private LibraryCrawler libraryCrawler;
 
-        /*public LibraryUIForm()
+        public LibraryUIForm()
         {
             InitializeComponent();
-        }*/
+        }
 
         public LibraryUIForm(string id, string pwd)
         {
-            InitializeComponent();
-
             this.id = id;
             this.pwd = pwd;
+
+            InitializeComponent();
         }
 
         public void crawlLibraryData()

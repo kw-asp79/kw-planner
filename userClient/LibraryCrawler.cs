@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Threading;
 
 namespace Client
 {
@@ -51,11 +52,16 @@ namespace Client
                 //options.AddArgument("--headless");
                 options.AddArgument("--disable-gpu");
 
+                // network error issue: failed to resolve address for stun.services.mozilla.com error code: -105
+                //options.AddArgument("--dns-prefetch-disable");
+                options.AddArgument("--dns-server=8.8.8.8");
+                options.AddArgument("log-level=2");
+
                 chromeDriverService = ChromeDriverService.CreateDefaultService();
                 chromeDriver = new ChromeDriver(chromeDriverService, options);
                 chromeDriver.Navigate().GoToUrl("https://kupis.kw.ac.kr/");
 
-                chromeDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+                chromeDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
 
                 // send id and pwd data 
                 var element = chromeDriver.FindElement(By.XPath("//*[@id=\"id\"]"));
@@ -88,6 +94,9 @@ namespace Client
 
             try
             {
+                // Need to synchronize crawling moment and accessing web page! // 웹 페이지 접근 전에 데이터에 접근하는 에러 방지를 위해 
+                Thread.Sleep(500);
+
                 // crawl number of books that I borrowed
                 var numOfBooks = chromeDriver.FindElement(By.XPath("//*[@id=\"divContents\"]/div[3]/div[3]/div[2]/ul/li[2]/span"));
                 this.numOfBooks = numOfBooks.Text.ToString();
@@ -132,6 +141,9 @@ namespace Client
                 // "대출현황 조회/연장" page로 이동
                 var element = chromeDriver.FindElement(By.XPath("//*[@id=\"divContents\"]/div[3]/div[3]/div[1]/div/ul/li[1]/a/img"));
                 element.Click();
+
+                // 마찬가지로 페이지 이동과 데이터를 가져오는 시점 일치를 위해 
+                Thread.Sleep(500);
 
                 string[] bookInfo = { "title", "author", "loct", "call_no", "accession_no", "loan_date", "return_plan_date", "renew_count" };
 
