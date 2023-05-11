@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Client
@@ -17,6 +18,7 @@ namespace Client
 
         private LibraryCrawler libraryCrawler;
 
+       
         public LibraryUIForm()
         {
             InitializeComponent();
@@ -30,13 +32,26 @@ namespace Client
             InitializeComponent();
         }
 
+
+        public void doWork()
+        {
+            crawlLibraryData();
+            showState();
+            showBookState();
+        }
+
+
         public void crawlLibraryData()
         {
             libraryCrawler = new LibraryCrawler();
 
             libraryCrawler.loginLibrary(this.id,this.pwd);
 
+            //Thread libraryCrawlingThread = new Thread(new ThreadStart(libraryCrawler.loginLibrary));
+            //libraryCrawlingThread.Start();
+
         }
+
 
 
         public void showState()
