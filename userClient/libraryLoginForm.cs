@@ -32,10 +32,5 @@ namespace Client
             libraryUIForm.Show();
         }
 
-
-
-
-
-
     }
 }
