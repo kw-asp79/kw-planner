@@ -94,6 +94,8 @@
             this.pwdTbx.Location = new System.Drawing.Point(470, 590);
             this.pwdTbx.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pwdTbx.Name = "pwdTbx";
+            this.pwdTbx.PasswordChar = '*';
+
             this.pwdTbx.Size = new System.Drawing.Size(323, 28);
             this.pwdTbx.TabIndex = 12;
             this.pwdTbx.TextChanged += new System.EventHandler(this.pwdTbx_TextChanged);
@@ -123,6 +125,8 @@
         private System.Windows.Forms.Label libraryLbl;
         private System.Windows.Forms.Label pwdLbl;
         private System.Windows.Forms.Label idLbl;
+
+
         private System.Windows.Forms.TextBox pwdTbx;
     }
 }
