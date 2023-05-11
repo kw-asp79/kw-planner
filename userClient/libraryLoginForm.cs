@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Client
@@ -19,13 +20,17 @@ namespace Client
 
         private void loginBtn_Click(object sender, EventArgs e)
         {
-            LibraryUIForm libraryUIForm = new LibraryUIForm(idTbx.Text,pwdTbx.Text);
+            LibraryUIForm libraryUIForm = new LibraryUIForm(idTbx.Text.ToString(),pwdTbx.Text.ToString());
+
+            /*Thread libraryCrawlingThread = new Thread(new ThreadStart(libraryUIForm.doWork));
+            libraryCrawlingThread.Start();
+            */
+            
+            libraryUIForm.crawlLibraryData();
+            libraryUIForm.showState();
+            libraryUIForm.showBookState();
             libraryUIForm.Show();
         }
 
-        private void pwdTbx_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
