@@ -88,7 +88,9 @@
             // 
             this.pwdTbx.Location = new System.Drawing.Point(329, 393);
             this.pwdTbx.Name = "pwdTbx";
-            this.pwdTbx.Size = new System.Drawing.Size(227, 21);
+
+            this.pwdTbx.PasswordChar = '*';
+            this.pwdTbx.Size = new System.Drawing.Size(323, 28);
             this.pwdTbx.TabIndex = 12;
             // 
             // libraryLoginForm
