@@ -38,35 +38,39 @@
             // 
             // pwdTbx
             // 
-            this.pwdTbx.Location = new System.Drawing.Point(330, 392);
+            this.pwdTbx.Location = new System.Drawing.Point(471, 588);
+            this.pwdTbx.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pwdTbx.Name = "pwdTbx";
-            this.pwdTbx.Size = new System.Drawing.Size(227, 21);
+            this.pwdTbx.Size = new System.Drawing.Size(323, 28);
             this.pwdTbx.TabIndex = 18;
             // 
             // loginBtn
             // 
             this.loginBtn.Font = new System.Drawing.Font("Segoe Print", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loginBtn.Location = new System.Drawing.Point(393, 471);
+            this.loginBtn.Location = new System.Drawing.Point(561, 706);
+            this.loginBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.loginBtn.Name = "loginBtn";
-            this.loginBtn.Size = new System.Drawing.Size(95, 32);
+            this.loginBtn.Size = new System.Drawing.Size(136, 48);
             this.loginBtn.TabIndex = 17;
             this.loginBtn.Text = "Login";
             this.loginBtn.UseVisualStyleBackColor = true;
             // 
             // idTbx
             // 
-            this.idTbx.Location = new System.Drawing.Point(330, 288);
+            this.idTbx.Location = new System.Drawing.Point(471, 432);
+            this.idTbx.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.idTbx.Name = "idTbx";
-            this.idTbx.Size = new System.Drawing.Size(227, 21);
+            this.idTbx.Size = new System.Drawing.Size(323, 28);
             this.idTbx.TabIndex = 16;
             // 
             // klasLbl
             // 
             this.klasLbl.AutoSize = true;
             this.klasLbl.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.klasLbl.Location = new System.Drawing.Point(407, 190);
+            this.klasLbl.Location = new System.Drawing.Point(581, 285);
+            this.klasLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.klasLbl.Name = "klasLbl";
-            this.klasLbl.Size = new System.Drawing.Size(91, 36);
+            this.klasLbl.Size = new System.Drawing.Size(139, 54);
             this.klasLbl.TabIndex = 15;
             this.klasLbl.Text = "KLAS";
             // 
@@ -74,9 +78,10 @@
             // 
             this.pwdLbl.AutoSize = true;
             this.pwdLbl.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pwdLbl.Location = new System.Drawing.Point(205, 381);
+            this.pwdLbl.Location = new System.Drawing.Point(293, 572);
+            this.pwdLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.pwdLbl.Name = "pwdLbl";
-            this.pwdLbl.Size = new System.Drawing.Size(106, 33);
+            this.pwdLbl.Size = new System.Drawing.Size(159, 50);
             this.pwdLbl.TabIndex = 14;
             this.pwdLbl.Text = "Password";
             // 
@@ -84,15 +89,16 @@
             // 
             this.idLbl.AutoSize = true;
             this.idLbl.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.idLbl.Location = new System.Drawing.Point(254, 285);
+            this.idLbl.Location = new System.Drawing.Point(363, 428);
+            this.idLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.idLbl.Name = "idLbl";
-            this.idLbl.Size = new System.Drawing.Size(36, 33);
+            this.idLbl.Size = new System.Drawing.Size(54, 50);
             this.idLbl.TabIndex = 13;
             this.idLbl.Text = "ID";
             // 
             // klasLoginForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.pwdTbx);
             this.Controls.Add(this.loginBtn);
@@ -100,8 +106,9 @@
             this.Controls.Add(this.klasLbl);
             this.Controls.Add(this.pwdLbl);
             this.Controls.Add(this.idLbl);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "klasLoginForm";
-            this.Size = new System.Drawing.Size(862, 817);
+            this.Size = new System.Drawing.Size(1231, 1226);
             this.ResumeLayout(false);
             this.PerformLayout();
 
