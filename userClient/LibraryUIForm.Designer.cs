@@ -101,6 +101,7 @@
             this.Controls.Add(this.label1);
             this.Name = "LibraryUIForm";
             this.Text = "MyLibrary";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LibraryUIForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
