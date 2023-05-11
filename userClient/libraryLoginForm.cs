@@ -38,5 +38,9 @@ namespace Client
 
         }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 846dc9ce352d96eacfcb179c0fd4a9c97514aa3c
     }
 }
