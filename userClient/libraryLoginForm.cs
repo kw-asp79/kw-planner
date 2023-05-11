@@ -27,6 +27,10 @@ namespace Client
         }
 
 
+        private void pwdTbx_TextChanged(object sender, EventArgs e)
+        {
+
+        }
 
 
 
