@@ -22,5 +22,10 @@ namespace Client
             LibraryUIForm libraryUIForm = new LibraryUIForm(idTbx.Text,pwdTbx.Text);
             libraryUIForm.Show();
         }
+
+        private void pwdTbx_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

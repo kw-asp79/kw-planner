@@ -10,8 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using WindowsFormsApp1;
-
-
+ 
 namespace Client
 {
     public partial class mainForm : Form
@@ -25,8 +24,13 @@ namespace Client
         public mainForm()
         {
             InitializeComponent();
+            this.Load += new EventHandler(MainForm_Load);
         }
-
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            this.Width = 1060;
+            this.Height = 900;
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ProjectDB"].ConnectionString;
@@ -54,7 +58,7 @@ namespace Client
             {
                 Console.WriteLine(ex.Message.ToString());
             }
-
+            
             // show calendar form  
             calendarForm = new calendarForm();
             calendarForm.showCalendar();
@@ -74,19 +78,14 @@ namespace Client
             calendarContainer.Controls.Add(calendarForm);
 
         }
-
         private void klasBtn_Click(object sender, EventArgs e)
         {
             calendarContainer.Controls.Clear();
 
             klasLoginForm = new klasLoginForm();
             calendarContainer.Controls.Add(klasLoginForm);
-
-
             // after login once, don't need to show loginForm. Instead, shows user's klas data UI
-
         }
-
         private void lbyBtn_Click(object sender, EventArgs e)
         {
             calendarContainer.Controls.Clear();
@@ -97,9 +96,6 @@ namespace Client
             // after login once, don't need to show loginForm. Instead, shows user's library data UI
 
         }
-
-
-
         private void fndBtn_Click(object sender, EventArgs e)
         {
             calendarContainer.Controls.Clear();
@@ -107,11 +103,15 @@ namespace Client
             this.calendarContainer.Controls.Add(fdList);
             fdList.Show();
         }
-
         private void loginBtn_Click(object sender, EventArgs e)
         {
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
+        }
+        private void signupBtn_Click(object sender, EventArgs e)
+        {
+            SignUpForm signUpForm = new SignUpForm();
+            signUpForm.Show();
         }
     }
 }
