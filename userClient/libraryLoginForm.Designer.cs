@@ -94,13 +94,8 @@
             this.pwdTbx.Location = new System.Drawing.Point(470, 590);
             this.pwdTbx.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pwdTbx.Name = "pwdTbx";
-<<<<<<< HEAD
-
-            this.pwdTbx.PasswordChar = '*';
-=======
             this.pwdTbx.PasswordChar = '*';
 
->>>>>>> 7cac216409fe29caa232cb42cdaaab960d5424aa
             this.pwdTbx.Size = new System.Drawing.Size(323, 28);
             this.pwdTbx.TabIndex = 12;
             this.pwdTbx.TextChanged += new System.EventHandler(this.pwdTbx_TextChanged);
