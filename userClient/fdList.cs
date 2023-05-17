@@ -38,49 +38,52 @@ namespace Client
 
         public void add_label(string id, string s)
         {
-            A = cntlbl + 1;
+            if ((id != "") && (s != ""))
+            {
+                A = cntlbl + 1;
 
-            labels2[A] = new Label();
-            labels2[A].Location = new Point(235,60+50*A );
-            labels2[A].Size = new Size(labelWidth+15, labelHeight);
-            labels2[A].Text = id;
-            labels2[A].Tag = A;
+                labels2[A] = new Label();
+                labels2[A].Location = new Point(235, 60 + 50 * A);
+                labels2[A].Size = new Size(labelWidth + 15, labelHeight);
+                labels2[A].Text = id;
+                labels2[A].Tag = A;
 
-            labels[A] = new Label();
-            labels[A].Location = new Point(labels2[A].Location.X+65, labels2[A].Location.Y);
-            labels[A].Size = new Size(labelWidth,labelHeight);
-            labels[A].Text = s;
-            labels[A].Tag = A;
-            
-            btn_chat[A] = new Button();
-            btn_chat[A].Location = new Point(labels2[A].Location.X + 115, labels2[A].Location.Y-10);
-            btn_chat[A].Size = new Size(labelWidth,labelHeight);
-            btn_chat[A].Text = "채팅";
-            btn_chat[A].Tag = A;
+                labels[A] = new Label();
+                labels[A].Location = new Point(labels2[A].Location.X + 65, labels2[A].Location.Y);
+                labels[A].Size = new Size(labelWidth, labelHeight);
+                labels[A].Text = s;
+                labels[A].Tag = A;
 
-            btn_delete[A] = new Button();
-            btn_delete[A].Location = new Point(labels2[A].Location.X + 165, labels2[A].Location.Y-10);
-            btn_delete[A].Size = new Size(labelWidth, labelHeight);
-            btn_delete[A].Text = "삭제";
-            btn_delete[A].Tag = A;
+                btn_chat[A] = new Button();
+                btn_chat[A].Location = new Point(labels2[A].Location.X + 115, labels2[A].Location.Y - 10);
+                btn_chat[A].Size = new Size(labelWidth, labelHeight);
+                btn_chat[A].Text = "채팅";
+                btn_chat[A].Tag = A;
+
+                btn_delete[A] = new Button();
+                btn_delete[A].Location = new Point(labels2[A].Location.X + 165, labels2[A].Location.Y - 10);
+                btn_delete[A].Size = new Size(labelWidth, labelHeight);
+                btn_delete[A].Text = "삭제";
+                btn_delete[A].Tag = A;
 
 
-            btn_delete[A].Click += new EventHandler(btn_delete_Click);
+                btn_delete[A].Click += new EventHandler(btn_delete_Click);
 
-            panel[A] = new Panel();
-            panel[A].Location = new Point(labels2[A].Location.X, labels2[A].Location.Y+15);
-            panel[A].Size = new Size(215, 1);
-            panel[A].BackColor = Color.Black;
-            panel[A].Tag = A;
+                panel[A] = new Panel();
+                panel[A].Location = new Point(labels2[A].Location.X, labels2[A].Location.Y + 15);
+                panel[A].Size = new Size(215, 1);
+                panel[A].BackColor = Color.Black;
+                panel[A].Tag = A;
 
-            this.Controls.Add(panel[A]);
-            this.Controls.Add(labels2[A] );
-            this.Controls.Add(labels[A]);
-            this.Controls.Add(btn_chat[A]);
-            this.Controls.Add(btn_delete[A]);
+                this.Controls.Add(panel[A]);
+                this.Controls.Add(labels2[A]);
+                this.Controls.Add(labels[A]);
+                this.Controls.Add(btn_chat[A]);
+                this.Controls.Add(btn_delete[A]);
 
-            cntlbl++;
-            A++;
+                cntlbl++;
+                A++;
+            }
         }
         private void btn_delete_Click(object sender, EventArgs e)
         {

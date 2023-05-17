@@ -28,5 +28,6 @@ namespace Client
             SignUpForm form = new SignUpForm();
             form.ShowDialog();
         }
+
     }
 }
