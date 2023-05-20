@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Net.Sockets;
 
 namespace PacketLibrary
 {
@@ -17,7 +18,9 @@ namespace PacketLibrary
 
     public enum ActionType
     {
-        saveUser = 0,
+        Response = 0,
+        readAllData,
+        saveUser,
         deleteUser,
         editUser,
         saveSchedule,
@@ -83,5 +86,38 @@ namespace PacketLibrary
 
             return packet;
         }
+
+        public static Packet ReceivePacket(NetworkStream netstrm)
+        {
+            Packet packet = new Packet();
+            PacketInfo packetInfo = new PacketInfo();
+
+            byte[] size = new byte[4];
+            int recv = netstrm.Read(size, 0, 4);
+            packetInfo.size = BitConverter.ToInt32(size, 0);
+
+            byte[] data = new byte[packetInfo.size];
+            recv = netstrm.Read(data, 0, packetInfo.size);
+
+            packet = Packet.Desserialize(data, packetInfo);
+
+            return packet;
+        }
+
+        public static void SendPacket(NetworkStream netstrm, Packet packet)
+        {
+            Packet sendPacket = packet;
+            PacketInfo packetInfo = new PacketInfo();
+
+            byte[] data = Packet.Serialize(sendPacket, packetInfo);
+            byte[] size = BitConverter.GetBytes(packetInfo.size); ;
+
+            // packet의 size를 먼저 전송
+            netstrm.Write(size, 0, 4);
+            // 그 다음 packet을 전송
+            netstrm.Write(data, 0, packetInfo.size);
+            netstrm.Flush();
+        }
     }
+
 }

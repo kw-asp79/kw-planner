@@ -54,7 +54,7 @@
             this.menuContainer.Controls.Add(this.klasBtn);
             this.menuContainer.Dock = System.Windows.Forms.DockStyle.Left;
             this.menuContainer.Location = new System.Drawing.Point(0, 0);
-            this.menuContainer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.menuContainer.Margin = new System.Windows.Forms.Padding(4);
             this.menuContainer.Name = "menuContainer";
             this.menuContainer.Size = new System.Drawing.Size(266, 1226);
             this.menuContainer.TabIndex = 1;
@@ -86,7 +86,7 @@
             // 
             this.settingBtn.Font = new System.Drawing.Font("Ink Free", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.settingBtn.Location = new System.Drawing.Point(151, 1167);
-            this.settingBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.settingBtn.Margin = new System.Windows.Forms.Padding(4);
             this.settingBtn.Name = "settingBtn";
             this.settingBtn.Size = new System.Drawing.Size(103, 46);
             this.settingBtn.TabIndex = 5;
@@ -97,7 +97,7 @@
             // 
             this.loginBtn.Font = new System.Drawing.Font("Ink Free", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.loginBtn.Location = new System.Drawing.Point(4, 1167);
-            this.loginBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.loginBtn.Margin = new System.Windows.Forms.Padding(4);
             this.loginBtn.Name = "loginBtn";
             this.loginBtn.Size = new System.Drawing.Size(104, 46);
             this.loginBtn.TabIndex = 4;
@@ -156,7 +156,7 @@
             // 
             this.calendarContainer.Dock = System.Windows.Forms.DockStyle.Right;
             this.calendarContainer.Location = new System.Drawing.Point(263, 0);
-            this.calendarContainer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.calendarContainer.Margin = new System.Windows.Forms.Padding(4);
             this.calendarContainer.Name = "calendarContainer";
             this.calendarContainer.Size = new System.Drawing.Size(1231, 1226);
             this.calendarContainer.TabIndex = 0;
@@ -169,7 +169,7 @@
             this.Controls.Add(this.menuContainer);
             this.Controls.Add(this.calendarContainer);
             this.IsMdiContainer = true;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "mainForm";
             this.Text = "KW-Planner";
             this.Load += new System.EventHandler(this.Form1_Load);

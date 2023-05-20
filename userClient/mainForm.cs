@@ -12,18 +12,93 @@ using WindowsFormsApp1;
 using System.Net.Sockets;
 using EntityLibrary;
 using PacketLibrary;
+using MySqlX.XDevAPI;
 
 namespace Client
 {
     public partial class mainForm : Form
     {
         // 각 form 들을 멤버로 선언 => 추후 klas와 도서관 정보를 달력과 주고받기 위해 (다만 상황에 따라 변동 가능성 존재..)
-        calendarForm calendarForm; 
+        calendarForm calendarForm;
         klasLoginForm klasLoginForm;
         libraryLoginForm libraryLoginForm;
 
-        private TcpClient server;
-        private NetworkStream netstrm;
+        private static TcpClient server;
+        private static NetworkStream netstrm;
+
+        List<Schedule> scheduleList;
+        List<User> FriendList;
+        List<Group> GroupList;
+
+        public User myUserInfo;
+        public bool isLoginSuccess = false;
+
+        public void readAllData(NetworkStream netstrm)
+        {
+            MessageBox.Show("readAllData 실행");
+
+            while(true)
+            {
+                if (isLoginSuccess)
+                {
+                    User user = myUserInfo;
+
+                    Packet packet = new Packet();
+                    packet.action = ActionType.readAllData;
+                    packet.data = user;
+
+                    Packet.SendPacket(netstrm, packet);
+
+                    packet = Packet.ReceivePacket(netstrm);
+
+                    if (packet.action == ActionType.Response)
+                    {
+                        MessageBox.Show("receive response well !");
+                        // 전역변수에 대입해주는 코드 짜야함
+                    }
+                    isLoginSuccess = false;
+                }
+            }
+            
+        }
+
+        //async Task asyncSend(NetworkStream netstrm, Packet packet)
+        //{
+        //    if (server.Connected)
+        //    {
+        //        Packet sendPacket = packet;
+        //        PacketInfo packetInfo = new PacketInfo();
+
+        //        byte[] data = Packet.Serialize(sendPacket, packetInfo);
+        //        byte[] size = BitConverter.GetBytes(packetInfo.size); ;
+
+        //        // packet의 size를 먼저 전송
+        //        netstrm.Write(size, 0, 4);
+        //        // 그 다음 packet을 전송
+        //        netstrm.Write(data, 0, packetInfo.size);
+        //        netstrm.Flush();
+        //        MessageBox.Show("successfully send!");
+        //    }
+        //}
+
+        //async Task asyncRecieve(NetworkStream netstrm)
+        //{
+        //    if (server.Connected)
+        //    {
+        //        PacketInfo packetInfo = new PacketInfo();
+
+        //        byte[] size = new byte[4];
+
+        //        int recv = netstrm.Read(size, 0, 4);
+        //        packetInfo.size = BitConverter.ToInt32(size, 0);
+
+        //        byte[] data = new byte[packetInfo.size];
+
+        //        recv = netstrm.Read(data, 0, packetInfo.size);
+
+        //        Packet receivedPacket = Packet.Desserialize(data, packetInfo);
+        //    }
+        //}
 
 
         public mainForm()
@@ -31,7 +106,7 @@ namespace Client
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object sender, EventArgs e)
         {
 
             // TCP 통신
@@ -46,30 +121,17 @@ namespace Client
 
             netstrm = server.GetStream();
 
-            User user = new User("12346", "qqq", "seonghooni");
+            Task.Run(() => readAllData(netstrm));
 
-            Packet packet = new Packet();
-            packet.action = ActionType.saveUser;
-            packet.data = user;
-
-            PacketInfo packetInfo = new PacketInfo();
-
-            byte[] data = Packet.Serialize(packet, packetInfo);
-            byte[] size = BitConverter.GetBytes(packetInfo.size); ;
-
-            // packet의 size를 먼저 전송
-            netstrm.Write(size, 0, 4);
-            // 그 다음 packet을 전송
-            netstrm.Write(data, 0, packetInfo.size);
-            netstrm.Flush();
-
-            netstrm.Close();
-            server.Close();
 
             // show calendar form  
             calendarForm = new calendarForm();
             calendarForm.showCalendar();
             calendarContainer.Controls.Add(calendarForm);
+
+            // Form_Close 이벤트 발생시 아래 코드를 추가해야함
+            //netstrm.Close();
+            //server.Close();
 
         }
 
@@ -88,9 +150,11 @@ namespace Client
 
         private void klasBtn_Click(object sender, EventArgs e)
         {
+
             calendarContainer.Controls.Clear();
 
-            klasLoginForm = new klasLoginForm();
+            klasLoginForm = new klasLoginForm(netstrm);
+
             calendarContainer.Controls.Add(klasLoginForm);
 
 
@@ -102,7 +166,7 @@ namespace Client
         {
             calendarContainer.Controls.Clear();
 
-            libraryLoginForm = new libraryLoginForm();
+            libraryLoginForm = new libraryLoginForm(netstrm);
             calendarContainer.Controls.Add(libraryLoginForm);
 
             // after login once, don't need to show loginForm. Instead, shows user's library data UI
@@ -114,15 +178,17 @@ namespace Client
         private void fndBtn_Click(object sender, EventArgs e)
         {
             calendarContainer.Controls.Clear();
-            fdList fdList = new fdList() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true, FormBorderStyle = FormBorderStyle.None };
+            fdList fdList = new fdList(netstrm) { Dock = DockStyle.Fill, TopLevel = false, TopMost = true, FormBorderStyle = FormBorderStyle.None };
             this.calendarContainer.Controls.Add(fdList);
             fdList.Show();
         }
 
         private void loginBtn_Click(object sender, EventArgs e)
         {
-            LoginForm loginForm = new LoginForm();
+            LoginForm loginForm = new LoginForm(netstrm, this);
+            
             loginForm.Show();
         }
     }
 }
+      

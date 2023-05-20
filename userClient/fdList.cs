@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,8 @@ namespace Client
 {
     public partial class fdList : Form
     {
+        NetworkStream netstrm;
+
         Label[] labels = new Label[20];
         Label[] labels2 = new Label[20];
         Button[] btn_chat = new Button[20];
@@ -25,9 +28,10 @@ namespace Client
         int cntlbl = 0;
 
          
-        public fdList()
+        public fdList(NetworkStream netstrm)
         {
             InitializeComponent();
+            this.netstrm = netstrm;
         }
 
         private void btn_addfd_Click(object sender, EventArgs e)
