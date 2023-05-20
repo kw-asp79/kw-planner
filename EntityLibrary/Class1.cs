@@ -31,6 +31,10 @@ namespace EntityLibrary
             this.name = name;
         }
         
+        public bool isEmpty()
+        {
+            return this.id.Equals("") && this.pwd.Equals("") && this.name.Equals("");
+        }
 
     }
 

@@ -13,6 +13,7 @@ using System.Net.Sockets;
 using EntityLibrary;
 using PacketLibrary;
 using MySqlX.XDevAPI;
+using System.Collections;
 
 namespace Client
 {
@@ -41,6 +42,8 @@ namespace Client
             {
                 if (isLoginSuccess)
                 {
+                    MessageBox.Show("isLoginSuccess = true!!");
+
                     User user = myUserInfo;
 
                     Packet packet = new Packet();

@@ -32,8 +32,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txt_Id = new System.Windows.Forms.TextBox();
+            this.txt_Pwd = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -54,7 +54,6 @@
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-  
             this.pictureBox1.Location = new System.Drawing.Point(39, 64);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(222, 65);
@@ -77,21 +76,21 @@
             this.panel3.Size = new System.Drawing.Size(220, 1);
             this.panel3.TabIndex = 1;
             // 
-            // textBox1
+            // txt_Id
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.textBox1.Location = new System.Drawing.Point(41, 252);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(220, 28);
-            this.textBox1.TabIndex = 2;
+            this.txt_Id.BackColor = System.Drawing.SystemColors.Control;
+            this.txt_Id.Location = new System.Drawing.Point(41, 252);
+            this.txt_Id.Name = "txt_Id";
+            this.txt_Id.Size = new System.Drawing.Size(220, 28);
+            this.txt_Id.TabIndex = 2;
             // 
-            // textBox2
+            // txt_Pwd
             // 
-            this.textBox2.BackColor = System.Drawing.SystemColors.Control;
-            this.textBox2.Location = new System.Drawing.Point(41, 336);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(220, 28);
-            this.textBox2.TabIndex = 3;
+            this.txt_Pwd.BackColor = System.Drawing.SystemColors.Control;
+            this.txt_Pwd.Location = new System.Drawing.Point(41, 336);
+            this.txt_Pwd.Name = "txt_Pwd";
+            this.txt_Pwd.Size = new System.Drawing.Size(220, 28);
+            this.txt_Pwd.TabIndex = 3;
             // 
             // label1
             // 
@@ -100,9 +99,9 @@
             this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label1.Location = new System.Drawing.Point(38, 225);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(95, 24);
+            this.label1.Size = new System.Drawing.Size(27, 24);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Username";
+            this.label1.Text = "ID";
             // 
             // label2
             // 
@@ -138,8 +137,8 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txt_Pwd);
+            this.Controls.Add(this.txt_Id);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -159,8 +158,8 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txt_Id;
+        private System.Windows.Forms.TextBox txt_Pwd;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button1;

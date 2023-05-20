@@ -9,6 +9,8 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PacketLibrary;
+using EntityLibrary;
 
 namespace Client
 {
@@ -26,13 +28,38 @@ namespace Client
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //mainform.myUserInfo.id = "11111";
-            //mainform.myUserInfo.pwd = "qqqqq";
-            //mainform.myUserInfo.name = "Lee";
+            User user = new User();
 
-            mainform.isLoginSuccess = true;
+            // txtBox의 정보를 매핑
+            user.id = txt_Id.Text;
+            user.pwd = txt_Pwd.Text;
 
-            this.Close();
+            Packet sendPacket = new Packet();
+            Packet receivedPacket;
+
+            // 로그인 요청 패킷을 보냄
+            sendPacket.action = ActionType.login;
+            sendPacket.data = user;
+            Packet.SendPacket(netstrm, sendPacket);
+
+            // 로그인 응답 패킷을 받음
+            receivedPacket = Packet.ReceivePacket(netstrm);
+
+            // 로그인 성공 여부에 따라 다르게 동작해야함
+            if (receivedPacket.action == ActionType.Response && (string)receivedPacket.data == "success")
+            {
+                mainform.isLoginSuccess = true;
+                MessageBox.Show("로그인에 성공했습니다.");
+                this.Close();
+            }
+            else if(receivedPacket.action == ActionType.Response && (string)receivedPacket.data == "fail")
+            {
+                MessageBox.Show("로그인에 실패했습니다.");
+                txt_Id.Text = "";
+                txt_Pwd.Text = "";
+            }
+
+            
         }
     }
 }

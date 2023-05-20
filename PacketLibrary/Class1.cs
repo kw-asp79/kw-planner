@@ -19,6 +19,7 @@ namespace PacketLibrary
     public enum ActionType
     {
         Response = 0,
+        login,
         readAllData,
         saveUser,
         deleteUser,
