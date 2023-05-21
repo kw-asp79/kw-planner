@@ -18,6 +18,7 @@ namespace Client
         // 각 form 들을 멤버로 선언 => 추후 klas와 도서관 정보를 달력과 주고받기 위해 (다만 상황에 따라 변동 가능성 존재..)
         calendarForm calendarForm; 
         klasLoginForm klasLoginForm;
+        KLASUIForm klasUIForm;
         libraryLoginForm libraryLoginForm;
 
 
@@ -26,6 +27,13 @@ namespace Client
             InitializeComponent();
             this.Load += new EventHandler(MainForm_Load);
         }
+
+        public Control getCalendarContainer()
+        {
+            return this.calendarContainer;
+        }
+
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             this.Width = 1060;
@@ -64,6 +72,8 @@ namespace Client
             calendarForm.showCalendar();
             calendarContainer.Controls.Add(calendarForm);
 
+            // create KLAS UI Form 
+            klasUIForm = new KLASUIForm();
         }
 
 
@@ -78,14 +88,18 @@ namespace Client
             calendarContainer.Controls.Add(calendarForm);
 
         }
+
+
         private void klasBtn_Click(object sender, EventArgs e)
         {
             calendarContainer.Controls.Clear();
 
-            klasLoginForm = new klasLoginForm();
-            calendarContainer.Controls.Add(klasLoginForm);
+           // klasLoginForm = new klasLoginForm(this.calendarContainer);
+            calendarContainer.Controls.Add(klasUIForm);
             // after login once, don't need to show loginForm. Instead, shows user's klas data UI
+        
         }
+
         private void lbyBtn_Click(object sender, EventArgs e)
         {
             calendarContainer.Controls.Clear();
@@ -96,6 +110,7 @@ namespace Client
             // after login once, don't need to show loginForm. Instead, shows user's library data UI
 
         }
+
         private void fndBtn_Click(object sender, EventArgs e)
         {
             calendarContainer.Controls.Clear();
@@ -103,11 +118,13 @@ namespace Client
             this.calendarContainer.Controls.Add(fdList);
             fdList.Show();
         }
+
         private void loginBtn_Click(object sender, EventArgs e)
         {
-            LoginForm loginForm = new LoginForm();
+            LoginForm loginForm = new LoginForm(klasUIForm);
             loginForm.Show();
         }
+
         private void signupBtn_Click(object sender, EventArgs e)
         {
             SignUpForm signUpForm = new SignUpForm();

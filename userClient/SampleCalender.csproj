@@ -94,7 +94,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Book.cs" />
     <Compile Include="EventForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,11 +112,12 @@
     <Compile Include="fdList.Designer.cs">
       <DependentUpon>fdList.cs</DependentUpon>
     </Compile>
-    <Compile Include="klasUIForm.cs">
-      <SubType>Form</SubType>
+    <Compile Include="KLASCrawler.cs" />
+    <Compile Include="KLASUIForm.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="klasUIForm.Designer.cs">
-      <DependentUpon>klasUIForm.cs</DependentUpon>
+    <Compile Include="KLASUIForm.Designer.cs">
+      <DependentUpon>KLASUIForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LibraryCrawler.cs" />
     <Compile Include="libraryLoginForm.cs">
@@ -179,8 +179,8 @@
     <EmbeddedResource Include="fdList.resx">
       <DependentUpon>fdList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="klasUIForm.resx">
-      <DependentUpon>klasUIForm.cs</DependentUpon>
+    <EmbeddedResource Include="KLASUIForm.resx">
+      <DependentUpon>KLASUIForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="libraryLoginForm.resx">
       <DependentUpon>libraryLoginForm.cs</DependentUpon>
@@ -231,6 +231,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CrawlingLibrary\CrawlingLibrary.csproj">
+      <Project>{e7719ae8-b630-4bc7-842f-12f9eb60fbf2}</Project>
+      <Name>CrawlingLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EntityLibrary\EntityLibrary.csproj">
       <Project>{b24ce078-7f67-4c9d-94a1-f0df13a2ad96}</Project>
       <Name>EntityLibrary</Name>

@@ -42,7 +42,7 @@
             this.pwdTbx.Name = "pwdTbx";
             this.pwdTbx.PasswordChar = '*';
             this.pwdTbx.Size = new System.Drawing.Size(227, 21);
-            this.pwdTbx.TabIndex = 18;
+            this.pwdTbx.TabIndex = 1;
             // 
             // loginBtn
             // 
@@ -50,7 +50,7 @@
             this.loginBtn.Location = new System.Drawing.Point(393, 471);
             this.loginBtn.Name = "loginBtn";
             this.loginBtn.Size = new System.Drawing.Size(95, 32);
-            this.loginBtn.TabIndex = 17;
+            this.loginBtn.TabIndex = 2;
             this.loginBtn.Text = "Login";
             this.loginBtn.UseVisualStyleBackColor = true;
             this.loginBtn.Click += new System.EventHandler(this.loginBtn_Click);
@@ -60,7 +60,7 @@
             this.idTbx.Location = new System.Drawing.Point(330, 288);
             this.idTbx.Name = "idTbx";
             this.idTbx.Size = new System.Drawing.Size(227, 21);
-            this.idTbx.TabIndex = 16;
+            this.idTbx.TabIndex = 0;
             // 
             // klasLbl
             // 

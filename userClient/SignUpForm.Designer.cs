@@ -47,9 +47,10 @@
             this.btn_signup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_signup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_signup.ForeColor = System.Drawing.SystemColors.Control;
-            this.btn_signup.Location = new System.Drawing.Point(116, 314);
+            this.btn_signup.Location = new System.Drawing.Point(81, 209);
+            this.btn_signup.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btn_signup.Name = "btn_signup";
-            this.btn_signup.Size = new System.Drawing.Size(115, 49);
+            this.btn_signup.Size = new System.Drawing.Size(80, 33);
             this.btn_signup.TabIndex = 4;
             this.btn_signup.Text = "회원가입";
             this.btn_signup.UseVisualStyleBackColor = false;
@@ -60,9 +61,10 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label2.Location = new System.Drawing.Point(64, 234);
+            this.label2.Location = new System.Drawing.Point(45, 156);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 24);
+            this.label2.Size = new System.Drawing.Size(61, 17);
             this.label2.TabIndex = 12;
             this.label2.Text = "Password";
             // 
@@ -71,42 +73,47 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label1.Location = new System.Drawing.Point(64, 150);
+            this.label1.Location = new System.Drawing.Point(45, 100);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(27, 24);
+            this.label1.Size = new System.Drawing.Size(21, 17);
             this.label1.TabIndex = 11;
             this.label1.Text = "ID";
             // 
             // txt_pwd
             // 
             this.txt_pwd.BackColor = System.Drawing.SystemColors.Control;
-            this.txt_pwd.Location = new System.Drawing.Point(67, 261);
+            this.txt_pwd.Location = new System.Drawing.Point(47, 174);
+            this.txt_pwd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txt_pwd.Name = "txt_pwd";
-            this.txt_pwd.Size = new System.Drawing.Size(220, 28);
+            this.txt_pwd.Size = new System.Drawing.Size(155, 21);
             this.txt_pwd.TabIndex = 2;
             // 
             // txt_id
             // 
             this.txt_id.BackColor = System.Drawing.SystemColors.Control;
-            this.txt_id.Location = new System.Drawing.Point(67, 177);
+            this.txt_id.Location = new System.Drawing.Point(47, 118);
+            this.txt_id.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txt_id.Name = "txt_id";
-            this.txt_id.Size = new System.Drawing.Size(220, 28);
+            this.txt_id.Size = new System.Drawing.Size(155, 21);
             this.txt_id.TabIndex = 1;
             // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panel3.Location = new System.Drawing.Point(67, 291);
+            this.panel3.Location = new System.Drawing.Point(47, 194);
+            this.panel3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(220, 1);
+            this.panel3.Size = new System.Drawing.Size(154, 1);
             this.panel3.TabIndex = 8;
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panel2.Location = new System.Drawing.Point(67, 207);
+            this.panel2.Location = new System.Drawing.Point(47, 138);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(220, 1);
+            this.panel2.Size = new System.Drawing.Size(154, 1);
             this.panel2.TabIndex = 7;
             // 
             // label3
@@ -114,33 +121,36 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label3.Location = new System.Drawing.Point(65, 64);
+            this.label3.Location = new System.Drawing.Point(46, 43);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 24);
+            this.label3.Size = new System.Drawing.Size(42, 17);
             this.label3.TabIndex = 16;
             this.label3.Text = "Name";
             // 
             // txt_name
             // 
             this.txt_name.BackColor = System.Drawing.SystemColors.Control;
-            this.txt_name.Location = new System.Drawing.Point(68, 91);
+            this.txt_name.Location = new System.Drawing.Point(48, 61);
+            this.txt_name.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txt_name.Name = "txt_name";
-            this.txt_name.Size = new System.Drawing.Size(220, 28);
+            this.txt_name.Size = new System.Drawing.Size(155, 21);
             this.txt_name.TabIndex = 0;
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panel1.Location = new System.Drawing.Point(68, 121);
+            this.panel1.Location = new System.Drawing.Point(48, 81);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(220, 1);
+            this.panel1.Size = new System.Drawing.Size(154, 1);
             this.panel1.TabIndex = 14;
             // 
             // SignUpForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(357, 414);
+            this.ClientSize = new System.Drawing.Size(250, 276);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txt_name);
             this.Controls.Add(this.panel1);
@@ -151,6 +161,8 @@
             this.Controls.Add(this.txt_id);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
+            this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "SignUpForm";
             this.Text = "SignUpForm";
             this.ResumeLayout(false);

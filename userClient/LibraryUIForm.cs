@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
+using CrawlingLibrary;
 
 namespace Client
 {
@@ -92,7 +93,7 @@ namespace Client
 
         private void LibraryUIForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            libraryCrawler.endService(libraryCrawler.GetChromeDriver());
+            
         }
     }
 }

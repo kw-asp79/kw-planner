@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Threading;
+using CrawlingLibrary;
 
 namespace Client
 {
@@ -18,8 +19,8 @@ namespace Client
 
         public List<Book> books = new List<Book>();
 
-        private ChromeDriverService chromeDriverService;
-        private ChromeDriver chromeDriver;
+        private static ChromeDriverService chromeDriverService;
+        private static ChromeDriver chromeDriver;
 
         public LibraryCrawler() { }
 
@@ -32,16 +33,41 @@ namespace Client
 
         public ChromeDriver GetChromeDriver() { return chromeDriver; }  
 
+
+        public void initDriver()
+        {
+            ChromeOptions options = new ChromeOptions();
+            options.AddArgument("--headless");
+            //options.AddArgument("--disable-gpu");
+
+            // network error issue: failed to resolve address for stun.services.mozilla.com error code: -105
+            //options.AddArgument("--dns-prefetch-disable");
+            options.AddArgument("--dns-server=8.8.8.8");
+            options.AddArgument("log-level=2");
+
+            chromeDriverService = ChromeDriverService.CreateDefaultService();
+            // hide chromeDriver.exe 
+            chromeDriverService.HideCommandPromptWindow = true;
+
+            chromeDriver = new ChromeDriver(chromeDriverService, options);
+
+            chromeDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
+        }
+
+
+
         // do all of things to do
         public void doWork(string id, string passwd)
         {
+            initDriver();
+
             loginLibrary(id, passwd);
 
             //*[@id="divContents"]/div[3]/div[3]/div[2]/ul/li[2]/span
-            crawlUserDatas(chromeDriver);
+            crawlUserDatas();
 
 
-            endService(chromeDriver);
+            endService();
         }
 
 
@@ -51,23 +77,7 @@ namespace Client
             
             try
             {
-                ChromeOptions options = new ChromeOptions();
-                options.AddArgument("--headless");
-                options.AddArgument("--disable-gpu");
-
-                // network error issue: failed to resolve address for stun.services.mozilla.com error code: -105
-                //options.AddArgument("--dns-prefetch-disable");
-                options.AddArgument("--dns-server=8.8.8.8");
-                options.AddArgument("log-level=2");
-
-                chromeDriverService = ChromeDriverService.CreateDefaultService();
-                // hide chromeDriver.exe 
-                //chromeDriverService.HideCommandPromptWindow = true;
-
-                chromeDriver = new ChromeDriver(chromeDriverService, options);
                 chromeDriver.Navigate().GoToUrl("https://kupis.kw.ac.kr/");
-
-                chromeDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
                 Thread.Sleep(300);
 
                 // send id and pwd data 
@@ -80,7 +90,8 @@ namespace Client
                 // automatically click login button 
                 element = chromeDriver.FindElement(By.XPath("//*[@id=\"loginId\"]/div[2]/fieldset/input[3]"));
                 element.Click();
-
+                // Need to synchronize crawling moment and accessing web page! // 웹 페이지 접근 전에 데이터에 접근하는 에러 방지를 위해 
+                Thread.Sleep(300);
             }
             catch (Exception ex)
             {
@@ -91,13 +102,11 @@ namespace Client
 
 
         // crawl user data from Library website
-        private void crawlUserDatas(ChromeDriver chromeDriver)
+        private void crawlUserDatas()
         {
 
             try
             {
-                // Need to synchronize crawling moment and accessing web page! // 웹 페이지 접근 전에 데이터에 접근하는 에러 방지를 위해 
-                Thread.Sleep(300);
 
                 // crawl number of books that I borrowed
                 var numOfBooks = chromeDriver.FindElement(By.XPath("//*[@id=\"divContents\"]/div[3]/div[3]/div[2]/ul/li[2]/span"));
@@ -121,7 +130,7 @@ namespace Client
                 if (numBooks != 0)
                 {
                     // get books that user has borrowed
-                    getBorrowedBooks(chromeDriver,numBooks);
+                    getBorrowedBooks(numBooks);
                 }
 
             }
@@ -134,7 +143,7 @@ namespace Client
 
  
         // "대출현황 조회/연장" page로 이동 and get books that user has rent
-        private void getBorrowedBooks(ChromeDriver chromeDriver,int numOfBooks)
+        private void getBorrowedBooks(int numOfBooks)
         {
 
             try
@@ -234,7 +243,7 @@ namespace Client
         }
 
 
-        public void endService(ChromeDriver chromeDriver)
+        public void endService()
         {
             chromeDriver.Quit();
         }

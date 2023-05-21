@@ -42,17 +42,18 @@
             this.loginBtn.Location = new System.Drawing.Point(392, 472);
             this.loginBtn.Name = "loginBtn";
             this.loginBtn.Size = new System.Drawing.Size(95, 32);
-            this.loginBtn.TabIndex = 11;
+            this.loginBtn.TabIndex = 2;
             this.loginBtn.Text = "Login";
             this.loginBtn.UseVisualStyleBackColor = true;
             this.loginBtn.Click += new System.EventHandler(this.loginBtn_Click);
             // 
             // idTbx
             // 
+            this.idTbx.AcceptsTab = true;
             this.idTbx.Location = new System.Drawing.Point(329, 289);
             this.idTbx.Name = "idTbx";
             this.idTbx.Size = new System.Drawing.Size(227, 21);
-            this.idTbx.TabIndex = 9;
+            this.idTbx.TabIndex = 0;
             // 
             // libraryLbl
             // 
@@ -86,11 +87,12 @@
             // 
             // pwdTbx
             // 
+            this.pwdTbx.AcceptsTab = true;
             this.pwdTbx.Location = new System.Drawing.Point(329, 393);
             this.pwdTbx.Name = "pwdTbx";
             this.pwdTbx.PasswordChar = '*';
-            this.pwdTbx.Size = new System.Drawing.Size(323, 28);
-            this.pwdTbx.TabIndex = 12;
+            this.pwdTbx.Size = new System.Drawing.Size(227, 21);
+            this.pwdTbx.TabIndex = 1;
             // 
             // libraryLoginForm
             // 
