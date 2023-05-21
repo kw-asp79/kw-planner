@@ -144,12 +144,6 @@
     <Compile Include="mainForm.Designer.cs">
       <DependentUpon>mainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="klasLoginForm.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="klasLoginForm.Designer.cs">
-      <DependentUpon>klasLoginForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="calendarForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -193,9 +187,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="mainForm.resx">
       <DependentUpon>mainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="klasLoginForm.resx">
-      <DependentUpon>klasLoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="calendarForm.resx">
       <DependentUpon>calendarForm.cs</DependentUpon>

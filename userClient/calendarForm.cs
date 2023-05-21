@@ -118,6 +118,10 @@ namespace Client
             int daysInPreviousMonth = DateTime.DaysInMonth(previousMonth.Year, previousMonth.Month); //int 형으로 저번달의 연도와 월을 불러온다.
 
 
+
+            // klas, library, 개인적인 스케줄 을 해당 날짜에 대해서 겹치는 부분이 있다면 그 날은 일정이 최소 하나는 있다는 뜻 
+            // 그러면 day Box에 해당하는 것을 표시해준다. 
+            
             // show previous month days
             for (int i = daysInPreviousMonth - daysOfWeek + 2; i <= daysInPreviousMonth; i++)
             {

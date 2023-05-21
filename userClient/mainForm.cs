@@ -10,17 +10,20 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using WindowsFormsApp1;
- 
+using EntityLibrary;
+
 namespace Client
 {
     public partial class mainForm : Form
     {
         // 각 form 들을 멤버로 선언 => 추후 klas와 도서관 정보를 달력과 주고받기 위해 (다만 상황에 따라 변동 가능성 존재..)
         calendarForm calendarForm; 
-        klasLoginForm klasLoginForm;
         KLASUIForm klasUIForm;
         libraryLoginForm libraryLoginForm;
 
+        List<User> friends;
+        List<Schedule> schedules;
+        Dictionary<string, List<User>> groups;
 
         public mainForm()
         {

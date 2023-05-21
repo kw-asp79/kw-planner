@@ -76,15 +76,15 @@ namespace Client
                 loginKLAS(id, pwd);
                 crawlBasicLectureDatas();
 
-                crawlMainLectureDatas();
+                //crawlMainLectureDatas();
 
-                /*Thread mainCrawlThread = new Thread(() =>
+                Thread mainCrawlThread = new Thread(() =>
                 {
                     crawlMainLectureDatas();
-                });*/
-                //mainCrawlThread.Start();
+                });
+                mainCrawlThread.Start();
 
-                //mainCrawlThread.Join();
+                mainCrawlThread.Join();
 
                 garbageResources();
             }
