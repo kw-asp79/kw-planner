@@ -28,5 +28,10 @@ namespace Client
             SignUpForm form = new SignUpForm();
             form.ShowDialog();
         }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

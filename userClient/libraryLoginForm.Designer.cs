@@ -39,10 +39,9 @@
             // loginBtn
             // 
             this.loginBtn.Font = new System.Drawing.Font("Segoe Print", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loginBtn.Location = new System.Drawing.Point(560, 708);
-            this.loginBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.loginBtn.Location = new System.Drawing.Point(448, 590);
             this.loginBtn.Name = "loginBtn";
-            this.loginBtn.Size = new System.Drawing.Size(136, 48);
+            this.loginBtn.Size = new System.Drawing.Size(109, 40);
             this.loginBtn.TabIndex = 11;
             this.loginBtn.Text = "Login";
             this.loginBtn.UseVisualStyleBackColor = true;
@@ -50,20 +49,18 @@
             // 
             // idTbx
             // 
-            this.idTbx.Location = new System.Drawing.Point(470, 434);
-            this.idTbx.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.idTbx.Location = new System.Drawing.Point(376, 362);
             this.idTbx.Name = "idTbx";
-            this.idTbx.Size = new System.Drawing.Size(323, 28);
+            this.idTbx.Size = new System.Drawing.Size(259, 25);
             this.idTbx.TabIndex = 9;
             // 
             // libraryLbl
             // 
             this.libraryLbl.AutoSize = true;
             this.libraryLbl.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.libraryLbl.Location = new System.Drawing.Point(527, 284);
-            this.libraryLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.libraryLbl.Location = new System.Drawing.Point(422, 237);
             this.libraryLbl.Name = "libraryLbl";
-            this.libraryLbl.Size = new System.Drawing.Size(226, 54);
+            this.libraryLbl.Size = new System.Drawing.Size(188, 46);
             this.libraryLbl.TabIndex = 8;
             this.libraryLbl.Text = "Library";
             // 
@@ -71,10 +68,9 @@
             // 
             this.pwdLbl.AutoSize = true;
             this.pwdLbl.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pwdLbl.Location = new System.Drawing.Point(291, 573);
-            this.pwdLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.pwdLbl.Location = new System.Drawing.Point(233, 478);
             this.pwdLbl.Name = "pwdLbl";
-            this.pwdLbl.Size = new System.Drawing.Size(159, 50);
+            this.pwdLbl.Size = new System.Drawing.Size(132, 42);
             this.pwdLbl.TabIndex = 7;
             this.pwdLbl.Text = "Password";
             // 
@@ -82,25 +78,23 @@
             // 
             this.idLbl.AutoSize = true;
             this.idLbl.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.idLbl.Location = new System.Drawing.Point(361, 429);
-            this.idLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.idLbl.Location = new System.Drawing.Point(289, 358);
             this.idLbl.Name = "idLbl";
-            this.idLbl.Size = new System.Drawing.Size(54, 50);
+            this.idLbl.Size = new System.Drawing.Size(45, 42);
             this.idLbl.TabIndex = 6;
             this.idLbl.Text = "ID";
             // 
             // pwdTbx
             // 
-            this.pwdTbx.Location = new System.Drawing.Point(470, 590);
-            this.pwdTbx.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pwdTbx.Location = new System.Drawing.Point(376, 492);
             this.pwdTbx.Name = "pwdTbx";
-            this.pwdTbx.Size = new System.Drawing.Size(323, 28);
+            this.pwdTbx.Size = new System.Drawing.Size(259, 25);
             this.pwdTbx.TabIndex = 12;
             this.pwdTbx.TextChanged += new System.EventHandler(this.pwdTbx_TextChanged);
             // 
             // libraryLoginForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.pwdTbx);
             this.Controls.Add(this.loginBtn);
@@ -108,9 +102,9 @@
             this.Controls.Add(this.libraryLbl);
             this.Controls.Add(this.pwdLbl);
             this.Controls.Add(this.idLbl);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "libraryLoginForm";
-            this.Size = new System.Drawing.Size(1231, 1226);
+            this.Size = new System.Drawing.Size(985, 1022);
+            this.Load += new System.EventHandler(this.libraryLoginForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

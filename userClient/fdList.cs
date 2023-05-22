@@ -110,6 +110,9 @@ namespace Client
             cntlbl--;
         }
 
-       
+        private void fdList_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

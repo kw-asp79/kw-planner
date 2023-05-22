@@ -17,5 +17,9 @@ namespace Client
             InitializeComponent();
         }
 
+        private void klasLoginForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

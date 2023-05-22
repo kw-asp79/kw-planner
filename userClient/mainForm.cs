@@ -113,5 +113,10 @@ namespace Client
             SignUpForm signUpForm = new SignUpForm();
             signUpForm.Show();
         }
+
+        private void menuContainer_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

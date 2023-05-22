@@ -182,7 +182,9 @@ namespace Client
             displayDays(month, year);
         }
 
+        private void calendarContainer_Paint(object sender, PaintEventArgs e)
+        {
 
-
+        }
     }
 }

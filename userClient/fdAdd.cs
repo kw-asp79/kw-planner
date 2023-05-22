@@ -25,5 +25,10 @@ namespace Client
             txt_fd.Clear();
             txt_id.Clear();
         }
+
+        private void fdAdd_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

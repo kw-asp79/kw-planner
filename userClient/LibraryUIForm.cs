@@ -90,7 +90,9 @@ namespace Client
 
         }
 
+        private void LibraryUIForm_Load(object sender, EventArgs e)
+        {
 
-
+        }
     }
 }

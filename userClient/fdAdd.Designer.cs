@@ -39,7 +39,7 @@
             // txt_fd
             // 
             this.txt_fd.Location = new System.Drawing.Point(26, 108);
-            this.txt_fd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_fd.Margin = new System.Windows.Forms.Padding(2);
             this.txt_fd.Name = "txt_fd";
             this.txt_fd.Size = new System.Drawing.Size(150, 25);
             this.txt_fd.TabIndex = 1;
@@ -48,7 +48,7 @@
             // 
             this.btn_Add.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_Add.Location = new System.Drawing.Point(26, 145);
-            this.btn_Add.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btn_Add.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(79, 35);
             this.btn_Add.TabIndex = 2;
@@ -60,7 +60,7 @@
             // 
             this.txt_id.BackColor = System.Drawing.SystemColors.Window;
             this.txt_id.Location = new System.Drawing.Point(26, 46);
-            this.txt_id.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_id.Margin = new System.Windows.Forms.Padding(2);
             this.txt_id.Name = "txt_id";
             this.txt_id.Size = new System.Drawing.Size(153, 25);
             this.txt_id.TabIndex = 0;
@@ -92,7 +92,7 @@
             this.panel1.BackColor = System.Drawing.SystemColors.HighlightText;
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(206, 212);
             this.panel1.TabIndex = 5;
@@ -108,10 +108,11 @@
             this.Controls.Add(this.btn_Add);
             this.Controls.Add(this.txt_fd);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "fdAdd";
             this.Text = "fdAdd";
-
+            this.Load += new System.EventHandler(this.fdAdd_Load);
+            this.ResumeLayout(false);
             this.PerformLayout();
 
         }
