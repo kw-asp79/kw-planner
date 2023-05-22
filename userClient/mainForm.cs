@@ -27,14 +27,14 @@ namespace Client
         private static TcpClient server;
         private static NetworkStream netstrm;
 
-        List<Schedule> scheduleList;
-        List<User> FriendList;
-        List<Group> GroupList;
+        List<User> friends;
+        List<Schedule> schedules;
+        Dictionary<string, List<User>> groups;
 
         public User myUserInfo;
         public bool isLoginSuccess = false;
 
-        public void readAllData(NetworkStream netstrm)
+        public void requestMyData(NetworkStream netstrm)
         {
             MessageBox.Show("readAllData 실행");
 
@@ -58,8 +58,15 @@ namespace Client
                     {
                         MessageBox.Show("receive response well !");
                         // 전역변수에 대입해주는 코드 짜야함
+
+                        Dictionary<string, Object> fullData = packet.data as Dictionary<string, object>;
+
+                        friends = fullData["friends"] as List<User>;
+                        schedules = fullData["schedules"] as List<Schedule>;
+                        groups = fullData["groups"] as Dictionary<string, List<User>>;
                     }
-                    isLoginSuccess = false;
+
+                    break;
                 }
             }
             
@@ -124,7 +131,7 @@ namespace Client
 
             netstrm = server.GetStream();
 
-            Task.Run(() => readAllData(netstrm));
+            Task.Run(() => requestMyData(netstrm));
 
 
             // show calendar form  
