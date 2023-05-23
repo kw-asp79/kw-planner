@@ -151,7 +151,11 @@ namespace Server
                 reader.Close();
             }
 
+<<<<<<< HEAD
             foreach (string groupName in groups.Keys)
+=======
+            foreach(string groupName in groups.Keys)
+>>>>>>> 74af103a8f75a5e1cad16276e6b3369293000fb6
             {
                 Console.Write("my Group: {0} : ", groupName);
                 groups[groupName].ForEach(element => Console.Write(" {0}", element.name));
@@ -292,18 +296,30 @@ namespace Server
             client.Close();
         }
 
+<<<<<<< HEAD
         async static Task AsyncServer()
         {
+=======
+        async static Task AsyncServer() {
+>>>>>>> 74af103a8f75a5e1cad16276e6b3369293000fb6
 
             TcpListener server = new TcpListener(9050);
 
             server.Start();
 
+<<<<<<< HEAD
             while (true)
             {
                 TcpClient client = await server.AcceptTcpClientAsync().ConfigureAwait(false);
 
                 Task.Run(() => AsyncProcess(client));
+=======
+            while(true)
+            {
+                TcpClient client = await server.AcceptTcpClientAsync().ConfigureAwait(false);
+
+                Task.Run( () => AsyncProcess(client));
+>>>>>>> 74af103a8f75a5e1cad16276e6b3369293000fb6
             }
         }
 
@@ -326,7 +342,11 @@ namespace Server
                 server.BeginAcceptTcpClient(new AsyncCallback(AcceptCallback), server);
             }
             */
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 74af103a8f75a5e1cad16276e6b3369293000fb6
             /*
             // TCP 통신
             TcpListener server = new TcpListener(9050);

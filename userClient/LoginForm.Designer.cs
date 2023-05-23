@@ -32,8 +32,13 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+<<<<<<< HEAD
             this.txt_ID = new System.Windows.Forms.TextBox();
             this.txt_pwd = new System.Windows.Forms.TextBox();
+=======
+            this.txt_Id = new System.Windows.Forms.TextBox();
+            this.txt_Pwd = new System.Windows.Forms.TextBox();
+>>>>>>> 74af103a8f75a5e1cad16276e6b3369293000fb6
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btn_login = new System.Windows.Forms.Button();
@@ -57,9 +62,13 @@
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+<<<<<<< HEAD
             this.pictureBox1.Image = global::WindowsFormsApp1.Properties.Resources.스크린샷_2023_05_06_142010;
             this.pictureBox1.Location = new System.Drawing.Point(31, 53);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+=======
+            this.pictureBox1.Location = new System.Drawing.Point(39, 64);
+>>>>>>> 74af103a8f75a5e1cad16276e6b3369293000fb6
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(178, 54);
             this.pictureBox1.TabIndex = 0;
@@ -83,6 +92,7 @@
             this.panel3.Size = new System.Drawing.Size(176, 1);
             this.panel3.TabIndex = 1;
             // 
+<<<<<<< HEAD
             // txt_ID
             // 
             this.txt_ID.BackColor = System.Drawing.SystemColors.Control;
@@ -101,6 +111,23 @@
             this.txt_pwd.PasswordChar = '*'; 
             this.txt_pwd.Size = new System.Drawing.Size(177, 25);
             this.txt_pwd.TabIndex = 3;
+=======
+            // txt_Id
+            // 
+            this.txt_Id.BackColor = System.Drawing.SystemColors.Control;
+            this.txt_Id.Location = new System.Drawing.Point(41, 252);
+            this.txt_Id.Name = "txt_Id";
+            this.txt_Id.Size = new System.Drawing.Size(220, 28);
+            this.txt_Id.TabIndex = 2;
+            // 
+            // txt_Pwd
+            // 
+            this.txt_Pwd.BackColor = System.Drawing.SystemColors.Control;
+            this.txt_Pwd.Location = new System.Drawing.Point(41, 336);
+            this.txt_Pwd.Name = "txt_Pwd";
+            this.txt_Pwd.Size = new System.Drawing.Size(220, 28);
+            this.txt_Pwd.TabIndex = 3;
+>>>>>>> 74af103a8f75a5e1cad16276e6b3369293000fb6
             // 
             // label1
             // 
@@ -110,7 +137,11 @@
             this.label1.Location = new System.Drawing.Point(30, 188);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
+<<<<<<< HEAD
             this.label1.Size = new System.Drawing.Size(24, 21);
+=======
+            this.label1.Size = new System.Drawing.Size(27, 24);
+>>>>>>> 74af103a8f75a5e1cad16276e6b3369293000fb6
             this.label1.TabIndex = 4;
             this.label1.Text = "ID";
             // 
@@ -167,8 +198,13 @@
             this.Controls.Add(this.btn_login);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+<<<<<<< HEAD
             this.Controls.Add(this.txt_pwd);
             this.Controls.Add(this.txt_ID);
+=======
+            this.Controls.Add(this.txt_Pwd);
+            this.Controls.Add(this.txt_Id);
+>>>>>>> 74af103a8f75a5e1cad16276e6b3369293000fb6
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -189,8 +225,13 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
+<<<<<<< HEAD
         private System.Windows.Forms.TextBox txt_ID;
         private System.Windows.Forms.TextBox txt_pwd;
+=======
+        private System.Windows.Forms.TextBox txt_Id;
+        private System.Windows.Forms.TextBox txt_Pwd;
+>>>>>>> 74af103a8f75a5e1cad16276e6b3369293000fb6
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btn_login;

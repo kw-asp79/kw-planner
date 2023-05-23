@@ -54,6 +54,10 @@
             this.menuContainer.Controls.Add(this.klasBtn);
             this.menuContainer.Dock = System.Windows.Forms.DockStyle.Left;
             this.menuContainer.Location = new System.Drawing.Point(0, 0);
+<<<<<<< HEAD
+=======
+            this.menuContainer.Margin = new System.Windows.Forms.Padding(4);
+>>>>>>> 74af103a8f75a5e1cad16276e6b3369293000fb6
             this.menuContainer.Name = "menuContainer";
             this.menuContainer.Size = new System.Drawing.Size(213, 879);
             this.menuContainer.TabIndex = 1;
@@ -84,6 +88,7 @@
             // 
             // signupBtn
             // 
+<<<<<<< HEAD
             this.signupBtn.Font = new System.Drawing.Font("Ink Free", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.signupBtn.Location = new System.Drawing.Point(121, 972);
             this.signupBtn.Name = "signupBtn";
@@ -92,11 +97,26 @@
             this.signupBtn.Text = "signup";
             this.signupBtn.UseVisualStyleBackColor = true;
             this.signupBtn.Click += new System.EventHandler(this.signupBtn_Click);
+=======
+            this.settingBtn.Font = new System.Drawing.Font("Ink Free", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.settingBtn.Location = new System.Drawing.Point(151, 1167);
+            this.settingBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.settingBtn.Name = "settingBtn";
+            this.settingBtn.Size = new System.Drawing.Size(103, 46);
+            this.settingBtn.TabIndex = 5;
+            this.settingBtn.Text = "setting";
+            this.settingBtn.UseVisualStyleBackColor = true;
+>>>>>>> 74af103a8f75a5e1cad16276e6b3369293000fb6
             // 
             // loginBtn
             // 
             this.loginBtn.Font = new System.Drawing.Font("Ink Free", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+<<<<<<< HEAD
             this.loginBtn.Location = new System.Drawing.Point(3, 972);
+=======
+            this.loginBtn.Location = new System.Drawing.Point(4, 1167);
+            this.loginBtn.Margin = new System.Windows.Forms.Padding(4);
+>>>>>>> 74af103a8f75a5e1cad16276e6b3369293000fb6
             this.loginBtn.Name = "loginBtn";
             this.loginBtn.Size = new System.Drawing.Size(83, 38);
             this.loginBtn.TabIndex = 4;
@@ -154,7 +174,12 @@
             // calendarContainer
             // 
             this.calendarContainer.Dock = System.Windows.Forms.DockStyle.Right;
+<<<<<<< HEAD
             this.calendarContainer.Location = new System.Drawing.Point(210, 0);
+=======
+            this.calendarContainer.Location = new System.Drawing.Point(263, 0);
+            this.calendarContainer.Margin = new System.Windows.Forms.Padding(4);
+>>>>>>> 74af103a8f75a5e1cad16276e6b3369293000fb6
             this.calendarContainer.Name = "calendarContainer";
             this.calendarContainer.Size = new System.Drawing.Size(985, 879);
             this.calendarContainer.TabIndex = 0;
@@ -167,6 +192,10 @@
             this.Controls.Add(this.menuContainer);
             this.Controls.Add(this.calendarContainer);
             this.IsMdiContainer = true;
+<<<<<<< HEAD
+=======
+            this.Margin = new System.Windows.Forms.Padding(4);
+>>>>>>> 74af103a8f75a5e1cad16276e6b3369293000fb6
             this.Name = "mainForm";
             this.Text = "KW-Planner";
             this.Load += new System.EventHandler(this.Form1_Load);
