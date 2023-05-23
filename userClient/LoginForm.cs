@@ -46,7 +46,7 @@ namespace Client
             receivedPacket = Packet.ReceivePacket(netstrm);
 
             // 로그인 성공 여부에 따라 다르게 동작해야함
-            if (receivedPacket.action == ActionType.Response && receivedPacket.data != null)
+            if (receivedPacket.action == ActionType.Success)
             {
                 mainform.isLoginSuccess = true;
                 mainform.myUserInfo = (User)receivedPacket.data;
@@ -54,14 +54,13 @@ namespace Client
                 MessageBox.Show("로그인에 성공했습니다.");
                 this.Close();
             }
-            else if(receivedPacket.action == ActionType.Response && receivedPacket.data == null)
+            else if(receivedPacket.action == ActionType.Fail)
             {
                 MessageBox.Show("로그인에 실패했습니다.");
                 txt_Id.Text = "";
                 txt_Pwd.Text = "";
             }
 
-            
         }
     }
 }

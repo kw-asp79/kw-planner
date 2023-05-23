@@ -18,7 +18,8 @@ namespace PacketLibrary
 
     public enum ActionType
     {
-        Response = 0,
+        Success = 0,
+        Fail,
         login,
         readAllData,
         saveUser,
@@ -26,7 +27,7 @@ namespace PacketLibrary
         editUser,
         saveSchedule,
         deleteSchedule,
-        editScedule,
+        editSchedule,
         saveGroup,
         deleteGroup,
         editGroup,

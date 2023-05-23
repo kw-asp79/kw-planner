@@ -27,9 +27,9 @@ namespace Client
         private static TcpClient server;
         private static NetworkStream netstrm;
 
-        List<User> friends;
-        List<Schedule> schedules;
-        Dictionary<string, List<User>> groups;
+        public static List<User> friends;
+        public static List<Schedule> schedules;
+        public static Dictionary<string, List<User>> groups;
 
         public User myUserInfo;
         public bool isLoginSuccess = false;
@@ -54,11 +54,8 @@ namespace Client
 
                     packet = Packet.ReceivePacket(netstrm);
 
-                    if (packet.action == ActionType.Response)
+                    if (packet.action == ActionType.Success)
                     {
-                        MessageBox.Show("receive response well !");
-                        // 전역변수에 대입해주는 코드 짜야함
-
                         Dictionary<string, Object> fullData = packet.data as Dictionary<string, object>;
 
                         friends = fullData["friends"] as List<User>;
