@@ -16,6 +16,8 @@ namespace Client
     {
         LibraryUIForm libraryUIForm;
 
+        LibraryCrawler libraryCrawler;
+
         CrawlingStatus.Status status;
 
         public event EventHandler<EventArgs> allSuccess; // event of login and crawling success
@@ -26,11 +28,13 @@ namespace Client
         public void setLoginStatus(bool status) { this.loginStatus = status; }
         public bool getLoginStatus() { return loginStatus; }
 
-        public libraryLoginForm(LibraryUIForm libUIForm)
+        public libraryLoginForm(LibraryUIForm libUIForm, LibraryCrawler libraryCrawler)
         {
             InitializeComponent();
 
             this.libraryUIForm = libUIForm;
+            this.libraryCrawler = libraryCrawler;
+            this.libraryCrawler.loginSuccessEvent += crawlingMessage;
         }
 
         private void loginBtn_Click(object sender, EventArgs e)
@@ -41,7 +45,7 @@ namespace Client
         private async void crawlingAsync()
         {
             var libCrawlingTask = Task.Run(() =>
-                libraryUIForm.doWork(idTbx.Text, pwdTbx.Text)
+                libraryUIForm.doWork(idTbx.Text, pwdTbx.Text,this.libraryCrawler)
             );
 
             status = await libCrawlingTask;
@@ -49,7 +53,7 @@ namespace Client
             // login 결과에 따라 libraryUIForm을 보여줄지 login error를 띄우며 그대로 loginForm 유지할지.            
             if (status == CrawlingStatus.Status.LoginFailure)
             {
-                MessageBox.Show("로그인 실패! ID와 비밀번호를 다시 확인해주세요..");
+                MessageBox.Show("로그인 실패! ID와 비밀번호를 다시 확인해주세요..","Library Login");
             }
             else
             {
@@ -60,6 +64,13 @@ namespace Client
             {
                 allSuccess.Invoke(this, new EventArgs());
             }
+        }
+
+
+
+        private void crawlingMessage(Object sender, EventArgs e)
+        {
+            MessageBox.Show("로그인 성공! 크롤링 작업이 진행됩니다!! .. ", "Library Crawling Process");
         }
 
 

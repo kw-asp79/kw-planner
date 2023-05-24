@@ -21,19 +21,18 @@ namespace Client
         KLASCrawler klasCrawler;
 
 
-
         public KLASUIForm()
         {
             InitializeComponent();
 
-            klasCrawler = new KLASCrawler();
-
         }
 
-        public CrawlingStatus.Status doWork(string id, string pwd)
+        public CrawlingStatus.Status doWork(string id, string pwd,KLASCrawler klasCrawler)
         {
             this.id = id;
             this.pwd = pwd;
+
+            this.klasCrawler = klasCrawler; 
 
             CrawlingStatus.Status status = klasCrawler.doWork(this.id, this.pwd);
             if (status == CrawlingStatus.Status.LoginFailure) return status;

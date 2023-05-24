@@ -89,9 +89,9 @@
             this.label5.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(361, 57);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(432, 19);
+            this.label5.Size = new System.Drawing.Size(441, 19);
             this.label5.TabIndex = 13;
-            this.label5.Text = "책은 영혼과 마음을 맑게 하므로... 이하 중략 .. 책을 읽으면 좋다";
+            this.label5.Text = "책은 영혼과 마음을 맑게 하므로... 이하 중략 ... 책을 읽으면 좋다";
             // 
             // label1
             // 

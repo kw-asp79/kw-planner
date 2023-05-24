@@ -17,6 +17,8 @@ namespace WindowsFormsApp1
     {
         KLASUIForm klasUIForm;
 
+        KLASCrawler klasCrawler;
+
         CrawlingStatus.Status status;
 
         public event EventHandler<EventArgs> allSuccess;
@@ -26,10 +28,13 @@ namespace WindowsFormsApp1
         public void setLoginStatus(bool status) { this.loginStatus = status; }
         public bool getLoginStatus() { return loginStatus;}
 
-        public KLASLoginForm(KLASUIForm klasUIForm)
+        public KLASLoginForm(KLASUIForm klasUIForm,KLASCrawler kLasCrawler)
         {
             InitializeComponent();
+
             this.klasUIForm = klasUIForm;
+            this.klasCrawler = kLasCrawler;
+            this.klasCrawler.loginSuccessEvent += crawlingMessage;
         }
 
         private void loginBtn_Click(object sender, EventArgs e)
@@ -40,7 +45,7 @@ namespace WindowsFormsApp1
         private async void crawlingAsync()
         {
             var klasCrawlingTask = Task.Run(() =>
-                klasUIForm.doWork(idTbx.Text, pwdTbx.Text)
+                klasUIForm.doWork(idTbx.Text, pwdTbx.Text,this.klasCrawler)
             );
 
             status = await klasCrawlingTask;
@@ -48,11 +53,12 @@ namespace WindowsFormsApp1
             // login 결과에 따라 libraryUIForm을 보여줄지 login error를 띄우며 그대로 loginForm 유지할지.    
             if (status == CrawlingStatus.Status.LoginFailure)
             {
-                MessageBox.Show("로그인 실패! ID와 비밀번호를 다시 확인해주세요..");
+                MessageBox.Show("로그인 실패! ID와 비밀번호를 다시 확인해주세요..", "KLAS Login");
             }
             else
+            {
                 loginStatus = true;
-
+            }
 
             if (status == CrawlingStatus.Status.AllSuccess)
             {
@@ -61,6 +67,11 @@ namespace WindowsFormsApp1
 
         }
 
+
+        private void crawlingMessage(Object sender, EventArgs e)
+        {
+            MessageBox.Show("로그인 성공! 크롤링 작업이 진행됩니다!!.. ", "KLAS Crawling Process");
+        }
 
 
 

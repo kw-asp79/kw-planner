@@ -24,6 +24,9 @@ namespace Client
         libraryLoginForm libraryLoginForm;
         LibraryUIForm libraryUIForm;
 
+        KLASCrawler klasCrawler;
+        LibraryCrawler libraryCrawler;
+
         List<User> friends;
         List<Schedule> schedules;
         Dictionary<string, List<User>> groups;
@@ -81,17 +84,21 @@ namespace Client
 
             // create KLAS UI Form 
             klasUIForm = new KLASUIForm();
+            // create KLAS Crawler
+            klasCrawler = new KLASCrawler();    
 
             // create KLAS Login Form 
-            klasLoginForm = new KLASLoginForm(klasUIForm);
+            klasLoginForm = new KLASLoginForm(klasUIForm,klasCrawler);
             // add EventHandler
             klasLoginForm.allSuccess += klasAllSuccess;
 
             // create Library UI Form 
             libraryUIForm = new LibraryUIForm();
+            // create Library Crawler
+            libraryCrawler = new LibraryCrawler();
 
             // create Library Login Form
-            libraryLoginForm = new libraryLoginForm(libraryUIForm);
+            libraryLoginForm = new libraryLoginForm(libraryUIForm,libraryCrawler);
             // add EventHandler
             libraryLoginForm.allSuccess += lbyAllSuccess;
         }

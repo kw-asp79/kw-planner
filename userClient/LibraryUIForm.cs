@@ -35,9 +35,9 @@ namespace Client
         }
 
 
-        public CrawlingStatus.Status doWork(string id, string pwd)
+        public CrawlingStatus.Status doWork(string id, string pwd,LibraryCrawler libraryCrawler)
         {
-            libraryCrawler = new LibraryCrawler();
+            this.libraryCrawler = libraryCrawler;
             CrawlingStatus.Status status = libraryCrawler.doWork(id, pwd);
             if (status == CrawlingStatus.Status.LoginFailure) return status;
 

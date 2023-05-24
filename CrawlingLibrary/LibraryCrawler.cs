@@ -23,6 +23,8 @@ namespace Client
         private static ChromeDriverService chromeDriverService;
         private static ChromeDriver chromeDriver;
 
+        public event EventHandler<EventArgs> loginSuccessEvent;
+
         public LibraryCrawler() { }
 
         public string getUserName() { return userName; }
@@ -75,11 +77,14 @@ namespace Client
             CrawlingStatus.Status loginStatus = loginLibrary(id, passwd);
 
             // if error while login, return login failed status 
-            if(loginStatus == CrawlingStatus.Status.LoginFailure) 
+            if (loginStatus == CrawlingStatus.Status.LoginFailure)
             {
-                endService();    
-                return loginStatus; 
+                endService();
+                return loginStatus;
             }
+            else // 로그인 성공이면 로그인 폼에서 크롤링 작업을 시작한다는 메시지를 띄우도록
+                loginSuccessEvent.Invoke(this, new EventArgs());
+
 
             //*[@id="divContents"]/div[3]/div[3]/div[2]/ul/li[2]/span
             CrawlingStatus.Status crawlingStatus = crawlUserDatas();

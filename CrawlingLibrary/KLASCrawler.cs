@@ -33,6 +33,8 @@ namespace Client
         public static ChromeDriverService chromeDriverService;
         public static ChromeDriver chromeDriver;
 
+        public event EventHandler<EventArgs> loginSuccessEvent;
+
         public KLASCrawler() {}
 
         public int getLectureNum()
@@ -78,6 +80,9 @@ namespace Client
                     garbageResources();
                     return loginStatus;
                 }
+                else // 로그인 성공이면 로그인 폼에서 크롤링 작업을 시작한다는 메시지를 띄우도록
+                    loginSuccessEvent.Invoke(this,new EventArgs());                   
+
 
                 CrawlingStatus.Status crawlBasicStatus = crawlBasicLectureDatas();
 
