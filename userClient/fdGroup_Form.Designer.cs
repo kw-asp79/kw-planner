@@ -45,11 +45,11 @@
             // fdlistLbl
             // 
             this.fdlistLbl.AutoSize = true;
-            this.fdlistLbl.Font = new System.Drawing.Font("Segoe Script", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fdlistLbl.Font = new System.Drawing.Font("Segoe Script", 20F, System.Drawing.FontStyle.Bold);
             this.fdlistLbl.Location = new System.Drawing.Point(469, 45);
             this.fdlistLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.fdlistLbl.Name = "fdlistLbl";
-            this.fdlistLbl.Size = new System.Drawing.Size(228, 53);
+            this.fdlistLbl.Size = new System.Drawing.Size(297, 67);
             this.fdlistLbl.TabIndex = 4;
             this.fdlistLbl.Text = "친구그룹 목록";
             // 
