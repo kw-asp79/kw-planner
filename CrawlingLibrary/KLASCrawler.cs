@@ -10,7 +10,6 @@ using System.Threading;
 using System.Net.Configuration;
 using OpenQA.Selenium.Support.UI;
 using CrawlingLibrary;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 
 namespace Client
@@ -18,7 +17,7 @@ namespace Client
 
     // crawls KLAS web page and lecture datas that user takes
 
-    internal class KLASCrawler
+    public class KLASCrawler
     {
         public List<Lecture> lectures = new List<Lecture>();
         
@@ -63,7 +62,7 @@ namespace Client
 
 
         // do all of things including login, crawling all datas and etc.. 
-        public void doWork(string id, string pwd)
+        public CrawlingStatus.Status doWork(string id, string pwd)
         {
             
             KLASCrawler.id = id;
@@ -73,26 +72,33 @@ namespace Client
             {
                 initDriver();
 
-                loginKLAS(id, pwd);
-                crawlBasicLectureDatas();
-
-                //crawlMainLectureDatas();
-
-                Thread mainCrawlThread = new Thread(() =>
+                CrawlingStatus.Status loginStatus = loginKLAS(id, pwd);
+                if (loginStatus == CrawlingStatus.Status.LoginFailure)
                 {
-                    crawlMainLectureDatas();
-                });
-                mainCrawlThread.Start();
+                    garbageResources();
+                    return loginStatus;
+                }
 
-                mainCrawlThread.Join();
+                CrawlingStatus.Status crawlBasicStatus = crawlBasicLectureDatas();
+
+                CrawlingStatus.Status crawlMainStatus = crawlMainLectureDatas();
+
+                if (crawlBasicStatus == CrawlingStatus.Status.CrawlingError || crawlMainStatus == CrawlingStatus.Status.CrawlingError)
+                {
+                    garbageResources();
+                    return CrawlingStatus.Status.CrawlingError;
+                }
 
                 garbageResources();
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error while Setting chromeDriverService and chromeDriver");
+                //Console.WriteLine("Error while Setting chromeDriverService and chromeDriver " + ex);
+                
             }
 
+
+            return CrawlingStatus.Status.AllSuccess;
         }
 
 
@@ -110,7 +116,7 @@ namespace Client
         }
 
 
-        public static void loginKLAS(string id, string pwd)
+        public static CrawlingStatus.Status loginKLAS(string id, string pwd)
         {
 
             try
@@ -128,16 +134,22 @@ namespace Client
                 element = chromeDriver.FindElement(By.XPath("/html/body/div[1]/div/div/div[2]/form/div[2]/button"));
                 element.Click();
                 Thread.Sleep(1000);
+
+                // klas 로그인 실패 시, 오류 알림이 뜸.. 
+                if (isElementExists(chromeDriver, By.XPath("//*[@id=\"ax5-dialog-27\"]/div[2]/div[1]")) == true)
+                    return CrawlingStatus.Status.LoginFailure;
                 
             } catch(Exception ex)
             {
-                Console.WriteLine(ex.Message + "Error while loginKLAS process..");
+                //Console.WriteLine(ex.Message + "Error while loginKLAS process.. " + ex );
+                return CrawlingStatus.Status.LoginFailure;
             }
-            
+
+            return CrawlingStatus.Status.LoginSuccess;
         }
 
 
-        public void crawlBasicLectureDatas()
+        public CrawlingStatus.Status crawlBasicLectureDatas()
         {
 
             try
@@ -195,9 +207,11 @@ namespace Client
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message + "Error while crawling basic lectureData process..");
+                //Console.WriteLine(e.Message + "Error while crawling basic lectureData process.." + e);
+                return CrawlingStatus.Status.CrawlingError;
             }
 
+            return CrawlingStatus.Status.CrawlingSuccess;
         }
 
 
@@ -246,7 +260,7 @@ namespace Client
 
 
         // crawl notices,online lectures, assignments, quiz, team projects and online tests.. 
-        private void crawlMainLectureDatas()
+        private CrawlingStatus.Status crawlMainLectureDatas()
         {
           //  var factory = new ChromeDriverFactory();
 
@@ -293,9 +307,12 @@ namespace Client
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
-                Console.WriteLine("Error while crawling main lectureDatas process..");
+                //Console.WriteLine(e.ToString());
+                //Console.WriteLine("Error while crawling main lectureDatas process..");
+                return CrawlingStatus.Status.CrawlingError;
             }
+
+            return CrawlingStatus.Status.CrawlingSuccess;
         }
 
 
@@ -315,7 +332,7 @@ namespace Client
             }
             catch (Exception e) 
             {
-                Console.WriteLine("Error while moving to Overall Page");
+                Console.WriteLine("Error while moving to Overall Page " + e);
             }
 
         }
@@ -386,7 +403,7 @@ namespace Client
             }
             catch( Exception e)
             {
-                Console.WriteLine("Error while crawlNoticePage()");
+                Console.WriteLine("Error while crawlNoticePage() " + e);
             }
             
             return notices;
@@ -460,7 +477,7 @@ namespace Client
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error while crawlQuizPage()");
+                Console.WriteLine("Error while crawlQuizPage() " + e);
             }
 
             return quizs;
@@ -558,7 +575,7 @@ namespace Client
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error while crawlOnlineLecturePage()");
+                Console.WriteLine("Error while crawlOnlineLecturePage() " + e);
             }
 
             return onlineLectures;
@@ -646,7 +663,7 @@ namespace Client
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error while crawlOnlineLecturePage()");
+                Console.WriteLine("Error while crawlOnlineLecturePage() " + e);
             }
 
             return assignments;
@@ -726,7 +743,7 @@ namespace Client
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error while crawlTeamProjectPage()");
+                Console.WriteLine("Error while crawlTeamProjectPage() " + e);
             }
 
             return teamProjects;

@@ -30,20 +30,20 @@ namespace Client
 
         }
 
-        public void doWork(string id, string pwd)
+        public CrawlingStatus.Status doWork(string id, string pwd)
         {
             this.id = id;
             this.pwd = pwd;
 
-            crawlKLAS();
+            CrawlingStatus.Status status = klasCrawler.doWork(this.id, this.pwd);
+            if (status == CrawlingStatus.Status.LoginFailure) return status;
 
-            setMainUI();
-
-            // MessageBox.Show(klasCrawler.lectures.Count.ToString());
+            
+            return CrawlingStatus.Status.AllSuccess;
         }
 
 
-        private void setMainUI()
+        public void setMainUI()
         {
             setUserName();
 
@@ -57,11 +57,6 @@ namespace Client
         }
 
 
-
-        private void crawlKLAS()
-        {
-            klasCrawler.doWork(this.id, this.pwd);
-        }
 
         private void setUserName()
         {
@@ -127,16 +122,28 @@ namespace Client
             List<OnlineLecture> onlineLectures = lecture.getOnlineLecture();
 
             if (onlineLectures.Count == 0)
-                olecTBX.AppendText("수강해야할 온라인 강의가 없습니다.");
+                olecTBX.AppendText("수업에서 게시된 온라인 강의가 없습니다.");
             else
             {
+                int oLecDone = 0;
+
                 foreach (OnlineLecture onlineLecture in onlineLectures)
-                {
-                    olecTBX.AppendText("No #" + "\r\n");
-                    olecTBX.AppendText("Title: " + onlineLecture.getTitle() + "\r\n");
-                    olecTBX.AppendText("Deadline: " + onlineLecture.getDeadline() + "\r\n");
-                    olecTBX.AppendText("Percentage: " + onlineLecture.getPercentage() + "\r\n");
+                {   
+                    // 아직 다 듣지 않은 온라인 강의만 출력
+                    if (onlineLecture.getPercentage().Contains("100%") != true)
+                    {
+                        olecTBX.AppendText("No #" + "\r\n");
+                        olecTBX.AppendText("Title: " + onlineLecture.getTitle() + "\r\n");
+                        olecTBX.AppendText("Deadline: " + onlineLecture.getDeadline() + "\r\n");
+                        olecTBX.AppendText("Percentage: " + onlineLecture.getPercentage() + "\r\n");
+                    }
+                    else
+                        oLecDone++;
                 }
+
+                // 만약 온라인 강의를 전부 처리했다면
+                if (onlineLectures.Count == oLecDone)
+                    olecTBX.AppendText("수강해야할 온라인 강의가 없습니다.. ");
             }
 
         }
@@ -147,16 +154,28 @@ namespace Client
             List<Quiz> quizs = lecture.getQuiz();
 
             if (quizs.Count == 0)
-                quizTBX.AppendText("진행해야할 퀴즈가 없습니다. ");
+                quizTBX.AppendText("수업에서 출제된 퀴즈가 없습니다. ");
             else
             {
+                int numQuizDone = 0;
+
                 foreach (Quiz quiz in quizs)
-                {
-                    quizTBX.AppendText("No #" + "\r\n");
-                    quizTBX.AppendText("Title: " + quiz.getTitle() + "\r\n");
-                    quizTBX.AppendText("Deadline: " + quiz.getDeadline() + "\r\n");
-                    quizTBX.AppendText("State: " + quiz.getState() + "\r\n");
+                {   
+                    // 아직 진행하지 않은 퀴즈만 출력
+                    if (string.Compare(quiz.getState(), "응시") != 0)
+                    {
+                        quizTBX.AppendText("No #" + "\r\n");
+                        quizTBX.AppendText("Title: " + quiz.getTitle() + "\r\n");
+                        quizTBX.AppendText("Deadline: " + quiz.getDeadline() + "\r\n");
+                        quizTBX.AppendText("State: " + quiz.getState() + "\r\n");
+                    }
+                    else
+                        numQuizDone++; 
+                
                 }
+
+                if (quizs.Count == numQuizDone)
+                    quizTBX.AppendText("진행해야할 퀴즈가 없습니다..");
             }
         }
 
@@ -166,16 +185,27 @@ namespace Client
             List<Assignment> assignments = lecture.getAssignment();
 
             if (assignments.Count == 0)
-                amtTBX.AppendText("진행해야할 과제가 없습니다. ");
+                amtTBX.AppendText("수업에서 출제된 과제가 없습니다. ");
             else
             {
+                int numAssignmentsDone = 0;
+
                 foreach (Assignment assignment in assignments)
                 {
-                    amtTBX.AppendText("No #" + "\r\n");
-                    amtTBX.AppendText("Title: " + assignment.getTitle() + "\r\n");
-                    amtTBX.AppendText("Deadline: " + assignment.getDeadline() + "\r\n");
-                    amtTBX.AppendText("State: " + assignment.getState() + "\r\n");
+                    // 아직 제출하지 않은 과제만 출력
+                    if (string.Compare(assignment.getState(), "제출") != 0)
+                    {
+                        amtTBX.AppendText("No #" + "\r\n");
+                        amtTBX.AppendText("Title: " + assignment.getTitle() + "\r\n");
+                        amtTBX.AppendText("Deadline: " + assignment.getDeadline() + "\r\n");
+                        amtTBX.AppendText("State: " + assignment.getState() + "\r\n");
+                    }
+                    else
+                        numAssignmentsDone++;
                 }
+
+                if (assignments.Count == numAssignmentsDone)
+                    amtTBX.AppendText("진행해야할 과제가 없습니다.. ");
             }
 
         }
@@ -186,16 +216,27 @@ namespace Client
             List<TeamProject> teamProjects = lecture.getTeamProject();
 
             if (teamProjects.Count == 0)
-                tproTBX.AppendText("진행해야할 팀 프로젝트가 없습니다. ");
+                tproTBX.AppendText("수업에서 출제된 팀 프로젝트가 없습니다. ");
             else
             {
+                int numTeamsDone = 0;
+
                 foreach (TeamProject teamProject in teamProjects)
                 {
-                    tproTBX.AppendText("No #" + "\r\n");
-                    tproTBX.AppendText("Title: " + teamProject.getTitle() + "\r\n");
-                    tproTBX.AppendText("Deadline: " + teamProject.getDeadline() + "\r\n");
-                    tproTBX.AppendText("State: " + teamProject.getState() + "\r\n");
+
+                    if (string.Compare(teamProject.getState(), "제출") != 0)
+                    {
+                        tproTBX.AppendText("No #" + "\r\n");
+                        tproTBX.AppendText("Title: " + teamProject.getTitle() + "\r\n");
+                        tproTBX.AppendText("Deadline: " + teamProject.getDeadline() + "\r\n");
+                        tproTBX.AppendText("State: " + teamProject.getState() + "\r\n");
+                    }
+                    else
+                        numTeamsDone++;
                 }
+
+                if (teamProjects.Count == numTeamsDone)
+                    tproTBX.AppendText("진행해야할 팀 프로젝트가 없습니다.. ");
             }
 
         }

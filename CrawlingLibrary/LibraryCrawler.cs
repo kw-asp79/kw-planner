@@ -11,8 +11,9 @@ using CrawlingLibrary;
 
 namespace Client
 {
-    internal class LibraryCrawler
+    public class LibraryCrawler
     {
+        private string userName = "";
         private string numOfBooks = "";
         private string numOfOverdue = "";
         private string priceToPay = "";
@@ -24,6 +25,7 @@ namespace Client
 
         public LibraryCrawler() { }
 
+        public string getUserName() { return userName; }
 
         public string getNumOfBooks() { return numOfBooks; }
 
@@ -57,22 +59,39 @@ namespace Client
 
 
         // do all of things to do
-        public void doWork(string id, string passwd)
+        public CrawlingStatus.Status doWork(string id, string passwd)
         {
             initDriver();
 
-            loginLibrary(id, passwd);
+            // divide result cases
+
+            // 1. login success & crawl success 
+
+            // 2. login success & crawl failed 
+
+            // 3. login failed 
+
+
+            CrawlingStatus.Status loginStatus = loginLibrary(id, passwd);
+
+            // if error while login, return login failed status 
+            if(loginStatus == CrawlingStatus.Status.LoginFailure) 
+            {
+                endService();    
+                return loginStatus; 
+            }
 
             //*[@id="divContents"]/div[3]/div[3]/div[2]/ul/li[2]/span
-            crawlUserDatas();
-
+            CrawlingStatus.Status crawlingStatus = crawlUserDatas();
 
             endService();
+
+            return CrawlingStatus.Status.AllSuccess;
         }
 
 
 
-        public void loginLibrary(string id, string passwd)
+        public CrawlingStatus.Status loginLibrary(string id, string passwd)
         {
             
             try
@@ -92,58 +111,66 @@ namespace Client
                 element.Click();
                 // Need to synchronize crawling moment and accessing web page! // 웹 페이지 접근 전에 데이터에 접근하는 에러 방지를 위해 
                 Thread.Sleep(300);
+
+
+                // if login failed, move to kupis.kw.ac.kr/login page
+                if (isElementExists(chromeDriver,By.XPath("//*[@id=\"login\"]/fieldset/div[2]/ul/li/a/img")) == true)
+                    return CrawlingStatus.Status.LoginFailure;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message + "Error while login process..");
+                //Console.WriteLine(ex.Message + "Error while login process..");
+                return CrawlingStatus.Status.LoginFailure;
             }
 
+            return CrawlingStatus.Status.LoginSuccess;
         }
 
 
         // crawl user data from Library website
-        private void crawlUserDatas()
+        private CrawlingStatus.Status crawlUserDatas()
         {
 
             try
             {
-
                 // crawl number of books that I borrowed
                 var numOfBooks = chromeDriver.FindElement(By.XPath("//*[@id=\"divContents\"]/div[3]/div[3]/div[2]/ul/li[2]/span"));
                 this.numOfBooks = numOfBooks.Text.ToString();
-                Console.WriteLine(numOfBooks.Text.ToString());
+                //Console.WriteLine(numOfBooks.Text.ToString());
 
                 // crawl number of books that are overdue
                 var numOfOverdue = chromeDriver.FindElement(By.XPath("//*[@id=\"divContents\"]/div[3]/div[3]/div[2]/ul/li[4]/span"));
                 this.numOfOverdue = numOfOverdue.Text.ToString();
-                Console.WriteLine(numOfOverdue.Text.ToString());
+                //Console.WriteLine(numOfOverdue.Text.ToString());
 
                 // crawl price that I have to pay for overdue
                 var priceToPay = chromeDriver.FindElement(By.XPath("//*[@id=\"divContents\"]/div[3]/div[3]/div[2]/ul/li[6]/span"));
                 this.priceToPay = priceToPay.Text.ToString();
-                Console.WriteLine(priceToPay.Text.ToString());
+                //Console.WriteLine(priceToPay.Text.ToString());
 
                 int numBooks = Int32.Parse(numOfBooks.Text.ToString());
 
-                Console.WriteLine("Books that I borrowed.. \n\n");
                 // if user has borrowed some books
                 if (numBooks != 0)
                 {
                     // get books that user has borrowed
-                    getBorrowedBooks(numBooks);
+                   CrawlingStatus.Status detailCrawlingStatus = getBorrowedBooks(numBooks);
+                   if (detailCrawlingStatus == CrawlingStatus.Status.CrawlingError) return CrawlingStatus.Status.CrawlingError;
                 }
 
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message + "Error while login process..");
+                //Console.WriteLine(e.Message + "Error while login process..");
+                return CrawlingStatus.Status.CrawlingError;
             }
 
+            return CrawlingStatus.Status.CrawlingSuccess;
         }
 
  
         // "대출현황 조회/연장" page로 이동 and get books that user has rent
-        private void getBorrowedBooks(int numOfBooks)
+        private CrawlingStatus.Status getBorrowedBooks(int numOfBooks)
         {
 
             try
@@ -212,10 +239,11 @@ namespace Client
             }
             catch(Exception e)
             {
-                Console.WriteLine("Error while crawling getBorrowedBooks()");
+                //Console.WriteLine("Error while crawling getBorrowedBooks()");
+                return CrawlingStatus.Status.CrawlingError;
             }
 
-
+            return CrawlingStatus.Status.CrawlingSuccess;
         }
 
 

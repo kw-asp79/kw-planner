@@ -112,14 +112,18 @@
     <Compile Include="fdList.Designer.cs">
       <DependentUpon>fdList.cs</DependentUpon>
     </Compile>
-    <Compile Include="KLASCrawler.cs" />
+    <Compile Include="KLASLoginForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KLASLoginForm.Designer.cs">
+      <DependentUpon>KLASLoginForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="KLASUIForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="KLASUIForm.Designer.cs">
       <DependentUpon>KLASUIForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="LibraryCrawler.cs" />
     <Compile Include="libraryLoginForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -127,7 +131,7 @@
       <DependentUpon>libraryLoginForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LibraryUIForm.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="LibraryUIForm.Designer.cs">
       <DependentUpon>LibraryUIForm.cs</DependentUpon>
@@ -152,6 +156,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="SignUpForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -173,6 +182,9 @@
     <EmbeddedResource Include="fdList.resx">
       <DependentUpon>fdList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="KLASLoginForm.resx">
+      <DependentUpon>KLASLoginForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="KLASUIForm.resx">
       <DependentUpon>KLASUIForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -193,14 +205,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="SignUpForm.resx">
       <DependentUpon>SignUpForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -11,15 +11,18 @@ using System.Windows.Forms;
 using System.IO;
 using WindowsFormsApp1;
 using EntityLibrary;
+using System.Diagnostics.Eventing.Reader;
 
 namespace Client
 {
     public partial class mainForm : Form
     {
         // 각 form 들을 멤버로 선언 => 추후 klas와 도서관 정보를 달력과 주고받기 위해 (다만 상황에 따라 변동 가능성 존재..)
-        calendarForm calendarForm; 
+        calendarForm calendarForm;
+        KLASLoginForm klasLoginForm;
         KLASUIForm klasUIForm;
         libraryLoginForm libraryLoginForm;
+        LibraryUIForm libraryUIForm;
 
         List<User> friends;
         List<Schedule> schedules;
@@ -75,8 +78,22 @@ namespace Client
             calendarForm.showCalendar();
             calendarContainer.Controls.Add(calendarForm);
 
+
             // create KLAS UI Form 
             klasUIForm = new KLASUIForm();
+
+            // create KLAS Login Form 
+            klasLoginForm = new KLASLoginForm(klasUIForm);
+            // add EventHandler
+            klasLoginForm.allSuccess += klasAllSuccess;
+
+            // create Library UI Form 
+            libraryUIForm = new LibraryUIForm();
+
+            // create Library Login Form
+            libraryLoginForm = new libraryLoginForm(libraryUIForm);
+            // add EventHandler
+            libraryLoginForm.allSuccess += lbyAllSuccess;
         }
 
 
@@ -97,22 +114,53 @@ namespace Client
         {
             calendarContainer.Controls.Clear();
 
-           // klasLoginForm = new klasLoginForm(this.calendarContainer);
-            calendarContainer.Controls.Add(klasUIForm);
             // after login once, don't need to show loginForm. Instead, shows user's klas data UI
-        
+            if(klasLoginForm.getLoginStatus())
+                calendarContainer.Controls.Add(klasUIForm); // (after login) show klasUIForm
+            else
+                calendarContainer.Controls.Add(klasLoginForm); // else(not login status) show klasLoginForm
         }
+
+
+        private void klasAllSuccess(object sender, EventArgs e)
+        {
+            klasUIForm.setMainUI();
+
+            // 현재 화면이 klasLoginForm 일 때만 바로 출력하도록
+            if (calendarContainer.Controls.Contains(klasLoginForm))
+            {
+                calendarContainer.Controls.Clear();
+                calendarContainer.Controls.Add(klasUIForm);
+            }
+        }
+
+
 
         private void lbyBtn_Click(object sender, EventArgs e)
         {
             calendarContainer.Controls.Clear();
 
-            libraryLoginForm = new libraryLoginForm();
-            calendarContainer.Controls.Add(libraryLoginForm);
-
             // after login once, don't need to show loginForm. Instead, shows user's library data UI
+            if (libraryLoginForm.getLoginStatus())
+                calendarContainer.Controls.Add(libraryUIForm);
+            else     
+                calendarContainer.Controls.Add(libraryLoginForm);
 
         }
+
+        private void lbyAllSuccess(object sender, EventArgs e)
+        {
+            libraryUIForm.setUI();
+
+            // 현재 화면이 libraryLoginForm 일 때만 바로 출력하도록
+            if (calendarContainer.Controls.Contains(libraryLoginForm))
+            {
+                calendarContainer.Controls.Clear();
+                calendarContainer.Controls.Add(libraryUIForm);
+            }
+        }
+
+
 
         private void fndBtn_Click(object sender, EventArgs e)
         {
@@ -124,7 +172,7 @@ namespace Client
 
         private void loginBtn_Click(object sender, EventArgs e)
         {
-            LoginForm loginForm = new LoginForm(klasUIForm);
+            LoginForm loginForm = new LoginForm();
             loginForm.Show();
         }
 
