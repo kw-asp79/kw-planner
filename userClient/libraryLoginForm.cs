@@ -36,6 +36,10 @@ namespace Client
             libraryUIForm.showBookState();
             libraryUIForm.Show();
         }
+        private void pwdTbx_TextChanged(object sender, EventArgs e)
+        {
+
+        }
 
 
         private void pwdTbx_TextChanged(object sender, EventArgs e)

@@ -22,6 +22,7 @@ namespace Client
 
         private void btn_Add_Click(object sender, EventArgs e)
         {
+            fdList.bool_tf = true;
             fdList.add_label(this.txt_id.Text,this.txt_fd.Text);
             txt_fd.Clear();
             txt_id.Clear();

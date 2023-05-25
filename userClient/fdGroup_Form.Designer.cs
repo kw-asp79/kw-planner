@@ -1,8 +1,6 @@
-﻿using System.Windows.Forms;
-
-namespace Client
+﻿namespace WindowsFormsApp1
 {
-    partial class fdList
+    partial class fdGroup_Form
     {
         /// <summary>
         /// Required designer variable.
@@ -30,40 +28,40 @@ namespace Client
         /// </summary>
         private void InitializeComponent()
         {
-            this.fdlistLbl = new System.Windows.Forms.Label();
             this.btn_addfd = new System.Windows.Forms.Button();
+            this.fdlistLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
+            // 
+            // btn_addfd
+            // 
+            this.btn_addfd.Location = new System.Drawing.Point(887, 114);
+            this.btn_addfd.Name = "btn_addfd";
+            this.btn_addfd.Size = new System.Drawing.Size(142, 45);
+            this.btn_addfd.TabIndex = 5;
+            this.btn_addfd.Text = "신규그룹 추가";
+            this.btn_addfd.UseVisualStyleBackColor = true;
+            this.btn_addfd.Click += new System.EventHandler(this.btn_addfd_Click);
             // 
             // fdlistLbl
             // 
             this.fdlistLbl.AutoSize = true;
             this.fdlistLbl.Font = new System.Drawing.Font("Segoe Script", 20F, System.Drawing.FontStyle.Bold);
-            this.fdlistLbl.Location = new System.Drawing.Point(484, 50);
+            this.fdlistLbl.Location = new System.Drawing.Point(469, 45);
             this.fdlistLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.fdlistLbl.Name = "fdlistLbl";
-            this.fdlistLbl.Size = new System.Drawing.Size(213, 67);
-            this.fdlistLbl.TabIndex = 2;
-            this.fdlistLbl.Text = "친구 목록";
+            this.fdlistLbl.Size = new System.Drawing.Size(297, 67);
+            this.fdlistLbl.TabIndex = 4;
+            this.fdlistLbl.Text = "친구그룹 목록";
             // 
-            // btn_addfd
-            // 
-            this.btn_addfd.Location = new System.Drawing.Point(901, 111);
-            this.btn_addfd.Name = "btn_addfd";
-            this.btn_addfd.Size = new System.Drawing.Size(97, 45);
-            this.btn_addfd.TabIndex = 3;
-            this.btn_addfd.Text = "친구 추가";
-            this.btn_addfd.UseVisualStyleBackColor = true;
-            this.btn_addfd.Click += new System.EventHandler(this.btn_addfd_Click);
-            // 
-            // fdList
+            // fdGroup_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1100, 745);
             this.Controls.Add(this.btn_addfd);
             this.Controls.Add(this.fdlistLbl);
-            this.Name = "fdList";
-            this.Text = "fdList";
+            this.Name = "fdGroup_Form";
+            this.Text = "fdGroupForm";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -71,7 +69,7 @@ namespace Client
 
         #endregion
 
-        private System.Windows.Forms.Label fdlistLbl;
         private System.Windows.Forms.Button btn_addfd;
+        private System.Windows.Forms.Label fdlistLbl;
     }
 }
