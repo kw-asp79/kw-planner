@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
@@ -13,9 +14,11 @@ namespace Client
 {
     public partial class libraryLoginForm : UserControl
     {
-        public libraryLoginForm()
+        NetworkStream netstrm;
+        public libraryLoginForm(NetworkStream netstrm)
         {
             InitializeComponent();
+            this.netstrm = netstrm;
         }
 
         private void loginBtn_Click(object sender, EventArgs e)
