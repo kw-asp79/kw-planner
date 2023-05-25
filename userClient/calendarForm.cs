@@ -21,30 +21,23 @@ namespace Client
         private TcpClient server;
         private NetworkStream ns;
 
+        KLASCrawler klasCrawler;
+        LibraryCrawler libraryCrawler;
+
         List<Dictionary<DateTime, string>> publicHolidays = new List<Dictionary<DateTime, string>>();
 
-        public calendarForm()
+        public calendarForm(KLASCrawler kLasCrawler, LibraryCrawler liBraryCrawler)
         {
             InitializeComponent();
+        
+            this.klasCrawler = kLasCrawler;
+            this.libraryCrawler = liBraryCrawler;
         }
 
 
         public void showCalendar()
         {
-            // TCP 통신
-           /* try 
-            {
-                server = new TcpClient("127.0.0.1", 9050);
-            }
-            catch(SocketException ex) 
-            {
-                MessageBox.Show("\"Unable to connect to server\"");
-            }
-
-            //ns = server.GetStream();
-
-            //ns.Close();
-            server.Close();*/
+            
 
             DateTime now = DateTime.Now;
             month = now.Month;
@@ -128,6 +121,10 @@ namespace Client
                 UserControlDays ucDays = new UserControlDays();
                 ucDays.SetDay(i);
                 ucDays.lbDay.ForeColor = Color.WhiteSmoke; // set text color to gray for previous month days
+                
+
+                
+                
                 dayContainer.Controls.Add(ucDays);
             }
 
@@ -147,6 +144,17 @@ namespace Client
 
                     }
                 }
+
+                // klasCrawler 의 각 lecture 별로 이 날짜에 해당하는 온라인강의,과제,퀴즈,팀 프로젝트 마감일을 검사
+
+
+
+
+
+                // libraryCrawler의 각 Book 별로 이 날짜에 해당하는 반납일을 검사 
+
+
+
                 dayContainer.Controls.Add(ucDays);
 
             }
@@ -167,6 +175,9 @@ namespace Client
 
             ymLbl.Text = year.ToString() + " . " + month.ToString();
             displayDays(month, year);
+
+           // MessageBox.Show(klasCrawler.lectures.Count.ToString());
+           // MessageBox.Show(libraryCrawler.books.Count.ToString());
         }
 
 

@@ -15,6 +15,7 @@ namespace CrawlingLibrary
 
         private string deadline { get; set; }
 
+        private string dueDate { get; set; }
         private string state { get; set; }
 
 
@@ -22,6 +23,7 @@ namespace CrawlingLibrary
         {
             this.title = title;
             this.deadline = deadline;
+            this.dueDate = this.deadline.Split('~')[1].Split(' ')[1];
             this.state = state;
         }
 
@@ -38,6 +40,11 @@ namespace CrawlingLibrary
         public string getDeadline()
         {
             return deadline;
+        }
+
+        public string getDueDate()
+        {
+            return dueDate;
         }
 
         public string getState()

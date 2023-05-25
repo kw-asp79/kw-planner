@@ -75,17 +75,21 @@ namespace Client
             {
                 Console.WriteLine(ex.Message.ToString());
             }
-            
+
+            // create KLAS Crawler
+            klasCrawler = new KLASCrawler();
+            // create Library Crawler
+            libraryCrawler = new LibraryCrawler();
+
+
             // show calendar form  
-            calendarForm = new calendarForm();
+            calendarForm = new calendarForm(klasCrawler,libraryCrawler);
             calendarForm.showCalendar();
             calendarContainer.Controls.Add(calendarForm);
 
 
             // create KLAS UI Form 
             klasUIForm = new KLASUIForm();
-            // create KLAS Crawler
-            klasCrawler = new KLASCrawler();    
 
             // create KLAS Login Form 
             klasLoginForm = new KLASLoginForm(klasUIForm,klasCrawler);
@@ -94,8 +98,6 @@ namespace Client
 
             // create Library UI Form 
             libraryUIForm = new LibraryUIForm();
-            // create Library Crawler
-            libraryCrawler = new LibraryCrawler();
 
             // create Library Login Form
             libraryLoginForm = new libraryLoginForm(libraryUIForm,libraryCrawler);
@@ -188,5 +190,7 @@ namespace Client
             SignUpForm signUpForm = new SignUpForm();
             signUpForm.Show();
         }
+
+        
     }
 }

@@ -12,6 +12,7 @@ namespace CrawlingLibrary
 
         private string deadline { get; set; }
 
+        private string dueDate { get; set; }
         private string state { get; set; }
 
 
@@ -31,6 +32,12 @@ namespace CrawlingLibrary
         {
             return deadline;
         }
+
+        public string getDueDate()
+        {
+            return dueDate;
+        }
+
 
         public string getState()
         {

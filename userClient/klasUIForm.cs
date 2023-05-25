@@ -133,7 +133,7 @@ namespace Client
                     {
                         olecTBX.AppendText("No #" + "\r\n");
                         olecTBX.AppendText("Title: " + onlineLecture.getTitle() + "\r\n");
-                        olecTBX.AppendText("Deadline: " + onlineLecture.getDeadline() + "\r\n");
+                        olecTBX.AppendText("Deadline: " + onlineLecture.getDueDate() + "\r\n");
                         olecTBX.AppendText("Percentage: " + onlineLecture.getPercentage() + "\r\n");
                     }
                     else
@@ -142,7 +142,7 @@ namespace Client
 
                 // 만약 온라인 강의를 전부 처리했다면
                 if (onlineLectures.Count == oLecDone)
-                    olecTBX.AppendText("수강해야할 온라인 강의가 없습니다.. ");
+                    olecTBX.AppendText("게시된 온라인 강의를 전부 수강하였습니다 !! ");
             }
 
         }
@@ -165,7 +165,7 @@ namespace Client
                     {
                         quizTBX.AppendText("No #" + "\r\n");
                         quizTBX.AppendText("Title: " + quiz.getTitle() + "\r\n");
-                        quizTBX.AppendText("Deadline: " + quiz.getDeadline() + "\r\n");
+                        quizTBX.AppendText("Deadline: " + quiz.getDueDate() + "\r\n");
                         quizTBX.AppendText("State: " + quiz.getState() + "\r\n");
                     }
                     else
@@ -174,7 +174,7 @@ namespace Client
                 }
 
                 if (quizs.Count == numQuizDone)
-                    quizTBX.AppendText("진행해야할 퀴즈가 없습니다..");
+                    quizTBX.AppendText("출제된 퀴즈를 전부 응시하였습니다 !!");
             }
         }
 
@@ -196,7 +196,7 @@ namespace Client
                     {
                         amtTBX.AppendText("No #" + "\r\n");
                         amtTBX.AppendText("Title: " + assignment.getTitle() + "\r\n");
-                        amtTBX.AppendText("Deadline: " + assignment.getDeadline() + "\r\n");
+                        amtTBX.AppendText("Deadline: " + assignment.getDueDate() + "\r\n");
                         amtTBX.AppendText("State: " + assignment.getState() + "\r\n");
                     }
                     else
@@ -204,7 +204,7 @@ namespace Client
                 }
 
                 if (assignments.Count == numAssignmentsDone)
-                    amtTBX.AppendText("진행해야할 과제가 없습니다.. ");
+                    amtTBX.AppendText("출제된 과제를 전부 제출하였습니다 !!");
             }
 
         }
@@ -222,12 +222,12 @@ namespace Client
 
                 foreach (TeamProject teamProject in teamProjects)
                 {
-
+                    // 아직 제출하지 않은 팀프로젝트만 출력
                     if (string.Compare(teamProject.getState(), "제출") != 0)
                     {
                         tproTBX.AppendText("No #" + "\r\n");
                         tproTBX.AppendText("Title: " + teamProject.getTitle() + "\r\n");
-                        tproTBX.AppendText("Deadline: " + teamProject.getDeadline() + "\r\n");
+                        tproTBX.AppendText("Deadline: " + teamProject.getDueDate() + "\r\n");
                         tproTBX.AppendText("State: " + teamProject.getState() + "\r\n");
                     }
                     else
@@ -235,7 +235,7 @@ namespace Client
                 }
 
                 if (teamProjects.Count == numTeamsDone)
-                    tproTBX.AppendText("진행해야할 팀 프로젝트가 없습니다.. ");
+                    tproTBX.AppendText("출제된 팀 프로젝트를 전부 제출하였습니다 !! ");
             }
 
         }
