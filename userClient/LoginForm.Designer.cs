@@ -32,8 +32,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.txt_ID = new System.Windows.Forms.TextBox();
-            this.txt_pwd = new System.Windows.Forms.TextBox();
+            this.txt_Id = new System.Windows.Forms.TextBox();
+            this.txt_Pwd = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btn_login = new System.Windows.Forms.Button();
@@ -48,9 +48,11 @@
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(347, 232);
             this.panel1.TabIndex = 0;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // pictureBox1
             // 
@@ -79,7 +81,7 @@
             this.panel3.Size = new System.Drawing.Size(275, 10);
             this.panel3.TabIndex = 1;
             // 
-            // txt_ID
+            // txt_Id
             // 
             this.txt_ID.BackColor = System.Drawing.SystemColors.Control;
             this.txt_ID.Location = new System.Drawing.Point(42, 285);
@@ -87,7 +89,7 @@
             this.txt_ID.Size = new System.Drawing.Size(275, 28);
             this.txt_ID.TabIndex = 2;
             // 
-            // txt_pwd
+            // txt_Pwd
             // 
             this.txt_pwd.BackColor = System.Drawing.SystemColors.Control;
             this.txt_pwd.Location = new System.Drawing.Point(42, 364);
@@ -103,7 +105,7 @@
             this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label1.Location = new System.Drawing.Point(38, 247);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(27, 24);
+            this.label1.Size = new System.Drawing.Size(24, 21);
             this.label1.TabIndex = 4;
             this.label1.Text = "ID";
             // 
@@ -114,7 +116,7 @@
             this.label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label2.Location = new System.Drawing.Point(38, 337);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 24);
+            this.label2.Size = new System.Drawing.Size(77, 21);
             this.label2.TabIndex = 5;
             this.label2.Text = "Password";
             // 
@@ -150,21 +152,22 @@
             // 
             // LoginForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(347, 498);
             this.Controls.Add(this.btn_signup);
             this.Controls.Add(this.btn_login);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.txt_pwd);
-            this.Controls.Add(this.txt_ID);
+            this.Controls.Add(this.txt_Pwd);
+            this.Controls.Add(this.txt_Id);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LoginForm";
+            this.Load += new System.EventHandler(this.LoginForm_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -177,8 +180,8 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.TextBox txt_ID;
-        private System.Windows.Forms.TextBox txt_pwd;
+        private System.Windows.Forms.TextBox txt_Id;
+        private System.Windows.Forms.TextBox txt_Pwd;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btn_login;

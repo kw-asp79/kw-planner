@@ -39,66 +39,70 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(175, 40);
+            this.label1.Location = new System.Drawing.Point(200, 50);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(31, 12);
+            this.label1.Size = new System.Drawing.Size(37, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "User";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(162, 116);
+            this.label2.Location = new System.Drawing.Point(185, 145);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 12);
+            this.label2.Size = new System.Drawing.Size(72, 15);
             this.label2.TabIndex = 1;
             this.label2.Text = "대출 상태";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(162, 219);
+            this.label3.Location = new System.Drawing.Point(185, 274);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 12);
+            this.label3.Size = new System.Drawing.Size(67, 15);
             this.label3.TabIndex = 2;
             this.label3.Text = "대출현황";
             // 
             // bookStateTbx
             // 
-            this.bookStateTbx.Location = new System.Drawing.Point(245, 216);
+            this.bookStateTbx.Location = new System.Drawing.Point(280, 270);
+            this.bookStateTbx.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.bookStateTbx.Multiline = true;
             this.bookStateTbx.Name = "bookStateTbx";
             this.bookStateTbx.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.bookStateTbx.Size = new System.Drawing.Size(419, 456);
+            this.bookStateTbx.Size = new System.Drawing.Size(478, 569);
             this.bookStateTbx.TabIndex = 3;
             // 
             // stateTbx
             // 
-            this.stateTbx.Location = new System.Drawing.Point(245, 113);
+            this.stateTbx.Location = new System.Drawing.Point(280, 141);
+            this.stateTbx.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.stateTbx.Multiline = true;
             this.stateTbx.Name = "stateTbx";
             this.stateTbx.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.stateTbx.Size = new System.Drawing.Size(419, 58);
+            this.stateTbx.Size = new System.Drawing.Size(478, 72);
             this.stateTbx.TabIndex = 4;
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(245, 37);
+            this.textBox3.Location = new System.Drawing.Point(280, 46);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(419, 21);
+            this.textBox3.Size = new System.Drawing.Size(478, 25);
             this.textBox3.TabIndex = 5;
             // 
             // LibraryUIForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(711, 697);
+            this.ClientSize = new System.Drawing.Size(813, 871);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.stateTbx);
             this.Controls.Add(this.bookStateTbx);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "LibraryUIForm";
             this.Text = "MyLibrary";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LibraryUIForm_FormClosing);

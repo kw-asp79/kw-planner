@@ -41,11 +41,9 @@ namespace Client
 
         }
 
-
-        private void pwdTbx_TextChanged(object sender, EventArgs e)
+        private void libraryLoginForm_Load(object sender, EventArgs e)
         {
 
         }
-
     }
 }

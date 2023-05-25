@@ -58,15 +58,18 @@
             this.calendarContainer.Controls.Add(this.label1);
             this.calendarContainer.Dock = System.Windows.Forms.DockStyle.Right;
             this.calendarContainer.Location = new System.Drawing.Point(0, 0);
+            this.calendarContainer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.calendarContainer.Name = "calendarContainer";
-            this.calendarContainer.Size = new System.Drawing.Size(862, 817);
+            this.calendarContainer.Size = new System.Drawing.Size(985, 1021);
             this.calendarContainer.TabIndex = 1;
+            this.calendarContainer.Paint += new System.Windows.Forms.PaintEventHandler(this.calendarContainer_Paint);
             // 
             // dayContainer
             // 
-            this.dayContainer.Location = new System.Drawing.Point(9, 86);
+            this.dayContainer.Location = new System.Drawing.Point(10, 108);
+            this.dayContainer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dayContainer.Name = "dayContainer";
-            this.dayContainer.Size = new System.Drawing.Size(852, 728);
+            this.dayContainer.Size = new System.Drawing.Size(974, 910);
             this.dayContainer.TabIndex = 9;
             // 
             // ymLbl
@@ -74,19 +77,20 @@
             this.ymLbl.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.ymLbl.AutoSize = true;
             this.ymLbl.Font = new System.Drawing.Font("Segoe Script", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ymLbl.Location = new System.Drawing.Point(381, 9);
-            this.ymLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ymLbl.Location = new System.Drawing.Point(435, 11);
+            this.ymLbl.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.ymLbl.Name = "ymLbl";
-            this.ymLbl.Size = new System.Drawing.Size(111, 40);
+            this.ymLbl.Size = new System.Drawing.Size(137, 50);
             this.ymLbl.TabIndex = 1;
             this.ymLbl.Text = "2023.4";
             this.ymLbl.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // prevBtn
             // 
-            this.prevBtn.Location = new System.Drawing.Point(255, 18);
+            this.prevBtn.Location = new System.Drawing.Point(291, 22);
+            this.prevBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.prevBtn.Name = "prevBtn";
-            this.prevBtn.Size = new System.Drawing.Size(34, 18);
+            this.prevBtn.Size = new System.Drawing.Size(39, 22);
             this.prevBtn.TabIndex = 8;
             this.prevBtn.Text = "<";
             this.prevBtn.UseVisualStyleBackColor = true;
@@ -94,9 +98,10 @@
             // 
             // nextBtn
             // 
-            this.nextBtn.Location = new System.Drawing.Point(600, 18);
+            this.nextBtn.Location = new System.Drawing.Point(686, 22);
+            this.nextBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.nextBtn.Name = "nextBtn";
-            this.nextBtn.Size = new System.Drawing.Size(34, 18);
+            this.nextBtn.Size = new System.Drawing.Size(39, 22);
             this.nextBtn.TabIndex = 7;
             this.nextBtn.Text = ">";
             this.nextBtn.UseVisualStyleBackColor = true;
@@ -106,10 +111,10 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Sylfaen", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(765, 64);
-            this.label7.Margin = new System.Windows.Forms.Padding(3);
+            this.label7.Location = new System.Drawing.Point(874, 80);
+            this.label7.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(56, 18);
+            this.label7.Size = new System.Drawing.Size(75, 22);
             this.label7.TabIndex = 6;
             this.label7.Text = "Saturday";
             // 
@@ -117,10 +122,10 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Sylfaen", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(651, 64);
-            this.label6.Margin = new System.Windows.Forms.Padding(3);
+            this.label6.Location = new System.Drawing.Point(744, 80);
+            this.label6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(43, 18);
+            this.label6.Size = new System.Drawing.Size(57, 22);
             this.label6.TabIndex = 5;
             this.label6.Text = "Friday";
             // 
@@ -128,10 +133,10 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Sylfaen", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(522, 64);
-            this.label5.Margin = new System.Windows.Forms.Padding(3);
+            this.label5.Location = new System.Drawing.Point(597, 80);
+            this.label5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(59, 18);
+            this.label5.Size = new System.Drawing.Size(80, 22);
             this.label5.TabIndex = 4;
             this.label5.Text = "Thursday";
             // 
@@ -139,10 +144,10 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Sylfaen", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(397, 64);
-            this.label4.Margin = new System.Windows.Forms.Padding(3);
+            this.label4.Location = new System.Drawing.Point(454, 80);
+            this.label4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(71, 18);
+            this.label4.Size = new System.Drawing.Size(95, 22);
             this.label4.TabIndex = 3;
             this.label4.Text = "Wednesday";
             // 
@@ -150,10 +155,10 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Sylfaen", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(285, 64);
-            this.label3.Margin = new System.Windows.Forms.Padding(3);
+            this.label3.Location = new System.Drawing.Point(326, 80);
+            this.label3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 18);
+            this.label3.Size = new System.Drawing.Size(71, 22);
             this.label3.TabIndex = 2;
             this.label3.Text = "Tuesday";
             // 
@@ -161,10 +166,10 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Sylfaen", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(163, 64);
-            this.label2.Margin = new System.Windows.Forms.Padding(3);
+            this.label2.Location = new System.Drawing.Point(186, 80);
+            this.label2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 18);
+            this.label2.Size = new System.Drawing.Size(70, 22);
             this.label2.TabIndex = 1;
             this.label2.Text = "Monday";
             // 
@@ -172,21 +177,22 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Sylfaen", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(44, 64);
-            this.label1.Margin = new System.Windows.Forms.Padding(3);
+            this.label1.Location = new System.Drawing.Point(50, 80);
+            this.label1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.label1.Name = "label1";
             this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label1.Size = new System.Drawing.Size(48, 18);
+            this.label1.Size = new System.Drawing.Size(64, 22);
             this.label1.TabIndex = 0;
             this.label1.Text = "Sunday";
             // 
             // calendarForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.calendarContainer);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "calendarForm";
-            this.Size = new System.Drawing.Size(862, 817);
+            this.Size = new System.Drawing.Size(985, 1021);
             this.calendarContainer.ResumeLayout(false);
             this.calendarContainer.PerformLayout();
             this.ResumeLayout(false);

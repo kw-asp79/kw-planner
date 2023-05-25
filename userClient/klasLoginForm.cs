@@ -26,10 +26,6 @@ namespace Client
         {
             // id, pwd 잘 못 입력했을 때의 예외처리 필요
             klasUIForm klasUIForm = new klasUIForm();
-
-
-
-            
         }
     }
 }

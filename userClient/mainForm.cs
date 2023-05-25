@@ -140,7 +140,6 @@ namespace Client
             calendarForm = new calendarForm();
             calendarForm.showCalendar();
             calendarContainer.Controls.Add(calendarForm);
-
             // Form_Close 이벤트 발생시 아래 코드를 추가해야함
             //netstrm.Close();
             //server.Close();
