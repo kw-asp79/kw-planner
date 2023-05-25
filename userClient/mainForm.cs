@@ -119,12 +119,6 @@ namespace Client
         //    }
         //}
 
-
-        public mainForm()
-        {
-            InitializeComponent();
-        }
-
         private async void Form1_Load(object sender, EventArgs e)
         {
 

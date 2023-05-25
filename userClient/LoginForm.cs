@@ -31,8 +31,8 @@ namespace Client
             User user = new User();
 
             // txtBox의 정보를 매핑
-            user.id = txt_Id.Text;
-            user.pwd = txt_Pwd.Text;
+            user.id = txt_ID.Text;
+            user.pwd = txt_pwd.Text;
 
             Packet sendPacket = new Packet();
             Packet receivedPacket;
@@ -57,16 +57,16 @@ namespace Client
             else if(receivedPacket.action == ActionType.Fail)
             {
                 MessageBox.Show("로그인에 실패했습니다.");
-                txt_Id.Text = "";
-                txt_Pwd.Text = "";
+                txt_ID.Text = "";
+                txt_pwd.Text = "";
             }
 
         }
 
-        private void btn_signup_Click(object sender, EventArgs e)
-        {
-            SignUpForm form = new SignUpForm();
-            form.ShowDialog();
-        }
+        //private void btn_signup_Click(object sender, EventArgs e)
+        //{
+        //    SignUpForm form = new SignUpForm();
+        //    form.ShowDialog();
+        //}
     }
 }
