@@ -45,7 +45,7 @@ namespace Client
 
 
                 labels[i] = new Label();
-                labels[i].Location = new Point(labels2[i].Location.X + 70, labels2[i].Location.Y);
+                labels[i].Location = new Point(labels2[i].Location.X + 65, labels2[i].Location.Y);
                 labels[i].Size = new Size(labelWidth, labelHeight);
                 labels[i].Text = frd_list[i-1];
                 labels[i].Tag = i;
@@ -102,7 +102,7 @@ namespace Client
                 
 
                 labels[A] = new Label();
-                labels[A].Location = new Point(labels2[A].Location.X + 70, labels2[A].Location.Y);
+                labels[A].Location = new Point(labels2[A].Location.X + 65, labels2[A].Location.Y);
                 labels[A].Size = new Size(labelWidth, labelHeight);
                 labels[A].Text = s;
                 labels[A].Tag = A;

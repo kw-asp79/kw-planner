@@ -18,8 +18,8 @@ namespace WindowsFormsApp1
         Button[] btn_share = new Button[10];
         Button[] btn_delete = new Button[10];
         Button[] btn_add = new Button[10];
-        public static List<string> grp_list = new List<string>();
-        public static List<List<string>> listOfLists = new List<List<string>>();    
+
+        public static List<List<string>> listOfLists = new List<List<string>>(); 
         public static List<string> grp_name_list = new List<string>();
 
         fdList fdList;
@@ -35,11 +35,56 @@ namespace WindowsFormsApp1
         }
         private void grp_load()
         {
-            //for(int i=0; i<grp_name_list.Count; i++)
-            //{
-                
-            //    add_Grouplist(grp_name_list[i], listOfLists[i]);
-            //}
+            for (int i = 0; i < grp_name_list.Count; i++)
+            {
+                int v = i + 1;
+                int k = v;
+                if ((v >= 1) && (v <= 3)) T = 1;
+                if ((v >= 4) && (v <= 6)) { T = 160; k = v - 3; }
+                if ((v >= 7) && (v <= 9)) { T = 320; k = v - 6; }
+                labelGroupName[v] = new Label();
+                labelGroupName[v].Text = grp_name_list[i];
+                labelGroupName[v].AutoSize = true;
+                labelGroupName[v].Location = new Point(100 + 270 * (k - 1), 120 + T);
+                labelGroupName[v].Size = new Size(100, 100);
+                labelGroupName[v].Font = new Font("Segoe Script", 12, FontStyle.Bold);
+                labelGroupName[v].Tag = v;
+
+                listBoxFriends[v] = new ListBox();
+                listBoxFriends[v].Tag = v;
+                listBoxFriends[v].DataSource = listOfLists[i];
+                listBoxFriends[v].Size = new Size(150, 78);
+                listBoxFriends[v].Location = new Point { X = 100 + 270 * (k - 1), Y = 150 + T };
+
+                btn_share[v] = new Button();
+                btn_share[v].Tag = v;
+                btn_share[v].Text = "일정공유";
+                btn_share[v].Size = new Size(80, 20);
+                btn_share[v].Location = new Point(172 + 270 * (k - 1), 230 + T);
+
+                btn_add[v] = new Button();
+                btn_add[v].Tag = v;
+                btn_add[v].Text = "추가";
+                btn_add[v].Size = new Size(40, 20);
+                btn_add[v].Location = new Point(90 + 270 * (k - 1), 230 + T);
+
+                btn_delete[v] = new Button();
+                btn_delete[v].Tag = v;
+                btn_delete[v].Text = "삭제";
+                btn_delete[v].Size = new Size(40, 20);
+                btn_delete[v].Location = new Point(132 + 270 * (k - 1), 230 + T);
+
+                this.Controls.Add(btn_add[v]);
+                this.Controls.Add(btn_delete[v]);
+                this.Controls.Add(listBoxFriends[v]);
+                this.Controls.Add(labelGroupName[v]);
+                this.Controls.Add(btn_share[v]);
+                listBoxFriends[v].SelectionMode = SelectionMode.MultiSimple;
+                listBoxFriends[v].SelectedIndex = -1;
+
+                btn_add[v].Click += new EventHandler(btn_add_Click);
+                btn_delete[v].Click += new EventHandler(btn_delete_Click);
+            }
         }
         private void btn_addfd_Click(object sender, EventArgs e)
         {
@@ -48,7 +93,6 @@ namespace WindowsFormsApp1
         }
         public void add_Grouplist(string grpname, List<string> ts)
         {
-            
             if (grpname != "")
             {
                 grp_name_list.Add(grpname);
@@ -116,7 +160,7 @@ namespace WindowsFormsApp1
         }
         public void update_list(List<string> list,int i)
         {
-            listOfLists[i-1].Clear();
+            listOfLists[i-1] =null;
             listOfLists[i-1]= list;
             listBoxFriends[i].DataSource = null;
             listBoxFriends[i].Items.Clear();
@@ -145,13 +189,22 @@ namespace WindowsFormsApp1
                 this.Controls.Remove(btn_delete[A - 1]);
                 this.Controls.Remove(btn_share[A - 1]);
                 this.Controls.Remove(btn_add[A - 1]);
+                grp_name_list[idx - 1] = null;
+                grp_name_list[idx - 1] = grp_name_list[A - 2];
 
+                listOfLists[idx - 1] = null;
+                listOfLists[idx - 1] = listOfLists[A - 2];
+
+                listOfLists.RemoveAt(A - 2);
+                grp_name_list.RemoveAt(A-2);
                 A--;
                 cntGrp--;
             }
             else
             {
                 listBoxFriends[idx].DataSource = check_list;
+                listOfLists[idx - 1] = null;
+                listOfLists[idx - 1] = check_list;
             }
             //if (grp_list.Count == 0)
             //{
