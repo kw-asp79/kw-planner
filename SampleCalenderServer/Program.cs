@@ -18,7 +18,6 @@ using System.Collections;
 using System.Runtime.Remoting.Messaging;
 using System.Data.SqlClient;
 
-
 namespace SampleCalenderServer
 {
     public static class DBProcess
@@ -28,7 +27,6 @@ namespace SampleCalenderServer
 
         public static void ConnectDB()
         {
-
             connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ProjectDB"].ConnectionString;
             connection = new MySqlConnection(connectionString);
 
@@ -36,84 +34,15 @@ namespace SampleCalenderServer
             {
                 connection.Open();
             }
-       
-
-
-        public static List<Schedule> SelectSchedules(User user)
-        {
-            MySqlCommand command = connection.CreateCommand();
-
-            command.CommandText = "SELECT schedule.* FROM schedule JOIN user_schedule WHERE user_schedule.user_id = @myUserId AND user_schedule.schedule_id = schedule.schedule_id;";
-            command.Parameters.AddWithValue("@myUserId", user.id);
-
-            MySqlDataReader reader = command.ExecuteReader();
-
-            List<Schedule> schedules = new List<Schedule>();
-
-            while (reader.Read())
+            catch (Exception ex)
             {
-                Schedule schedule = new Schedule();
-
-                schedule.category = reader.GetString("category");
-                schedule.title = reader.GetString("title");
-                schedule.content = reader.GetString("content");
-                schedule.startTime = reader.GetDateTime("start_time");
-                schedule.endTime = reader.GetDateTime("end_time");
-
-                schedules.Add(schedule);
+                Console.WriteLine(ex.Message.ToString());
             }
-
-            reader.Close();
-
-            return schedules;
         }
-          
-        public static void CreateSchedule(Schedule schedule)
-        {
-            MySqlCommand command = connection.CreateCommand();
-            command.CommandText = "INSERT INTO schedule (category, title, content, start_time, end_time) " +
-                                  "VALUES (@category, @title, @content, @startTime, @endTime);";
-            command.Parameters.AddWithValue("@category", schedule.category);
-            command.Parameters.AddWithValue("@title", schedule.title);
-            command.Parameters.AddWithValue("@content", schedule.content);
-            command.Parameters.AddWithValue("@startTime", schedule.startTime);
-            command.Parameters.AddWithValue("@endTime", schedule.endTime);
-
-            command.ExecuteNonQuery();
-        }
-
-        public static void UpdateSchedule(Schedule schedule)
-        {
-            MySqlCommand command = connection.CreateCommand();
-            command.CommandText = "UPDATE schedule " +
-                                  "SET category = @category, title = @title, content = @content, " +
-                                  "start_time = @startTime, end_time = @endTime " +
-                                  "WHERE schedule_id = @scheduleId;";
-            command.Parameters.AddWithValue("@category", schedule.category);
-            command.Parameters.AddWithValue("@title", schedule.title);
-            command.Parameters.AddWithValue("@content", schedule.content);
-            command.Parameters.AddWithValue("@startTime", schedule.startTime);
-            command.Parameters.AddWithValue("@endTime", schedule.endTime);
-
-            command.ExecuteNonQuery();
-        }
-
-        public static void DeleteSchedule(int scheduleId)
-        {
-            MySqlCommand command = connection.CreateCommand();
-            command.CommandText = "DELETE FROM schedule WHERE schedule_id = @scheduleId;";
-            command.Parameters.AddWithValue("@scheduleId", scheduleId);
-
-            command.ExecuteNonQuery();
-        }
-
-
-
     }
 
 
-
-public class Program
+    public class Program
     {
 
         public static Packet LoginProcess(User user)
@@ -174,6 +103,7 @@ public class Program
                 Schedule schedule = fullData["schedule"] as Schedule;
                 User user = fullData["user"] as User;
                 // ScheduleRepository.InsertSchedule(schedule, user);
+                // 연관관계를 맺어주는 메서드
             }
             else if(obj is Group)
             {
@@ -362,17 +292,18 @@ public class Program
             client.Close();
         }
 
-        async static Task AsyncServer() {
+        async static Task AsyncServer()
+        {
 
             TcpListener server = new TcpListener(9050);
 
             server.Start();
 
-            while(true)
+            while (true)
             {
                 TcpClient client = await server.AcceptTcpClientAsync().ConfigureAwait(false);
 
-                Task.Run( () => AsyncProcess(client));
+                Task.Run(() => AsyncProcess(client));
             }
         }
 

@@ -7,10 +7,12 @@ using System.Drawing;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PacketLibrary;
 using EntityLibrary;
+using WindowsFormsApp1;
 
 namespace Client
 {
@@ -26,7 +28,8 @@ namespace Client
             this.mainform = mainform;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+
+        private void loginBtn_Click(object sender, EventArgs e)
         {
             User user = new User();
 
@@ -63,10 +66,21 @@ namespace Client
 
         }
 
-        //private void btn_signup_Click(object sender, EventArgs e)
-        //{
-        //    SignUpForm form = new SignUpForm();
-        //    form.ShowDialog();
-        //}
+        private void btn_signup_click(object sender, EventArgs e)
+        {
+            SignUpForm form = new SignUpForm();
+            form.ShowDialog();
+        }
+
+
+        private void LoginForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            // esc 누르면 폼 종료
+            if (e.KeyCode == Keys.Escape)
+            {
+                Close();
+            }
+        }
     }
+
 }

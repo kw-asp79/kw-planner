@@ -32,8 +32,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.txt_Id = new System.Windows.Forms.TextBox();
-            this.txt_Pwd = new System.Windows.Forms.TextBox();
+            this.txt_ID = new System.Windows.Forms.TextBox();
+            this.txt_pwd = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btn_login = new System.Windows.Forms.Button();
@@ -52,7 +52,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(347, 232);
             this.panel1.TabIndex = 0;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // pictureBox1
             // 
@@ -120,7 +119,7 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Password";
             // 
-            // btn_login
+            // loginBtn
             // 
             this.btn_login.BackColor = System.Drawing.Color.SkyBlue;
             this.btn_login.FlatAppearance.BorderSize = 0;
@@ -133,9 +132,9 @@
             this.btn_login.TabIndex = 6;
             this.btn_login.Text = "Login";
             this.btn_login.UseVisualStyleBackColor = false;
-            this.btn_login.Click += new System.EventHandler(this.button1_Click);
+            this.btn_login.Click += new System.EventHandler(this.loginBtn_Click);
             // 
-            // btn_signup
+            // signupBtn
             // 
             this.btn_signup.BackColor = System.Drawing.Color.SkyBlue;
             this.btn_signup.FlatAppearance.BorderSize = 0;
@@ -159,15 +158,14 @@
             this.Controls.Add(this.btn_login);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.txt_Pwd);
-            this.Controls.Add(this.txt_Id);
+            this.Controls.Add(this.txt_pwd);
+            this.Controls.Add(this.txt_ID);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LoginForm";
-            this.Load += new System.EventHandler(this.LoginForm_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -180,8 +178,8 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.TextBox txt_Id;
-        private System.Windows.Forms.TextBox txt_Pwd;
+        private System.Windows.Forms.TextBox txt_ID;
+        private System.Windows.Forms.TextBox txt_pwd;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btn_login;

@@ -60,7 +60,7 @@ namespace Client
             if (showRedCircle)
             {
                 PictureBox scheduleImage = new PictureBox();
-                scheduleImage.Image = Image.FromFile("C:\\Users\\82109\\Desktop\\스케줄러\\kw-planner\\userClient\\Resources\\scheduleImage.png");
+                //scheduleImage.Image = Image.FromFile("C:\\Users\\82109\\Desktop\\스케줄러\\kw-planner\\userClient\\Resources\\scheduleImage.png");
                 scheduleImage.Size = new Size(30, 30); // 크기에 맞게 조절
                 scheduleImage.Location = new Point(10, 40);
                 scheduleImage.SizeMode = PictureBoxSizeMode.Zoom; // 가로와 세로의 비율이 유지된 상태에서 바뀐다
