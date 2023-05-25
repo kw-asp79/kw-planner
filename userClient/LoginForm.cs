@@ -9,26 +9,20 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-<<<<<<< HEAD
-using WindowsFormsApp1;
-=======
 using PacketLibrary;
 using EntityLibrary;
->>>>>>> 74af103a8f75a5e1cad16276e6b3369293000fb6
+using WindowsFormsApp1;
 
 namespace Client
 {
     public partial class LoginForm : Form
-<<<<<<< HEAD
-    { 
-        public LoginForm()
-=======
+
     {
         NetworkStream netstrm;
         public mainForm mainform;
 
         public LoginForm(NetworkStream netstrm, mainForm mainform)
->>>>>>> 74af103a8f75a5e1cad16276e6b3369293000fb6
+
         {
             InitializeComponent();
             this.netstrm = netstrm;
@@ -80,6 +74,11 @@ namespace Client
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void LoginForm_Load(object sender, EventArgs e)
         {
 
         }

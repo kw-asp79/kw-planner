@@ -32,14 +32,17 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.lblSelectedDate = new System.Windows.Forms.Label();
             this.lblSelectedDayOfWeek = new System.Windows.Forms.Label();
-            this.cbbHour = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
+            this.dtpStartTime = new System.Windows.Forms.DateTimePicker();
+            this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
+            this.dtpEndTime = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // tbSchedule
             // 
             this.tbSchedule.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbSchedule.Location = new System.Drawing.Point(234, 15);
+            this.tbSchedule.Location = new System.Drawing.Point(254, 22);
             this.tbSchedule.Name = "tbSchedule";
             this.tbSchedule.Size = new System.Drawing.Size(410, 34);
             this.tbSchedule.TabIndex = 1;
@@ -47,7 +50,7 @@
             // btnSave
             // 
             this.btnSave.Font = new System.Drawing.Font("Ink Free", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Location = new System.Drawing.Point(705, 9);
+            this.btnSave.Location = new System.Drawing.Point(1025, 8);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(98, 48);
             this.btnSave.TabIndex = 4;
@@ -71,37 +74,73 @@
             this.lblSelectedDayOfWeek.Size = new System.Drawing.Size(0, 15);
             this.lblSelectedDayOfWeek.TabIndex = 7;
             // 
-            // cbbHour
-            // 
-            this.cbbHour.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbbHour.FormattingEnabled = true;
-            this.cbbHour.Location = new System.Drawing.Point(28, 15);
-            this.cbbHour.Name = "cbbHour";
-            this.cbbHour.Size = new System.Drawing.Size(121, 34);
-            this.cbbHour.TabIndex = 8;
-            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 69);
+            this.panel1.Location = new System.Drawing.Point(0, 71);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(872, 466);
+            this.panel1.Size = new System.Drawing.Size(1311, 617);
             this.panel1.TabIndex = 9;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // dtpStartDate
+            // 
+            this.dtpStartDate.CustomFormat = "yyyy-MM-dd";
+            this.dtpStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpStartDate.Location = new System.Drawing.Point(26, 9);
+            this.dtpStartDate.Name = "dtpStartDate";
+            this.dtpStartDate.Size = new System.Drawing.Size(200, 25);
+            this.dtpStartDate.TabIndex = 10;
+            // 
+            // dtpStartTime
+            // 
+            this.dtpStartTime.CustomFormat = "HH:mm";
+            this.dtpStartTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpStartTime.Location = new System.Drawing.Point(26, 40);
+            this.dtpStartTime.Name = "dtpStartTime";
+            this.dtpStartTime.ShowUpDown = true;
+            this.dtpStartTime.Size = new System.Drawing.Size(200, 25);
+            this.dtpStartTime.TabIndex = 11;
+            this.dtpStartTime.ValueChanged += new System.EventHandler(this.dtpStartTime_ValueChanged);
+            // 
+            // dtpEndDate
+            // 
+            this.dtpEndDate.CustomFormat = "yyyy-MM-dd";
+            this.dtpEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpEndDate.Location = new System.Drawing.Point(707, 8);
+            this.dtpEndDate.Name = "dtpEndDate";
+            this.dtpEndDate.Size = new System.Drawing.Size(200, 25);
+            this.dtpEndDate.TabIndex = 12;
+            // 
+            // dtpEndTime
+            // 
+            this.dtpEndTime.CustomFormat = "HH:mm";
+            this.dtpEndTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpEndTime.Location = new System.Drawing.Point(707, 40);
+            this.dtpEndTime.Name = "dtpEndTime";
+            this.dtpEndTime.ShowUpDown = true;
+            this.dtpEndTime.Size = new System.Drawing.Size(200, 25);
+            this.dtpEndTime.TabIndex = 13;
+            this.dtpEndTime.ValueChanged += new System.EventHandler(this.dtpEndTime_ValueChanged);
             // 
             // EventForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(872, 535);
+            this.ClientSize = new System.Drawing.Size(1311, 688);
+            this.Controls.Add(this.dtpEndTime);
+            this.Controls.Add(this.dtpEndDate);
+            this.Controls.Add(this.dtpStartTime);
+            this.Controls.Add(this.dtpStartDate);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.cbbHour);
             this.Controls.Add(this.lblSelectedDayOfWeek);
             this.Controls.Add(this.lblSelectedDate);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.tbSchedule);
             this.Name = "EventForm";
             this.Text = "EventForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EventForm_FormClosing);
             this.Load += new System.EventHandler(this.EventForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -113,7 +152,10 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label lblSelectedDate;
         private System.Windows.Forms.Label lblSelectedDayOfWeek;
-        private System.Windows.Forms.ComboBox cbbHour;
+        private System.Windows.Forms.DateTimePicker dtpStartDate;
+        private System.Windows.Forms.DateTimePicker dtpStartTime;
+        private System.Windows.Forms.DateTimePicker dtpEndDate;
+        private System.Windows.Forms.DateTimePicker dtpEndTime;
         private System.Windows.Forms.Panel panel1;
     }
 }

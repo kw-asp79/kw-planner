@@ -12,37 +12,56 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Client.UserControlDays;
 using WindowsFormsApp1;
+using static Client.EventForm;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace Client
 {
     public partial class EventForm : Form
     {
-        private List<Event> events;
-        private UserControlDays userControlDays;
-        private List<CheckBox> checkBoxes;
-        private List<Label> labels;
+        UserControlDays UserControlDays;
+        private CheckBox completionCheckBox;
+        private Label startDateTimeLabel;
+        private Label savedContentLabel;
+        private Label endDateTimeLabel;
         private int controlTop;
+        private int lcontrolTop;
+        private List<Event> events;
+        private List<CheckBox> checkBoxes; // 체크박스 리스트 추가
 
-        public EventForm()
+
+
+        public EventForm(UserControlDays form)
         {
+            UserControlDays = form;
             InitializeComponent();
-
-            userControlDays = new UserControlDays();
-
-            // UserControlDays_DateSelected 이벤트 핸들러 등록
-            userControlDays.DateSelected += UserControlDays_DateSelected;
-
+            controlTop = -140;
+            lcontrolTop = -140;
             events = new List<Event>();
             checkBoxes = new List<CheckBox>();
-            labels = new List<Label>();
 
-            // ComboBox에 시간 옵션 추가
-            for (int i = 0; i < 24; i++)
-            {
-                cbbHour.Items.Add(i.ToString("00"+"시"));
-            }
 
-            controlTop = 10;//처음 위치 
+            // 시작 날짜와 시간을 나타내는 Label 생성
+            startDateTimeLabel = new Label();
+            startDateTimeLabel.Top = controlTop + 30;
+            startDateTimeLabel.Font = new Font("Ink Free", 13, FontStyle.Regular);
+            panel1.Controls.Add(startDateTimeLabel);
+
+            // 저장된 내용을 나타내는 Label 생성
+            savedContentLabel = new Label();
+            savedContentLabel.Top = controlTop + 60;
+            savedContentLabel.Font = new Font("Ink Free", 13, FontStyle.Regular);
+            panel1.Controls.Add(savedContentLabel);
+
+            // 끝나는 날짜와 시간을 나타내는 Label 생성
+            endDateTimeLabel = new Label();
+            endDateTimeLabel.Top = controlTop + 90;
+            endDateTimeLabel.Font = new Font("Ink Free", 13, FontStyle.Regular);
+            panel1.Controls.Add(endDateTimeLabel);
+
+            controlTop += 150; // 다음 컨트롤의 위치를 조정
+
+
         }
 
         //public delegate void DateSelectedHandler(int day, string dayOfWeek);
@@ -77,77 +96,149 @@ namespace Client
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            string time = cbbHour.SelectedItem.ToString();
+            DateTime startDateTime = new DateTime(dtpStartDate.Value.Year, dtpStartDate.Value.Month, dtpStartDate.Value.Day,
+        dtpStartTime.Value.Hour, dtpStartTime.Value.Minute, 0);
+
+            DateTime endDateTime = new DateTime(dtpEndDate.Value.Year, dtpEndDate.Value.Month, dtpEndDate.Value.Day,
+                dtpEndTime.Value.Hour, dtpEndTime.Value.Minute, 0);
+
             string schedule = tbSchedule.Text;
 
-            // 이벤트 객체를 생성하여 리스트에 추가
-            Event newEvent = new Event(time, schedule);
+            Event newEvent = new Event(startDateTime, endDateTime, schedule);
             events.Add(newEvent);
 
-            // 이벤트를 표시를 위한 체크 박스와 라벨 생성
+            // 이벤트 정보를 표시하기 위한 컨트롤 생성
             CheckBox checkBox = new CheckBox();
-            checkBox.Text = time + schedule;
-            checkBox.Text = time + "    " + schedule;
+            checkBox.Text = newEvent.GetEventString();
             checkBox.CheckedChanged += CheckBox_CheckedChanged;
-            checkBoxes.Add(checkBox);
+
+            checkBoxes.Add(checkBox); // 체크박스를 checkBoxes 리스트에 추가
             checkBox.Top = controlTop;
             checkBox.Font = new Font("Ink Free", 13, FontStyle.Regular);
             panel1.Controls.Add(checkBox);
-
 
             // CheckBox의 너비 조정
             checkBox.AutoSize = true;
             checkBox.MinimumSize = new Size(200, checkBox.Height);
 
+            controlTop += checkBox.Height + 10;
 
-            Label label = new Label();
-            label.Text = time + "    " + schedule;
-            labels.Add(label);
-            label.Top = controlTop;
-            label.Font = new Font("Ink Free", 13, FontStyle.Bold);
+            Button deleteButton = new Button();
+            deleteButton.Text = "삭제";
+            deleteButton.Click += DeleteButton_Click;
+
+            deleteButton.Top = controlTop;
+            deleteButton.Left = checkBox.Left + 800 - deleteButton.Width;
+            panel1.Controls.Add(deleteButton);
+            controlTop += deleteButton.Height + 10;
+
+            deleteButton.Tag = checkBox;
 
 
-            // Label의 너비 조정
-            label.AutoSize = true;
-            label.MinimumSize = new Size(200, label.Height);
+            UpdateLabelIndicator();
 
-
-            controlTop += checkBox.Height + 10; // 다음 컨트롤의 위치를 조정
-            cbbHour.SelectedIndex = -1;
-            tbSchedule.Text = "";
         }
 
-        private void CheckBox_CheckedChanged(object sender, EventArgs e)
+        private void DeleteButton_Click(object sender, EventArgs e)
         {
-            // 체크 박스의 체크 상태가 변경되었을 때 실행되는 이벤트 핸들러입니다.
-            CheckBox checkBox = (CheckBox)sender;
-            string eventText = checkBox.Text;
-            bool isChecked = checkBox.Checked;
+            Button deleteButton = (Button)sender;
+            CheckBox associatedCheckBox = (CheckBox)deleteButton.Tag;
 
-            // 체크 상태에 따라 이벤트 텍스트의 스타일을 변경합니다.
-            if (isChecked)
+            // 스케줄 삭제
+            string eventString = associatedCheckBox.Text;
+            Event eventToDelete = events.FirstOrDefault(ev => ev.GetEventString() == eventString);
+            if (eventToDelete != null)
             {
-                checkBox.Font = new System.Drawing.Font(checkBox.Font, System.Drawing.FontStyle.Strikeout);
-                checkBox.ForeColor = System.Drawing.Color.Gray;
+                events.Remove(eventToDelete);
             }
-            else
-            {
-                checkBox.Font = new System.Drawing.Font(checkBox.Font, System.Drawing.FontStyle.Regular);
-                checkBox.ForeColor = System.Drawing.Color.Black;
-            }
+
+            // 체크박스와 삭제 버튼 제거
+            panel1.Controls.Remove(associatedCheckBox);
+            panel1.Controls.Remove(deleteButton);
+            checkBoxes.Remove(associatedCheckBox);
+
+            // 필요한 경우 레이아웃을 재조정할 수 있습니다.
+            // ...
+
+            UpdateLabelIndicator();
         }
+
+
+        private void UpdateLabelIndicator()
+        {
+            bool allChecked = checkBoxes.All(cb => cb.Checked);
+            bool hasSchedule = checkBoxes.Any();
+
+            UserControlDays.SetLabelIndicator(hasSchedule && !allChecked);
+        }
+
+
+        private void ClearInputFields()
+        {
+            tbSchedule.Text = "";
+            dtpStartDate.Value = DateTime.Now;
+            dtpStartTime.Value = DateTime.Now;
+            dtpEndDate.Value = DateTime.Now;
+            dtpEndTime.Value = DateTime.Now;
+        }
+
 
         public class Event
         {
-            public string Time { get; set; }
+            public DateTime StartDateTime { get; set; }
+            public DateTime EndDateTime { get; set; }
             public string Schedule { get; set; }
 
-            public Event(string time, string schedule)
+            public Event(DateTime startDateTime, DateTime endDateTime, string schedule)
             {
-                Time = time;
+                StartDateTime = startDateTime;
+                EndDateTime = endDateTime;
                 Schedule = schedule;
             }
+
+
+            public string GetEventString()
+            {
+                string start = StartDateTime.ToString("yyyy-MM-dd HH:mm");
+                string end = EndDateTime.ToString("yyyy-MM-dd HH:mm");
+                return $"{start} - {end}: {Schedule}";
+            }
+        }
+        private void CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            if (checkBox.Checked)
+            {
+                checkBox.Font = new Font(checkBox.Font, FontStyle.Strikeout);
+                checkBox.ForeColor = Color.Gray;
+            }
+            else
+            {
+                checkBox.Font = new Font(checkBox.Font, FontStyle.Regular);
+                checkBox.ForeColor = Color.Black;
+            }
+            UpdateLabelIndicator();
         }
 
+
+        private void EventForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
+        }
+
+        private void dtpStartTime_ValueChanged(object sender, EventArgs e)
+        {
+         
+        }
+
+        private void dtpEndTime_ValueChanged(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

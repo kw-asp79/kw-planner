@@ -9,16 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using WindowsFormsApp1;
-<<<<<<< HEAD
- 
-=======
 using System.Net.Sockets;
 using EntityLibrary;
 using PacketLibrary;
 using MySqlX.XDevAPI;
 using System.Collections;
-
->>>>>>> 74af103a8f75a5e1cad16276e6b3369293000fb6
 namespace Client
 {
     public partial class mainForm : Form
@@ -42,9 +37,10 @@ namespace Client
         {
             MessageBox.Show("readAllData 실행");
 
-            while(true)
+            while (true)
             {
                 if (isLoginSuccess)
+                
                 {
                     MessageBox.Show("isLoginSuccess = true!!");
 
@@ -76,41 +72,41 @@ namespace Client
             
         }
 
-        //async Task asyncSend(NetworkStream netstrm, Packet packet)
+        //async task asyncsend(networkstream netstrm, packet packet)
         //{
-        //    if (server.Connected)
+        //    if (server.connected)
         //    {
-        //        Packet sendPacket = packet;
-        //        PacketInfo packetInfo = new PacketInfo();
+        //        packet sendpacket = packet;
+        //        packetinfo packetinfo = new packetinfo();
 
-        //        byte[] data = Packet.Serialize(sendPacket, packetInfo);
-        //        byte[] size = BitConverter.GetBytes(packetInfo.size); ;
+        //        byte[] data = packet.serialize(sendpacket, packetinfo);
+        //        byte[] size = bitconverter.getbytes(packetinfo.size); ;
 
         //        // packet의 size를 먼저 전송
-        //        netstrm.Write(size, 0, 4);
+        //        netstrm.write(size, 0, 4);
         //        // 그 다음 packet을 전송
-        //        netstrm.Write(data, 0, packetInfo.size);
-        //        netstrm.Flush();
-        //        MessageBox.Show("successfully send!");
+        //        netstrm.write(data, 0, packetinfo.size);
+        //        netstrm.flush();
+        //        messagebox.show("successfully send!");
         //    }
         //}
 
-        //async Task asyncRecieve(NetworkStream netstrm)
+        //async task asyncrecieve(networkstream netstrm)
         //{
-        //    if (server.Connected)
+        //    if (server.connected)
         //    {
-        //        PacketInfo packetInfo = new PacketInfo();
+        //        packetinfo packetinfo = new packetinfo();
 
         //        byte[] size = new byte[4];
 
-        //        int recv = netstrm.Read(size, 0, 4);
-        //        packetInfo.size = BitConverter.ToInt32(size, 0);
+        //        int recv = netstrm.read(size, 0, 4);
+        //        packetinfo.size = bitconverter.toint32(size, 0);
 
-        //        byte[] data = new byte[packetInfo.size];
+        //        byte[] data = new byte[packetinfo.size];
 
-        //        recv = netstrm.Read(data, 0, packetInfo.size);
+        //        recv = netstrm.read(data, 0, packetinfo.size);
 
-        //        Packet receivedPacket = Packet.Desserialize(data, packetInfo);
+        //        packet receivedpacket = packet.desserialize(data, packetinfo);
         //    }
         //}
 
@@ -124,38 +120,40 @@ namespace Client
         {
             this.Width = 1060;
             this.Height = 900;
+
+
+            
+
+            // show calendar form  
+            
+            
         }
-<<<<<<< HEAD
-        private void Form1_Load(object sender, EventArgs e)
-=======
+
 
         private async void Form1_Load(object sender, EventArgs e)
->>>>>>> 74af103a8f75a5e1cad16276e6b3369293000fb6
         {
 
             // TCP 통신
+
             try
             {
                 server = new TcpClient("127.0.0.1", 9050);
+                netstrm = server.GetStream();
             }
-<<<<<<< HEAD
-            
-=======
+
             catch (SocketException ex)
             {
                 MessageBox.Show("\"Unable to connect to server\"");
             }
-
-            netstrm = server.GetStream();
+            //netstrm = server.GetStream();
 
             Task.Run(() => requestMyData(netstrm));
 
 
->>>>>>> 74af103a8f75a5e1cad16276e6b3369293000fb6
-            // show calendar form  
             calendarForm = new calendarForm();
             calendarForm.showCalendar();
             calendarContainer.Controls.Add(calendarForm);
+
 
             // Form_Close 이벤트 발생시 아래 코드를 추가해야함
             //netstrm.Close();

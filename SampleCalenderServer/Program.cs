@@ -26,6 +26,25 @@ namespace Server
         public static string connectionString;
         public static MySqlConnection connection;
 
+
+        public static void ConnectDB()
+        {
+
+            connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ProjectDB"].ConnectionString;
+            connection = new MySqlConnection(connectionString);
+
+            try
+            {
+                connection.Open();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+            }
+        }
+
+
+        //user 테이블 
         public static User SelectUser(string user_id, string user_pwd)
         {
             MySqlCommand command = connection.CreateCommand();
@@ -38,7 +57,6 @@ namespace Server
 
             User user = new User();
 
-            // 데이터가 있다면
             if (reader.HasRows)
             {
                 reader.Read();
@@ -53,12 +71,50 @@ namespace Server
             return user;
         }
 
-        public static List<User> SelectFriends(User user)
+        public static void CreateUser(User user)
+        {
+            MySqlCommand command = connection.CreateCommand();
+            command.CommandText = "INSERT INTO user (user_id, pwd, name) VALUES (@user_id, @pwd, @name)";
+            command.Parameters.AddWithValue("@user_id", user.id);
+            command.Parameters.AddWithValue("@pwd", user.pwd);
+            command.Parameters.AddWithValue("@name", user.name);
+
+            command.ExecuteNonQuery();
+        }
+
+        public static void DeleteUser(string user_id)
+        {
+
+            MySqlCommand command = connection.CreateCommand();
+
+            command.CommandText = "DELETE FROM user_schedule WHERE user_id = @user_id";
+            command.Parameters.AddWithValue("@user_id", user_id);
+            command.ExecuteNonQuery();
+
+            // friendship 테이블에서 해당 user_id를 가진 데이터 삭제
+            command.CommandText = "DELETE FROM friendship WHERE user_id = @user_id OR friend_id = @user_id";
+            command.Parameters.AddWithValue("@user_id", user_id);
+            command.ExecuteNonQuery();
+
+            // user_group 테이블에서 해당 user_id를 가진 데이터 삭제
+            command.CommandText = "DELETE FROM user_group WHERE user_id = @user_id";
+            command.Parameters.AddWithValue("@user_id", user_id);
+            command.ExecuteNonQuery();
+
+            // user 테이블에서 해당 user_id를 가진 데이터 삭제
+            command.CommandText = "DELETE FROM user WHERE user_id = @user_id";
+            command.Parameters.AddWithValue("@user_id", user_id);
+            command.ExecuteNonQuery();
+        }
+
+
+        //friendship 테이블
+        public static List<User> SelectFriendship(User user)
         {
             MySqlCommand command = connection.CreateCommand();
 
-            command.CommandText = "SELECT user.* FROM user JOIN friendship WHERE friendship.user_id = @myUserId AND friendship.friend_id = user.user_id;";
-            command.Parameters.AddWithValue("@myUserId", user.id);
+            command.CommandText = "SELECT user.* FROM user JOIN friendship ON friendship.friend_id = user.user_id WHERE friendship.user_id = @userId;";
+            command.Parameters.AddWithValue("@userId", user.id);
 
             MySqlDataReader reader = command.ExecuteReader();
 
@@ -74,40 +130,63 @@ namespace Server
                 friends.Add(friend);
             }
 
-
             reader.Close();
 
             return friends;
         }
 
-        public static List<Schedule> SelectSchedules(User user)
+        public static void CreateFriendship(string user_id, string friend_id)
         {
             MySqlCommand command = connection.CreateCommand();
+            command.CommandText = "INSERT INTO friendship (user_id, friend_id) VALUES (@user_id, @friend_id)";
+            command.Parameters.AddWithValue("@user_id", user_id);
+            command.Parameters.AddWithValue("@friend_id", friend_id);
 
-            command.CommandText = "SELECT schedule.* FROM schedule JOIN user_schedule WHERE user_schedule.user_id = @myUserId AND user_schedule.schedule_id = schedule.schedule_id;";
-            command.Parameters.AddWithValue("@myUserId", user.id);
-
-            MySqlDataReader reader = command.ExecuteReader();
-
-            List<Schedule> schedules = new List<Schedule>();
-
-            while (reader.Read())
-            {
-                Schedule schedule = new Schedule();
-
-                schedule.category = reader.GetString("category");
-                schedule.title = reader.GetString("title");
-                schedule.content = reader.GetString("content");
-                schedule.startTime = reader.GetDateTime("start_time");
-                schedule.endTime = reader.GetDateTime("end_time");
-
-                schedules.Add(schedule);
-            }
-
-            reader.Close();
-
-            return schedules;
+            command.ExecuteNonQuery();
         }
+
+
+
+        public static void DeleteFriendship(string user_id, string friend_id)
+        {
+            MySqlCommand command = connection.CreateCommand();
+            command.CommandText = "DELETE FROM friendship WHERE user_id = @user_id AND friend_id = @friend_id";
+            command.Parameters.AddWithValue("@user_id", user_id);
+            command.Parameters.AddWithValue("@friend_id", friend_id);
+
+            command.ExecuteNonQuery();
+        }
+
+        //group
+
+        public static void CreateGroup(string name)
+        {
+            MySqlCommand command = connection.CreateCommand();
+            command.CommandText = "INSERT INTO `group` (name) VALUES (@name);";
+            command.Parameters.AddWithValue("@name", name);
+
+            command.ExecuteNonQuery();
+        }
+
+        public static void DeleteGroup(int groupId)
+        {
+            MySqlCommand command = connection.CreateCommand();
+            command.CommandText = "DELETE FROM `group` WHERE group_id = @groupId;";
+            command.Parameters.AddWithValue("@groupId", groupId);
+
+            command.ExecuteNonQuery();
+        }
+
+        public static void UpdateGroup(int groupId, string name)
+        {
+            MySqlCommand command = connection.CreateCommand();
+            command.CommandText = "UPDATE `group` SET name = @name WHERE group_id = @groupId;";
+            command.Parameters.AddWithValue("@groupId", groupId);
+            command.Parameters.AddWithValue("@name", name);
+
+            command.ExecuteNonQuery();
+        }
+
         public static Dictionary<string, List<User>> SelectGroupsWithFriends(User user)
         {
             // 나한테만 보여지는 Group이라고 가정
@@ -151,11 +230,8 @@ namespace Server
                 reader.Close();
             }
 
-<<<<<<< HEAD
+
             foreach (string groupName in groups.Keys)
-=======
-            foreach(string groupName in groups.Keys)
->>>>>>> 74af103a8f75a5e1cad16276e6b3369293000fb6
             {
                 Console.Write("my Group: {0} : ", groupName);
                 groups[groupName].ForEach(element => Console.Write(" {0}", element.name));
@@ -166,22 +242,214 @@ namespace Server
         }
 
 
-        public static void ConnectDB()
+        //usergroup
+        // Create
+        public static void CreateUserGroup(int groupId, string userId)
         {
+            MySqlCommand command = connection.CreateCommand();
+            command.CommandText = "INSERT INTO `user_group` (group_id, user_id) VALUES (@groupId, @userId);";
+            command.Parameters.AddWithValue("@groupId", groupId);
+            command.Parameters.AddWithValue("@userId", userId);
 
-            connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ProjectDB"].ConnectionString;
-            connection = new MySqlConnection(connectionString);
+            command.ExecuteNonQuery();
+        }
 
-            try
+        public class UserGroup
+        {
+            public int UserGroupId { get; set; }
+            public int GroupId { get; set; }
+            public string UserId { get; set; }
+
+            public UserGroup(int userGroupId, int groupId, string userId)
             {
-                connection.Open();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message.ToString());
+                UserGroupId = userGroupId;
+                GroupId = groupId;
+                UserId = userId;
             }
         }
+
+        // Select (특정 user_group_id에 해당하는 데이터 조회)
+        public static UserGroup SelectUserGroup(int userGroupId)
+        {
+            MySqlCommand command = connection.CreateCommand();
+            command.CommandText = "SELECT * FROM `user_group` WHERE `user_group_id` = @userGroupId;";
+            command.Parameters.AddWithValue("@userGroupId", userGroupId);
+
+            MySqlDataReader reader = command.ExecuteReader();
+
+            UserGroup userGroup = null;
+
+            if (reader.Read())
+            {
+                int groupId = reader.GetInt32("group_id");
+                string userId = reader.GetString("user_id");
+
+                userGroup = new UserGroup(userGroupId, groupId, userId);
+            }
+
+            reader.Close();
+
+            return userGroup;
+        }
+
+
+        // Update (특정 user_group_id에 해당하는 데이터 업데이트)
+        public static void UpdateUserGroup(int userGroupId, int groupId, string userId)
+        {
+            MySqlCommand command = connection.CreateCommand();
+            command.CommandText = "UPDATE `user_group` SET group_id = @groupId, user_id = @userId WHERE user_group_id = @userGroupId;";
+            command.Parameters.AddWithValue("@userGroupId", userGroupId);
+            command.Parameters.AddWithValue("@groupId", groupId);
+            command.Parameters.AddWithValue("@userId", userId);
+
+            command.ExecuteNonQuery();
+        }
+
+        // Delete (특정 user_group_id에 해당하는 데이터 삭제)
+        public static void DeleteUserGroup(int userGroupId)
+        {
+            MySqlCommand command = connection.CreateCommand();
+            command.CommandText = "DELETE FROM `user_group` WHERE user_group_id = @userGroupId;";
+            command.Parameters.AddWithValue("@userGroupId", userGroupId);
+
+            command.ExecuteNonQuery();
+        }
+
+
+
+        //userschedule
+
+            public static void UserScheduleCreate(string userId, int scheduleId)
+            {
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "INSERT INTO `user_schedule` (user_id, schedule_id) VALUES (@userId, @scheduleId);";
+                command.Parameters.AddWithValue("@userId", userId);
+                command.Parameters.AddWithValue("@scheduleId", scheduleId);
+
+                command.ExecuteNonQuery();
+            }
+
+            public static void UserScheduleDelete(int userScheduleId)
+            {
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "DELETE FROM `user_schedule` WHERE user_schedule_id = @userScheduleId;";
+                command.Parameters.AddWithValue("@userScheduleId", userScheduleId);
+
+                command.ExecuteNonQuery();
+            }
+
+            public static void UserScheduleUpdate(int userScheduleId, string userId, int scheduleId)
+            {
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "UPDATE `user_schedule` SET user_id = @userId, schedule_id = @scheduleId WHERE user_schedule_id = @userScheduleId;";
+                command.Parameters.AddWithValue("@userScheduleId", userScheduleId);
+                command.Parameters.AddWithValue("@userId", userId);
+                command.Parameters.AddWithValue("@scheduleId", scheduleId);
+
+                command.ExecuteNonQuery();
+            }
+
+            public static List<int> UserScheduleSelect(string userId)
+            {
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT user_schedule_id FROM `user_schedule` WHERE user_id = @userId;";
+                command.Parameters.AddWithValue("@userId", userId);
+
+                MySqlDataReader reader = command.ExecuteReader();
+
+                List<int> userScheduleIds = new List<int>();
+
+                while (reader.Read())
+                {
+                    int userScheduleId = reader.GetInt32("user_schedule_id");
+                    userScheduleIds.Add(userScheduleId);
+                }
+
+                reader.Close();
+
+                return userScheduleIds;
+            }
+       
+
+
+        //
+
+
+
+        public static List<Schedule> SelectSchedules(User user)
+        {
+            MySqlCommand command = connection.CreateCommand();
+
+            command.CommandText = "SELECT schedule.* FROM schedule JOIN user_schedule WHERE user_schedule.user_id = @myUserId AND user_schedule.schedule_id = schedule.schedule_id;";
+            command.Parameters.AddWithValue("@myUserId", user.id);
+
+            MySqlDataReader reader = command.ExecuteReader();
+
+            List<Schedule> schedules = new List<Schedule>();
+
+            while (reader.Read())
+            {
+                Schedule schedule = new Schedule();
+
+                schedule.category = reader.GetString("category");
+                schedule.title = reader.GetString("title");
+                schedule.content = reader.GetString("content");
+                schedule.startTime = reader.GetDateTime("start_time");
+                schedule.endTime = reader.GetDateTime("end_time");
+
+                schedules.Add(schedule);
+            }
+
+            reader.Close();
+
+            return schedules;
+        }
+        public static void CreateSchedule(Schedule schedule)
+        {
+            MySqlCommand command = connection.CreateCommand();
+            command.CommandText = "INSERT INTO schedule (category, title, content, start_time, end_time) " +
+                                  "VALUES (@category, @title, @content, @startTime, @endTime);";
+            command.Parameters.AddWithValue("@category", schedule.category);
+            command.Parameters.AddWithValue("@title", schedule.title);
+            command.Parameters.AddWithValue("@content", schedule.content);
+            command.Parameters.AddWithValue("@startTime", schedule.startTime);
+            command.Parameters.AddWithValue("@endTime", schedule.endTime);
+
+            command.ExecuteNonQuery();
+        }
+
+        public static void UpdateSchedule(Schedule schedule)
+        {
+            MySqlCommand command = connection.CreateCommand();
+            command.CommandText = "UPDATE schedule " +
+                                  "SET category = @category, title = @title, content = @content, " +
+                                  "start_time = @startTime, end_time = @endTime " +
+                                  "WHERE schedule_id = @scheduleId;";
+            command.Parameters.AddWithValue("@category", schedule.category);
+            command.Parameters.AddWithValue("@title", schedule.title);
+            command.Parameters.AddWithValue("@content", schedule.content);
+            command.Parameters.AddWithValue("@startTime", schedule.startTime);
+            command.Parameters.AddWithValue("@endTime", schedule.endTime);
+
+            command.ExecuteNonQuery();
+        }
+
+        public static void DeleteSchedule(int scheduleId)
+        {
+            MySqlCommand command = connection.CreateCommand();
+            command.CommandText = "DELETE FROM schedule WHERE schedule_id = @scheduleId;";
+            command.Parameters.AddWithValue("@scheduleId", scheduleId);
+
+            command.ExecuteNonQuery();
+        }
+
+
+
     }
+
+
+
+
 
     public class Program
     {
@@ -214,7 +482,7 @@ namespace Server
 
             Dictionary<String, Object> fullData = new Dictionary<String, Object>();
 
-            List<User> friends = DBProcess.SelectFriends(user);
+            List<User> friends = DBProcess.SelectFriendship(user);
             List<Schedule> schedules = DBProcess.SelectSchedules(user);
             Dictionary<String, List<User>> groups = DBProcess.SelectGroupsWithFriends(user);
 
@@ -296,44 +564,39 @@ namespace Server
             client.Close();
         }
 
-<<<<<<< HEAD
-        async static Task AsyncServer()
-        {
-=======
         async static Task AsyncServer() {
->>>>>>> 74af103a8f75a5e1cad16276e6b3369293000fb6
+
 
             TcpListener server = new TcpListener(9050);
 
             server.Start();
 
-<<<<<<< HEAD
-            while (true)
-            {
-                TcpClient client = await server.AcceptTcpClientAsync().ConfigureAwait(false);
 
-                Task.Run(() => AsyncProcess(client));
-=======
             while(true)
             {
                 TcpClient client = await server.AcceptTcpClientAsync().ConfigureAwait(false);
 
                 Task.Run( () => AsyncProcess(client));
->>>>>>> 74af103a8f75a5e1cad16276e6b3369293000fb6
+
             }
         }
 
-        public static void Main(string[] args)
+        /*public static void Main(string[] args)
         {
             DBProcess.ConnectDB();
 
-            AsyncServer().Wait();
+            AsyncServer().Wait();*/
 
-            /*
+        public static async Task Main(string[] args)
+        {
+            DBProcess.ConnectDB();
 
-            
-            *//*
-            TcpListener server = new TcpListener(9050);
+            await AsyncServer();
+
+
+
+
+            /*TcpListener server = new TcpListener(9050);
 
             server.Start();
 
@@ -342,12 +605,8 @@ namespace Server
                 server.BeginAcceptTcpClient(new AsyncCallback(AcceptCallback), server);
             }
             */
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 74af103a8f75a5e1cad16276e6b3369293000fb6
-            /*
+
             // TCP 통신
             TcpListener server = new TcpListener(9050);
 
@@ -360,7 +619,7 @@ namespace Server
             Console.WriteLine("Client Connected.. : {0}", client.Client.RemoteEndPoint);
 
             // 반복문 내에서 실행될 예정임
-            // while (true) {  }
+            //while (true) {  }
             Packet receivedPacket = Packet.ReceivePacket(netstrm);
 
             switch(receivedPacket.action)
@@ -383,7 +642,7 @@ namespace Server
             client.Close();
             server.Stop();
 
-            */
+            
         }
     }
 }
