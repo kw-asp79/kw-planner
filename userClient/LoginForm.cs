@@ -62,5 +62,11 @@ namespace Client
             }
 
         }
+
+        private void btn_signup_Click(object sender, EventArgs e)
+        {
+            SignUpForm form = new SignUpForm();
+            form.ShowDialog();
+        }
     }
 }

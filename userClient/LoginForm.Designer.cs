@@ -32,11 +32,12 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.txt_Id = new System.Windows.Forms.TextBox();
-            this.txt_Pwd = new System.Windows.Forms.TextBox();
+            this.txt_ID = new System.Windows.Forms.TextBox();
+            this.txt_pwd = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_login = new System.Windows.Forms.Button();
+            this.btn_signup = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -54,6 +55,7 @@
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::WindowsFormsApp1.Properties.Resources.스크린샷_2023_05_06_142010;
             this.pictureBox1.Location = new System.Drawing.Point(39, 64);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(222, 65);
@@ -76,21 +78,22 @@
             this.panel3.Size = new System.Drawing.Size(220, 1);
             this.panel3.TabIndex = 1;
             // 
-            // txt_Id
+            // txt_ID
             // 
-            this.txt_Id.BackColor = System.Drawing.SystemColors.Control;
-            this.txt_Id.Location = new System.Drawing.Point(41, 252);
-            this.txt_Id.Name = "txt_Id";
-            this.txt_Id.Size = new System.Drawing.Size(220, 28);
-            this.txt_Id.TabIndex = 2;
+            this.txt_ID.BackColor = System.Drawing.SystemColors.Control;
+            this.txt_ID.Location = new System.Drawing.Point(41, 252);
+            this.txt_ID.Name = "txt_ID";
+            this.txt_ID.Size = new System.Drawing.Size(220, 28);
+            this.txt_ID.TabIndex = 2;
             // 
-            // txt_Pwd
+            // txt_pwd
             // 
-            this.txt_Pwd.BackColor = System.Drawing.SystemColors.Control;
-            this.txt_Pwd.Location = new System.Drawing.Point(41, 336);
-            this.txt_Pwd.Name = "txt_Pwd";
-            this.txt_Pwd.Size = new System.Drawing.Size(220, 28);
-            this.txt_Pwd.TabIndex = 3;
+            this.txt_pwd.BackColor = System.Drawing.SystemColors.Control;
+            this.txt_pwd.Location = new System.Drawing.Point(41, 336);
+            this.txt_pwd.Name = "txt_pwd";
+            this.txt_pwd.PasswordChar = '*';
+            this.txt_pwd.Size = new System.Drawing.Size(220, 28);
+            this.txt_pwd.TabIndex = 3;
             // 
             // label1
             // 
@@ -114,31 +117,47 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Password";
             // 
-            // button1
+            // btn_login
             // 
-            this.button1.BackColor = System.Drawing.Color.SkyBlue;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.SystemColors.Control;
-            this.button1.Location = new System.Drawing.Point(90, 389);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(115, 49);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Login";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btn_login.BackColor = System.Drawing.Color.SkyBlue;
+            this.btn_login.FlatAppearance.BorderSize = 0;
+            this.btn_login.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_login.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_login.ForeColor = System.Drawing.SystemColors.Control;
+            this.btn_login.Location = new System.Drawing.Point(147, 389);
+            this.btn_login.Name = "btn_login";
+            this.btn_login.Size = new System.Drawing.Size(115, 49);
+            this.btn_login.TabIndex = 6;
+            this.btn_login.Text = "Login";
+            this.btn_login.UseVisualStyleBackColor = false;
+            this.btn_login.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btn_signup
+            // 
+            this.btn_signup.BackColor = System.Drawing.Color.SkyBlue;
+            this.btn_signup.FlatAppearance.BorderSize = 0;
+            this.btn_signup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_signup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_signup.ForeColor = System.Drawing.SystemColors.Control;
+            this.btn_signup.Location = new System.Drawing.Point(26, 389);
+            this.btn_signup.Name = "btn_signup";
+            this.btn_signup.Size = new System.Drawing.Size(115, 49);
+            this.btn_signup.TabIndex = 7;
+            this.btn_signup.Text = "SignUp";
+            this.btn_signup.UseVisualStyleBackColor = false;
+            this.btn_signup.Click += new System.EventHandler(this.btn_signup_Click);
             // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(300, 450);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_signup);
+            this.Controls.Add(this.btn_login);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.txt_Pwd);
-            this.Controls.Add(this.txt_Id);
+            this.Controls.Add(this.txt_pwd);
+            this.Controls.Add(this.txt_ID);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -158,11 +177,12 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.TextBox txt_Id;
-        private System.Windows.Forms.TextBox txt_Pwd;
+        private System.Windows.Forms.TextBox txt_ID;
+        private System.Windows.Forms.TextBox txt_pwd;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_login;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btn_signup;
     }
 }

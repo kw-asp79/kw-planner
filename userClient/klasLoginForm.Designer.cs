@@ -40,6 +40,7 @@
             // 
             this.pwdTbx.Location = new System.Drawing.Point(330, 392);
             this.pwdTbx.Name = "pwdTbx";
+            this.pwdTbx.PasswordChar = '*';
             this.pwdTbx.Size = new System.Drawing.Size(227, 21);
             this.pwdTbx.TabIndex = 18;
             // 
@@ -52,6 +53,7 @@
             this.loginBtn.TabIndex = 17;
             this.loginBtn.Text = "Login";
             this.loginBtn.UseVisualStyleBackColor = true;
+            this.loginBtn.Click += new System.EventHandler(this.loginBtn_Click);
             // 
             // idTbx
             // 

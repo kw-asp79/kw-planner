@@ -34,6 +34,18 @@ namespace Client
         public User myUserInfo;
         public bool isLoginSuccess = false;
 
+        public mainForm()
+        {
+            InitializeComponent();
+            this.Load += new EventHandler(MainForm_Load);
+        }
+        
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            this.Width = 1060;
+            this.Height = 900;
+        }
+
         public void requestMyData(NetworkStream netstrm)
         {
             MessageBox.Show("readAllData 실행");
@@ -129,8 +141,7 @@ namespace Client
             netstrm = server.GetStream();
 
             Task.Run(() => requestMyData(netstrm));
-
-
+            
             // show calendar form  
             calendarForm = new calendarForm();
             calendarForm.showCalendar();
@@ -154,7 +165,6 @@ namespace Client
             calendarContainer.Controls.Add(calendarForm);
 
         }
-
         private void klasBtn_Click(object sender, EventArgs e)
         {
 
@@ -163,12 +173,8 @@ namespace Client
             klasLoginForm = new klasLoginForm(netstrm);
 
             calendarContainer.Controls.Add(klasLoginForm);
-
-
             // after login once, don't need to show loginForm. Instead, shows user's klas data UI
-
         }
-
         private void lbyBtn_Click(object sender, EventArgs e)
         {
             calendarContainer.Controls.Clear();
@@ -179,9 +185,6 @@ namespace Client
             // after login once, don't need to show loginForm. Instead, shows user's library data UI
 
         }
-
-
-
         private void fndBtn_Click(object sender, EventArgs e)
         {
             calendarContainer.Controls.Clear();
@@ -189,12 +192,16 @@ namespace Client
             this.calendarContainer.Controls.Add(fdList);
             fdList.Show();
         }
-
         private void loginBtn_Click(object sender, EventArgs e)
         {
             LoginForm loginForm = new LoginForm(netstrm, this);
             
             loginForm.Show();
+        }
+        private void signupBtn_Click(object sender, EventArgs e)
+        {
+            SignUpForm signUpForm = new SignUpForm();
+            signUpForm.Show();
         }
     }
 }
