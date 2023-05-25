@@ -105,7 +105,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "LibraryUIForm";
             this.Text = "MyLibrary";
-            this.Load += new System.EventHandler(this.LibraryUIForm_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LibraryUIForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -14,6 +14,7 @@ using EntityLibrary;
 using PacketLibrary;
 using MySqlX.XDevAPI;
 using System.Collections;
+
 namespace Client
 {
     public partial class mainForm : Form
@@ -26,21 +27,32 @@ namespace Client
         private static TcpClient server;
         private static NetworkStream netstrm;
 
-        List<User> friends;
-        List<Schedule> schedules;
-        Dictionary<string, List<User>> groups;
+        public static List<User> friends;
+        public static List<Schedule> schedules;
+        public static Dictionary<string, List<User>> groups;
 
         public User myUserInfo;
         public bool isLoginSuccess = false;
+
+        public mainForm()
+        {
+            InitializeComponent();
+            this.Load += new EventHandler(MainForm_Load);
+        }
+        
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            this.Width = 1060;
+            this.Height = 900;
+        }
 
         public void requestMyData(NetworkStream netstrm)
         {
             MessageBox.Show("readAllData 실행");
 
-            while (true)
+            while(true)
             {
                 if (isLoginSuccess)
-                
                 {
                     MessageBox.Show("isLoginSuccess = true!!");
 
@@ -54,11 +66,8 @@ namespace Client
 
                     packet = Packet.ReceivePacket(netstrm);
 
-                    if (packet.action == ActionType.Response)
+                    if (packet.action == ActionType.Success)
                     {
-                        MessageBox.Show("receive response well !");
-                        // 전역변수에 대입해주는 코드 짜야함
-
                         Dictionary<string, Object> fullData = packet.data as Dictionary<string, object>;
 
                         friends = fullData["friends"] as List<User>;
@@ -72,89 +81,65 @@ namespace Client
             
         }
 
-        //async task asyncsend(networkstream netstrm, packet packet)
+        //async Task asyncSend(NetworkStream netstrm, Packet packet)
         //{
-        //    if (server.connected)
+        //    if (server.Connected)
         //    {
-        //        packet sendpacket = packet;
-        //        packetinfo packetinfo = new packetinfo();
+        //        Packet sendPacket = packet;
+        //        PacketInfo packetInfo = new PacketInfo();
 
-        //        byte[] data = packet.serialize(sendpacket, packetinfo);
-        //        byte[] size = bitconverter.getbytes(packetinfo.size); ;
+        //        byte[] data = Packet.Serialize(sendPacket, packetInfo);
+        //        byte[] size = BitConverter.GetBytes(packetInfo.size); ;
 
         //        // packet의 size를 먼저 전송
-        //        netstrm.write(size, 0, 4);
+        //        netstrm.Write(size, 0, 4);
         //        // 그 다음 packet을 전송
-        //        netstrm.write(data, 0, packetinfo.size);
-        //        netstrm.flush();
-        //        messagebox.show("successfully send!");
+        //        netstrm.Write(data, 0, packetInfo.size);
+        //        netstrm.Flush();
+        //        MessageBox.Show("successfully send!");
         //    }
         //}
 
-        //async task asyncrecieve(networkstream netstrm)
+        //async Task asyncRecieve(NetworkStream netstrm)
         //{
-        //    if (server.connected)
+        //    if (server.Connected)
         //    {
-        //        packetinfo packetinfo = new packetinfo();
+        //        PacketInfo packetInfo = new PacketInfo();
 
         //        byte[] size = new byte[4];
 
-        //        int recv = netstrm.read(size, 0, 4);
-        //        packetinfo.size = bitconverter.toint32(size, 0);
+        //        int recv = netstrm.Read(size, 0, 4);
+        //        packetInfo.size = BitConverter.ToInt32(size, 0);
 
-        //        byte[] data = new byte[packetinfo.size];
+        //        byte[] data = new byte[packetInfo.size];
 
-        //        recv = netstrm.read(data, 0, packetinfo.size);
+        //        recv = netstrm.Read(data, 0, packetInfo.size);
 
-        //        packet receivedpacket = packet.desserialize(data, packetinfo);
+        //        Packet receivedPacket = Packet.Desserialize(data, packetInfo);
         //    }
         //}
-
-
-        public mainForm()
-        {
-            InitializeComponent();
-            this.Load += new EventHandler(MainForm_Load);
-        }
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            this.Width = 1060;
-            this.Height = 900;
-
-
-            
-
-            // show calendar form  
-            
-            
-        }
-
 
         private async void Form1_Load(object sender, EventArgs e)
         {
 
             // TCP 통신
-
             try
             {
                 server = new TcpClient("127.0.0.1", 9050);
-                netstrm = server.GetStream();
             }
-
             catch (SocketException ex)
             {
                 MessageBox.Show("\"Unable to connect to server\"");
             }
-            //netstrm = server.GetStream();
+
+            netstrm = server.GetStream();
 
             Task.Run(() => requestMyData(netstrm));
-
-
+            
+            // show calendar form  
             calendarForm = new calendarForm();
             calendarForm.showCalendar();
             calendarContainer.Controls.Add(calendarForm);
-
-
             // Form_Close 이벤트 발생시 아래 코드를 추가해야함
             //netstrm.Close();
             //server.Close();
@@ -212,9 +197,12 @@ namespace Client
             signUpForm.Show();
         }
 
-        private void menuContainer_Paint(object sender, PaintEventArgs e)
+        private void groupBtn_Click(object sender, EventArgs e)
         {
-
+            calendarContainer.Controls.Clear();
+            fdGroup_Form fdGroupForm = new fdGroup_Form() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true, FormBorderStyle = FormBorderStyle.None };
+            this.calendarContainer.Controls.Add(fdGroupForm);
+            fdGroupForm.Show();
         }
     }
 }

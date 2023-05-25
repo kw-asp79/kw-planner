@@ -8,6 +8,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApp1;
 
 namespace Client
 {
@@ -21,9 +22,10 @@ namespace Client
             this.netstrm = netstrm;
         }
 
-        private void klasLoginForm_Load(object sender, EventArgs e)
+        private void loginBtn_Click(object sender, EventArgs e)
         {
-
+            // id, pwd 잘 못 입력했을 때의 예외처리 필요
+            klasUIForm klasUIForm = new klasUIForm();
         }
     }
 }

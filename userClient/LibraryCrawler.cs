@@ -18,6 +18,8 @@ namespace Client
 
         public List<Book> books = new List<Book>();
 
+        private ChromeDriverService chromeDriverService;
+        private ChromeDriver chromeDriver;
 
         public LibraryCrawler() { }
 
@@ -28,24 +30,25 @@ namespace Client
 
         public string getPriceToPay() {  return priceToPay; }
 
+        public ChromeDriver GetChromeDriver() { return chromeDriver; }  
 
         // do all of things to do
-        public void doWork()
+        public void doWork(string id, string passwd)
         {
+            loginLibrary(id, passwd);
+
+            //*[@id="divContents"]/div[3]/div[3]/div[2]/ul/li[2]/span
+            crawlUserDatas(chromeDriver);
 
 
-
-
-
+            endService(chromeDriver);
         }
 
 
 
         public void loginLibrary(string id, string passwd)
         {
-            ChromeDriverService chromeDriverService;
-            ChromeDriver chromeDriver;
-
+            
             try
             {
                 ChromeOptions options = new ChromeOptions();
@@ -59,7 +62,7 @@ namespace Client
 
                 chromeDriverService = ChromeDriverService.CreateDefaultService();
                 // hide chromeDriver.exe 
-                chromeDriverService.HideCommandPromptWindow = true;
+                //chromeDriverService.HideCommandPromptWindow = true;
 
                 chromeDriver = new ChromeDriver(chromeDriverService, options);
                 chromeDriver.Navigate().GoToUrl("https://kupis.kw.ac.kr/");
@@ -78,11 +81,6 @@ namespace Client
                 element = chromeDriver.FindElement(By.XPath("//*[@id=\"loginId\"]/div[2]/fieldset/input[3]"));
                 element.Click();
 
-
-                //*[@id="divContents"]/div[3]/div[3]/div[2]/ul/li[2]/span
-                crawlUserDatas(chromeDriver);
-
-                printBookDatas(books);
             }
             catch (Exception ex)
             {
@@ -99,7 +97,7 @@ namespace Client
             try
             {
                 // Need to synchronize crawling moment and accessing web page! // 웹 페이지 접근 전에 데이터에 접근하는 에러 방지를 위해 
-                Thread.Sleep(500);
+                Thread.Sleep(300);
 
                 // crawl number of books that I borrowed
                 var numOfBooks = chromeDriver.FindElement(By.XPath("//*[@id=\"divContents\"]/div[3]/div[3]/div[2]/ul/li[2]/span"));
@@ -141,13 +139,12 @@ namespace Client
 
             try
             {
-
                 // "대출현황 조회/연장" page로 이동
                 var element = chromeDriver.FindElement(By.XPath("//*[@id=\"divContents\"]/div[3]/div[3]/div[1]/div/ul/li[1]/a/img"));
                 element.Click();
 
                 // 마찬가지로 페이지 이동과 데이터를 가져오는 시점 일치를 위해 
-                Thread.Sleep(500);
+                Thread.Sleep(300);
 
                 string[] bookInfo = { "title", "author", "loct", "call_no", "accession_no", "loan_date", "return_plan_date", "renew_count" };
 
@@ -213,9 +210,6 @@ namespace Client
         }
 
 
-
-
-
         private void printBookDatas(List<Book> books)
         {
             foreach (var book in books)
@@ -238,6 +232,14 @@ namespace Client
                 return false;
             }
         }
+
+
+        public void endService(ChromeDriver chromeDriver)
+        {
+            chromeDriver.Quit();
+        }
+
+
 
     }
 }

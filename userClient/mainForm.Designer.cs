@@ -82,6 +82,7 @@
             this.groupBtn.TabIndex = 6;
             this.groupBtn.Text = "Group";
             this.groupBtn.UseVisualStyleBackColor = true;
+            this.groupBtn.Click += new System.EventHandler(this.groupBtn_Click);
             // 
             // settingBtn
             // 
@@ -169,6 +170,7 @@
             this.Controls.Add(this.calendarContainer);
             this.IsMdiContainer = true;
             this.Name = "mainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "KW-Planner";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuContainer.ResumeLayout(false);

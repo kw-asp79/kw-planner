@@ -45,7 +45,7 @@ namespace Client
         {
             libraryCrawler = new LibraryCrawler();
 
-            libraryCrawler.loginLibrary(this.id,this.pwd);
+            libraryCrawler.doWork(id, pwd);
 
             //Thread libraryCrawlingThread = new Thread(new ThreadStart(libraryCrawler.loginLibrary));
             //libraryCrawlingThread.Start();
@@ -90,9 +90,9 @@ namespace Client
 
         }
 
-        private void LibraryUIForm_Load(object sender, EventArgs e)
+        private void LibraryUIForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            libraryCrawler.endService(libraryCrawler.GetChromeDriver());
         }
     }
 }
