@@ -38,7 +38,7 @@ namespace Client
             // 
             this.fdlistLbl.AutoSize = true;
             this.fdlistLbl.Font = new System.Drawing.Font("Segoe Script", 20F, System.Drawing.FontStyle.Bold);
-            this.fdlistLbl.Location = new System.Drawing.Point(444, 50);
+            this.fdlistLbl.Location = new System.Drawing.Point(484, 50);
             this.fdlistLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.fdlistLbl.Name = "fdlistLbl";
             this.fdlistLbl.Size = new System.Drawing.Size(213, 67);

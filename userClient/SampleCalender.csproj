@@ -119,6 +119,12 @@
     <Compile Include="fdGroup_Add_Form.Designer.cs">
       <DependentUpon>fdGroup_Add_Form.cs</DependentUpon>
     </Compile>
+    <Compile Include="fdGroup_Form_fdlist.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fdGroup_Form_fdlist.Designer.cs">
+      <DependentUpon>fdGroup_Form_fdlist.cs</DependentUpon>
+    </Compile>
     <Compile Include="fdList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -187,6 +193,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fdGroup_Form.resx">
       <DependentUpon>fdGroup_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fdGroup_Form_fdlist.resx">
+      <DependentUpon>fdGroup_Form_fdlist.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fdList.resx">
       <DependentUpon>fdList.cs</DependentUpon>

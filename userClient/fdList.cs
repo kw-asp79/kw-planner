@@ -24,8 +24,8 @@ namespace Client
         
         int labelWidth = 50;
         int labelHeight = 25;
-        int A = 1;
-        int cntlbl = 0;
+        static int A = 1;
+        static int cntlbl = 0;
 
          
         public fdList()
@@ -38,14 +38,14 @@ namespace Client
             for(int i=1; i <= frd_list.Count; i++)
             {
                 labels2[i] = new Label();
-                labels2[i].Location = new Point(235, 60 + 50 * i);
+                labels2[i].Location = new Point(310, 60 + 50 * i);
                 labels2[i].Size = new Size(labelWidth + 15, labelHeight);
                 labels2[i].Text = id_list[i-1];
                 labels2[i].Tag = i;
 
 
                 labels[i] = new Label();
-                labels[i].Location = new Point(labels2[i].Location.X + 65, labels2[i].Location.Y);
+                labels[i].Location = new Point(labels2[i].Location.X + 70, labels2[i].Location.Y);
                 labels[i].Size = new Size(labelWidth, labelHeight);
                 labels[i].Text = frd_list[i-1];
                 labels[i].Tag = i;
@@ -95,14 +95,14 @@ namespace Client
                 A = cntlbl + 1;
 
                 labels2[A] = new Label();
-                labels2[A].Location = new Point(235, 60 + 50 * A);
+                labels2[A].Location = new Point(310, 60 + 50 * A);
                 labels2[A].Size = new Size(labelWidth + 15, labelHeight);
                 labels2[A].Text = id;
                 labels2[A].Tag = A;
                 
 
                 labels[A] = new Label();
-                labels[A].Location = new Point(labels2[A].Location.X + 65, labels2[A].Location.Y);
+                labels[A].Location = new Point(labels2[A].Location.X + 70, labels2[A].Location.Y);
                 labels[A].Size = new Size(labelWidth, labelHeight);
                 labels[A].Text = s;
                 labels[A].Tag = A;
