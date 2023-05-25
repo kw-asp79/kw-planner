@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Client;
+using CrawlingLibrary;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,23 +8,23 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace Client
 {
-    public partial class LibraryUIForm : Form
+    public partial class LibraryUIForm : UserControl
     {
+      
         private string id;
         private string pwd;
 
-        private LibraryCrawler libraryCrawler;
+        public LibraryCrawler libraryCrawler;
 
-       
         public LibraryUIForm()
         {
             InitializeComponent();
         }
+
 
         public LibraryUIForm(string id, string pwd)
         {
@@ -33,32 +35,31 @@ namespace Client
         }
 
 
-        public void doWork()
+        public CrawlingStatus.Status doWork(string id, string pwd,LibraryCrawler libraryCrawler)
         {
-            crawlLibraryData();
+            this.libraryCrawler = libraryCrawler;
+            CrawlingStatus.Status status = libraryCrawler.doWork(id, pwd);
+            if (status == CrawlingStatus.Status.LoginFailure) return status;
+
+            return CrawlingStatus.Status.AllSuccess;
+        }
+
+
+        public void setUI()
+        {
             showState();
             showBookState();
-        }
-
-
-        public void crawlLibraryData()
-        {
-            libraryCrawler = new LibraryCrawler();
-
-            libraryCrawler.doWork(id, pwd);
-
-            //Thread libraryCrawlingThread = new Thread(new ThreadStart(libraryCrawler.loginLibrary));
-            //libraryCrawlingThread.Start();
 
         }
-
 
 
         public void showState()
         {
-            stateTbx.Text = "대출: " + libraryCrawler.getNumOfBooks() + "\r\n";
-            stateTbx.AppendText("연체: " + libraryCrawler.getNumOfOverdue() + "\r\n");
-            stateTbx.AppendText("미납 연체료: " +  libraryCrawler.getPriceToPay() + "\r\n");
+            numOfBookLbl.Text = libraryCrawler.getNumOfBooks() + "권";
+
+            overdueLbl.Text = libraryCrawler.getNumOfOverdue() + "권";
+
+            priceToPayLbl.Text = libraryCrawler.getPriceToPay() + "원";
         }
 
 
@@ -69,7 +70,10 @@ namespace Client
             List<Book> books = libraryCrawler.books;
             int index = 1;
 
-            foreach (Book book in books) {
+           // bookStateTbx.Clear();
+
+            foreach (Book book in books)
+            {
                 bookStateTbx.AppendText("No " + index + "#" + "\r\n");
 
                 bookStateTbx.AppendText("이름: " + book.getBookTitle() + "\r\n");
@@ -85,14 +89,9 @@ namespace Client
                 index++;
             }
 
-                        
-
 
         }
 
-        private void LibraryUIForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            libraryCrawler.endService(libraryCrawler.GetChromeDriver());
-        }
     }
+
 }

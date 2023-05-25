@@ -38,29 +38,33 @@
             // 
             // loginBtn
             // 
+            this.loginBtn.BackColor = System.Drawing.Color.LightBlue;
             this.loginBtn.Font = new System.Drawing.Font("Segoe Print", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loginBtn.Location = new System.Drawing.Point(392, 472);
+            this.loginBtn.Location = new System.Drawing.Point(384, 480);
             this.loginBtn.Name = "loginBtn";
             this.loginBtn.Size = new System.Drawing.Size(95, 32);
-            this.loginBtn.TabIndex = 11;
+            this.loginBtn.TabIndex = 2;
             this.loginBtn.Text = "Login";
-            this.loginBtn.UseVisualStyleBackColor = true;
+            this.loginBtn.UseVisualStyleBackColor = false;
             this.loginBtn.Click += new System.EventHandler(this.loginBtn_Click);
             // 
             // idTbx
             // 
-            this.idTbx.Location = new System.Drawing.Point(329, 289);
+            this.idTbx.AcceptsTab = true;
+            this.idTbx.Location = new System.Drawing.Point(352, 305);
             this.idTbx.Name = "idTbx";
-            this.idTbx.Size = new System.Drawing.Size(227, 21);
-            this.idTbx.TabIndex = 9;
+            this.idTbx.Size = new System.Drawing.Size(174, 21);
+            this.idTbx.TabIndex = 0;
             // 
             // libraryLbl
             // 
             this.libraryLbl.AutoSize = true;
-            this.libraryLbl.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.libraryLbl.Location = new System.Drawing.Point(369, 189);
+            this.libraryLbl.BackColor = System.Drawing.Color.Transparent;
+            this.libraryLbl.Font = new System.Drawing.Font("Comic Sans MS", 36F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.libraryLbl.ForeColor = System.Drawing.Color.CornflowerBlue;
+            this.libraryLbl.Location = new System.Drawing.Point(350, 149);
             this.libraryLbl.Name = "libraryLbl";
-            this.libraryLbl.Size = new System.Drawing.Size(148, 36);
+            this.libraryLbl.Size = new System.Drawing.Size(192, 68);
             this.libraryLbl.TabIndex = 8;
             this.libraryLbl.Text = "Library";
             // 
@@ -68,7 +72,7 @@
             // 
             this.pwdLbl.AutoSize = true;
             this.pwdLbl.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pwdLbl.Location = new System.Drawing.Point(204, 382);
+            this.pwdLbl.Location = new System.Drawing.Point(238, 390);
             this.pwdLbl.Name = "pwdLbl";
             this.pwdLbl.Size = new System.Drawing.Size(106, 33);
             this.pwdLbl.TabIndex = 7;
@@ -78,7 +82,7 @@
             // 
             this.idLbl.AutoSize = true;
             this.idLbl.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.idLbl.Location = new System.Drawing.Point(253, 286);
+            this.idLbl.Location = new System.Drawing.Point(308, 294);
             this.idLbl.Name = "idLbl";
             this.idLbl.Size = new System.Drawing.Size(36, 33);
             this.idLbl.TabIndex = 6;
@@ -86,11 +90,12 @@
             // 
             // pwdTbx
             // 
-            this.pwdTbx.Location = new System.Drawing.Point(329, 393);
+            this.pwdTbx.AcceptsTab = true;
+            this.pwdTbx.Location = new System.Drawing.Point(350, 401);
             this.pwdTbx.Name = "pwdTbx";
             this.pwdTbx.PasswordChar = '*';
-            this.pwdTbx.Size = new System.Drawing.Size(323, 28);
-            this.pwdTbx.TabIndex = 12;
+            this.pwdTbx.Size = new System.Drawing.Size(176, 21);
+            this.pwdTbx.TabIndex = 1;
             // 
             // libraryLoginForm
             // 
