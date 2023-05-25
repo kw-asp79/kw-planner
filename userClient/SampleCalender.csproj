@@ -131,6 +131,12 @@
     <Compile Include="fdList.Designer.cs">
       <DependentUpon>fdList.cs</DependentUpon>
     </Compile>
+    <Compile Include="klasUIForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="klasUIForm.Designer.cs">
+      <DependentUpon>klasUIForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LibraryCrawler.cs" />
     <Compile Include="libraryLoginForm.cs">
       <SubType>UserControl</SubType>
@@ -200,6 +206,9 @@
     <EmbeddedResource Include="fdList.resx">
       <DependentUpon>fdList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="klasUIForm.resx">
+      <DependentUpon>klasUIForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="libraryLoginForm.resx">
       <DependentUpon>libraryLoginForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -252,6 +261,10 @@
     <ProjectReference Include="..\EntityLibrary\EntityLibrary.csproj">
       <Project>{b24ce078-7f67-4c9d-94a1-f0df13a2ad96}</Project>
       <Name>EntityLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PacketLibrary\PacketLibrary.csproj">
+      <Project>{22ff42cd-5986-4502-8c5e-bb746a5f1c2a}</Project>
+      <Name>PacketLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
