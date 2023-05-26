@@ -14,6 +14,7 @@ using EntityLibrary;
 using PacketLibrary;
 using MySqlX.XDevAPI;
 using System.Collections;
+using System.Diagnostics.Eventing.Reader;
 
 namespace Client
 {
@@ -21,8 +22,10 @@ namespace Client
     {
         // 각 form 들을 멤버로 선언 => 추후 klas와 도서관 정보를 달력과 주고받기 위해 (다만 상황에 따라 변동 가능성 존재..)
         calendarForm calendarForm;
-        klasLoginForm klasLoginForm;
+        KLASLoginForm klasLoginForm;
+        KLASUIForm klasUIForm;
         libraryLoginForm libraryLoginForm;
+        LibraryUIForm libraryUIForm;
 
         private static TcpClient server;
         private static NetworkStream netstrm;
@@ -33,13 +36,20 @@ namespace Client
 
         public User myUserInfo;
         public bool isLoginSuccess = false;
+        KLASCrawler klasCrawler;
+        LibraryCrawler libraryCrawler;
 
         public mainForm()
         {
             InitializeComponent();
             this.Load += new EventHandler(MainForm_Load);
         }
-        
+
+        public Control getCalendarContainer()
+        {
+            return this.calendarContainer;
+        }
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             this.Width = 1060;
@@ -78,46 +88,7 @@ namespace Client
                     break;
                 }
             }
-            
         }
-
-        //async Task asyncSend(NetworkStream netstrm, Packet packet)
-        //{
-        //    if (server.Connected)
-        //    {
-        //        Packet sendPacket = packet;
-        //        PacketInfo packetInfo = new PacketInfo();
-
-        //        byte[] data = Packet.Serialize(sendPacket, packetInfo);
-        //        byte[] size = BitConverter.GetBytes(packetInfo.size); ;
-
-        //        // packet의 size를 먼저 전송
-        //        netstrm.Write(size, 0, 4);
-        //        // 그 다음 packet을 전송
-        //        netstrm.Write(data, 0, packetInfo.size);
-        //        netstrm.Flush();
-        //        MessageBox.Show("successfully send!");
-        //    }
-        //}
-
-        //async Task asyncRecieve(NetworkStream netstrm)
-        //{
-        //    if (server.Connected)
-        //    {
-        //        PacketInfo packetInfo = new PacketInfo();
-
-        //        byte[] size = new byte[4];
-
-        //        int recv = netstrm.Read(size, 0, 4);
-        //        packetInfo.size = BitConverter.ToInt32(size, 0);
-
-        //        byte[] data = new byte[packetInfo.size];
-
-        //        recv = netstrm.Read(data, 0, packetInfo.size);
-
-        //        Packet receivedPacket = Packet.Desserialize(data, packetInfo);
-        //    }
-        //}
 
         private async void Form1_Load(object sender, EventArgs e)
         {
@@ -135,9 +106,14 @@ namespace Client
             netstrm = server.GetStream();
 
             Task.Run(() => requestMyData(netstrm));
-            
+
+            // create KLAS Crawler
+            klasCrawler = new KLASCrawler();
+            // create Library Crawler
+            libraryCrawler = new LibraryCrawler();
+
             // show calendar form  
-            calendarForm = new calendarForm();
+            calendarForm = new calendarForm(klasCrawler,libraryCrawler);
             calendarForm.showCalendar();
             calendarContainer.Controls.Add(calendarForm);
 
@@ -145,6 +121,22 @@ namespace Client
             //netstrm.Close();
             //server.Close();
 
+
+            // create KLAS UI Form 
+            klasUIForm = new KLASUIForm();
+
+            // create KLAS Login Form 
+            klasLoginForm = new KLASLoginForm(klasUIForm,klasCrawler);
+            // add EventHandler
+            klasLoginForm.allSuccess += klasAllSuccess;
+
+            // create Library UI Form 
+            libraryUIForm = new LibraryUIForm();
+
+            // create Library Login Form
+            libraryLoginForm = new libraryLoginForm(libraryUIForm,libraryCrawler, netstrm);
+            // add EventHandler
+            libraryLoginForm.allSuccess += lbyAllSuccess;
         }
 
 
@@ -159,26 +151,63 @@ namespace Client
             calendarContainer.Controls.Add(calendarForm);
 
         }
+
+
         private void klasBtn_Click(object sender, EventArgs e)
         {
 
             calendarContainer.Controls.Clear();
 
-            klasLoginForm = new klasLoginForm(netstrm);
-
             calendarContainer.Controls.Add(klasLoginForm);
+
             // after login once, don't need to show loginForm. Instead, shows user's klas data UI
+            if(klasLoginForm.getLoginStatus())
+                calendarContainer.Controls.Add(klasUIForm); // (after login) show klasUIForm
+            else
+                calendarContainer.Controls.Add(klasLoginForm); // else(not login status) show klasLoginForm
         }
+
+
+        private void klasAllSuccess(object sender, EventArgs e)
+        {
+            klasUIForm.setMainUI();
+
+            // 현재 화면이 klasLoginForm 일 때만 바로 출력하도록
+            if (calendarContainer.Controls.Contains(klasLoginForm))
+            {
+                calendarContainer.Controls.Clear();
+                calendarContainer.Controls.Add(klasUIForm);
+            }
+        }
+
+
+
         private void lbyBtn_Click(object sender, EventArgs e)
         {
             calendarContainer.Controls.Clear();
 
-            libraryLoginForm = new libraryLoginForm(netstrm);
-            calendarContainer.Controls.Add(libraryLoginForm);
-
             // after login once, don't need to show loginForm. Instead, shows user's library data UI
+            if (libraryLoginForm.getLoginStatus())
+                calendarContainer.Controls.Add(libraryUIForm);
+            else     
+                calendarContainer.Controls.Add(libraryLoginForm);
 
         }
+
+        private void lbyAllSuccess(object sender, EventArgs e)
+        {
+            libraryUIForm.setUI();
+
+            // 현재 화면이 libraryLoginForm 일 때만 바로 출력하도록
+            if (calendarContainer.Controls.Contains(libraryLoginForm))
+            {
+                calendarContainer.Controls.Clear();
+                calendarContainer.Controls.Add(libraryUIForm);
+            }
+        }
+
+
+
         private void fndBtn_Click(object sender, EventArgs e)
         {
             calendarContainer.Controls.Clear();
@@ -186,12 +215,14 @@ namespace Client
             this.calendarContainer.Controls.Add(fdList);
             fdList.Show();
         }
+
         private void loginBtn_Click(object sender, EventArgs e)
         {
             LoginForm loginForm = new LoginForm(netstrm, this);
             
             loginForm.Show();
         }
+
         private void signupBtn_Click(object sender, EventArgs e)
         {
             SignUpForm signUpForm = new SignUpForm();

@@ -18,10 +18,8 @@ using System.Collections;
 using System.Runtime.Remoting.Messaging;
 using System.Data.SqlClient;
 
-
 namespace SampleCalenderServer
 {
-
     public static class DBProcess
     {
         public static string connectionString;
@@ -29,13 +27,11 @@ namespace SampleCalenderServer
 
         public static void ConnectDB()
         {
-
             connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ProjectDB"].ConnectionString;
             connection = new MySqlConnection(connectionString);
 
             try
             {
-                // 데이터베이스 연결
                 connection.Open();
             }
             catch (Exception ex)
@@ -44,6 +40,7 @@ namespace SampleCalenderServer
             }
         }
     }
+
 
     public class Program
     {
@@ -106,6 +103,7 @@ namespace SampleCalenderServer
                 Schedule schedule = fullData["schedule"] as Schedule;
                 User user = fullData["user"] as User;
                 // ScheduleRepository.InsertSchedule(schedule, user);
+                // 연관관계를 맺어주는 메서드
             }
             else if(obj is Group)
             {
@@ -294,17 +292,18 @@ namespace SampleCalenderServer
             client.Close();
         }
 
-        async static Task AsyncServer() {
+        async static Task AsyncServer()
+        {
 
             TcpListener server = new TcpListener(9050);
 
             server.Start();
 
-            while(true)
+            while (true)
             {
                 TcpClient client = await server.AcceptTcpClientAsync().ConfigureAwait(false);
 
-                Task.Run( () => AsyncProcess(client));
+                Task.Run(() => AsyncProcess(client));
             }
         }
 
