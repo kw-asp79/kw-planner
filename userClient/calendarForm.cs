@@ -18,16 +18,22 @@ namespace Client
         private int month;
         private int year;
 
+        KLASCrawler klasCrawler;
+        LibraryCrawler libraryCrawler;
+
         List<Dictionary<DateTime, string>> publicHolidays = new List<Dictionary<DateTime, string>>();
 
-        public calendarForm()
+        public calendarForm(KLASCrawler kLasCrawler, LibraryCrawler liBraryCrawler)
         {
             InitializeComponent();
+        
+            this.klasCrawler = kLasCrawler;
+            this.libraryCrawler = liBraryCrawler;
         }
 
 
         public void showCalendar()
-        { 
+        {
             DateTime now = DateTime.Now;
             month = now.Month;
             year = now.Year;
@@ -100,12 +106,20 @@ namespace Client
             int daysInPreviousMonth = DateTime.DaysInMonth(previousMonth.Year, previousMonth.Month); //int 형으로 저번달의 연도와 월을 불러온다.
 
 
+
+            // klas, library, 개인적인 스케줄 을 해당 날짜에 대해서 겹치는 부분이 있다면 그 날은 일정이 최소 하나는 있다는 뜻 
+            // 그러면 day Box에 해당하는 것을 표시해준다. 
+            
             // show previous month days
             for (int i = daysInPreviousMonth - daysOfWeek + 2; i <= daysInPreviousMonth; i++)
             {
                 UserControlDays ucDays = new UserControlDays();
                 ucDays.SetDay(i);
                 ucDays.lbDay.ForeColor = Color.WhiteSmoke; // set text color to gray for previous month days
+                
+
+                
+                
                 dayContainer.Controls.Add(ucDays);
             }
 
@@ -125,6 +139,17 @@ namespace Client
 
                     }
                 }
+
+                // klasCrawler 의 각 lecture 별로 이 날짜에 해당하는 온라인강의,과제,퀴즈,팀 프로젝트 마감일을 검사
+
+
+
+
+
+                // libraryCrawler의 각 Book 별로 이 날짜에 해당하는 반납일을 검사 
+
+
+
                 dayContainer.Controls.Add(ucDays);
 
             }
@@ -145,6 +170,9 @@ namespace Client
 
             ymLbl.Text = year.ToString() + " . " + month.ToString();
             displayDays(month, year);
+
+           // MessageBox.Show(klasCrawler.lectures.Count.ToString());
+           // MessageBox.Show(libraryCrawler.books.Count.ToString());
         }
 
 

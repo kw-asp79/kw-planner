@@ -54,11 +54,9 @@
             this.menuContainer.Controls.Add(this.klasBtn);
             this.menuContainer.Dock = System.Windows.Forms.DockStyle.Left;
             this.menuContainer.Location = new System.Drawing.Point(0, 0);
-            this.menuContainer.Margin = new System.Windows.Forms.Padding(4);
             this.menuContainer.Name = "menuContainer";
             this.menuContainer.Size = new System.Drawing.Size(213, 879);
             this.menuContainer.TabIndex = 1;
-            this.menuContainer.Paint += new System.Windows.Forms.PaintEventHandler(this.menuContainer_Paint);
             // 
             // mainBtn
             // 

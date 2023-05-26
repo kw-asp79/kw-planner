@@ -65,7 +65,6 @@ namespace Client
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "fdList";
             this.Text = "fdList";
-            this.Load += new System.EventHandler(this.fdList_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
