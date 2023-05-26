@@ -48,6 +48,7 @@
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(347, 232);
             this.panel1.TabIndex = 0;
@@ -79,7 +80,7 @@
             this.panel3.Size = new System.Drawing.Size(275, 10);
             this.panel3.TabIndex = 1;
             // 
-            // txt_ID
+            // txt_Id
             // 
             this.txt_ID.BackColor = System.Drawing.SystemColors.Control;
             this.txt_ID.Location = new System.Drawing.Point(42, 285);
@@ -87,7 +88,7 @@
             this.txt_ID.Size = new System.Drawing.Size(275, 28);
             this.txt_ID.TabIndex = 2;
             // 
-            // txt_pwd
+            // txt_Pwd
             // 
             this.txt_pwd.BackColor = System.Drawing.SystemColors.Control;
             this.txt_pwd.Location = new System.Drawing.Point(42, 364);
@@ -103,7 +104,7 @@
             this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label1.Location = new System.Drawing.Point(38, 247);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(27, 24);
+            this.label1.Size = new System.Drawing.Size(24, 21);
             this.label1.TabIndex = 4;
             this.label1.Text = "ID";
             // 
@@ -114,11 +115,11 @@
             this.label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label2.Location = new System.Drawing.Point(38, 337);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 24);
+            this.label2.Size = new System.Drawing.Size(77, 21);
             this.label2.TabIndex = 5;
             this.label2.Text = "Password";
             // 
-            // btn_login
+            // loginBtn
             // 
             this.btn_login.BackColor = System.Drawing.Color.SkyBlue;
             this.btn_login.FlatAppearance.BorderSize = 0;
@@ -131,9 +132,9 @@
             this.btn_login.TabIndex = 6;
             this.btn_login.Text = "Login";
             this.btn_login.UseVisualStyleBackColor = false;
-            this.btn_login.Click += new System.EventHandler(this.button1_Click);
+            this.btn_login.Click += new System.EventHandler(this.loginBtn_Click);
             // 
-            // btn_signup
+            // signupBtn
             // 
             this.btn_signup.BackColor = System.Drawing.Color.SkyBlue;
             this.btn_signup.FlatAppearance.BorderSize = 0;
@@ -146,11 +147,11 @@
             this.btn_signup.TabIndex = 7;
             this.btn_signup.Text = "SignUp";
             this.btn_signup.UseVisualStyleBackColor = false;
-            this.btn_signup.Click += new System.EventHandler(this.btn_signup_Click);
+            //this.btn_signup.Click += new System.EventHandler(this.btn_signup_Click);
             // 
             // LoginForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(347, 498);
             this.Controls.Add(this.btn_signup);

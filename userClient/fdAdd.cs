@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Org.BouncyCastle.Bcpg;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,6 +26,11 @@ namespace Client
             fdList.add_label(this.txt_id.Text,this.txt_fd.Text);
             txt_fd.Clear();
             txt_id.Clear();
+        }
+
+        private void fdAdd_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

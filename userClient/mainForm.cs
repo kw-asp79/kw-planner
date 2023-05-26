@@ -1,5 +1,4 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,60 +9,134 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using WindowsFormsApp1;
- 
+using System.Net.Sockets;
+using EntityLibrary;
+using PacketLibrary;
+using MySqlX.XDevAPI;
+using System.Collections;
+using System.Diagnostics.Eventing.Reader;
+
 namespace Client
 {
     public partial class mainForm : Form
     {
         // 각 form 들을 멤버로 선언 => 추후 klas와 도서관 정보를 달력과 주고받기 위해 (다만 상황에 따라 변동 가능성 존재..)
-        calendarForm calendarForm; 
-        klasLoginForm klasLoginForm;
+        calendarForm calendarForm;
+        KLASLoginForm klasLoginForm;
+        KLASUIForm klasUIForm;
         libraryLoginForm libraryLoginForm;
+        LibraryUIForm libraryUIForm;
 
+        private static TcpClient server;
+        private static NetworkStream netstrm;
+
+        public static List<User> friends;
+        public static List<Schedule> schedules;
+        public static Dictionary<string, List<User>> groups;
+
+        public User myUserInfo;
+        public bool isLoginSuccess = false;
+        KLASCrawler klasCrawler;
+        LibraryCrawler libraryCrawler;
 
         public mainForm()
         {
             InitializeComponent();
             this.Load += new EventHandler(MainForm_Load);
         }
+
+        public Control getCalendarContainer()
+        {
+            return this.calendarContainer;
+        }
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             this.Width = 1060;
             this.Height = 900;
         }
-        private void Form1_Load(object sender, EventArgs e)
+
+        public void requestMyData(NetworkStream netstrm)
         {
-            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ProjectDB"].ConnectionString;
+            MessageBox.Show("readAllData 실행");
 
-            MySqlConnection connection = new MySqlConnection(connectionString);
-
-            try
-            { 
-                connection.Open();
-
-                /*
-                string Query = "INSERT INTO `schema`.`user` (`user_id`, `pwd`, `name`) VALUES ('13', '13', 'abcd');";
-
-                MySqlCommand command = new MySqlCommand(Query, connection);
-
-                MySqlDataReader reader = command.ExecuteReader();
-                
-                while (reader.Read())
-                {
-                }
-                */
-
-            }
-            catch (Exception ex)
+            while(true)
             {
-                Console.WriteLine(ex.Message.ToString());
+                if (isLoginSuccess)
+                {
+                    MessageBox.Show("isLoginSuccess = true!!");
+
+                    User user = myUserInfo;
+
+                    Packet packet = new Packet();
+                    packet.action = ActionType.readAllData;
+                    packet.data = user;
+
+                    Packet.SendPacket(netstrm, packet);
+
+                    packet = Packet.ReceivePacket(netstrm);
+
+                    if (packet.action == ActionType.Success)
+                    {
+                        Dictionary<string, Object> fullData = packet.data as Dictionary<string, object>;
+
+                        friends = fullData["friends"] as List<User>;
+                        schedules = fullData["schedules"] as List<Schedule>;
+                        groups = fullData["groups"] as Dictionary<string, List<User>>;
+                    }
+
+                    break;
+                }
             }
-            
+        }
+
+        private async void Form1_Load(object sender, EventArgs e)
+        {
+
+            // TCP 통신
+            try
+            {
+                server = new TcpClient("127.0.0.1", 9050);
+            }
+            catch (SocketException ex)
+            {
+                MessageBox.Show("\"Unable to connect to server\"");
+            }
+
+            netstrm = server.GetStream();
+
+            Task.Run(() => requestMyData(netstrm));
+
+            // create KLAS Crawler
+            klasCrawler = new KLASCrawler();
+            // create Library Crawler
+            libraryCrawler = new LibraryCrawler();
+
             // show calendar form  
-            calendarForm = new calendarForm();
+            calendarForm = new calendarForm(klasCrawler,libraryCrawler);
             calendarForm.showCalendar();
             calendarContainer.Controls.Add(calendarForm);
 
+            // Form_Close 이벤트 발생시 아래 코드를 추가해야함
+            //netstrm.Close();
+            //server.Close();
+
+
+            // create KLAS UI Form 
+            klasUIForm = new KLASUIForm();
+
+            // create KLAS Login Form 
+            klasLoginForm = new KLASLoginForm(klasUIForm,klasCrawler);
+            // add EventHandler
+            klasLoginForm.allSuccess += klasAllSuccess;
+
+            // create Library UI Form 
+            libraryUIForm = new LibraryUIForm();
+
+            // create Library Login Form
+            libraryLoginForm = new libraryLoginForm(libraryUIForm,libraryCrawler, netstrm);
+            // add EventHandler
+            libraryLoginForm.allSuccess += lbyAllSuccess;
         }
 
 
@@ -78,36 +151,78 @@ namespace Client
             calendarContainer.Controls.Add(calendarForm);
 
         }
+
+
         private void klasBtn_Click(object sender, EventArgs e)
         {
+
             calendarContainer.Controls.Clear();
 
-            klasLoginForm = new klasLoginForm();
             calendarContainer.Controls.Add(klasLoginForm);
+
             // after login once, don't need to show loginForm. Instead, shows user's klas data UI
+            if(klasLoginForm.getLoginStatus())
+                calendarContainer.Controls.Add(klasUIForm); // (after login) show klasUIForm
+            else
+                calendarContainer.Controls.Add(klasLoginForm); // else(not login status) show klasLoginForm
         }
+
+
+        private void klasAllSuccess(object sender, EventArgs e)
+        {
+            klasUIForm.setMainUI();
+
+            // 현재 화면이 klasLoginForm 일 때만 바로 출력하도록
+            if (calendarContainer.Controls.Contains(klasLoginForm))
+            {
+                calendarContainer.Controls.Clear();
+                calendarContainer.Controls.Add(klasUIForm);
+            }
+        }
+
+
+
         private void lbyBtn_Click(object sender, EventArgs e)
         {
             calendarContainer.Controls.Clear();
 
-            libraryLoginForm = new libraryLoginForm();
-            calendarContainer.Controls.Add(libraryLoginForm);
-
             // after login once, don't need to show loginForm. Instead, shows user's library data UI
+            if (libraryLoginForm.getLoginStatus())
+                calendarContainer.Controls.Add(libraryUIForm);
+            else     
+                calendarContainer.Controls.Add(libraryLoginForm);
 
         }
+
+        private void lbyAllSuccess(object sender, EventArgs e)
+        {
+            libraryUIForm.setUI();
+
+            // 현재 화면이 libraryLoginForm 일 때만 바로 출력하도록
+            if (calendarContainer.Controls.Contains(libraryLoginForm))
+            {
+                calendarContainer.Controls.Clear();
+                calendarContainer.Controls.Add(libraryUIForm);
+            }
+        }
+
+
+
         private void fndBtn_Click(object sender, EventArgs e)
         {
             calendarContainer.Controls.Clear();
-            fdList fdList = new fdList() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true, FormBorderStyle = FormBorderStyle.None };
+            fdList fdList = new fdList(netstrm) { Dock = DockStyle.Fill, TopLevel = false, TopMost = true, FormBorderStyle = FormBorderStyle.None };
             this.calendarContainer.Controls.Add(fdList);
             fdList.Show();
         }
+
         private void loginBtn_Click(object sender, EventArgs e)
         {
-            LoginForm loginForm = new LoginForm();
+            LoginForm loginForm = new LoginForm(netstrm, this);
+            
             loginForm.Show();
         }
+
         private void signupBtn_Click(object sender, EventArgs e)
         {
             SignUpForm signUpForm = new SignUpForm();
@@ -123,3 +238,4 @@ namespace Client
         }
     }
 }
+      

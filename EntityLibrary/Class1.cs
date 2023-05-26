@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 namespace EntityLibrary
 {
 
+    [Serializable]
     public class User
     {
         public string id;
@@ -29,37 +30,46 @@ namespace EntityLibrary
             this.pwd = pwd;
             this.name = name;
         }
-        
+
+        public bool isEmpty()
+        {
+            return this.id.Equals("") && this.pwd.Equals("") && this.name.Equals("");
+        }
 
     }
 
+    [Serializable]
     public class Schedule
     {
         public int id;
         public string category; // 종류는 CUSTOM, KLAS, LIBRARY
         public string title;
         public string content;
-        public DateTime datetime;
+        public DateTime startTime;
+        public DateTime endTime;
 
         public Schedule()
         {
             this.category = "";
             this.title = "";
             this.content = "";
-            this.datetime = new DateTime(2000, 00, 00);
+            this.startTime = new DateTime(2000, 01, 01);
+            this.endTime = new DateTime(2000, 01, 01);
         }
 
-        public Schedule(string category, string title, string content, DateTime datetime)
+        public Schedule(string category, string title, string content, DateTime startTime, DateTime endTime)
         { 
             this.category = category;
             this.title = title;
             this.content = content;
-            this.datetime = datetime;
+            this.startTime = startTime;
+            this.endTime = endTime;
         }
 
 
     }
 
+    [Serializable]
     public class Group
     {
         public int id;
@@ -76,6 +86,7 @@ namespace EntityLibrary
         }
     }
 
+    [Serializable]
     public class Friendship
     {
         public string user_id;

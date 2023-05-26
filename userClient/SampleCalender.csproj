@@ -94,7 +94,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Book.cs" />
     <Compile Include="EventForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,7 +130,18 @@
     <Compile Include="fdList.Designer.cs">
       <DependentUpon>fdList.cs</DependentUpon>
     </Compile>
-    <Compile Include="LibraryCrawler.cs" />
+    <Compile Include="KLASLoginForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KLASLoginForm.Designer.cs">
+      <DependentUpon>KLASLoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KLASUIForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KLASUIForm.Designer.cs">
+      <DependentUpon>KLASUIForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="libraryLoginForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -139,7 +149,7 @@
       <DependentUpon>libraryLoginForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LibraryUIForm.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="LibraryUIForm.Designer.cs">
       <DependentUpon>LibraryUIForm.cs</DependentUpon>
@@ -156,12 +166,6 @@
     <Compile Include="mainForm.Designer.cs">
       <DependentUpon>mainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="klasLoginForm.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="klasLoginForm.Designer.cs">
-      <DependentUpon>klasLoginForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="calendarForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -170,6 +174,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="SignUpForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -200,6 +209,12 @@
     <EmbeddedResource Include="fdList.resx">
       <DependentUpon>fdList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="KLASLoginForm.resx">
+      <DependentUpon>KLASLoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KLASUIForm.resx">
+      <DependentUpon>KLASUIForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="libraryLoginForm.resx">
       <DependentUpon>libraryLoginForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -212,22 +227,14 @@
     <EmbeddedResource Include="mainForm.resx">
       <DependentUpon>mainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="klasLoginForm.resx">
-      <DependentUpon>klasLoginForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="calendarForm.resx">
       <DependentUpon>calendarForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="SignUpForm.resx">
       <DependentUpon>SignUpForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -249,9 +256,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CrawlingLibrary\CrawlingLibrary.csproj">
+      <Project>{e7719ae8-b630-4bc7-842f-12f9eb60fbf2}</Project>
+      <Name>CrawlingLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EntityLibrary\EntityLibrary.csproj">
       <Project>{b24ce078-7f67-4c9d-94a1-f0df13a2ad96}</Project>
       <Name>EntityLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PacketLibrary\PacketLibrary.csproj">
+      <Project>{22ff42cd-5986-4502-8c5e-bb746a5f1c2a}</Project>
+      <Name>PacketLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
