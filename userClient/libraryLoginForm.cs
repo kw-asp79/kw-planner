@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
 using CrawlingLibrary;
+using EntityLibrary;
 
 namespace Client
 {

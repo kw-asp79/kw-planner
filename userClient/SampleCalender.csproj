@@ -185,6 +185,12 @@
     <Compile Include="SignUpForm.Designer.cs">
       <DependentUpon>SignUpForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ToDoUIForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ToDoUIForm.Designer.cs">
+      <DependentUpon>ToDoUIForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControlDays.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -237,6 +243,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SignUpForm.resx">
       <DependentUpon>SignUpForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToDoUIForm.resx">
+      <DependentUpon>ToDoUIForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControlDays.resx">
       <DependentUpon>UserControlDays.cs</DependentUpon>

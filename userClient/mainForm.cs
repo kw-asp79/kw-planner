@@ -26,7 +26,7 @@ namespace Client
         KLASUIForm klasUIForm;
         libraryLoginForm libraryLoginForm;
         LibraryUIForm libraryUIForm;
-
+        
         private static TcpClient server;
         private static NetworkStream netstrm;
 
@@ -36,6 +36,7 @@ namespace Client
 
         public User myUserInfo;
         public bool isLoginSuccess = false;
+
         KLASCrawler klasCrawler;
         LibraryCrawler libraryCrawler;
 
@@ -137,6 +138,7 @@ namespace Client
             libraryLoginForm = new libraryLoginForm(libraryUIForm,libraryCrawler, netstrm);
             // add EventHandler
             libraryLoginForm.allSuccess += lbyAllSuccess;
+
         }
 
 
@@ -157,8 +159,6 @@ namespace Client
         {
 
             calendarContainer.Controls.Clear();
-
-            calendarContainer.Controls.Add(klasLoginForm);
 
             // after login once, don't need to show loginForm. Instead, shows user's klas data UI
             if(klasLoginForm.getLoginStatus())
@@ -235,6 +235,14 @@ namespace Client
             fdGroup_Form fdGroupForm = new fdGroup_Form() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true, FormBorderStyle = FormBorderStyle.None };
             this.calendarContainer.Controls.Add(fdGroupForm);
             fdGroupForm.Show();
+        }
+
+        private void todoBtn_Click(object sender, EventArgs e)
+        {
+            calendarContainer.Controls.Clear();
+
+            ToDoUIForm todoUIForm = new ToDoUIForm(libraryCrawler.getLibrarySchedules(),klasCrawler.getKLASSchedules());
+            calendarContainer.Controls.Add(todoUIForm);
         }
     }
 }

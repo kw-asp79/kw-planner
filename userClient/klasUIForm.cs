@@ -215,7 +215,11 @@ namespace Client
             List<TeamProject> teamProjects = lecture.getTeamProject();
 
             if (teamProjects.Count == 0)
-                tproTBX.AppendText("수업에서 출제된 팀 프로젝트가 없습니다. ");
+            {
+                tproTBX.AppendText("수업에서 출제된 팀 프로젝트가 없습니다. \r\n");
+                
+                tproTBX.AppendText(lecture.getTime()[0] + "  " + lecture.getTime()[1]);
+            }
             else
             {
                 int numTeamsDone = 0;
