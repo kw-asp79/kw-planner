@@ -23,7 +23,7 @@ namespace WindowsFormsApp1
         }
         private void listBoxconfig()
         {
-            친구목록.DataSource= fdList.frd_list;
+            친구목록.DataSource = fdList.frd_list;
             친구목록.SelectionMode = SelectionMode.MultiSimple;
             친구목록.SelectedIndex = -1;
 
@@ -38,7 +38,7 @@ namespace WindowsFormsApp1
             fdGroupForm.add_Grouplist(this.txt_grpname.Text, list_frdname);
             친구목록.SelectedIndex = -1;
             txt_grpname.Clear();
-            
+
         }
     }
 }

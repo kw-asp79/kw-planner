@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,29 +14,33 @@ namespace WindowsFormsApp1
 {
     public partial class fdGroup_Form : Form
     {
+        NetworkStream netstrm;
+        mainForm mainForm;
+
         Label[] labelGroupName = new Label[10];
         ListBox[] listBoxFriends = new ListBox[10];
         Button[] btn_share = new Button[10];
         Button[] btn_delete = new Button[10];
         Button[] btn_add = new Button[10];
 
-        public static List<List<string>> listOfLists = new List<List<string>>(); 
+        public static List<List<string>> listOfLists = new List<List<string>>();
         public static List<string> grp_name_list = new List<string>();
 
         fdList fdList;
 
         static int A = 1;
         static int B = 1;
-        static int cntGrp = 0;
+        static int cntGrp = mainForm.groups.Count;
         static int T = 1;
-        public fdGroup_Form()
+        public fdGroup_Form(NetworkStream netstrm)
         {
             InitializeComponent();
+            this.netstrm = netstrm;
             grp_load();
         }
         private void grp_load()
         {
-            for (int i = 0; i < grp_name_list.Count; i++)
+            for (int i = 0; i < mainForm.groups.Count; i++)
             {
                 int v = i + 1;
                 int k = v;
@@ -43,7 +48,7 @@ namespace WindowsFormsApp1
                 if ((v >= 4) && (v <= 6)) { T = 160; k = v - 3; }
                 if ((v >= 7) && (v <= 9)) { T = 320; k = v - 6; }
                 labelGroupName[v] = new Label();
-                labelGroupName[v].Text = grp_name_list[i];
+                labelGroupName[v].Text = mainForm.groups.Keys.ElementAt(i);
                 labelGroupName[v].AutoSize = true;
                 labelGroupName[v].Location = new Point(100 + 270 * (k - 1), 120 + T);
                 labelGroupName[v].Size = new Size(100, 100);
@@ -52,7 +57,7 @@ namespace WindowsFormsApp1
 
                 listBoxFriends[v] = new ListBox();
                 listBoxFriends[v].Tag = v;
-                listBoxFriends[v].DataSource = listOfLists[i];
+                listBoxFriends[v].DataSource = mainForm.groups.Values.ElementAt(i);
                 listBoxFriends[v].Size = new Size(150, 78);
                 listBoxFriends[v].Location = new Point { X = 100 + 270 * (k - 1), Y = 150 + T };
 
@@ -95,18 +100,17 @@ namespace WindowsFormsApp1
         {
             if (grpname != "")
             {
-                grp_name_list.Add(grpname);
-                listOfLists.Add(ts);
+                mainForm.groups.
                 A = cntGrp + 1;
                 B = A;
                 if ((A >= 1) && (A <= 3)) T = 1;
-                if ((A >= 4) && (A <= 6)) { T = 160;B = A - 3; }
+                if ((A >= 4) && (A <= 6)) { T = 160; B = A - 3; }
                 if ((A >= 7) && (A <= 9)) { T = 320; B = A - 6; }
 
                 labelGroupName[A] = new Label();
                 labelGroupName[A].Text = grpname;
                 labelGroupName[A].AutoSize = true;
-                labelGroupName[A].Location = new Point(100 + 270 * (B - 1), 120+T);
+                labelGroupName[A].Location = new Point(100 + 270 * (B - 1), 120 + T);
                 labelGroupName[A].Size = new Size(100, 100);
                 labelGroupName[A].Font = new Font("Segoe Script", 12, FontStyle.Bold);
                 labelGroupName[A].Tag = A;
@@ -155,13 +159,13 @@ namespace WindowsFormsApp1
             List<string> list = new List<string>();
             int idx = (int)((Button)sender).Tag;
             list = fdList.frd_list.Except((List<string>)listBoxFriends[idx].DataSource).ToList();
-            fdGroup_Form_fdlist fdGroup_Form_Fdlist = new fdGroup_Form_fdlist(this,list, (List<string>)listBoxFriends[idx].DataSource,idx);
+            fdGroup_Form_fdlist fdGroup_Form_Fdlist = new fdGroup_Form_fdlist(this, list, (List<string>)listBoxFriends[idx].DataSource, idx);
             fdGroup_Form_Fdlist.Show();
         }
-        public void update_list(List<string> list,int i)
+        public void update_list(List<string> list, int i)
         {
-            listOfLists[i-1] =null;
-            listOfLists[i-1]= list;
+            listOfLists[i - 1] = null;
+            listOfLists[i - 1] = list;
             listBoxFriends[i].DataSource = null;
             listBoxFriends[i].Items.Clear();
             listBoxFriends[i].DataSource = list;
@@ -172,15 +176,15 @@ namespace WindowsFormsApp1
             int idx = (int)((Button)sender).Tag;
             ListBox.SelectedIndexCollection selectedIndices = listBoxFriends[idx].SelectedIndices;
             check_list = (List<string>)listBoxFriends[idx].DataSource;
-            for(int i=0; i<selectedIndices.Count; i++)
+            for (int i = 0; i < selectedIndices.Count; i++)
             {
                 int selectedIndex = selectedIndices[i];
                 check_list.RemoveAt(selectedIndex - i);
             }
             listBoxFriends[idx].DataSource = null;
             listBoxFriends[idx].Items.Clear();
-            
-            if(check_list.Count == 0)
+
+            if (check_list.Count == 0)
             {
                 listBoxFriends[idx].DataSource = listBoxFriends[A - 1].DataSource;
                 labelGroupName[idx].Text = labelGroupName[A - 1].Text;
@@ -196,7 +200,7 @@ namespace WindowsFormsApp1
                 listOfLists[idx - 1] = listOfLists[A - 2];
 
                 listOfLists.RemoveAt(A - 2);
-                grp_name_list.RemoveAt(A-2);
+                grp_name_list.RemoveAt(A - 2);
                 A--;
                 cntGrp--;
             }
@@ -206,30 +210,7 @@ namespace WindowsFormsApp1
                 listOfLists[idx - 1] = null;
                 listOfLists[idx - 1] = check_list;
             }
-            //if (grp_list.Count == 0)
-            //{
-            //    int last_grp = A - 1;
-            //    listOfLists[idx - 1].Clear();
-            //    listOfLists[idx-1] = listOfLists[last_grp-1];
-            //    listOfLists[last_grp - 1].Clear();
 
-            //    labelGroupName[idx].Text = labelGroupName[last_grp].Text;
-            //    grp_list = (List<string>)listBoxFriends[last_grp].DataSource;
-
-            //    this.Controls.Remove(labelGroupName[last_grp]);
-            //    this.Controls.Remove(listBoxFriends[last_grp]);
-            //    this.Controls.Remove(btn_delete[last_grp]);
-            //    this.Controls.Remove(btn_share[last_grp]);
-            //    this.Controls.Remove(btn_add[last_grp]);
-
-            //    cntGrp--;
-            //}
-            //listBoxFriends[idx].DataSource = null;
-            //listBoxFriends[idx].Items.Clear();
-
-            //listBoxFriends[idx].DataSource = grp_list;
-            //listOfLists[idx - 1].Clear();
-            //listOfLists[idx - 1] = grp_list;
         }
 
     }

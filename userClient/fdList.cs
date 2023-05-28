@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EntityLibrary;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,44 +16,43 @@ namespace Client
     public partial class fdList : Form
     {
         NetworkStream netstrm;
+        mainForm mainForm;
 
         Label[] labels = new Label[20];
         Label[] labels2 = new Label[20];
         Button[] btn_chat = new Button[20];
         Button[] btn_delete = new Button[20];
         Panel[] panel = new Panel[20];
-        public static List<string> frd_list = new List<string>();
-        static List<string> id_list = new List<string>();
         public static bool bool_tf = false;
-        
+
         int labelWidth = 50;
         int labelHeight = 25;
         static int A = 1;
-        static int cntlbl = 0;
+        static int cntlbl = mainForm.friends.Count;
 
-         
+
         public fdList(NetworkStream netstrm)
         {
             InitializeComponent();
-            list_load();
             this.netstrm = netstrm;
+            list_load();
+            
         }
-        
         private void list_load()
         {
-            for(int i=1; i <= frd_list.Count; i++)
+            for (int i = 1; i <= mainForm.friends.Count; i++)
             {
                 labels2[i] = new Label();
                 labels2[i].Location = new Point(310, 60 + 50 * i);
                 labels2[i].Size = new Size(labelWidth + 15, labelHeight);
-                labels2[i].Text = id_list[i-1];
+                labels2[i].Text = mainForm.friends[i - 1].id;
                 labels2[i].Tag = i;
 
 
                 labels[i] = new Label();
                 labels[i].Location = new Point(labels2[i].Location.X + 65, labels2[i].Location.Y);
                 labels[i].Size = new Size(labelWidth, labelHeight);
-                labels[i].Text = frd_list[i-1];
+                labels[i].Text = mainForm.friends[i - 1].name;
                 labels[i].Tag = i;
 
                 btn_chat[i] = new Button();
@@ -82,6 +82,7 @@ namespace Client
                 this.Controls.Add(btn_chat[i]);
                 this.Controls.Add(btn_delete[i]);
             }
+
         }
 
         private void btn_addfd_Click(object sender, EventArgs e)
@@ -93,9 +94,19 @@ namespace Client
 
         public void add_label(string id, string s)
         {
+            ////fdAdd에서 sql 로 s안가져올 시 friends에 foreach문
+
+            //foreach (User friend in mainForm.friends)
+            //{
+            //    if (friend.id == id) {
+            //        s = friend.name;
+            //        break;
+            //    }
+            //}
+
             if ((id != "") && (s != ""))
             {
-                cntlbl = frd_list.Count;
+                
                 A = cntlbl + 1;
 
                 labels2[A] = new Label();
@@ -103,20 +114,13 @@ namespace Client
                 labels2[A].Size = new Size(labelWidth + 15, labelHeight);
                 labels2[A].Text = id;
                 labels2[A].Tag = A;
-                
 
                 labels[A] = new Label();
                 labels[A].Location = new Point(labels2[A].Location.X + 65, labels2[A].Location.Y);
                 labels[A].Size = new Size(labelWidth, labelHeight);
                 labels[A].Text = s;
                 labels[A].Tag = A;
-                if (bool_tf)
-                {
-                    id_list.Add(id);
-                    frd_list.Add(s);
-                    bool_tf =false;
-                }
-                
+
                 btn_chat[A] = new Button();
                 btn_chat[A].Location = new Point(labels2[A].Location.X + 115, labels2[A].Location.Y - 10);
                 btn_chat[A].Size = new Size(labelWidth, labelHeight);
@@ -143,7 +147,7 @@ namespace Client
                 this.Controls.Add(labels[A]);
                 this.Controls.Add(btn_chat[A]);
                 this.Controls.Add(btn_delete[A]);
-
+                
                 cntlbl++;
                 A++;
             }
@@ -152,21 +156,24 @@ namespace Client
         {
             Button btn = sender as Button;
             int idx = (int)btn.Tag;
-            frd_list.RemoveAt(idx-1);
-            id_list.RemoveAt(idx-1);
 
-            if(idx < A-1)
+            // sql로 db에서 해당 친구 delete 문 필요 
+            // friends를 새로 select해오는지 아닐시 아래 문장으로 해당 index정보 삭제
+            mainForm.friends.RemoveAt(idx - 1);
+            
+            if (idx < A - 1)
             {
-                labels[idx].Text = labels[A-1].Text;
-                labels2[idx].Text = labels2[A-1].Text;
+                labels[idx].Text = labels[A - 1].Text;
+                labels2[idx].Text = labels2[A - 1].Text;
 
                 this.Controls.Remove(labels2[A - 1]);
-                this.Controls.Remove(btn_delete[A-1]);
-                this.Controls.Remove(labels[A-1]);
-                this.Controls.Remove(btn_chat[A-1]);
-                this.Controls.Remove(panel[A-1]);
-                
-            } else
+                this.Controls.Remove(btn_delete[A - 1]);
+                this.Controls.Remove(labels[A - 1]);
+                this.Controls.Remove(btn_chat[A - 1]);
+                this.Controls.Remove(panel[A - 1]);
+
+            }
+            else
             {
                 this.Controls.Remove(labels2[idx]);
                 this.Controls.Remove(btn_delete[idx]);
@@ -177,5 +184,6 @@ namespace Client
             A--;
             cntlbl--;
         }
+ 
     }
 }
