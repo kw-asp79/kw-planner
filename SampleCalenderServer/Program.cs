@@ -200,96 +200,119 @@ namespace SampleCalenderServer
 
             while (client.Connected)
             {
-                PacketInfo packetInfo = new PacketInfo();
-                Packet receivedPacket;
-                Packet sendPacket = new Packet();
-
-                byte[] size = new byte[4];
-
-                int recv = await netstrm.ReadAsync(size, 0, 4).ConfigureAwait(false);
-                packetInfo.size = BitConverter.ToInt32(size, 0);
-
-                byte[] data = new byte[packetInfo.size];
-
-                recv = await netstrm.ReadAsync(data, 0, packetInfo.size);
-
-                receivedPacket = Packet.Desserialize(data, packetInfo);
-
-
-                switch (receivedPacket.action)
+                try
                 {
-                    case ActionType.login:
-                        Console.Write("[{0}] login request", remoteAddress);
-                        user = (User)receivedPacket.data;
-                        sendPacket = LoginProcess(user);
-                        break;
-                    case ActionType.readAllData:
-                        Console.WriteLine("[{0}] readAllData request", remoteAddress);
-                        user = (User)receivedPacket.data;
-                        sendPacket = ReadAllDataProcess(user);
-                        break;
-                    case ActionType.saveUser:
-                        Console.WriteLine("[{0}] saveUser request", remoteAddress);
-                        user = (User)receivedPacket.data;
-                        sendPacket = CreateProcess(user);
-                        break;
-                    case ActionType.deleteUser:
-                        Console.WriteLine("[{0}] deleteUser request", remoteAddress);
-                        user = (User)receivedPacket.data;
-                        sendPacket = DeleteProcess(user);
-                        break;
-                    case ActionType.editUser:
-                        Console.WriteLine("[{0}] editUser request", remoteAddress);
-                        user = (User)receivedPacket.data;
-                        sendPacket = UpdateProcess(user);
-                        break;
-                    case ActionType.saveSchedule:
-                        Console.WriteLine("[{0}] saveSchedule request", remoteAddress);
-                        fullData = receivedPacket.data as Dictionary<string, object>;
-                        sendPacket = CreateProcess(fullData);
-                        break;
-                    case ActionType.deleteSchedule:
-                        Console.WriteLine("[{0}] deleteSchedule request", remoteAddress);
-                        fullData = receivedPacket.data as Dictionary<string, object>;
-                        sendPacket = DeleteProcess(fullData);
-                        break;
-                    case ActionType.editSchedule:
-                        Console.WriteLine("[{0}] editSchedule request", remoteAddress);
-                        fullData = receivedPacket.data as Dictionary<string, object>;
-                        sendPacket = UpdateProcess(fullData);
-                        break;
-                    case ActionType.saveGroup:
-                        Console.WriteLine("[{0}] saveGroup request", remoteAddress);
-                        fullData = receivedPacket.data as Dictionary<string, object>;
-                        sendPacket = CreateProcess(fullData);
-                        break;
-                    case ActionType.deleteGroup:
-                        Console.WriteLine("[{0}] deleteGroup request", remoteAddress);
-                        fullData = receivedPacket.data as Dictionary<string, object>;
-                        sendPacket = DeleteProcess(fullData);
-                        break;
-                    case ActionType.editGroup:
-                        Console.WriteLine("[{0}] editGroup request", remoteAddress);
-                        fullData = receivedPacket.data as Dictionary<string, object>;
-                        sendPacket = UpdateProcess(fullData);
-                        break;
-                    default:
-                        break;
+                    PacketInfo packetInfo = new PacketInfo();
+                    Packet receivedPacket;
+                    Packet sendPacket = new Packet();
+
+                    byte[] size = new byte[4];
+
+                    int recv = await netstrm.ReadAsync(size, 0, 4).ConfigureAwait(false);
+                    packetInfo.size = BitConverter.ToInt32(size, 0);
+
+                    byte[] data = new byte[packetInfo.size];
+
+                    recv = await netstrm.ReadAsync(data, 0, packetInfo.size);
+
+                    receivedPacket = Packet.Desserialize(data, packetInfo);
+
+
+                    switch (receivedPacket.action)
+                    {
+                        case ActionType.login:
+                            Console.Write("[{0}] login request", remoteAddress);
+                            user = (User)receivedPacket.data;
+                            sendPacket = LoginProcess(user);
+                            break;
+                        case ActionType.readAllData:
+                            Console.WriteLine("[{0}] readAllData request", remoteAddress);
+                            user = (User)receivedPacket.data;
+                            sendPacket = ReadAllDataProcess(user);
+                            break;
+                        case ActionType.saveUser:
+                            Console.WriteLine("[{0}] saveUser request", remoteAddress);
+                            user = (User)receivedPacket.data;
+                            sendPacket = CreateProcess(user);
+                            break;
+                        case ActionType.deleteUser:
+                            Console.WriteLine("[{0}] deleteUser request", remoteAddress);
+                            user = (User)receivedPacket.data;
+                            sendPacket = DeleteProcess(user);
+                            break;
+                        case ActionType.editUser:
+                            Console.WriteLine("[{0}] editUser request", remoteAddress);
+                            user = (User)receivedPacket.data;
+                            sendPacket = UpdateProcess(user);
+                            break;
+                        case ActionType.saveSchedule:
+                            Console.WriteLine("[{0}] saveSchedule request", remoteAddress);
+                            fullData = receivedPacket.data as Dictionary<string, object>;
+                            sendPacket = CreateProcess(fullData);
+                            break;
+                        case ActionType.deleteSchedule:
+                            Console.WriteLine("[{0}] deleteSchedule request", remoteAddress);
+                            fullData = receivedPacket.data as Dictionary<string, object>;
+                            sendPacket = DeleteProcess(fullData);
+                            break;
+                        case ActionType.editSchedule:
+                            Console.WriteLine("[{0}] editSchedule request", remoteAddress);
+                            fullData = receivedPacket.data as Dictionary<string, object>;
+                            sendPacket = UpdateProcess(fullData);
+                            break;
+                        case ActionType.saveGroup:
+                            Console.WriteLine("[{0}] saveGroup request", remoteAddress);
+                            fullData = receivedPacket.data as Dictionary<string, object>;
+                            sendPacket = CreateProcess(fullData);
+                            break;
+                        case ActionType.deleteGroup:
+                            Console.WriteLine("[{0}] deleteGroup request", remoteAddress);
+                            fullData = receivedPacket.data as Dictionary<string, object>;
+                            sendPacket = DeleteProcess(fullData);
+                            break;
+                        case ActionType.editGroup:
+                            Console.WriteLine("[{0}] editGroup request", remoteAddress);
+                            fullData = receivedPacket.data as Dictionary<string, object>;
+                            sendPacket = UpdateProcess(fullData);
+                            break;
+
+                        case ActionType.ClientClosed:
+                            Console.WriteLine("[{0}] ClientClosed request", remoteAddress);
+                            throw new Exception("ClientClosed");                            
+                            
+                        default:
+                            break;
+                    }
+
+                    // 응답을 전송함
+                    data = Packet.Serialize(sendPacket, packetInfo);
+                    size = BitConverter.GetBytes(packetInfo.size);
+
+                    // packet의 size를 먼저 전송
+                    await netstrm.WriteAsync(size, 0, 4);
+                    // 그 다음 packet을 전송
+                    await netstrm.WriteAsync(data, 0, packetInfo.size);
+                    netstrm.Flush();
+                }
+                catch (Exception e)
+                {
+
+                    // 만약 클라이언트가 폼을 종료했다면.. 
+                    if (e.Message.Contains("ClientClosed"))
+                    {
+                        Console.WriteLine("main form closed event: Client closed!!");
+
+                        netstrm.Close();
+                        client.Close();
+
+                        return;
+                    }
                 }
 
-                // 응답을 전송함
-                data = Packet.Serialize(sendPacket, packetInfo);
-                size = BitConverter.GetBytes(packetInfo.size); ;
 
-                // packet의 size를 먼저 전송
-                await netstrm.WriteAsync(size, 0, 4);
-                // 그 다음 packet을 전송
-                await netstrm.WriteAsync(data, 0, packetInfo.size);
-                netstrm.Flush();
             }
 
-            netstrm.Close();
-            client.Close();
+
         }
 
         async static Task AsyncServer()

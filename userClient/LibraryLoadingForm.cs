@@ -37,8 +37,10 @@ namespace Client
             
             this.libraryCrawler.loginSuccessEvent += delegate (object sender, EventArgs e)
             {
-                statusLbl.Font = new Font(statusLbl.Font.FontFamily,10,FontStyle.Regular);
-                statusLbl.Text = "로그인 성공! 크롤링 작업이 진행 중입니다.. ";
+                statusLbl.Text = "";
+
+                crawlingLbl.Font = new Font(statusLbl.Font.FontFamily,10,FontStyle.Regular);
+                crawlingLbl.Text = "로그인 성공! 크롤링 작업이 진행 중입니다.. ";
                 
             };
 

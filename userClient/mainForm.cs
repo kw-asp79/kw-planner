@@ -119,10 +119,7 @@ namespace Client
             calendarForm.showCalendar();
             calendarContainer.Controls.Add(calendarForm);
 
-            // Form_Close 이벤트 발생시 아래 코드를 추가해야함
-            //netstrm.Close();
-            //server.Close();
-
+           
 
             // create KLAS UI Form 
             klasUIForm = new KLASUIForm();
@@ -244,6 +241,19 @@ namespace Client
 
             ToDoUIForm todoUIForm = new ToDoUIForm(libraryCrawler.getLibrarySchedules(),klasCrawler.getKLASSchedules());
             calendarContainer.Controls.Add(todoUIForm);
+        }
+
+        private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Form_Close 이벤트 발생시 아래 코드를 추가해야함
+
+            Packet packet = new Packet();
+            packet.action = ActionType.ClientClosed;
+            
+            Packet.SendPacket(netstrm, packet);
+
+            netstrm.Close();
+            server.Close();
         }
     }
 }
