@@ -71,7 +71,6 @@ namespace Client
         }
 
 
-
         private void crawlingMessage(Object sender, EventArgs e)
         {
             MessageBox.Show("로그인 성공! 크롤링 작업이 진행됩니다!! .. ", "Library Crawling Process");
