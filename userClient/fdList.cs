@@ -30,7 +30,7 @@ namespace Client
         int labelHeight = 25;
         static int A = 1;
         
-        static int cntlbl = mainForm.friends != null ? mainForm.friends.Count : 0;
+        static int cntlbl = mainForm.friends.Count;
 
 
         public fdList(NetworkStream netstrm)
@@ -42,7 +42,7 @@ namespace Client
         }
         private void list_load()
         {
-            for (int i = 1; i <= cntlbl; i++)
+            for (int i = 1; i <= mainForm.friends.Count; i++)
             {
                 labels2[i] = new Label();
                 labels2[i].Location = new Point(310, 60 + 50 * i);
@@ -117,7 +117,7 @@ namespace Client
                 if(packet.action == ActionType.Success)
                 {
                     cntlbl = mainForm.friends.Count;
-                    A = cntlbl + 1;
+                    A = cntlbl ;
 
                     labels2[A] = new Label();
                     labels2[A].Location = new Point(310, 60 + 50 * A);
@@ -127,7 +127,7 @@ namespace Client
 
 
                     labels[A] = new Label();
-                    labels[A].Location = new Point(labels2[A].Location.X + 70, labels2[A].Location.Y);
+                    labels[A].Location = new Point(labels2[A].Location.X + 65, labels2[A].Location.Y);
                     labels[A].Size = new Size(labelWidth, labelHeight);
                     labels[A].Text = s;
                     labels[A].Tag = A;

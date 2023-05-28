@@ -30,9 +30,9 @@ namespace Client
         private static TcpClient server;
         private static NetworkStream netstrm;
 
-        public static List<User> friends;
-        public static List<Schedule> schedules;
-        public static Dictionary<string, List<User>> groups;
+        public static List<User> friends = new List<User>();
+        public static List<Schedule> schedules = new List<Schedule>();
+        public static Dictionary<string, List<User>> groups = new Dictionary<string, List<User>>();
 
         public static User myUserInfo;
         public bool isLoginSuccess = false;
