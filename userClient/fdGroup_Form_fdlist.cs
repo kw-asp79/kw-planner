@@ -1,4 +1,5 @@
 ﻿using Client;
+using EntityLibrary;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,10 +35,15 @@ namespace WindowsFormsApp1
         private void btn_add_add_Click(object sender, EventArgs e)
         {
             List<string> list_frdname = new List<string>();
+             
             foreach (var selectedname in 친구_list.SelectedItems)
             {
                 list_frdname.Add(selectedname.ToString());
+                //기존 그룹에 새로운 친구 추가 
+                mainForm.groups.ElementAt(k - 1).Value.Add(new User("", "", (string)selectedname));
+                
             }
+            
             add_list = add_list.Union(list_frdname).ToList();
             fdGroupForm.update_list(add_list, k);
             this.Close();
