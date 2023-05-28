@@ -15,7 +15,7 @@ namespace SampleCalenderServer
             // 나한테만 보여지는 Group이라고 가정
             MySqlCommand command = DBProcess.connection.CreateCommand();
 
-            command.CommandText = "SELECT group.name FROM schema.group WHERE group.user_id = @myUserId;";
+            command.CommandText = "SELECT group.name FROM asp.group WHERE group.user_id = @myUserId;";
             command.Parameters.AddWithValue("@myUserID", user.id);
 
             MySqlDataReader reader = command.ExecuteReader();
@@ -33,8 +33,8 @@ namespace SampleCalenderServer
             foreach (string groupName in groups.Keys)
             {
                 command = DBProcess.connection.CreateCommand();
-                command.CommandText = "SELECT user.* FROM user join user_group join schema.group where group.name = @groupName" +
-                    " and schema.group.group_id = user_group.group_id and user_group.user_id = user.user_id;";
+                command.CommandText = "SELECT user.* FROM user join user_group join asp.group where group.name = @groupName" +
+                    " and asp.group.group_id = user_group.group_id and user_group.user_id = user.user_id;";
                 command.Parameters.AddWithValue("@groupName", groupName);
 
                 reader = command.ExecuteReader();
@@ -54,6 +54,77 @@ namespace SampleCalenderServer
             }
 
             return groups;
+        }
+
+        public static int SelectGroupIdByName(string groupName, string userId)
+        {
+            MySqlCommand command = DBProcess.connection.CreateCommand();
+            command.CommandText = "SELECT group_id FROM asp.group JOIN user_group WHERE asp.group.name = @groupName" +
+                " and user_group.user_id = @userId" +
+                " and user_group.group_id = asp.group.group_id;";
+            command.Parameters.AddWithValue("@groupName", groupName);
+            command.Parameters.AddWithValue("@userId", userId);
+
+            MySqlDataReader reader = command.ExecuteReader();
+
+            int id = -1;
+
+            if (reader.HasRows)
+            {
+                reader.Read();
+                id = reader.GetInt32("group_id");
+            }
+
+            reader.Close();
+
+            return id;
+        }
+
+        public static void CreateGroup(string name, string user_id)
+        {
+            MySqlCommand command = DBProcess.connection.CreateCommand();
+            command.CommandText = "INSERT INTO `group` (name, user_id) VALUES (@name, @user_id);";
+            command.Parameters.AddWithValue("@name", name);
+            command.Parameters.AddWithValue("@user_id", user_id);
+
+            command.ExecuteNonQuery();
+        }
+
+        public static void DeleteGroup(int group_id)
+        {
+            MySqlCommand command = DBProcess.connection.CreateCommand();
+            command.CommandText = "DELETE FROM `group` WHERE group_id = @group_id;";
+            command.Parameters.AddWithValue("@group_id", group_id);
+
+            command.ExecuteNonQuery();
+        }
+
+        public static void UpdateGroup(int group_id, string name, string user_id)
+        {
+            MySqlCommand command = DBProcess.connection.CreateCommand();
+            command.CommandText = "UPDATE `group` SET name = @name WHERE group_id = @group_id;";
+            command.Parameters.AddWithValue("@group_id", group_id);
+            command.Parameters.AddWithValue("@name", name);
+
+            command.ExecuteNonQuery();
+        }
+
+        public static void CreateUserGroup(int groupId, string userId)
+        {
+            MySqlCommand command = DBProcess.connection.CreateCommand();
+            command.CommandText = "INSERT INTO `user_group` (group_id, user_id) VALUES (@groupId, @userId);";
+            command.Parameters.AddWithValue("@groupId", groupId);
+            command.Parameters.AddWithValue("@userId", userId);
+
+            command.ExecuteNonQuery();
+        }
+        public static void DeleteUserGroup(int userGroupId)
+        {
+            MySqlCommand command = DBProcess.connection.CreateCommand();
+            command.CommandText = "DELETE FROM `user_group` WHERE user_group_id = @userGroupId;";
+            command.Parameters.AddWithValue("@userGroupId", userGroupId);
+
+            command.ExecuteNonQuery();
         }
     }
 }

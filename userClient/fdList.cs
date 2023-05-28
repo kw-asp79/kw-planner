@@ -1,4 +1,6 @@
-﻿using System;
+﻿using EntityLibrary;
+using PacketLibrary;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +17,8 @@ namespace Client
     public partial class fdList : Form
     {
         NetworkStream netstrm;
+        mainForm mainform;
+        User myUserInfo = mainForm.myUserInfo;
 
         Label[] labels = new Label[20];
         Label[] labels2 = new Label[20];
@@ -87,7 +91,7 @@ namespace Client
         private void btn_addfd_Click(object sender, EventArgs e)
         {
             bool_tf = true;
-            fdAdd fdAdd = new fdAdd(this);
+            fdAdd fdAdd = new fdAdd(this, this.netstrm);
             fdAdd.ShowDialog();
         }
 
@@ -95,57 +99,77 @@ namespace Client
         {
             if ((id != "") && (s != ""))
             {
-                cntlbl = frd_list.Count;
-                A = cntlbl + 1;
+                User friend = new User();
+                friend.id = id;
 
-                labels2[A] = new Label();
-                labels2[A].Location = new Point(310, 60 + 50 * A);
-                labels2[A].Size = new Size(labelWidth + 15, labelHeight);
-                labels2[A].Text = id;
-                labels2[A].Tag = A;
-                
+                Packet packet = new Packet();
 
-                labels[A] = new Label();
-                labels[A].Location = new Point(labels2[A].Location.X + 70, labels2[A].Location.Y);
-                labels[A].Size = new Size(labelWidth, labelHeight);
-                labels[A].Text = s;
-                labels[A].Tag = A;
-                if (bool_tf)
+                packet.action = ActionType.saveFriendship;
+
+                Dictionary<String, Object> fullData = new Dictionary<String, Object>();
+                fullData.Add("user", myUserInfo);
+                fullData.Add("friend", friend);
+
+                packet.data = fullData;
+
+                Packet.SendPacket(netstrm, packet);
+
+                packet = Packet.ReceivePacket(netstrm);
+
+                if(packet.action == ActionType.Success)
                 {
-                    id_list.Add(id);
-                    frd_list.Add(s);
-                    bool_tf =false;
+                    cntlbl = frd_list.Count;
+                    A = cntlbl + 1;
+
+                    labels2[A] = new Label();
+                    labels2[A].Location = new Point(310, 60 + 50 * A);
+                    labels2[A].Size = new Size(labelWidth + 15, labelHeight);
+                    labels2[A].Text = id;
+                    labels2[A].Tag = A;
+
+
+                    labels[A] = new Label();
+                    labels[A].Location = new Point(labels2[A].Location.X + 70, labels2[A].Location.Y);
+                    labels[A].Size = new Size(labelWidth, labelHeight);
+                    labels[A].Text = s;
+                    labels[A].Tag = A;
+                    if (bool_tf)
+                    {
+                        id_list.Add(id);
+                        frd_list.Add(s);
+                        bool_tf = false;
+                    }
+
+                    btn_chat[A] = new Button();
+                    btn_chat[A].Location = new Point(labels2[A].Location.X + 115, labels2[A].Location.Y - 10);
+                    btn_chat[A].Size = new Size(labelWidth, labelHeight);
+                    btn_chat[A].Text = "채팅";
+                    btn_chat[A].Tag = A;
+
+                    btn_delete[A] = new Button();
+                    btn_delete[A].Location = new Point(labels2[A].Location.X + 165, labels2[A].Location.Y - 10);
+                    btn_delete[A].Size = new Size(labelWidth, labelHeight);
+                    btn_delete[A].Text = "삭제";
+                    btn_delete[A].Tag = A;
+
+
+                    btn_delete[A].Click += new EventHandler(btn_delete_Click);
+
+                    panel[A] = new Panel();
+                    panel[A].Location = new Point(labels2[A].Location.X, labels2[A].Location.Y + 15);
+                    panel[A].Size = new Size(215, 1);
+                    panel[A].BackColor = Color.Black;
+                    panel[A].Tag = A;
+
+                    this.Controls.Add(panel[A]);
+                    this.Controls.Add(labels2[A]);
+                    this.Controls.Add(labels[A]);
+                    this.Controls.Add(btn_chat[A]);
+                    this.Controls.Add(btn_delete[A]);
+
+                    cntlbl++;
+                    A++;
                 }
-                
-                btn_chat[A] = new Button();
-                btn_chat[A].Location = new Point(labels2[A].Location.X + 115, labels2[A].Location.Y - 10);
-                btn_chat[A].Size = new Size(labelWidth, labelHeight);
-                btn_chat[A].Text = "채팅";
-                btn_chat[A].Tag = A;
-
-                btn_delete[A] = new Button();
-                btn_delete[A].Location = new Point(labels2[A].Location.X + 165, labels2[A].Location.Y - 10);
-                btn_delete[A].Size = new Size(labelWidth, labelHeight);
-                btn_delete[A].Text = "삭제";
-                btn_delete[A].Tag = A;
-
-
-                btn_delete[A].Click += new EventHandler(btn_delete_Click);
-
-                panel[A] = new Panel();
-                panel[A].Location = new Point(labels2[A].Location.X, labels2[A].Location.Y + 15);
-                panel[A].Size = new Size(215, 1);
-                panel[A].BackColor = Color.Black;
-                panel[A].Tag = A;
-
-                this.Controls.Add(panel[A]);
-                this.Controls.Add(labels2[A]);
-                this.Controls.Add(labels[A]);
-                this.Controls.Add(btn_chat[A]);
-                this.Controls.Add(btn_delete[A]);
-
-                cntlbl++;
-                A++;
             }
         }
         private void btn_delete_Click(object sender, EventArgs e)
