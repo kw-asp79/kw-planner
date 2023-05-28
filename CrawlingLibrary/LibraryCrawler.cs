@@ -10,7 +10,7 @@ using System.Threading;
 using CrawlingLibrary;
 using EntityLibrary;
 
-namespace Client
+namespace CrawlingLibrary
 {
     public class LibraryCrawler
     {
@@ -27,6 +27,8 @@ namespace Client
         private static ChromeDriver chromeDriver;
 
         public event EventHandler<EventArgs> loginSuccessEvent;
+
+        public event EventHandler<EventArgs> crawlingEvent;
 
         public LibraryCrawler() { }
 
@@ -173,27 +175,26 @@ namespace Client
                 // crawl number of books that I borrowed
                 var numOfBooks = chromeDriver.FindElement(By.XPath("//*[@id=\"divContents\"]/div[3]/div[3]/div[2]/ul/li[2]/span"));
                 this.numOfBooks = numOfBooks.Text.ToString();
-                //Console.WriteLine(numOfBooks.Text.ToString());
-
+               
                 // crawl number of books that are overdue
                 var numOfOverdue = chromeDriver.FindElement(By.XPath("//*[@id=\"divContents\"]/div[3]/div[3]/div[2]/ul/li[4]/span"));
                 this.numOfOverdue = numOfOverdue.Text.ToString();
-                //Console.WriteLine(numOfOverdue.Text.ToString());
-
+                
                 // crawl price that I have to pay for overdue
                 var priceToPay = chromeDriver.FindElement(By.XPath("//*[@id=\"divContents\"]/div[3]/div[3]/div[2]/ul/li[6]/span"));
                 this.priceToPay = priceToPay.Text.ToString();
-                //Console.WriteLine(priceToPay.Text.ToString());
-
+                
                 int numBooks = Int32.Parse(numOfBooks.Text.ToString());
 
                 // if user has borrowed some books
                 if (numBooks != 0)
                 {
                     // get books that user has borrowed
-                   CrawlingStatus.Status detailCrawlingStatus = getBorrowedBooks(numBooks);
-                   if (detailCrawlingStatus == CrawlingStatus.Status.CrawlingError) return CrawlingStatus.Status.CrawlingError;
+                    CrawlingStatus.Status detailCrawlingStatus = getBorrowedBooks(numBooks);
+                    if (detailCrawlingStatus == CrawlingStatus.Status.CrawlingError) return CrawlingStatus.Status.CrawlingError;
                 }
+                else
+                    crawlingEvent.Invoke(this, new EventArgs());
 
             }
             catch (Exception e)
@@ -271,6 +272,8 @@ namespace Client
 
                     Book book = new Book(sBookTitle, sBookAuthor, sBookLocation, sBookCallNumber, sBookISBN, sBookLoanDate, sBookReturnDate, sBookRenewCount);
                     books.Add(book);
+
+                    crawlingEvent.Invoke(this,new EventArgs());
                 }
 
             }

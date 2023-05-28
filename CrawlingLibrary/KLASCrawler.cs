@@ -13,7 +13,7 @@ using CrawlingLibrary;
 using EntityLibrary;
 using System.Net;
 
-namespace Client
+namespace CrawlingLibrary
 { 
 
     // crawls KLAS web page and lecture datas that user takes
@@ -37,6 +37,8 @@ namespace Client
         public static ChromeDriver chromeDriver;
 
         public event EventHandler<EventArgs> loginSuccessEvent;
+
+        public event EventHandler<EventArgs> crawlingEvent;
 
         public KLASCrawler() {}
 
@@ -399,7 +401,7 @@ namespace Client
                     lectures[i - 1].setQuiz(quizs);
                     lectures[i - 1].setTeamProject(teamProjects);
 
-
+                    crawlingEvent.Invoke(this, new EventArgs());
                 }
             }
             catch (Exception e)

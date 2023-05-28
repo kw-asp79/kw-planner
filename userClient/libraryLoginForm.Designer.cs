@@ -40,7 +40,7 @@
             // 
             this.loginBtn.BackColor = System.Drawing.Color.LightBlue;
             this.loginBtn.Font = new System.Drawing.Font("Segoe Print", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loginBtn.Location = new System.Drawing.Point(406, 476);
+            this.loginBtn.Location = new System.Drawing.Point(396, 444);
             this.loginBtn.Name = "loginBtn";
             this.loginBtn.Size = new System.Drawing.Size(95, 32);
             this.loginBtn.TabIndex = 2;
@@ -51,7 +51,7 @@
             // idTbx
             // 
             this.idTbx.AcceptsTab = true;
-            this.idTbx.Location = new System.Drawing.Point(377, 300);
+            this.idTbx.Location = new System.Drawing.Point(367, 268);
             this.idTbx.Name = "idTbx";
             this.idTbx.Size = new System.Drawing.Size(154, 21);
             this.idTbx.TabIndex = 0;
@@ -62,7 +62,7 @@
             this.libraryLbl.BackColor = System.Drawing.Color.Transparent;
             this.libraryLbl.Font = new System.Drawing.Font("Comic Sans MS", 36F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.libraryLbl.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.libraryLbl.Location = new System.Drawing.Point(365, 149);
+            this.libraryLbl.Location = new System.Drawing.Point(355, 117);
             this.libraryLbl.Name = "libraryLbl";
             this.libraryLbl.Size = new System.Drawing.Size(192, 68);
             this.libraryLbl.TabIndex = 8;
@@ -72,7 +72,7 @@
             // 
             this.pwdLbl.AutoSize = true;
             this.pwdLbl.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pwdLbl.Location = new System.Drawing.Point(256, 386);
+            this.pwdLbl.Location = new System.Drawing.Point(246, 354);
             this.pwdLbl.Name = "pwdLbl";
             this.pwdLbl.Size = new System.Drawing.Size(106, 33);
             this.pwdLbl.TabIndex = 7;
@@ -82,7 +82,7 @@
             // 
             this.idLbl.AutoSize = true;
             this.idLbl.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.idLbl.Location = new System.Drawing.Point(326, 289);
+            this.idLbl.Location = new System.Drawing.Point(316, 257);
             this.idLbl.Name = "idLbl";
             this.idLbl.Size = new System.Drawing.Size(36, 33);
             this.idLbl.TabIndex = 6;
@@ -91,7 +91,7 @@
             // pwdTbx
             // 
             this.pwdTbx.AcceptsTab = true;
-            this.pwdTbx.Location = new System.Drawing.Point(377, 397);
+            this.pwdTbx.Location = new System.Drawing.Point(367, 365);
             this.pwdTbx.Name = "pwdTbx";
             this.pwdTbx.PasswordChar = '*';
             this.pwdTbx.Size = new System.Drawing.Size(154, 21);

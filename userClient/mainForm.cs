@@ -15,6 +15,7 @@ using PacketLibrary;
 using MySqlX.XDevAPI;
 using System.Collections;
 using System.Diagnostics.Eventing.Reader;
+using CrawlingLibrary;
 
 namespace Client
 {
