@@ -88,30 +88,36 @@ namespace SampleCalenderServer
             return sendPacket;
         }
 
-        public static Packet CreateProcess(Object obj)
+        public static Packet CreateProcess(Object obj, string forWhatProcess)
         {
             Packet sendPacket = new Packet();
 
-            if (obj is User)
+            if (forWhatProcess.Equals("user"))
             {
                 User user = (User)obj;
                 // UserRepository.InsertUser(user);
-            } else if (obj is Schedule)
-            {
+            } 
+            else if (forWhatProcess.Equals("schedule")){
                 Dictionary<string, Object> fullData = obj as Dictionary<string, object>;
 
                 Schedule schedule = fullData["schedule"] as Schedule;
                 User user = fullData["user"] as User;
-                // ScheduleRepository.InsertSchedule(schedule, user);
+                int scheduleId = ScheduleRepository.CreateSchedule(schedule);
                 // 연관관계를 맺어주는 메서드
+                ScheduleRepository.CreateUserSchedule(user.id, scheduleId);
             }
-            else if(obj is Group)
-            {
+            else if (forWhatProcess.Equals("group")){
                 Dictionary<string, Object> fullData = obj as Dictionary<string, object>;
 
                 Group group = fullData["group"] as Group;
                 User user = fullData["user"] as User;
-                // GroupRepository.InsertGroup(group, user);
+                GroupRepository.CreateGroup(group.name, user.id);
+            }else if (forWhatProcess.Equals("friendship")){
+                Dictionary<string, Object> fullData = obj as Dictionary<string, object>;
+
+                User user = fullData["user"] as User;
+                User friend = fullData["friend"] as User;
+                UserRepository.CreateFriendship(user.id, friend.id);
             }
 
             sendPacket.action = ActionType.Success;
@@ -120,30 +126,35 @@ namespace SampleCalenderServer
             return sendPacket;
         }
 
-        public static Packet UpdateProcess(Object obj)
+        public static Packet UpdateProcess(Object obj, string forWhatProcess)
         {
             Packet sendPacket = new Packet();
 
-            if (obj is User)
+            if (forWhatProcess.Equals("user"))
             {
                 User user = (User)obj;
                 // UserRepository.UpdateUser(user);
             }
-            else if (obj is Schedule)
+            else if (forWhatProcess.Equals("schedule"))
             {
                 Dictionary<string, Object> fullData = obj as Dictionary<string, object>;
 
                 Schedule schedule = fullData["schedule"] as Schedule;
                 User user = fullData["user"] as User;
-                // ScheduleRepository.UpdateSchedule(schedule, user);
+
+                schedule.id = ScheduleRepository.SelectScheduleId(schedule, user.id);
+                ScheduleRepository.UpdateSchedule(schedule);
             }
-            else if (obj is Group)
+            else if (forWhatProcess.Equals("group"))
             {
                 Dictionary<string, Object> fullData = obj as Dictionary<string, object>;
 
                 Group group = fullData["group"] as Group;
+                string newGroupName = fullData["newGroupName"] as string;
                 User user = fullData["user"] as User;
-                // GroupRepository.UpdateGroup(group, user);
+
+                int groupId = GroupRepository.SelectGroupIdByName(group.name, user.id);
+                GroupRepository.UpdateGroup(groupId, newGroupName, user.id);
             }
 
             sendPacket.action = ActionType.Success;
@@ -152,34 +163,69 @@ namespace SampleCalenderServer
             return sendPacket;
         }
 
-        public static Packet DeleteProcess(Object obj)
+        public static Packet DeleteProcess(Object obj, string forWhatProcess)
         {
             Packet sendPacket = new Packet();
 
-            if (obj is User)
+            if (forWhatProcess.Equals("user"))
             {
                 User user = (User)obj;
                 // UserRepository.DeleteUser(user);
             }
-            else if (obj is Schedule)
+            else if (forWhatProcess.Equals("schedule"))
             {
                 Dictionary<string, Object> fullData = obj as Dictionary<string, object>;
 
                 Schedule schedule = fullData["schedule"] as Schedule;
                 User user = fullData["user"] as User;
-                // ScheduleRepository.DeleteSchedule(schedule, user);
+                int scheduleId = ScheduleRepository.SelectScheduleId(schedule, user.id);
+                ScheduleRepository.DeleteSchedule(scheduleId);
             }
-            else if (obj is Group)
+            else if (forWhatProcess.Equals("group"))
             {
                 Dictionary<string, Object> fullData = obj as Dictionary<string, object>;
 
                 Group group = fullData["group"] as Group;
                 User user = fullData["user"] as User;
-                // GroupRepository.DeleteGroup(group, user);
+
+                int groupId = GroupRepository.SelectGroupIdByName(group.name, user.id);
+                GroupRepository.DeleteGroup(groupId);
             }
 
             sendPacket.action = ActionType.Success;
             sendPacket.data = null;
+
+            return sendPacket;
+        }
+
+        public static Packet ReadProcess(Object obj, string forWhatProcess)
+        {
+            Packet sendPacket = new Packet();
+
+            if (forWhatProcess.Equals("user"))
+            {
+                User user = (User)obj;
+                User result = UserRepository.SelectUserIdAndNameById(user.id);
+
+                if (result.isEmpty())
+                {
+                    sendPacket.action = ActionType.Fail;
+                    sendPacket.data = null;
+                }
+                else
+                {
+                    sendPacket.action = ActionType.Success;
+                    sendPacket.data = result;
+                }
+            }
+            else if (forWhatProcess.Equals("schedule"))
+            {
+
+            }
+            else if (forWhatProcess.Equals("group"))
+            {
+
+            }
 
             return sendPacket;
         }
@@ -228,50 +274,60 @@ namespace SampleCalenderServer
                         user = (User)receivedPacket.data;
                         sendPacket = ReadAllDataProcess(user);
                         break;
+                    case ActionType.readUser:
+                        Console.WriteLine("[{0}] readUser request", remoteAddress);
+                        user = (User)receivedPacket.data;
+                        sendPacket = ReadProcess(user, "user");
+                        break;
                     case ActionType.saveUser:
                         Console.WriteLine("[{0}] saveUser request", remoteAddress);
                         user = (User)receivedPacket.data;
-                        sendPacket = CreateProcess(user);
+                        sendPacket = CreateProcess(user, "user");
                         break;
                     case ActionType.deleteUser:
                         Console.WriteLine("[{0}] deleteUser request", remoteAddress);
                         user = (User)receivedPacket.data;
-                        sendPacket = DeleteProcess(user);
+                        sendPacket = DeleteProcess(user, "user");
                         break;
                     case ActionType.editUser:
                         Console.WriteLine("[{0}] editUser request", remoteAddress);
                         user = (User)receivedPacket.data;
-                        sendPacket = UpdateProcess(user);
+                        sendPacket = UpdateProcess(user, "user");
                         break;
                     case ActionType.saveSchedule:
                         Console.WriteLine("[{0}] saveSchedule request", remoteAddress);
                         fullData = receivedPacket.data as Dictionary<string, object>;
-                        sendPacket = CreateProcess(fullData);
+                        sendPacket = CreateProcess(fullData, "schedule");
                         break;
                     case ActionType.deleteSchedule:
                         Console.WriteLine("[{0}] deleteSchedule request", remoteAddress);
                         fullData = receivedPacket.data as Dictionary<string, object>;
-                        sendPacket = DeleteProcess(fullData);
+                        sendPacket = DeleteProcess(fullData, "schedule");
                         break;
                     case ActionType.editSchedule:
                         Console.WriteLine("[{0}] editSchedule request", remoteAddress);
                         fullData = receivedPacket.data as Dictionary<string, object>;
-                        sendPacket = UpdateProcess(fullData);
+                        sendPacket = UpdateProcess(fullData, "schedule");
                         break;
                     case ActionType.saveGroup:
                         Console.WriteLine("[{0}] saveGroup request", remoteAddress);
                         fullData = receivedPacket.data as Dictionary<string, object>;
-                        sendPacket = CreateProcess(fullData);
+                        sendPacket = CreateProcess(fullData, "group");
                         break;
                     case ActionType.deleteGroup:
                         Console.WriteLine("[{0}] deleteGroup request", remoteAddress);
                         fullData = receivedPacket.data as Dictionary<string, object>;
-                        sendPacket = DeleteProcess(fullData);
+                        sendPacket = DeleteProcess(fullData, "group");
                         break;
                     case ActionType.editGroup:
                         Console.WriteLine("[{0}] editGroup request", remoteAddress);
                         fullData = receivedPacket.data as Dictionary<string, object>;
-                        sendPacket = UpdateProcess(fullData);
+                        sendPacket = UpdateProcess(fullData, "group");
+                        break;
+                    case ActionType.saveFriendship:
+                        Console.WriteLine("[{0}] saveFriendship request", remoteAddress);
+                        fullData = receivedPacket.data as Dictionary<string, object>;
+                        sendPacket = CreateProcess(fullData, "friendship");
                         break;
                     default:
                         break;

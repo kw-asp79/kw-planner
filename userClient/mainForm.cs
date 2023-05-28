@@ -34,7 +34,7 @@ namespace Client
         public static List<Schedule> schedules;
         public static Dictionary<string, List<User>> groups;
 
-        public User myUserInfo;
+        public static User myUserInfo;
         public bool isLoginSuccess = false;
         KLASCrawler klasCrawler;
         LibraryCrawler libraryCrawler;
@@ -157,8 +157,6 @@ namespace Client
         {
 
             calendarContainer.Controls.Clear();
-
-            calendarContainer.Controls.Add(klasLoginForm);
 
             // after login once, don't need to show loginForm. Instead, shows user's klas data UI
             if (klasLoginForm.getLoginStatus())
