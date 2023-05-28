@@ -29,11 +29,10 @@ namespace Client
 
             fdList.bool_tf = true;
             fdList.add_label(this.txt_id.Text,this.txt_SearchedName.Text);
+
+            MessageBox.Show("{0} 님이 친구로 등록되었습니다.", this.txt_id.Text);
             txt_id.Clear();
         }
-
-        private void fdAdd_Load(object sender, EventArgs e)
-        {
 
         }
 

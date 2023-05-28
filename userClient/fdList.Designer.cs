@@ -39,7 +39,7 @@ namespace Client
             this.fdlistLbl.AutoSize = true;
             this.fdlistLbl.Font = new System.Drawing.Font("Segoe Script", 20F, System.Drawing.FontStyle.Bold);
             this.fdlistLbl.Location = new System.Drawing.Point(484, 50);
-            this.fdlistLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.fdlistLbl.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.fdlistLbl.Name = "fdlistLbl";
             this.fdlistLbl.Size = new System.Drawing.Size(213, 67);
             this.fdlistLbl.TabIndex = 2;
@@ -48,8 +48,9 @@ namespace Client
             // btn_addfd
             // 
             this.btn_addfd.Location = new System.Drawing.Point(901, 111);
+            this.btn_addfd.Margin = new System.Windows.Forms.Padding(4);
             this.btn_addfd.Name = "btn_addfd";
-            this.btn_addfd.Size = new System.Drawing.Size(78, 38);
+            this.btn_addfd.Size = new System.Drawing.Size(97, 45);
             this.btn_addfd.TabIndex = 3;
             this.btn_addfd.Text = "친구 추가";
             this.btn_addfd.UseVisualStyleBackColor = true;
@@ -57,12 +58,12 @@ namespace Client
             // 
             // fdList
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(880, 621);
+            this.ClientSize = new System.Drawing.Size(1100, 745);
             this.Controls.Add(this.btn_addfd);
             this.Controls.Add(this.fdlistLbl);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "fdList";
             this.Text = "fdList";
             this.ResumeLayout(false);

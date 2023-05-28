@@ -60,7 +60,7 @@ namespace Client
         {
             MessageBox.Show("readAllData 실행");
 
-            while(true)
+            while (true)
             {
                 if (isLoginSuccess)
                 {
@@ -113,7 +113,7 @@ namespace Client
             libraryCrawler = new LibraryCrawler();
 
             // show calendar form  
-            calendarForm = new calendarForm(klasCrawler,libraryCrawler);
+            calendarForm = new calendarForm(klasCrawler, libraryCrawler);
             calendarForm.showCalendar();
             calendarContainer.Controls.Add(calendarForm);
 
@@ -126,7 +126,7 @@ namespace Client
             klasUIForm = new KLASUIForm();
 
             // create KLAS Login Form 
-            klasLoginForm = new KLASLoginForm(klasUIForm,klasCrawler);
+            klasLoginForm = new KLASLoginForm(klasUIForm, klasCrawler);
             // add EventHandler
             klasLoginForm.allSuccess += klasAllSuccess;
 
@@ -134,7 +134,7 @@ namespace Client
             libraryUIForm = new LibraryUIForm();
 
             // create Library Login Form
-            libraryLoginForm = new libraryLoginForm(libraryUIForm,libraryCrawler, netstrm);
+            libraryLoginForm = new libraryLoginForm(libraryUIForm, libraryCrawler, netstrm);
             // add EventHandler
             libraryLoginForm.allSuccess += lbyAllSuccess;
         }
@@ -159,7 +159,7 @@ namespace Client
             calendarContainer.Controls.Clear();
 
             // after login once, don't need to show loginForm. Instead, shows user's klas data UI
-            if(klasLoginForm.getLoginStatus())
+            if (klasLoginForm.getLoginStatus())
                 calendarContainer.Controls.Add(klasUIForm); // (after login) show klasUIForm
             else
                 calendarContainer.Controls.Add(klasLoginForm); // else(not login status) show klasLoginForm
@@ -187,7 +187,7 @@ namespace Client
             // after login once, don't need to show loginForm. Instead, shows user's library data UI
             if (libraryLoginForm.getLoginStatus())
                 calendarContainer.Controls.Add(libraryUIForm);
-            else     
+            else
                 calendarContainer.Controls.Add(libraryLoginForm);
 
         }
@@ -217,7 +217,7 @@ namespace Client
         private void loginBtn_Click(object sender, EventArgs e)
         {
             LoginForm loginForm = new LoginForm(netstrm, this);
-            
+
             loginForm.Show();
         }
 
@@ -230,10 +230,9 @@ namespace Client
         private void groupBtn_Click(object sender, EventArgs e)
         {
             calendarContainer.Controls.Clear();
-            fdGroup_Form fdGroupForm = new fdGroup_Form() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true, FormBorderStyle = FormBorderStyle.None };
+            fdGroup_Form fdGroupForm = new fdGroup_Form(netstrm) { Dock = DockStyle.Fill, TopLevel = false, TopMost = true, FormBorderStyle = FormBorderStyle.None };
             this.calendarContainer.Controls.Add(fdGroupForm);
             fdGroupForm.Show();
         }
     }
 }
-      

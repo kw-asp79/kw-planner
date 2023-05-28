@@ -31,7 +31,6 @@
             this.btn_Add = new System.Windows.Forms.Button();
             this.txt_id = new System.Windows.Forms.TextBox();
             this.ID_lbl = new System.Windows.Forms.Label();
-            this.Name_lbl = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btn_Search = new System.Windows.Forms.Button();
             this.txt_SearchedName = new System.Windows.Forms.Label();
@@ -138,7 +137,6 @@
         private System.Windows.Forms.Button btn_Add;
         private System.Windows.Forms.TextBox txt_id;
         private System.Windows.Forms.Label ID_lbl;
-        private System.Windows.Forms.Label Name_lbl;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label txt_SearchedName;
         private System.Windows.Forms.Button btn_Search;
