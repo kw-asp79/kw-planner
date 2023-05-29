@@ -100,7 +100,6 @@ namespace WindowsFormsApp1
         {
             if (grpname != "")
             {
-                mainForm.groups.
                 A = cntGrp + 1;
                 B = A;
                 if ((A >= 1) && (A <= 3)) T = 1;
@@ -157,8 +156,12 @@ namespace WindowsFormsApp1
         private void btn_add_Click(object sender, EventArgs e)
         {
             List<string> list = new List<string>();
+            List<string> frd_all = new List<string>();
             int idx = (int)((Button)sender).Tag;
-            list = fdList.frd_list.Except((List<string>)listBoxFriends[idx].DataSource).ToList();
+            frd_all = mainForm.friends.Select(user => user.name).ToList();
+            //mainform.friends에 저장된 name들과 이미 추가된 친구들의 except만 목록으로 보여주기
+            list = frd_all.Except((List<string>)listBoxFriends[idx].DataSource).ToList();
+
             fdGroup_Form_fdlist fdGroup_Form_Fdlist = new fdGroup_Form_fdlist(this, list, (List<string>)listBoxFriends[idx].DataSource, idx);
             fdGroup_Form_Fdlist.Show();
         }

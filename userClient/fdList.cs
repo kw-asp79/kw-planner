@@ -127,7 +127,7 @@ namespace Client
 
                 if(packet.action == ActionType.Success)
                 {
-                    cntlbl = frd_list.Count;
+                    cntlbl = mainForm.friends.Count;
                     A = cntlbl + 1;
 
                     labels2[A] = new Label();
@@ -142,12 +142,6 @@ namespace Client
                     labels[A].Size = new Size(labelWidth, labelHeight);
                     labels[A].Text = s;
                     labels[A].Tag = A;
-                    if (bool_tf)
-                    {
-                        id_list.Add(id);
-                        frd_list.Add(s);
-                        bool_tf = false;
-                    }
 
                     btn_chat[A] = new Button();
                     btn_chat[A].Location = new Point(labels2[A].Location.X + 115, labels2[A].Location.Y - 10);

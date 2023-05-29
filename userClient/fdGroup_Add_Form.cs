@@ -23,7 +23,9 @@ namespace WindowsFormsApp1
         }
         private void listBoxconfig()
         {
-            친구목록.DataSource = fdList.frd_list;
+            //friends에 있는 user.name정보만 list에 담아 보여주기
+            List<string> nameList = mainForm.friends.Select(user => user.name).ToList();
+            친구목록.DataSource = nameList;
             친구목록.SelectionMode = SelectionMode.MultiSimple;
             친구목록.SelectedIndex = -1;
 

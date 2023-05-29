@@ -28,12 +28,10 @@ namespace Client
         {
 
             fdList.bool_tf = true;
-            fdList.add_label(this.txt_id.Text,this.txt_SearchedName.Text);
+            fdList.add_label(this.txt_id.Text, this.txt_SearchedName.Text);
 
             MessageBox.Show("{0} 님이 친구로 등록되었습니다.", this.txt_id.Text);
             txt_id.Clear();
-        }
-
         }
 
         private void btn_Search_Click(object sender, EventArgs e)
@@ -49,11 +47,12 @@ namespace Client
 
             packet = Packet.ReceivePacket(netstrm);
 
-            if(packet.action == ActionType.Fail)
+            if (packet.action == ActionType.Fail)
             {
                 txt_SearchedName.Text = "(해당 사용자 정보가 없습니다)";
                 user.name = "";
-            }else if(packet.action == ActionType.Success)
+            }
+            else if (packet.action == ActionType.Success)
             {
                 user = (User)packet.data;
                 txt_SearchedName.Text = user.name;

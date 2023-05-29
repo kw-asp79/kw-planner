@@ -125,7 +125,6 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "fdAdd";
             this.Text = "fdAdd";
-            this.Load += new System.EventHandler(this.fdAdd_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -139,6 +138,7 @@
         private System.Windows.Forms.Label ID_lbl;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label txt_SearchedName;
+        private System.Windows.Forms.Label Name_lbl;
         private System.Windows.Forms.Button btn_Search;
     }
 }
