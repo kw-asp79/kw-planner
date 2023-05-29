@@ -58,7 +58,7 @@
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Image = global::WindowsFormsApp1.Properties.Resources.스크린샷_2023_05_06_142010;
             this.pictureBox1.Location = new System.Drawing.Point(15, 47);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(404, 167);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -69,7 +69,7 @@
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.panel2.Location = new System.Drawing.Point(51, 367);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(344, 12);
             this.panel2.TabIndex = 0;
@@ -78,7 +78,7 @@
             // 
             this.panel3.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.panel3.Location = new System.Drawing.Point(52, 462);
-            this.panel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(344, 12);
             this.panel3.TabIndex = 1;
@@ -87,7 +87,7 @@
             // 
             this.txt_ID.BackColor = System.Drawing.SystemColors.Control;
             this.txt_ID.Location = new System.Drawing.Point(52, 342);
-            this.txt_ID.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_ID.Margin = new System.Windows.Forms.Padding(4);
             this.txt_ID.Name = "txt_ID";
             this.txt_ID.Size = new System.Drawing.Size(343, 28);
             this.txt_ID.TabIndex = 2;
@@ -96,7 +96,7 @@
             // 
             this.txt_pwd.BackColor = System.Drawing.SystemColors.Control;
             this.txt_pwd.Location = new System.Drawing.Point(52, 437);
-            this.txt_pwd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_pwd.Margin = new System.Windows.Forms.Padding(4);
             this.txt_pwd.Name = "txt_pwd";
             this.txt_pwd.PasswordChar = '*';
             this.txt_pwd.Size = new System.Drawing.Size(343, 28);
@@ -134,7 +134,7 @@
             this.btn_login.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_login.ForeColor = System.Drawing.SystemColors.Control;
             this.btn_login.Location = new System.Drawing.Point(238, 499);
-            this.btn_login.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_login.Margin = new System.Windows.Forms.Padding(4);
             this.btn_login.Name = "btn_login";
             this.btn_login.Size = new System.Drawing.Size(159, 66);
             this.btn_login.TabIndex = 6;
@@ -150,7 +150,7 @@
             this.btn_signup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_signup.ForeColor = System.Drawing.SystemColors.Control;
             this.btn_signup.Location = new System.Drawing.Point(49, 499);
-            this.btn_signup.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_signup.Margin = new System.Windows.Forms.Padding(4);
             this.btn_signup.Name = "btn_signup";
             this.btn_signup.Size = new System.Drawing.Size(158, 66);
             this.btn_signup.TabIndex = 7;
@@ -172,7 +172,7 @@
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LoginForm";

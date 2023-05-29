@@ -57,7 +57,7 @@ namespace WindowsFormsApp1
 
                 listBoxFriends[v] = new ListBox();
                 listBoxFriends[v].Tag = v;
-                listBoxFriends[v].DataSource = mainForm.groups.Values.ElementAt(i);
+                listBoxFriends[v].DataSource = mainForm.groups.Values.ElementAt(i).Select(user => user.name).ToList();
                 listBoxFriends[v].Size = new Size(150, 78);
                 listBoxFriends[v].Location = new Point { X = 100 + 270 * (k - 1), Y = 150 + T };
 
@@ -161,7 +161,7 @@ namespace WindowsFormsApp1
             frd_all = mainForm.friends.Select(user => user.name).ToList();
             //mainform.friends에 저장된 name들과 이미 추가된 친구들의 except만 목록으로 보여주기
             list = frd_all.Except((List<string>)listBoxFriends[idx].DataSource).ToList();
-
+            
             fdGroup_Form_fdlist fdGroup_Form_Fdlist = new fdGroup_Form_fdlist(this, list, (List<string>)listBoxFriends[idx].DataSource, idx);
             fdGroup_Form_Fdlist.Show();
         }
@@ -183,12 +183,16 @@ namespace WindowsFormsApp1
             {
                 int selectedIndex = selectedIndices[i];
                 check_list.RemoveAt(selectedIndex - i);
+                mainForm.groups.ElementAt(idx - 1).Value.RemoveAt(selectedIndex-1);
             }
             listBoxFriends[idx].DataSource = null;
             listBoxFriends[idx].Items.Clear();
 
             if (check_list.Count == 0)
             {
+                // mainform.groups의 string A = labelGroupName[id].Text에 해당하는 그룹 삭제
+
+
                 listBoxFriends[idx].DataSource = listBoxFriends[A - 1].DataSource;
                 labelGroupName[idx].Text = labelGroupName[A - 1].Text;
                 this.Controls.Remove(labelGroupName[A - 1]);
@@ -206,6 +210,7 @@ namespace WindowsFormsApp1
                 grp_name_list.RemoveAt(A - 2);
                 A--;
                 cntGrp--;
+               
             }
             else
             {

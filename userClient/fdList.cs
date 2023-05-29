@@ -25,11 +25,11 @@ namespace Client
         Button[] btn_chat = new Button[20];
         Button[] btn_delete = new Button[20];
         Panel[] panel = new Panel[20];
-        public static bool bool_tf = false;
 
         int labelWidth = 50;
         int labelHeight = 25;
         static int A = 1;
+        
         static int cntlbl = mainForm.friends.Count;
 
 
@@ -89,23 +89,12 @@ namespace Client
 
         private void btn_addfd_Click(object sender, EventArgs e)
         {
-            bool_tf = true;
             fdAdd fdAdd = new fdAdd(this, this.netstrm);
             fdAdd.ShowDialog();
         }
 
         public void add_label(string id, string s)
         {
-            ////fdAdd에서 sql 로 s안가져올 시 friends에 foreach문
-
-            //foreach (User friend in mainForm.friends)
-            //{
-            //    if (friend.id == id) {
-            //        s = friend.name;
-            //        break;
-            //    }
-            //}
-
             if ((id != "") && (s != ""))
             {
                 User friend = new User();
@@ -128,8 +117,8 @@ namespace Client
                 if(packet.action == ActionType.Success)
                 {
                     cntlbl = mainForm.friends.Count;
-                    A = cntlbl + 1;
-
+                    A = cntlbl ;
+                    
                     labels2[A] = new Label();
                     labels2[A].Location = new Point(310, 60 + 50 * A);
                     labels2[A].Size = new Size(labelWidth + 15, labelHeight);
@@ -138,7 +127,7 @@ namespace Client
 
 
                     labels[A] = new Label();
-                    labels[A].Location = new Point(labels2[A].Location.X + 70, labels2[A].Location.Y);
+                    labels[A].Location = new Point(labels2[A].Location.X + 65, labels2[A].Location.Y);
                     labels[A].Size = new Size(labelWidth, labelHeight);
                     labels[A].Text = s;
                     labels[A].Tag = A;
@@ -180,10 +169,15 @@ namespace Client
             Button btn = sender as Button;
             int idx = (int)btn.Tag;
 
-            // sql로 db에서 해당 친구 delete 문 필요 
-            // friends를 새로 select해오는지 아닐시 아래 문장으로 해당 index정보 삭제
+            // sql로 db에서 해당 친구 delete 문 필요 id 담아드렸어요
+            User friend = new User();
+            friend.id = mainForm.friends[idx-1].id;
+
+
+            // 해당 index정보 삭제
             mainForm.friends.RemoveAt(idx - 1);
             
+
             if (idx < A - 1)
             {
                 labels[idx].Text = labels[A - 1].Text;

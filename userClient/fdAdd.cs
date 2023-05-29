@@ -17,6 +17,7 @@ namespace Client
     {
         fdList fdList;
         NetworkStream netstrm;
+        mainForm mainForm;
         public fdAdd(fdList form, NetworkStream netstrm)
         {
             InitializeComponent();
@@ -26,12 +27,19 @@ namespace Client
 
         private void btn_Add_Click(object sender, EventArgs e)
         {
-
-            fdList.bool_tf = true;
+            //friends list 에 추가
+            User user = new User(); 
+            user.id = this.txt_id.Text;
+            user.name = this.txt_SearchedName.Text;
+            mainForm.friends.Add(user);
+            // 친구목록 화면에 추가
             fdList.add_label(this.txt_id.Text, this.txt_SearchedName.Text);
 
-            MessageBox.Show("{0} 님이 친구로 등록되었습니다.", this.txt_id.Text);
+            string message = string.Format("{0} 님이 친구로 등록되었습니다.", this.txt_SearchedName.Text);
+            MessageBox.Show(message);
             txt_id.Clear();
+            txt_SearchedName.Text = null;
+
         }
 
         private void btn_Search_Click(object sender, EventArgs e)
@@ -59,4 +67,6 @@ namespace Client
             }
         }
     }
-}
+
+    
+    }
