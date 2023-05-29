@@ -173,34 +173,49 @@ namespace Client
             User friend = new User();
             friend.id = mainForm.friends[idx-1].id;
 
+            Packet packet = new Packet();
 
-            // 해당 index정보 삭제
-            mainForm.friends.RemoveAt(idx - 1);
-            
+            packet.action = ActionType.deleteFriendship;
 
-            if (idx < A - 1)
+            Dictionary<String, Object> fullData = new Dictionary<String, Object>();
+            fullData.Add("user", myUserInfo);
+            fullData.Add("friend", friend);
+
+            packet.data = fullData;
+
+            Packet.SendPacket(netstrm, packet);
+
+            packet = Packet.ReceivePacket(netstrm);
+
+            if (packet.action == ActionType.Success)
             {
-                labels[idx].Text = labels[A - 1].Text;
-                labels2[idx].Text = labels2[A - 1].Text;
+                // 해당 index정보 삭제
+                mainForm.friends.RemoveAt(idx - 1);
 
-                this.Controls.Remove(labels2[A - 1]);
-                this.Controls.Remove(btn_delete[A - 1]);
-                this.Controls.Remove(labels[A - 1]);
-                this.Controls.Remove(btn_chat[A - 1]);
-                this.Controls.Remove(panel[A - 1]);
 
+                if (idx < A - 1)
+                {
+                    labels[idx].Text = labels[A - 1].Text;
+                    labels2[idx].Text = labels2[A - 1].Text;
+
+                    this.Controls.Remove(labels2[A - 1]);
+                    this.Controls.Remove(btn_delete[A - 1]);
+                    this.Controls.Remove(labels[A - 1]);
+                    this.Controls.Remove(btn_chat[A - 1]);
+                    this.Controls.Remove(panel[A - 1]);
+
+                }
+                else
+                {
+                    this.Controls.Remove(labels2[idx]);
+                    this.Controls.Remove(btn_delete[idx]);
+                    this.Controls.Remove(labels[idx]);
+                    this.Controls.Remove(btn_chat[idx]);
+                    this.Controls.Remove(panel[idx]);
+                }
+                A--;
+                cntlbl--;
             }
-            else
-            {
-                this.Controls.Remove(labels2[idx]);
-                this.Controls.Remove(btn_delete[idx]);
-                this.Controls.Remove(labels[idx]);
-                this.Controls.Remove(btn_chat[idx]);
-                this.Controls.Remove(panel[idx]);
-            }
-            A--;
-            cntlbl--;
         }
- 
     }
 }

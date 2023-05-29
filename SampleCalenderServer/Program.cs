@@ -218,6 +218,13 @@ namespace SampleCalenderServer
 
                 int groupId = GroupRepository.SelectGroupIdByName(group.name, user.id);
                 GroupRepository.DeleteGroup(groupId);
+            }else if (forWhatProcess.Equals("friendship"))
+            {
+                Dictionary<string, Object> fullData = obj as Dictionary<string, object>;
+
+                User user = fullData["user"] as User;
+                User friend = fullData["friend"] as User;
+                UserRepository.DeleteFriendship(user.id, friend.id);
             }
 
             sendPacket.action = ActionType.Success;
@@ -387,6 +394,11 @@ namespace SampleCalenderServer
                         Console.WriteLine("[{0}] saveFriendship request", remoteAddress);
                         fullData = receivedPacket.data as Dictionary<string, object>;
                         sendPacket = CreateProcess(fullData, "friendship");
+                        break;
+                    case ActionType.deleteFriendship:
+                        Console.WriteLine("[{0}] deleteFriendship request", remoteAddress);
+                        fullData = receivedPacket.data as Dictionary<string, object>;
+                        sendPacket = DeleteProcess(fullData, "friendship");
                         break;
                     default:
                         break;
