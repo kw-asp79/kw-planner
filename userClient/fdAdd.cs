@@ -39,6 +39,7 @@ namespace Client
             MessageBox.Show(message);
             txt_id.Clear();
             txt_SearchedName.Text = null;
+
         }
 
         private void btn_Search_Click(object sender, EventArgs e)

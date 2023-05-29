@@ -118,7 +118,7 @@ namespace Client
                 {
                     cntlbl = mainForm.friends.Count;
                     A = cntlbl ;
-
+                    
                     labels2[A] = new Label();
                     labels2[A].Location = new Point(310, 60 + 50 * A);
                     labels2[A].Size = new Size(labelWidth + 15, labelHeight);

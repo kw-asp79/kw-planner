@@ -64,8 +64,6 @@ namespace Client
             {
                 if (isLoginSuccess)
                 {
-                    MessageBox.Show("isLoginSuccess = true!!");
-
                     User user = myUserInfo;
 
                     Packet packet = new Packet();
@@ -90,6 +88,28 @@ namespace Client
             }
         }
 
+        public void waitShareProcess(NetworkStream netstrm)
+        {
+            /*
+            while (true)
+            {
+                if (isLoginSuccess)
+                {
+                    Packet packet = new Packet();
+
+                    packet = Packet.ReceivePacket(netstrm);
+
+                    if(packet.action == ActionType.shareSchedule)
+                    {
+                        Schedule schedule = (Schedule)packet.data;
+                        MessageBox.Show("Schedule title : " + schedule.title +", content : " + schedule.content);
+                    }
+                    
+                }
+            }
+            */
+        }
+
         private async void Form1_Load(object sender, EventArgs e)
         {
 
@@ -106,6 +126,7 @@ namespace Client
             netstrm = server.GetStream();
 
             Task.Run(() => requestMyData(netstrm));
+            Task.Run(() => waitShareProcess(netstrm));
 
             // create KLAS Crawler
             klasCrawler = new KLASCrawler();
@@ -223,7 +244,7 @@ namespace Client
 
         private void signupBtn_Click(object sender, EventArgs e)
         {
-            SignUpForm signUpForm = new SignUpForm();
+            SignUpForm signUpForm = new SignUpForm(netstrm, this);
             signUpForm.Show();
         }
 

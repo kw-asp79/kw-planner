@@ -100,7 +100,6 @@ namespace WindowsFormsApp1
         {
             if (grpname != "")
             {
-                
                 A = cntGrp + 1;
                 B = A;
                 if ((A >= 1) && (A <= 3)) T = 1;
