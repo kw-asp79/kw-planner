@@ -230,7 +230,7 @@ namespace Client
         private void groupBtn_Click(object sender, EventArgs e)
         {
             calendarContainer.Controls.Clear();
-            fdGroup_Form fdGroupForm = new fdGroup_Form() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true, FormBorderStyle = FormBorderStyle.None };
+            fdGroup_Form fdGroupForm = new fdGroup_Form(netstrm) { Dock = DockStyle.Fill, TopLevel = false, TopMost = true, FormBorderStyle = FormBorderStyle.None };
             this.calendarContainer.Controls.Add(fdGroupForm);
             fdGroupForm.Show();
         }

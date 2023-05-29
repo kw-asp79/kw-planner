@@ -126,7 +126,6 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "fdAdd";
             this.Text = "fdAdd";
-            this.Load += new System.EventHandler(this.fdAdd_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
