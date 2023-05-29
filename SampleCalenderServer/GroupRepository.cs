@@ -126,5 +126,10 @@ namespace SampleCalenderServer
 
             command.ExecuteNonQuery();
         }
+
+        public static void AddUserListToGroup(int userGroupId, List<User> userList)
+        {
+            return;
+        }
     }
 }

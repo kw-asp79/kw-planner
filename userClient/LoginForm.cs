@@ -68,7 +68,7 @@ namespace Client
 
         private void btn_signup_click(object sender, EventArgs e)
         {
-            SignUpForm form = new SignUpForm();
+            SignUpForm form = new SignUpForm(netstrm, mainform);
             form.ShowDialog();
         }
 
