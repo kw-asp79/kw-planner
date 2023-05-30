@@ -36,12 +36,16 @@
             this.dtpStartTime = new System.Windows.Forms.DateTimePicker();
             this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
             this.Grpname_lbl = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tbx_content = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.tbx_content);
             this.panel1.Controls.Add(this.btn_Add);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.tbx_Schedule);
@@ -52,13 +56,13 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(568, 351);
+            this.panel1.Size = new System.Drawing.Size(582, 396);
             this.panel1.TabIndex = 0;
             // 
             // btn_Add
             // 
             this.btn_Add.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Add.Location = new System.Drawing.Point(36, 287);
+            this.btn_Add.Location = new System.Drawing.Point(36, 333);
             this.btn_Add.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(108, 35);
@@ -71,7 +75,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(33, 190);
+            this.label1.Location = new System.Drawing.Point(33, 249);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 18);
@@ -81,7 +85,7 @@
             // tbx_Schedule
             // 
             this.tbx_Schedule.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbx_Schedule.Location = new System.Drawing.Point(36, 224);
+            this.tbx_Schedule.Location = new System.Drawing.Point(36, 271);
             this.tbx_Schedule.Margin = new System.Windows.Forms.Padding(4);
             this.tbx_Schedule.Name = "tbx_Schedule";
             this.tbx_Schedule.Size = new System.Drawing.Size(501, 40);
@@ -102,7 +106,7 @@
             // 
             this.dtpStartTime.CustomFormat = "HH:mm";
             this.dtpStartTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpStartTime.Location = new System.Drawing.Point(36, 144);
+            this.dtpStartTime.Location = new System.Drawing.Point(36, 133);
             this.dtpStartTime.Margin = new System.Windows.Forms.Padding(4);
             this.dtpStartTime.Name = "dtpStartTime";
             this.dtpStartTime.ShowUpDown = true;
@@ -113,7 +117,7 @@
             // 
             this.dtpStartDate.CustomFormat = "yyyy-MM-dd";
             this.dtpStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpStartDate.Location = new System.Drawing.Point(36, 72);
+            this.dtpStartDate.Location = new System.Drawing.Point(36, 63);
             this.dtpStartDate.Margin = new System.Windows.Forms.Padding(4);
             this.dtpStartDate.Name = "dtpStartDate";
             this.dtpStartDate.Size = new System.Drawing.Size(249, 28);
@@ -130,11 +134,31 @@
             this.Grpname_lbl.TabIndex = 6;
             this.Grpname_lbl.Text = "Date";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label2.Location = new System.Drawing.Point(35, 174);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(71, 18);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "Content";
+            // 
+            // tbx_content
+            // 
+            this.tbx_content.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbx_content.Location = new System.Drawing.Point(36, 196);
+            this.tbx_content.Margin = new System.Windows.Forms.Padding(4);
+            this.tbx_content.Name = "tbx_content";
+            this.tbx_content.Size = new System.Drawing.Size(256, 40);
+            this.tbx_content.TabIndex = 17;
+            // 
             // fdGroup_Form_schdShare
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(568, 351);
+            this.ClientSize = new System.Drawing.Size(582, 396);
             this.Controls.Add(this.panel1);
             this.Name = "fdGroup_Form_schdShare";
             this.Text = "fdGroup_Form_schdShare";
@@ -154,5 +178,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbx_Schedule;
         private System.Windows.Forms.Button btn_Add;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox tbx_content;
     }
 }

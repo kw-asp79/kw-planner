@@ -48,7 +48,7 @@ namespace WindowsFormsApp1
 
             친구목록.SelectedIndex = -1;
             txt_grpname.Clear();
-
+            
         }
     }
 }

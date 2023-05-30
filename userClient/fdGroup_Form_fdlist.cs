@@ -20,6 +20,7 @@ namespace WindowsFormsApp1
         int k = 0;
         public fdGroup_Form_fdlist(fdGroup_Form fdGroup_Form, List<string> list, List<string> list1, int i)
         {
+
             InitializeComponent();
             fdGroupForm = fdGroup_Form;
             친구_list.DataSource = list;
@@ -28,7 +29,6 @@ namespace WindowsFormsApp1
             친구_list.SelectionMode = SelectionMode.MultiSimple;
             친구_list.SelectedIndex = -1;
             k = i;
-            if (list.Count == 0) { this.Close(); MessageBox.Show("추가할 친구가 더 이상 없습니다.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Warning); return; }
 
         }
 
@@ -39,14 +39,15 @@ namespace WindowsFormsApp1
             foreach (var selectedname in 친구_list.SelectedItems)
             {
                 list_frdname.Add(selectedname.ToString());
+                string searchedId = mainForm.friends.FirstOrDefault(user => user.name == (string)selectedname)?.id;
                 //기존 그룹에 새로운 친구 추가 
-                mainForm.groups.ElementAt(k - 1).Value.Add(new User("", "", (string)selectedname));
+                mainForm.groups.ElementAt(k - 1).Value.Add(new User(searchedId, "", (string)selectedname));
 
             }
 
             add_list = add_list.Union(list_frdname).ToList();
             fdGroupForm.update_list(add_list, k);
-            
+            this.Close();
         }
     }
 }

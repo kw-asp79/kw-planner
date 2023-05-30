@@ -1,4 +1,5 @@
 ﻿using Client;
+using EntityLibrary;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -90,6 +91,7 @@ namespace WindowsFormsApp1
 
                 btn_add[v].Click += new EventHandler(btn_add_Click);
                 btn_delete[v].Click += new EventHandler(btn_delete_Click);
+                btn_share[v].Click += new EventHandler(btn_share_Click);
             }
         }
         private void btn_addfd_Click(object sender, EventArgs e)
@@ -122,6 +124,8 @@ namespace WindowsFormsApp1
                 listBoxFriends[A].Size = new Size(150, 78);
                 listBoxFriends[A].Location = new Point { X = 100 + 270 * (B - 1), Y = 150 + T };
 
+                listOfLists.Add(ts);
+
                 btn_share[A] = new Button();
                 btn_share[A].Tag = A;
                 btn_share[A].Text = "일정공유";
@@ -150,6 +154,7 @@ namespace WindowsFormsApp1
 
                 btn_add[A].Click += new EventHandler(btn_add_Click);
                 btn_delete[A].Click += new EventHandler(btn_delete_Click);
+                btn_share[v].Click += new EventHandler(btn_share_Click);
 
                 cntGrp++;
                 A++;
@@ -157,7 +162,12 @@ namespace WindowsFormsApp1
         }
         private void btn_share_Click(object sender, EventArgs e)
         {
-            fdGroup_Form_schdShare fdGroup_Form_SchdShare = new fdGroup_Form_schdShare();
+           int idx = (int)((Button)sender).Tag;
+            string key = labelGroupName[idx].Text;
+            List<User> userlist = mainForm.groups[key];
+            List<string> userIdList = userlist.Select(user=>user.id).ToList();
+
+            fdGroup_Form_schdShare fdGroup_Form_SchdShare = new fdGroup_Form_schdShare(this,this.netstrm,userIdList);
             fdGroup_Form_SchdShare.ShowDialog();
         }
         private void btn_add_Click(object sender, EventArgs e)
@@ -169,8 +179,17 @@ namespace WindowsFormsApp1
             //mainform.friends에 저장된 name들과 이미 추가된 친구들의 except만 목록으로 보여주기
             list = frd_all.Except((List<string>)listBoxFriends[idx].DataSource).ToList();
 
-            fdGroup_Form_fdlist fdGroup_form_Fdlist = new fdGroup_Form_fdlist(this, list, (List<string>)listBoxFriends[idx].DataSource, idx);
-            fdGroup_form_Fdlist.ShowDialog();
+
+            if(list.Count != 0) {
+                fdGroup_Form_fdlist fdGroup_form_Fdlist = new fdGroup_Form_fdlist(this, list, (List<string>)listBoxFriends[idx].DataSource, idx);
+                fdGroup_form_Fdlist.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("추가할 친구가 더 이상 없습니다.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Warning); return; 
+
+            }
+
         }
         public void update_list(List<string> list, int i)
         {
@@ -201,20 +220,22 @@ namespace WindowsFormsApp1
 
 
                 listBoxFriends[idx].DataSource = listBoxFriends[A - 1].DataSource;
+                mainForm.groups.Remove(labelGroupName[idx].Text);
                 labelGroupName[idx].Text = labelGroupName[A - 1].Text;
                 this.Controls.Remove(labelGroupName[A - 1]);
                 this.Controls.Remove(listBoxFriends[A - 1]);
                 this.Controls.Remove(btn_delete[A - 1]);
                 this.Controls.Remove(btn_share[A - 1]);
                 this.Controls.Remove(btn_add[A - 1]);
-                grp_name_list[idx - 1] = null;
-                grp_name_list[idx - 1] = grp_name_list[A - 2];
+                //grp_name_list[idx - 1] = null;
+                //grp_name_list[idx - 1] = grp_name_list[A - 2];
 
                 listOfLists[idx - 1] = null;
                 listOfLists[idx - 1] = listOfLists[A - 2];
 
                 listOfLists.RemoveAt(A - 2);
-                grp_name_list.RemoveAt(A - 2);
+                //grp_name_list.RemoveAt(A - 2);
+                
                 A--;
                 cntGrp--;
 
