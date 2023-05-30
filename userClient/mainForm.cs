@@ -15,6 +15,7 @@ using PacketLibrary;
 using MySqlX.XDevAPI;
 using System.Collections;
 using System.Diagnostics.Eventing.Reader;
+using System.Threading;
 
 namespace Client
 {
@@ -30,11 +31,11 @@ namespace Client
         private static TcpClient server;
         private static NetworkStream netstrm;
 
-        public static List<User> friends;
-        public static List<Schedule> schedules;
-        public static Dictionary<string, List<User>> groups;
+        public static List<User> friends = new List<User>();
+        public static List<Schedule> schedules = new List<Schedule>();
+        public static Dictionary<string, List<User>> groups = new Dictionary<string, List<User>>();
 
-        public User myUserInfo;
+        public static User myUserInfo;
         public bool isLoginSuccess = false;
         KLASCrawler klasCrawler;
         LibraryCrawler libraryCrawler;
@@ -96,6 +97,7 @@ namespace Client
             // TCP 통신
             try
             {
+
                 server = new TcpClient("127.0.0.1", 9050);
             }
             catch (SocketException ex)
@@ -219,7 +221,7 @@ namespace Client
         private void loginBtn_Click(object sender, EventArgs e)
         {
             LoginForm loginForm = new LoginForm(netstrm, this);
-            
+
             loginForm.Show();
         }
 

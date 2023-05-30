@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace SampleCalenderServer
 {
     public static class ScheduleRepository
@@ -91,7 +92,7 @@ namespace SampleCalenderServer
                                   "SET category = @category, title = @title, content = @content, " +
                                   "start_time = @startTime, end_time = @endTime " +
                                   "WHERE schedule_id = @scheduleId;";
-            command.Parameters.AddWithValue("@category", schedule.category);
+            command.Parameters.AddWithValue("@category", schedule.category); 
             command.Parameters.AddWithValue("@title", schedule.title);
             command.Parameters.AddWithValue("@content", schedule.content);
             command.Parameters.AddWithValue("@startTime", schedule.startTime);

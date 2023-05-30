@@ -8,20 +8,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-
+using System.Net.Sockets;
+using EntityLibrary;
 
 namespace Client
 {
     public partial class calendarForm : UserControl
     {
 
-        private int month;
-        private int year;
+        private static int month;
+        private static int year;
+        DateTime starttime;
+        DateTime endtime;
 
         KLASCrawler klasCrawler;
         LibraryCrawler libraryCrawler;
 
         List<Dictionary<DateTime, string>> publicHolidays = new List<Dictionary<DateTime, string>>();
+
+        mainForm mainform;
+        static NetworkStream netstrm;
 
         public calendarForm(KLASCrawler kLasCrawler, LibraryCrawler liBraryCrawler)
         {
@@ -29,6 +35,7 @@ namespace Client
         
             this.klasCrawler = kLasCrawler;
             this.libraryCrawler = liBraryCrawler;
+            
         }
 
 
@@ -38,8 +45,40 @@ namespace Client
             month = now.Month;
             year = now.Year;
             ymLbl.Text = year.ToString() + " . " + month.ToString();
-
+ 
             displayDays(month, year);
+        }
+
+        public void showlogCalendar()
+        {
+               
+        
+            DateTime now = DateTime.Now;
+            month = now.Month;
+            year = now.Year;
+            ymLbl.Text = year.ToString() + " . " + month.ToString();
+
+            //dayContainer.Controls.Clear(); // 기존 패널들을 모두 제거
+
+            int days = DateTime.DaysInMonth(year, month);
+
+            // show current month days
+
+            for (int i = 1; i <= days; i++)
+            {
+                DateTime date = new DateTime(year, month, i);
+                UserControlDays ucDays = new UserControlDays(netstrm);
+                ucDays.SetDay(i);
+
+                Schedule matchingSchedule = mainForm.schedules.FirstOrDefault(schedule => schedule.startTime.Date == date.Date || schedule.endTime.Date == date.Date);
+                if (matchingSchedule != null)
+                {
+                    //ucDays.AddLabel(matchingSchedule.content);
+                }
+
+                dayContainer.Controls.Add(ucDays);
+            }
+        
         }
 
 
@@ -113,7 +152,7 @@ namespace Client
             // show previous month days
             for (int i = daysInPreviousMonth - daysOfWeek + 2; i <= daysInPreviousMonth; i++)
             {
-                UserControlDays ucDays = new UserControlDays();
+                UserControlDays ucDays = new UserControlDays(netstrm);
                 ucDays.SetDay(i);
                 ucDays.lbDay.ForeColor = Color.WhiteSmoke; // set text color to gray for previous month days
                 
@@ -127,7 +166,7 @@ namespace Client
             for (int i = 1; i <= days; i++)
             {
                 DateTime date = new DateTime(startOfMonth.Year, startOfMonth.Month, i);
-                UserControlDays ucDays = new UserControlDays();
+                UserControlDays ucDays = new UserControlDays(netstrm);
                 ucDays.SetDay(i);
                 if (IsSunday(date) || IsHoliday(startOfMonth.Year, startOfMonth.Month, i))
                 {

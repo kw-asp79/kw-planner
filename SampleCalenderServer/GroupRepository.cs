@@ -15,7 +15,7 @@ namespace SampleCalenderServer
             // 나한테만 보여지는 Group이라고 가정
             MySqlCommand command = DBProcess.connection.CreateCommand();
 
-            command.CommandText = "SELECT group.name FROM schema.group WHERE group.user_id = @myUserId;";
+            command.CommandText = "SELECT group.name FROM asp.group WHERE group.user_id = @myUserId;";
             command.Parameters.AddWithValue("@myUserID", user.id);
 
             MySqlDataReader reader = command.ExecuteReader();
@@ -33,8 +33,8 @@ namespace SampleCalenderServer
             foreach (string groupName in groups.Keys)
             {
                 command = DBProcess.connection.CreateCommand();
-                command.CommandText = "SELECT user.* FROM user join user_group join schema.group where group.name = @groupName" +
-                    " and schema.group.group_id = user_group.group_id and user_group.user_id = user.user_id;";
+                command.CommandText = "SELECT user.* FROM user join user_group join asp.group where group.name = @groupName" +
+                    " and asp.group.group_id = user_group.group_id and user_group.user_id = user.user_id;";
                 command.Parameters.AddWithValue("@groupName", groupName);
 
                 reader = command.ExecuteReader();
@@ -55,6 +55,7 @@ namespace SampleCalenderServer
 
             return groups;
         }
+
         public static void CreateGroup(string name, string user_id)
         {
             MySqlCommand command = DBProcess.connection.CreateCommand();
