@@ -141,14 +141,15 @@ namespace Client
             }
 
             Schedule eventschedule = new Schedule();
+            int A = mainForm.schedules.Count;
+            eventschedule.id = A;
             eventschedule.startTime = startDateTime.Date;
             eventschedule.endTime = endDateTime.Date;
             eventschedule.category = "schedule";
             eventschedule.title = title;
             eventschedule.content = schedule;
-           // eventschedule.id = 10;
             mainForm.schedules.Add(eventschedule);
-
+            A++;
             UpdateLabelIndicator();
         }
 
@@ -165,6 +166,12 @@ namespace Client
             if (eventToDelete != null)
             {
                 events.Remove(eventToDelete);
+            }
+            // mainForm에서도 스케줄 삭제
+            Schedule scheduleToDelete = mainForm.schedules.FirstOrDefault(sch => sch.title == eventString && sch.content == eventToDelete.Schedule);
+            if (scheduleToDelete != null)
+            {
+                mainForm.schedules.Remove(scheduleToDelete);
             }
 
             // 삭제할 체크박스의 인덱스

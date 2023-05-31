@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -40,38 +41,53 @@ namespace SampleCalenderServer
             return schedules;
         }
 
-        public static void UserScheduleCreate(string userId, int scheduleId)
+        public static int SelectScheduleId(Schedule schedule, string userId)
         {
             MySqlCommand command = DBProcess.connection.CreateCommand();
-            command.CommandText = "INSERT INTO `user_schedule` (user_id, schedule_id) VALUES (@userId, @scheduleId);";
+
+            command.CommandText = "SELECT schedule_id FROM schedule JOIN user_schedule WHERE schedule.category = @category and schedule.title = @title and schedule.content = @content" +
+                " and schedule.start_time = @startTime and schedule.end_time = @endTime" +
+                " and user_schedule.user_id = @userId and schedule.schedule_id = user_schedule.schedule.id;";
+            command.Parameters.AddWithValue("@category", schedule.category);
+            command.Parameters.AddWithValue("@title", schedule.title);
+            command.Parameters.AddWithValue("@content", schedule.content);
+            command.Parameters.AddWithValue("startTime", schedule.startTime);
+            command.Parameters.AddWithValue("endTime", schedule.endTime);
+            command.Parameters.AddWithValue("@userId", userId);
+
+            MySqlDataReader reader = command.ExecuteReader();
+
+            int id = -1;
+
+            if (reader.HasRows)
+            {
+                reader.Read();
+                id = reader.GetInt32("schedule_id");
+            }
+
+            reader.Close();
+
+            return id;
+        }
+
+        public static void CreateUserSchedule(string userId, int scheduleId)
+        {
+            MySqlCommand command = DBProcess.connection.CreateCommand();
+
+            command.CommandText = "INSERT INTO user_schedule (user_id, schedule_id) " +
+                                  "VALUES (@userId, @scheduleId);";
             command.Parameters.AddWithValue("@userId", userId);
             command.Parameters.AddWithValue("@scheduleId", scheduleId);
 
-            command.ExecuteNonQuery();
-        }
+            MySqlDataReader reader = command.ExecuteReader();
 
-        public static void UserScheduleDelete(int userScheduleId)
-        {
-            MySqlCommand command = DBProcess.connection.CreateCommand();
-            command.CommandText = "DELETE FROM `user_schedule` WHERE user_schedule_id = @userScheduleId;";
-            command.Parameters.AddWithValue("@userScheduleId", userScheduleId);
+            reader.Close();
 
-            command.ExecuteNonQuery();
-        }
-
-        public static void UserScheduleUpdate(int userScheduleId, string userId, int scheduleId)
-        {
-            MySqlCommand command = DBProcess.connection.CreateCommand();
-            command.CommandText = "UPDATE `user_schedule` SET user_id = @userId, schedule_id = @scheduleId WHERE user_schedule_id = @userScheduleId;";
-            command.Parameters.AddWithValue("@userScheduleId", userScheduleId);
-            command.Parameters.AddWithValue("@userId", userId);
-            command.Parameters.AddWithValue("@scheduleId", scheduleId);
-
-            command.ExecuteNonQuery();
+            return;
         }
 
 
-        public static void CreateSchedule(Schedule schedule)
+        public static int CreateSchedule(Schedule schedule)
         {
             MySqlCommand command = DBProcess.connection.CreateCommand();
             command.CommandText = "INSERT INTO schedule (category, title, content, start_time, end_time) " +
@@ -83,6 +99,11 @@ namespace SampleCalenderServer
             command.Parameters.AddWithValue("@endTime", schedule.endTime);
 
             command.ExecuteNonQuery();
+
+            command.CommandText = "SELECT LAST_INSERT_ID();";
+            int id = (int)command.ExecuteScalar();
+
+            return id;
         }
 
         public static void UpdateSchedule(Schedule schedule)
@@ -92,11 +113,12 @@ namespace SampleCalenderServer
                                   "SET category = @category, title = @title, content = @content, " +
                                   "start_time = @startTime, end_time = @endTime " +
                                   "WHERE schedule_id = @scheduleId;";
-            command.Parameters.AddWithValue("@category", schedule.category); 
+            command.Parameters.AddWithValue("@category", schedule.category);
             command.Parameters.AddWithValue("@title", schedule.title);
             command.Parameters.AddWithValue("@content", schedule.content);
             command.Parameters.AddWithValue("@startTime", schedule.startTime);
             command.Parameters.AddWithValue("@endTime", schedule.endTime);
+            command.Parameters.AddWithValue("@scheduleId", schedule.id);
 
             command.ExecuteNonQuery();
         }
