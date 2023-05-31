@@ -202,12 +202,16 @@ namespace WindowsFormsApp1
         private void btn_delete_Click(object sender, EventArgs e)
         {
             List<string> check_list = new List<string>();
+            List<string> id_list = new List<string>();
             int idx = (int)((Button)sender).Tag;
             ListBox.SelectedIndexCollection selectedIndices = listBoxFriends[idx].SelectedIndices;
             check_list = (List<string>)listBoxFriends[idx].DataSource;
             for (int i = 0; i < selectedIndices.Count; i++)
             {
                 int selectedIndex = selectedIndices[i];
+                string name = check_list[selectedIndex -i];
+                string searchedId = mainForm.friends.FirstOrDefault(user => user.name == name)?.id;
+                id_list.Add(searchedId);
                 check_list.RemoveAt(selectedIndex - i);
                 mainForm.groups.ElementAt(idx - 1).Value.RemoveAt(selectedIndex - i);
             }
