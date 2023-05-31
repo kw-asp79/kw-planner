@@ -70,7 +70,7 @@ namespace Client
                 if (startDate.Year == year && startDate.Month == month && startDate.Day <= day && day <= endDate.Day)
                 {
                     // 스케줄 정보를 패널에 추가
-                    AddLabel(schedule.content, schedule.category);
+                    //AddLabel(schedule.content, schedule.category);
                 }
             }
         }
@@ -234,22 +234,11 @@ namespace Client
 
 
 
-     
 
 
-        private void UserControlDays_Load(object sender, EventArgs e)
-        {
 
 
-        public void ClearLabel()
-        {
-            label1.Text = string.Empty;
-            label1.Visible = false;
-            label2.Text = string.Empty;
-            label2.Visible = false;
-            label3.Text = string.Empty;
-            label3.Visible = false;
-        }
+
 
         private void UserControlDays_Click(object sender, EventArgs e)
         {
@@ -264,7 +253,7 @@ namespace Client
             if (matchingSchedule != null)
             {
                 // 스케줄 정보를 패널에 추가
-                clickedPanel.AddLabel(matchingSchedule.content, matchingSchedule.category);
+                //clickedPanel.AddLabel(matchingSchedule.content, matchingSchedule.category);
             }
         }
 
@@ -287,8 +276,6 @@ namespace Client
             ((UserControlDays)sender).BorderStyle = BorderStyle.None; 
         }
 
-        private void UserControlDays_Load(object sender, EventArgs e)
-        {
-        }
+ 
     }
 }

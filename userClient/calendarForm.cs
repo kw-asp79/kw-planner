@@ -52,12 +52,6 @@ namespace Client
 
 
 
-        public void setSchedules(List<Schedule> schedules)
-        {
-            this.userSchedules = schedules;
-
-        }
-
 
 
         public void showCalendar()
@@ -70,37 +64,6 @@ namespace Client
             displayDays(month, year);
         }
 
-        public void showlogCalendar()
-        {
-               
-        
-            DateTime now = DateTime.Now;
-            month = now.Month;
-            year = now.Year;
-            ymLbl.Text = year.ToString() + " . " + month.ToString();
-
-            //dayContainer.Controls.Clear(); // 기존 패널들을 모두 제거
-
-            int days = DateTime.DaysInMonth(year, month);
-
-            // show current month days
-
-            for (int i = 1; i <= days; i++)
-            {
-                DateTime date = new DateTime(year, month, i);
-                UserControlDays ucDays = new UserControlDays(netstrm);
-                ucDays.SetDay(i);
-
-                Schedule matchingSchedule = mainForm.schedules.FirstOrDefault(schedule => schedule.startTime.Date == date.Date || schedule.endTime.Date == date.Date);
-                if (matchingSchedule != null)
-                {
-                    //ucDays.AddLabel(matchingSchedule.content);
-                }
-
-                dayContainer.Controls.Add(ucDays);
-            }
-        
-        }
 
 
         private bool IsSunday(DateTime date)

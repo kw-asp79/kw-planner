@@ -46,24 +46,20 @@
             // 
             // tbSchedule
             // 
-
             this.tbSchedule.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbSchedule.Location = new System.Drawing.Point(222, 18);
+            this.tbSchedule.Location = new System.Drawing.Point(681, 47);
             this.tbSchedule.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-
             this.tbSchedule.Name = "tbSchedule";
-            this.tbSchedule.Size = new System.Drawing.Size(359, 28);
+            this.tbSchedule.Size = new System.Drawing.Size(410, 34);
             this.tbSchedule.TabIndex = 1;
             // 
             // btnSave
             // 
             this.btnSave.Font = new System.Drawing.Font("Ink Free", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-
-            this.btnSave.Location = new System.Drawing.Point(897, 6);
+            this.btnSave.Location = new System.Drawing.Point(1137, 11);
             this.btnSave.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(86, 38);
+            this.btnSave.Size = new System.Drawing.Size(119, 65);
             this.btnSave.TabIndex = 4;
             this.btnSave.Text = "save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -72,81 +68,69 @@
             // lblSelectedDate
             // 
             this.lblSelectedDate.AutoSize = true;
-            this.lblSelectedDate.Location = new System.Drawing.Point(19, 7);
+            this.lblSelectedDate.Location = new System.Drawing.Point(22, 9);
             this.lblSelectedDate.Name = "lblSelectedDate";
-            this.lblSelectedDate.Size = new System.Drawing.Size(0, 12);
+            this.lblSelectedDate.Size = new System.Drawing.Size(0, 15);
             this.lblSelectedDate.TabIndex = 6;
             // 
             // lblSelectedDayOfWeek
             // 
             this.lblSelectedDayOfWeek.AutoSize = true;
-
-            this.lblSelectedDayOfWeek.Location = new System.Drawing.Point(116, 7);
-
+            this.lblSelectedDayOfWeek.Location = new System.Drawing.Point(133, 9);
             this.lblSelectedDayOfWeek.Name = "lblSelectedDayOfWeek";
-            this.lblSelectedDayOfWeek.Size = new System.Drawing.Size(0, 12);
+            this.lblSelectedDayOfWeek.Size = new System.Drawing.Size(0, 15);
             this.lblSelectedDayOfWeek.TabIndex = 7;
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-
-            this.panel1.Location = new System.Drawing.Point(0, 56);
+            this.panel1.Location = new System.Drawing.Point(0, 85);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1147, 494);
-
+            this.panel1.Size = new System.Drawing.Size(1311, 603);
             this.panel1.TabIndex = 9;
             // 
             // dtpStartDate
             // 
             this.dtpStartDate.CustomFormat = "yyyy-MM-dd";
             this.dtpStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-
-            this.dtpStartDate.Location = new System.Drawing.Point(23, 7);
+            this.dtpStartDate.Location = new System.Drawing.Point(136, 11);
             this.dtpStartDate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-
             this.dtpStartDate.Name = "dtpStartDate";
-            this.dtpStartDate.Size = new System.Drawing.Size(176, 21);
+            this.dtpStartDate.Size = new System.Drawing.Size(201, 25);
             this.dtpStartDate.TabIndex = 10;
             // 
             // dtpStartTime
             // 
             this.dtpStartTime.CustomFormat = "HH:mm";
             this.dtpStartTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-
-            this.dtpStartTime.Location = new System.Drawing.Point(23, 32);
+            this.dtpStartTime.Location = new System.Drawing.Point(343, 11);
             this.dtpStartTime.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-
             this.dtpStartTime.Name = "dtpStartTime";
             this.dtpStartTime.ShowUpDown = true;
-            this.dtpStartTime.Size = new System.Drawing.Size(176, 21);
+            this.dtpStartTime.Size = new System.Drawing.Size(201, 25);
             this.dtpStartTime.TabIndex = 11;
             // 
             // dtpEndDate
             // 
             this.dtpEndDate.CustomFormat = "yyyy-MM-dd";
             this.dtpEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-
-            this.dtpEndDate.Location = new System.Drawing.Point(619, 6);
+            this.dtpEndDate.Location = new System.Drawing.Point(136, 51);
             this.dtpEndDate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-
             this.dtpEndDate.Name = "dtpEndDate";
-            this.dtpEndDate.Size = new System.Drawing.Size(176, 21);
+            this.dtpEndDate.Size = new System.Drawing.Size(201, 25);
             this.dtpEndDate.TabIndex = 12;
             // 
             // dtpEndTime
             // 
             this.dtpEndTime.CustomFormat = "HH:mm";
             this.dtpEndTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-
-            this.dtpEndTime.Location = new System.Drawing.Point(619, 32);
+            this.dtpEndTime.Location = new System.Drawing.Point(344, 51);
             this.dtpEndTime.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-
             this.dtpEndTime.Name = "dtpEndTime";
             this.dtpEndTime.ShowUpDown = true;
-            this.dtpEndTime.Size = new System.Drawing.Size(176, 21);
+            this.dtpEndTime.Size = new System.Drawing.Size(201, 25);
             this.dtpEndTime.TabIndex = 13;
             // 
             // label1
@@ -199,18 +183,10 @@
             // 
             // EventForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-
-            this.ClientSize = new System.Drawing.Size(1147, 550);
-
-           
-            //this.Controls.Add(this.label4);
-           // this.Controls.Add(this.label3);
-           // this.Controls.Add(this.tbTitle);
-           // this.Controls.Add(this.label1);
-           // this.Controls.Add(this.label2);
-
+            this.ClientSize = new System.Drawing.Size(1311, 688);
+            this.Controls.Add(this.tbSchedule);
             this.Controls.Add(this.dtpEndTime);
             this.Controls.Add(this.dtpEndDate);
             this.Controls.Add(this.dtpStartTime);
@@ -219,7 +195,11 @@
             this.Controls.Add(this.lblSelectedDayOfWeek);
             this.Controls.Add(this.lblSelectedDate);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.tbSchedule);
+            this.Controls.Add(this.tbTitle);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label4);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "EventForm";
             this.Text = "EventForm";
