@@ -27,8 +27,8 @@ namespace Client
         libraryLoginForm libraryLoginForm;
         LibraryUIForm libraryUIForm;
 
-        private static TcpClient server;
-        private static NetworkStream netstrm;
+        public static TcpClient server;
+        public static NetworkStream netstrm;
 
         public static List<User> friends = new List<User>();
         public static List<Schedule> schedules = new List<Schedule>();
@@ -81,6 +81,7 @@ namespace Client
                         friends = fullData["friends"] as List<User>;
                         schedules = fullData["schedules"] as List<Schedule>;
                         groups = fullData["groups"] as Dictionary<string, List<User>>;
+                        
                     }
 
                     break;

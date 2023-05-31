@@ -28,7 +28,7 @@ namespace Client
         private void btn_Add_Click(object sender, EventArgs e)
         {
             //friends list 에 추가
-            User user = new User(); 
+            User user = new User();
             user.id = this.txt_id.Text;
             user.name = this.txt_SearchedName.Text;
 
@@ -71,5 +71,5 @@ namespace Client
         }
     }
 
-    
-    }
+
+}

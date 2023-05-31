@@ -29,7 +29,7 @@ namespace Client
         int labelWidth = 50;
         int labelHeight = 25;
         static int A = 1;
-        
+
         static int cntlbl = mainForm.friends.Count;
 
 
@@ -38,7 +38,7 @@ namespace Client
             InitializeComponent();
             this.netstrm = netstrm;
             list_load();
-            
+
         }
         private void list_load()
         {
@@ -114,11 +114,11 @@ namespace Client
 
                 packet = Packet.ReceivePacket(netstrm);
 
-                if(packet.action == ActionType.Success)
+                if (packet.action == ActionType.Success)
                 {
                     cntlbl = mainForm.friends.Count;
-                    A = cntlbl ;
-                    
+                    A = cntlbl;
+
                     labels2[A] = new Label();
                     labels2[A].Location = new Point(310, 60 + 50 * A);
                     labels2[A].Size = new Size(labelWidth + 15, labelHeight);
@@ -168,10 +168,10 @@ namespace Client
         {
             Button btn = sender as Button;
             int idx = (int)btn.Tag;
-
+            A = mainForm.friends.Count + 1;
             // sql로 db에서 해당 친구 delete 문 필요 id 담아드렸어요
             User friend = new User();
-            friend.id = mainForm.friends[idx-1].id;
+            friend.id = mainForm.friends[idx - 1].id;
 
             Packet packet = new Packet();
 
@@ -216,6 +216,7 @@ namespace Client
                 A--;
                 cntlbl--;
             }
+
         }
     }
 }
