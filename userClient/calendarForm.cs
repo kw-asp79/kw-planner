@@ -52,12 +52,6 @@ namespace Client
 
 
 
-        public void setSchedules(List<Schedule> schedules)
-        {
-            this.userSchedules = schedules;
-
-        }
-
 
 
         public void showCalendar()
@@ -69,8 +63,7 @@ namespace Client
  
             displayDays(month, year);
         }
-
-     
+        
 
         private bool IsSunday(DateTime date)
         {
