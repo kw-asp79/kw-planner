@@ -280,12 +280,14 @@ namespace WindowsFormsApp1
 
                 packet.action = ActionType.deleteGroup;
                 
-                fullData.Add("group", new Group(groupName));
+                fullData.Add("group", new Group(groupName, myUserInfo.id));
                 fullData.Add("user", myUserInfo);
                 packet.data = fullData;
 
                 Packet.SendPacket(netstrm, packet);
+
                 packet = Packet.ReceivePacket(netstrm);
+
             }
             else
             {
