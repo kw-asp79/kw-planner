@@ -8,28 +8,50 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using CrawlingLibrary;
 
+using EntityLibrary;
 
 namespace Client
 {
     public partial class calendarForm : UserControl
     {
 
-        private int month;
-        private int year;
+        private static int month;
+        private static int year;
+        DateTime starttime;
+        DateTime endtime;
+
+        mainForm MainForm;
 
         KLASCrawler klasCrawler;
         LibraryCrawler libraryCrawler;
 
         List<Dictionary<DateTime, string>> publicHolidays = new List<Dictionary<DateTime, string>>();
 
-        public calendarForm(KLASCrawler kLasCrawler, LibraryCrawler liBraryCrawler)
+
+        public List<Schedule> userSchedules; // User의 모든 스케줄을 여기에 저장.
+
+
+        public calendarForm(mainForm mForm, KLASCrawler kLasCrawler, LibraryCrawler liBraryCrawler)
+
         {
             InitializeComponent();
         
             this.klasCrawler = kLasCrawler;
             this.libraryCrawler = liBraryCrawler;
+
+            this.MainForm = mForm;
+            this.MainForm.loginSuccessEvent += delegate (object sender, LoginEventArgs args)
+            {
+                userSchedules = args.getSchedules(); 
+                
+                this.MainForm.isLoginSuccess = true;
+            };
         }
+
+
+
 
 
         public void showCalendar()
@@ -38,10 +60,10 @@ namespace Client
             month = now.Month;
             year = now.Year;
             ymLbl.Text = year.ToString() + " . " + month.ToString();
-
+ 
             displayDays(month, year);
         }
-
+        
 
         private bool IsSunday(DateTime date)
         {
@@ -113,13 +135,19 @@ namespace Client
             // show previous month days
             for (int i = daysInPreviousMonth - daysOfWeek + 2; i <= daysInPreviousMonth; i++)
             {
-                UserControlDays ucDays = new UserControlDays();
-                ucDays.SetDay(i);
-                ucDays.lbDay.ForeColor = Color.WhiteSmoke; // set text color to gray for previous month days
-                
+
+                DateTime date = new DateTime(startOfMonth.Year, startOfMonth.Month - 1 == 0 ? 12 : startOfMonth.Month-1, i) ;
 
                 
+
+                UserControlDays ucDays = new UserControlDays(date,MainForm,this);
                 
+                
+                ucDays.SetDay(i);
+                ucDays.lbDay.ForeColor = Color.WhiteSmoke; // set text color to gray for previous month days
+
+                ucDays.showMainSchedule();
+
                 dayContainer.Controls.Add(ucDays);
             }
 
@@ -127,7 +155,9 @@ namespace Client
             for (int i = 1; i <= days; i++)
             {
                 DateTime date = new DateTime(startOfMonth.Year, startOfMonth.Month, i);
-                UserControlDays ucDays = new UserControlDays();
+
+                UserControlDays ucDays = new UserControlDays(date,MainForm,this);
+
                 ucDays.SetDay(i);
                 if (IsSunday(date) || IsHoliday(startOfMonth.Year, startOfMonth.Month, i))
                 {
@@ -139,6 +169,9 @@ namespace Client
 
                     }
                 }
+
+                ucDays.showMainSchedule();
+
 
                 // klasCrawler 의 각 lecture 별로 이 날짜에 해당하는 온라인강의,과제,퀴즈,팀 프로젝트 마감일을 검사
 

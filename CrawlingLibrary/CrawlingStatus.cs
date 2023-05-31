@@ -10,7 +10,8 @@ namespace CrawlingLibrary
     {
         public enum Status
         {
-            Nothing,
+            BeforeLogin,
+            LoginProcess,
             LoginSuccess,
             LoginFailure,
             CrawlingSuccess,

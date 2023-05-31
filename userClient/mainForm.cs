@@ -15,9 +15,27 @@ using PacketLibrary;
 using MySqlX.XDevAPI;
 using System.Collections;
 using System.Diagnostics.Eventing.Reader;
+using CrawlingLibrary;
+
 
 namespace Client
 {
+    public class LoginEventArgs : EventArgs
+    {
+        public List<Schedule> schedules;
+        public LoginEventArgs(List<Schedule> schedules)
+        {
+            this.schedules = schedules;
+        }
+
+        public List<Schedule> getSchedules()
+        {
+            return this.schedules;
+        }
+
+    }
+
+
     public partial class mainForm : Form
     {
         // 각 form 들을 멤버로 선언 => 추후 klas와 도서관 정보를 달력과 주고받기 위해 (다만 상황에 따라 변동 가능성 존재..)
@@ -27,8 +45,8 @@ namespace Client
         libraryLoginForm libraryLoginForm;
         LibraryUIForm libraryUIForm;
 
-        private static TcpClient server;
-        private static NetworkStream netstrm;
+        public static TcpClient server;
+        public static NetworkStream netstrm;
 
         public static List<User> friends = new List<User>();
         public static List<Schedule> schedules = new List<Schedule>();
@@ -36,13 +54,17 @@ namespace Client
 
         public static User myUserInfo;
         public bool isLoginSuccess = false;
+
         KLASCrawler klasCrawler;
         LibraryCrawler libraryCrawler;
+
+        public event EventHandler<LoginEventArgs> loginSuccessEvent;
 
         public mainForm()
         {
             InitializeComponent();
             this.Load += new EventHandler(MainForm_Load);
+
         }
 
         public Control getCalendarContainer()
@@ -81,8 +103,12 @@ namespace Client
                         friends = fullData["friends"] as List<User>;
                         schedules = fullData["schedules"] as List<Schedule>;
                         groups = fullData["groups"] as Dictionary<string, List<User>>;
+                        
                     }
 
+                    // Login eventHandler call! 
+                    loginSuccessEvent.Invoke(this,new LoginEventArgs(schedules));
+                    
                     break;
                 }
             }
@@ -116,6 +142,7 @@ namespace Client
             // TCP 통신
             try
             {
+
                 server = new TcpClient("127.0.0.1", 9050);
             }
             catch (SocketException ex)
@@ -134,14 +161,12 @@ namespace Client
             libraryCrawler = new LibraryCrawler();
 
             // show calendar form  
-            calendarForm = new calendarForm(klasCrawler, libraryCrawler);
+            calendarForm = new calendarForm(this, klasCrawler,libraryCrawler);
+            
             calendarForm.showCalendar();
             calendarContainer.Controls.Add(calendarForm);
 
-            // Form_Close 이벤트 발생시 아래 코드를 추가해야함
-            //netstrm.Close();
-            //server.Close();
-
+           
 
             // create KLAS UI Form 
             klasUIForm = new KLASUIForm();
@@ -158,6 +183,7 @@ namespace Client
             libraryLoginForm = new libraryLoginForm(libraryUIForm, libraryCrawler, netstrm);
             // add EventHandler
             libraryLoginForm.allSuccess += lbyAllSuccess;
+
         }
 
 
@@ -254,6 +280,27 @@ namespace Client
             fdGroup_Form fdGroupForm = new fdGroup_Form(netstrm) { Dock = DockStyle.Fill, TopLevel = false, TopMost = true, FormBorderStyle = FormBorderStyle.None };
             this.calendarContainer.Controls.Add(fdGroupForm);
             fdGroupForm.Show();
+        }
+
+        private void todoBtn_Click(object sender, EventArgs e)
+        {
+            calendarContainer.Controls.Clear();
+
+            ToDoUIForm todoUIForm = new ToDoUIForm(libraryCrawler.getLibrarySchedules(),klasCrawler.getKLASSchedules());
+            calendarContainer.Controls.Add(todoUIForm);
+        }
+
+        private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Form_Close 이벤트 발생시 아래 코드를 추가해야함
+
+            Packet packet = new Packet();
+            packet.action = ActionType.ClientClosed;
+            
+            Packet.SendPacket(netstrm, packet);
+
+            netstrm.Close();
+            server.Close();
         }
     }
 }

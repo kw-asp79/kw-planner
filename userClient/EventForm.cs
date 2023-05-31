@@ -13,30 +13,37 @@ using System.Windows.Forms;
 using static Client.UserControlDays;
 using WindowsFormsApp1;
 using static Client.EventForm;
+using System.Collections;
+using System.Net.Sockets;
+using PacketLibrary;
+using Google.Protobuf.WellKnownTypes;
+
 //using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace Client
 {
     public partial class EventForm : Form
     {
+
         UserControlDays UserControlDays;
-        private CheckBox completionCheckBox;
         private Label startDateTimeLabel;
         private Label savedContentLabel;
         private Label endDateTimeLabel;
         private int controlTop;
-        private int lcontrolTop;
         private List<Event> events;
         private List<CheckBox> checkBoxes; // 체크박스 리스트 추가
 
+        NetworkStream netstrm;
+        mainForm mainform;
+        User myUserInfo = mainForm.myUserInfo;
 
 
         public EventForm(UserControlDays form)
         {
             UserControlDays = form;
+
             InitializeComponent();
             controlTop = -140;
-            lcontrolTop = -140;
             events = new List<Event>();
             checkBoxes = new List<CheckBox>();
 
@@ -81,63 +88,72 @@ namespace Client
 
 
 
-
-
-
-        private void EventForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cbHour(object sender, ControlEventArgs e)
-        {
-
-        }
-
         private void btnSave_Click(object sender, EventArgs e)
         {
             DateTime startDateTime = new DateTime(dtpStartDate.Value.Year, dtpStartDate.Value.Month, dtpStartDate.Value.Day,
-        dtpStartTime.Value.Hour, dtpStartTime.Value.Minute, 0);
+                dtpStartTime.Value.Hour, dtpStartTime.Value.Minute, 0);
 
             DateTime endDateTime = new DateTime(dtpEndDate.Value.Year, dtpEndDate.Value.Month, dtpEndDate.Value.Day,
                 dtpEndTime.Value.Hour, dtpEndTime.Value.Minute, 0);
-
+            
+            string title = tbTitle.Text;
             string schedule = tbSchedule.Text;
+            string category = "schedule";
 
-            Event newEvent = new Event(startDateTime, endDateTime, schedule);
+            Event newEvent = new Event(category, title, startDateTime, endDateTime, schedule);
             events.Add(newEvent);
 
-            // 이벤트 정보를 표시하기 위한 컨트롤 생성
-            CheckBox checkBox = new CheckBox();
-            checkBox.Text = newEvent.GetEventString();
-            checkBox.CheckedChanged += CheckBox_CheckedChanged;
 
-            checkBoxes.Add(checkBox); // 체크박스를 checkBoxes 리스트에 추가
-            checkBox.Top = controlTop;
-            checkBox.Font = new Font("Ink Free", 13, FontStyle.Regular);
-            panel1.Controls.Add(checkBox);
+            // 스케줄을 시작하는 시간 순서로 정렬
+            events = events.OrderBy(ev => ev.StartDateTime).ToList();
 
-            // CheckBox의 너비 조정
-            checkBox.AutoSize = true;
-            checkBox.MinimumSize = new Size(200, checkBox.Height);
+            // 기존 컨트롤들 제거
+            panel1.Controls.Clear();
+            checkBoxes.Clear();
+            controlTop = 0;
 
-            controlTop += checkBox.Height + 10;
+            // 정렬된 스케줄에 맞게 컨트롤들 추가
+            foreach (Event ev in events)
+            {
+                CheckBox checkBox = new CheckBox();
+                checkBox.Text = ev.GetEventString();
+                checkBox.CheckedChanged += CheckBox_CheckedChanged;
 
-            Button deleteButton = new Button();
-            deleteButton.Text = "삭제";
-            deleteButton.Click += DeleteButton_Click;
+                checkBoxes.Add(checkBox);
+                checkBox.Top = controlTop;
+                checkBox.Font = new Font("Ink Free", 13, FontStyle.Regular);
+                panel1.Controls.Add(checkBox);
 
-            deleteButton.Top = controlTop;
-            deleteButton.Left = checkBox.Left + 800 - deleteButton.Width;
-            panel1.Controls.Add(deleteButton);
-            controlTop += deleteButton.Height + 10;
+                checkBox.AutoSize = true;
+                checkBox.MinimumSize = new Size(200, checkBox.Height);
 
-            deleteButton.Tag = checkBox;
+                controlTop += checkBox.Height + 10;
 
+                Button deleteButton = new Button();
+                deleteButton.Text = "삭제";
+                deleteButton.Click += DeleteButton_Click;
 
+                deleteButton.Top = checkBox.Top;
+                deleteButton.Left = checkBox.Left + checkBox.Width + 10;
+                panel1.Controls.Add(deleteButton);
+
+                deleteButton.Tag = checkBox;
+            }
+
+            Schedule eventschedule = new Schedule();
+            int A = mainForm.schedules.Count;
+            eventschedule.id = A;
+            eventschedule.startTime = startDateTime.Date;
+            eventschedule.endTime = endDateTime.Date;
+            eventschedule.category = "schedule";
+            eventschedule.title = title;
+            eventschedule.content = schedule;
+            mainForm.schedules.Add(eventschedule);
+            A++;
             UpdateLabelIndicator();
-
         }
+
+
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
@@ -151,14 +167,32 @@ namespace Client
             {
                 events.Remove(eventToDelete);
             }
+            // mainForm에서도 스케줄 삭제
+            Schedule scheduleToDelete = mainForm.schedules.FirstOrDefault(sch => sch.title == eventString && sch.content == eventToDelete.Schedule);
+            if (scheduleToDelete != null)
+            {
+                mainForm.schedules.Remove(scheduleToDelete);
+            }
+
+            // 삭제할 체크박스의 인덱스
+            int removedIndex = panel1.Controls.IndexOf(associatedCheckBox);
 
             // 체크박스와 삭제 버튼 제거
             panel1.Controls.Remove(associatedCheckBox);
             panel1.Controls.Remove(deleteButton);
             checkBoxes.Remove(associatedCheckBox);
 
-            // 필요한 경우 레이아웃을 재조정할 수 있습니다.
-            // ...
+            // 삭제한 스케줄의 인덱스부터 아래에 있는 데이터들을 한 줄씩 위로 이동시킴
+            for (int i = removedIndex; i < panel1.Controls.Count; i++)
+            {
+                Control control = panel1.Controls[i];
+                if (control is CheckBox checkBox)
+                {
+                    Button associatedDeleteButton = (Button)panel1.Controls[i + 1];
+                    checkBox.Top -= checkBox.Height + 10;
+                    associatedDeleteButton.Top = checkBox.Top;
+                }
+            }
 
             UpdateLabelIndicator();
         }
@@ -169,8 +203,10 @@ namespace Client
             bool allChecked = checkBoxes.All(cb => cb.Checked);
             bool hasSchedule = checkBoxes.Any();
 
-            UserControlDays.SetLabelIndicator(hasSchedule && !allChecked);
+           // UserControlDays.SetLabelIndicator(hasSchedule && !allChecked);
+
         }
+
 
 
         private void ClearInputFields()
@@ -188,22 +224,23 @@ namespace Client
             public DateTime StartDateTime { get; set; }
             public DateTime EndDateTime { get; set; }
             public string Schedule { get; set; }
+            public string Title { get; set; }
 
-            public Event(DateTime startDateTime, DateTime endDateTime, string schedule)
+            public Event(string category, string title, DateTime startDateTime, DateTime endDateTime, string schedule)
             {
                 StartDateTime = startDateTime;
                 EndDateTime = endDateTime;
                 Schedule = schedule;
+                Title = title;
             }
-
-
             public string GetEventString()
             {
                 string start = StartDateTime.ToString("yyyy-MM-dd HH:mm");
                 string end = EndDateTime.ToString("yyyy-MM-dd HH:mm");
-                return $"{start} - {end}: {Schedule}";
+                return $"[{Title}]  {start} - {end}: {Schedule}";
             }
         }
+
         private void CheckBox_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox checkBox = (CheckBox)sender;
@@ -220,25 +257,5 @@ namespace Client
             UpdateLabelIndicator();
         }
 
-
-        private void EventForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            
-        }
-
-        private void dtpStartTime_ValueChanged(object sender, EventArgs e)
-        {
-         
-        }
-
-        private void dtpEndTime_ValueChanged(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
     }
 }

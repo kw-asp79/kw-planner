@@ -136,6 +136,12 @@
     <Compile Include="fdList.Designer.cs">
       <DependentUpon>fdList.cs</DependentUpon>
     </Compile>
+    <Compile Include="KLASLoadingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KLASLoadingForm.Designer.cs">
+      <DependentUpon>KLASLoadingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="KLASLoginForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -147,6 +153,12 @@
     </Compile>
     <Compile Include="KLASUIForm.Designer.cs">
       <DependentUpon>KLASUIForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LibraryLoadingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LibraryLoadingForm.Designer.cs">
+      <DependentUpon>LibraryLoadingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="libraryLoginForm.cs">
       <SubType>UserControl</SubType>
@@ -166,9 +178,7 @@
     <Compile Include="loginForm.Designer.cs">
       <DependentUpon>loginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="mainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="mainForm.cs" />
     <Compile Include="mainForm.Designer.cs">
       <DependentUpon>mainForm.cs</DependentUpon>
     </Compile>
@@ -190,6 +200,12 @@
     </Compile>
     <Compile Include="SignUpForm.Designer.cs">
       <DependentUpon>SignUpForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToDoUIForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ToDoUIForm.Designer.cs">
+      <DependentUpon>ToDoUIForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControlDays.cs">
       <SubType>UserControl</SubType>
@@ -218,11 +234,17 @@
     <EmbeddedResource Include="fdList.resx">
       <DependentUpon>fdList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="KLASLoadingForm.resx">
+      <DependentUpon>KLASLoadingForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="KLASLoginForm.resx">
       <DependentUpon>KLASLoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KLASUIForm.resx">
       <DependentUpon>KLASUIForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LibraryLoadingForm.resx">
+      <DependentUpon>LibraryLoadingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="libraryLoginForm.resx">
       <DependentUpon>libraryLoginForm.cs</DependentUpon>
@@ -246,6 +268,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SignUpForm.resx">
       <DependentUpon>SignUpForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToDoUIForm.resx">
+      <DependentUpon>ToDoUIForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControlDays.resx">
       <DependentUpon>UserControlDays.cs</DependentUpon>

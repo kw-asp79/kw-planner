@@ -54,17 +54,18 @@
             this.menuContainer.Controls.Add(this.klasBtn);
             this.menuContainer.Dock = System.Windows.Forms.DockStyle.Left;
             this.menuContainer.Location = new System.Drawing.Point(0, 0);
+            this.menuContainer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.menuContainer.Name = "menuContainer";
-            this.menuContainer.Size = new System.Drawing.Size(213, 879);
+            this.menuContainer.Size = new System.Drawing.Size(186, 703);
             this.menuContainer.TabIndex = 1;
             // 
             // mainBtn
             // 
             this.mainBtn.Font = new System.Drawing.Font("Ink Free", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mainBtn.Location = new System.Drawing.Point(59, 72);
-            this.mainBtn.Margin = new System.Windows.Forms.Padding(3, 7, 3, 3);
+            this.mainBtn.Location = new System.Drawing.Point(52, 58);
+            this.mainBtn.Margin = new System.Windows.Forms.Padding(3, 6, 3, 2);
             this.mainBtn.Name = "mainBtn";
-            this.mainBtn.Size = new System.Drawing.Size(96, 40);
+            this.mainBtn.Size = new System.Drawing.Size(84, 32);
             this.mainBtn.TabIndex = 8;
             this.mainBtn.Text = "Main";
             this.mainBtn.UseVisualStyleBackColor = true;
@@ -73,10 +74,10 @@
             // groupBtn
             // 
             this.groupBtn.Font = new System.Drawing.Font("Ink Free", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBtn.Location = new System.Drawing.Point(59, 652);
-            this.groupBtn.Margin = new System.Windows.Forms.Padding(3, 7, 3, 3);
+            this.groupBtn.Location = new System.Drawing.Point(52, 522);
+            this.groupBtn.Margin = new System.Windows.Forms.Padding(3, 6, 3, 2);
             this.groupBtn.Name = "groupBtn";
-            this.groupBtn.Size = new System.Drawing.Size(96, 42);
+            this.groupBtn.Size = new System.Drawing.Size(84, 34);
             this.groupBtn.TabIndex = 6;
             this.groupBtn.Text = "Group";
             this.groupBtn.UseVisualStyleBackColor = true;
@@ -85,9 +86,10 @@
             // settingBtn
             // 
             this.settingBtn.Font = new System.Drawing.Font("Ink Free", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.settingBtn.Location = new System.Drawing.Point(121, 972);
+            this.settingBtn.Location = new System.Drawing.Point(106, 778);
+            this.settingBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.settingBtn.Name = "settingBtn";
-            this.settingBtn.Size = new System.Drawing.Size(82, 38);
+            this.settingBtn.Size = new System.Drawing.Size(72, 30);
             this.settingBtn.TabIndex = 5;
             this.settingBtn.Text = "signup";
             this.settingBtn.UseVisualStyleBackColor = true;
@@ -96,9 +98,10 @@
             // loginBtn
             // 
             this.loginBtn.Font = new System.Drawing.Font("Ink Free", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loginBtn.Location = new System.Drawing.Point(3, 972);
+            this.loginBtn.Location = new System.Drawing.Point(3, 778);
+            this.loginBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.loginBtn.Name = "loginBtn";
-            this.loginBtn.Size = new System.Drawing.Size(83, 38);
+            this.loginBtn.Size = new System.Drawing.Size(73, 30);
             this.loginBtn.TabIndex = 4;
             this.loginBtn.Text = "login";
             this.loginBtn.UseVisualStyleBackColor = true;
@@ -107,21 +110,22 @@
             // todoBtn
             // 
             this.todoBtn.Font = new System.Drawing.Font("Ink Free", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.todoBtn.Location = new System.Drawing.Point(59, 797);
-            this.todoBtn.Margin = new System.Windows.Forms.Padding(3, 7, 3, 3);
+            this.todoBtn.Location = new System.Drawing.Point(52, 638);
+            this.todoBtn.Margin = new System.Windows.Forms.Padding(3, 6, 3, 2);
             this.todoBtn.Name = "todoBtn";
-            this.todoBtn.Size = new System.Drawing.Size(96, 38);
+            this.todoBtn.Size = new System.Drawing.Size(84, 30);
             this.todoBtn.TabIndex = 3;
             this.todoBtn.Text = "TODO";
             this.todoBtn.UseVisualStyleBackColor = true;
+            this.todoBtn.Click += new System.EventHandler(this.todoBtn_Click);
             // 
             // fndBtn
             // 
             this.fndBtn.Font = new System.Drawing.Font("Ink Free", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fndBtn.Location = new System.Drawing.Point(59, 502);
-            this.fndBtn.Margin = new System.Windows.Forms.Padding(3, 7, 3, 3);
+            this.fndBtn.Location = new System.Drawing.Point(52, 402);
+            this.fndBtn.Margin = new System.Windows.Forms.Padding(3, 6, 3, 2);
             this.fndBtn.Name = "fndBtn";
-            this.fndBtn.Size = new System.Drawing.Size(96, 40);
+            this.fndBtn.Size = new System.Drawing.Size(84, 32);
             this.fndBtn.TabIndex = 2;
             this.fndBtn.Text = "Friends";
             this.fndBtn.UseVisualStyleBackColor = true;
@@ -130,10 +134,10 @@
             // lbyBtn
             // 
             this.lbyBtn.Font = new System.Drawing.Font("Ink Free", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbyBtn.Location = new System.Drawing.Point(59, 352);
-            this.lbyBtn.Margin = new System.Windows.Forms.Padding(3, 7, 3, 3);
+            this.lbyBtn.Location = new System.Drawing.Point(52, 282);
+            this.lbyBtn.Margin = new System.Windows.Forms.Padding(3, 6, 3, 2);
             this.lbyBtn.Name = "lbyBtn";
-            this.lbyBtn.Size = new System.Drawing.Size(96, 40);
+            this.lbyBtn.Size = new System.Drawing.Size(84, 32);
             this.lbyBtn.TabIndex = 1;
             this.lbyBtn.Text = "Library";
             this.lbyBtn.UseVisualStyleBackColor = true;
@@ -142,10 +146,10 @@
             // klasBtn
             // 
             this.klasBtn.Font = new System.Drawing.Font("Ink Free", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.klasBtn.Location = new System.Drawing.Point(59, 207);
-            this.klasBtn.Margin = new System.Windows.Forms.Padding(3, 7, 3, 3);
+            this.klasBtn.Location = new System.Drawing.Point(52, 166);
+            this.klasBtn.Margin = new System.Windows.Forms.Padding(3, 6, 3, 2);
             this.klasBtn.Name = "klasBtn";
-            this.klasBtn.Size = new System.Drawing.Size(96, 40);
+            this.klasBtn.Size = new System.Drawing.Size(84, 32);
             this.klasBtn.TabIndex = 0;
             this.klasBtn.Text = "KLAS";
             this.klasBtn.UseVisualStyleBackColor = true;
@@ -154,22 +158,25 @@
             // calendarContainer
             // 
             this.calendarContainer.Dock = System.Windows.Forms.DockStyle.Right;
-            this.calendarContainer.Location = new System.Drawing.Point(210, 0);
+            this.calendarContainer.Location = new System.Drawing.Point(184, 0);
+            this.calendarContainer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.calendarContainer.Name = "calendarContainer";
-            this.calendarContainer.Size = new System.Drawing.Size(985, 879);
+            this.calendarContainer.Size = new System.Drawing.Size(862, 703);
             this.calendarContainer.TabIndex = 0;
             // 
             // mainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1195, 879);
+            this.ClientSize = new System.Drawing.Size(1046, 703);
             this.Controls.Add(this.menuContainer);
             this.Controls.Add(this.calendarContainer);
             this.IsMdiContainer = true;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "mainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "KW-Planner";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.mainForm_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuContainer.ResumeLayout(false);
             this.ResumeLayout(false);

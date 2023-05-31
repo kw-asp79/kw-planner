@@ -31,14 +31,18 @@ namespace Client
             User user = new User();
             user.id = this.txt_id.Text;
             user.name = this.txt_SearchedName.Text;
-            mainForm.friends.Add(user);
-            // 친구목록 화면에 추가
-            fdList.add_label(this.txt_id.Text, this.txt_SearchedName.Text);
 
-            string message = string.Format("{0} 님이 친구로 등록되었습니다.", this.txt_SearchedName.Text);
-            MessageBox.Show(message);
-            txt_id.Clear();
-            txt_SearchedName.Text = null;
+            if (!user.name.Equals(""))
+            {
+                mainForm.friends.Add(user);
+                // 친구목록 화면에 추가
+                fdList.add_label(this.txt_id.Text, this.txt_SearchedName.Text);
+
+                string message = string.Format("{0} 님이 친구로 등록되었습니다.", this.txt_SearchedName.Text);
+                MessageBox.Show(message);
+                txt_id.Clear();
+                txt_SearchedName.Text = null;
+            }
         }
 
         private void btn_Search_Click(object sender, EventArgs e)

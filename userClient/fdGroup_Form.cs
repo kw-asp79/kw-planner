@@ -1,10 +1,12 @@
 ﻿using Client;
 using EntityLibrary;
+using PacketLibrary;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
@@ -16,7 +18,7 @@ namespace WindowsFormsApp1
     public partial class fdGroup_Form : Form
     {
         NetworkStream netstrm;
-        mainForm mainForm;
+        User myUserInfo;
 
         Label[] labelGroupName = new Label[10];
         ListBox[] listBoxFriends = new ListBox[10];
@@ -37,6 +39,7 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
             this.netstrm = netstrm;
+            this.myUserInfo = mainForm.myUserInfo;
             grp_load();
         }
         private void grp_load()
@@ -202,19 +205,39 @@ namespace WindowsFormsApp1
         private void btn_delete_Click(object sender, EventArgs e)
         {
             List<string> check_list = new List<string>();
-            List<string> id_list = new List<string>();
+            List<User> friends_list = new List<User>();
             int idx = (int)((Button)sender).Tag;
             ListBox.SelectedIndexCollection selectedIndices = listBoxFriends[idx].SelectedIndices;
             check_list = (List<string>)listBoxFriends[idx].DataSource;
+
             for (int i = 0; i < selectedIndices.Count; i++)
             {
                 int selectedIndex = selectedIndices[i];
-                string name = check_list[selectedIndex -i];
+                string name = check_list[selectedIndex - i];
                 string searchedId = mainForm.friends.FirstOrDefault(user => user.name == name)?.id;
-                id_list.Add(searchedId);
+                friends_list.Add(new User(searchedId, "", name));
                 check_list.RemoveAt(selectedIndex - i);
                 mainForm.groups.ElementAt(idx - 1).Value.RemoveAt(selectedIndex - i);
             }
+
+            // 그룹에서 해당 친구들을 삭제
+            string groupName = mainForm.groups.ElementAt(idx - 1).Key;
+
+            Packet packet = new Packet();
+            packet.action = ActionType.deleteUserGroup;
+
+            Dictionary<string, Object> fullData = new Dictionary<string, object>();
+            fullData.Add("groupName", groupName);
+            fullData.Add("myUserInfo", myUserInfo);
+            fullData.Add("friendsInGroup", friends_list);
+
+            packet.data = fullData;
+
+            Packet.SendPacket(netstrm, packet);
+
+            // fullData 값을 다시 다른 값으로 채워야하므로 비워줌
+            fullData.Clear();
+
             listBoxFriends[idx].DataSource = null;
             listBoxFriends[idx].Items.Clear();
 
@@ -254,6 +277,13 @@ namespace WindowsFormsApp1
                     cntGrp--;
                 }
 
+                packet.action = ActionType.deleteGroup;
+
+                fullData.Add("group", new Group(groupName));
+                fullData.Add("user", myUserInfo);
+                packet.data = fullData;
+
+                Packet.SendPacket(netstrm, packet);
             }
             else
             {

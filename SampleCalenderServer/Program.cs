@@ -146,6 +146,16 @@ namespace SampleCalenderServer
                 User user = fullData["user"] as User;
                 User friend = fullData["friend"] as User;
                 UserRepository.CreateFriendship(user.id, friend.id);
+            }else if (forWhatProcess.Equals("user_group"))
+            {
+                Dictionary<string, Object> fullData = obj as Dictionary<string, object>;
+
+                string groupName = fullData["groupName"] as string;
+                User myUserInfo = fullData["myUserInfo"] as User;
+                List<User> friendsInGroup = fullData["friendsInGroup"] as List<User>;
+
+                int groupId = GroupRepository.SelectGroupIdByName(groupName, myUserInfo.id);
+                GroupRepository.AddUserListToGroup(groupId, friendsInGroup);
             }
 
             sendPacket.action = ActionType.Success;
@@ -218,6 +228,23 @@ namespace SampleCalenderServer
 
                 int groupId = GroupRepository.SelectGroupIdByName(group.name, user.id);
                 GroupRepository.DeleteGroup(groupId);
+            }else if (forWhatProcess.Equals("friendship"))
+            {
+                Dictionary<string, Object> fullData = obj as Dictionary<string, object>;
+
+                User user = fullData["user"] as User;
+                User friend = fullData["friend"] as User;
+                UserRepository.DeleteFriendship(user.id, friend.id);
+            }else if (forWhatProcess.Equals("user_group"))
+            {
+                Dictionary<string, Object> fullData = obj as Dictionary<string, object>;
+
+                string groupName = fullData["groupName"] as string;
+                User myUserInfo = fullData["myUserInfo"] as User;
+                List<User> friendsInGroup = fullData["friendsInGroup"] as List<User>;
+
+                int groupId = GroupRepository.SelectGroupIdByName(groupName, myUserInfo.id);
+                GroupRepository.DeleteUserListFromGroup(groupId, friendsInGroup);
             }
 
             sendPacket.action = ActionType.Success;
@@ -298,20 +325,22 @@ namespace SampleCalenderServer
 
             while (client.Connected)
             {
-                PacketInfo packetInfo = new PacketInfo();
-                Packet receivedPacket;
-                Packet sendPacket = new Packet();
+                try
+                {
+                    PacketInfo packetInfo = new PacketInfo();
+                    Packet receivedPacket;
+                    Packet sendPacket = new Packet();
 
-                byte[] size = new byte[4];
+                    byte[] size = new byte[4];
 
-                int recv = await netstrm.ReadAsync(size, 0, 4).ConfigureAwait(false);
-                packetInfo.size = BitConverter.ToInt32(size, 0);
+                    int recv = await netstrm.ReadAsync(size, 0, 4).ConfigureAwait(false);
+                    packetInfo.size = BitConverter.ToInt32(size, 0);
 
-                byte[] data = new byte[packetInfo.size];
+                    byte[] data = new byte[packetInfo.size];
 
-                recv = await netstrm.ReadAsync(data, 0, packetInfo.size);
+                    recv = await netstrm.ReadAsync(data, 0, packetInfo.size);
 
-                receivedPacket = Packet.Desserialize(data, packetInfo);
+                    receivedPacket = Packet.Desserialize(data, packetInfo);
 
 
                 switch (receivedPacket.action)
@@ -388,23 +417,57 @@ namespace SampleCalenderServer
                         fullData = receivedPacket.data as Dictionary<string, object>;
                         sendPacket = CreateProcess(fullData, "friendship");
                         break;
+                    case ActionType.deleteFriendship:
+                        Console.WriteLine("[{0}] deleteFriendship request", remoteAddress);
+                        fullData = receivedPacket.data as Dictionary<string, object>;
+                        sendPacket = DeleteProcess(fullData, "friendship");
+                        break;
+                    case ActionType.saveUserGroup:
+                        Console.WriteLine("[{0}] saveUserGroup request", remoteAddress);
+                        fullData = receivedPacket.data as Dictionary<string, object>;
+                        sendPacket = CreateProcess(fullData, "user_group");
+                        break;
+                    case ActionType.deleteUserGroup:
+                        Console.WriteLine("[{0}] deleteUserGroup request", remoteAddress);
+                        fullData = receivedPacket.data as Dictionary<string, object>;
+                        sendPacket = DeleteProcess(fullData, "user_group");
+                        break;
+                    case ActionType.ClientClosed:
+                        Console.WriteLine("[{0}] ClientClosed request", remoteAddress);
+                        throw new Exception("ClientClosed");                            
                     default:
                         break;
+                    }
+
+                    // 응답을 전송함
+                    data = Packet.Serialize(sendPacket, packetInfo);
+                    size = BitConverter.GetBytes(packetInfo.size);
+
+                    // packet의 size를 먼저 전송
+                    await netstrm.WriteAsync(size, 0, 4);
+                    // 그 다음 packet을 전송
+                    await netstrm.WriteAsync(data, 0, packetInfo.size);
+                    netstrm.Flush();
+                }
+                catch (Exception e)
+                {
+
+                    // 만약 클라이언트가 폼을 종료했다면.. 
+                    if (e.Message.Contains("ClientClosed"))
+                    {
+                        Console.WriteLine("main form closed event: Client closed!!");
+
+                        netstrm.Close();
+                        client.Close();
+                      
+                        return;
+                    }
                 }
 
-                // 응답을 전송함
-                data = Packet.Serialize(sendPacket, packetInfo);
-                size = BitConverter.GetBytes(packetInfo.size); ;
 
-                // packet의 size를 먼저 전송
-                await netstrm.WriteAsync(size, 0, 4);
-                // 그 다음 packet을 전송
-                await netstrm.WriteAsync(data, 0, packetInfo.size);
-                netstrm.Flush();
             }
 
-            netstrm.Close();
-            client.Close();
+
         }
 
         async static Task AsyncServer()
