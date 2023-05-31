@@ -52,7 +52,7 @@ namespace Client
             if (receivedPacket.action == ActionType.Success)
             {
                 mainform.isLoginSuccess = true;
-                mainform.myUserInfo = (User)receivedPacket.data;
+                mainForm.myUserInfo = (User)receivedPacket.data;
 
                 MessageBox.Show("로그인에 성공했습니다.");
                 this.Close();

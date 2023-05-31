@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using CrawlingLibrary;
+
 using EntityLibrary;
 
 namespace Client
@@ -16,8 +17,10 @@ namespace Client
     public partial class calendarForm : UserControl
     {
 
-        private int month;
-        private int year;
+        private static int month;
+        private static int year;
+        DateTime starttime;
+        DateTime endtime;
 
         mainForm MainForm;
 
@@ -26,10 +29,12 @@ namespace Client
 
         List<Dictionary<DateTime, string>> publicHolidays = new List<Dictionary<DateTime, string>>();
 
+
         public List<Schedule> userSchedules; // User의 모든 스케줄을 여기에 저장.
 
 
         public calendarForm(mainForm mForm, KLASCrawler kLasCrawler, LibraryCrawler liBraryCrawler)
+
         {
             InitializeComponent();
         
@@ -50,6 +55,7 @@ namespace Client
         public void setSchedules(List<Schedule> schedules)
         {
             this.userSchedules = schedules;
+
         }
 
 
@@ -60,8 +66,40 @@ namespace Client
             month = now.Month;
             year = now.Year;
             ymLbl.Text = year.ToString() + " . " + month.ToString();
-
+ 
             displayDays(month, year);
+        }
+
+        public void showlogCalendar()
+        {
+               
+        
+            DateTime now = DateTime.Now;
+            month = now.Month;
+            year = now.Year;
+            ymLbl.Text = year.ToString() + " . " + month.ToString();
+
+            //dayContainer.Controls.Clear(); // 기존 패널들을 모두 제거
+
+            int days = DateTime.DaysInMonth(year, month);
+
+            // show current month days
+
+            for (int i = 1; i <= days; i++)
+            {
+                DateTime date = new DateTime(year, month, i);
+                UserControlDays ucDays = new UserControlDays(netstrm);
+                ucDays.SetDay(i);
+
+                Schedule matchingSchedule = mainForm.schedules.FirstOrDefault(schedule => schedule.startTime.Date == date.Date || schedule.endTime.Date == date.Date);
+                if (matchingSchedule != null)
+                {
+                    //ucDays.AddLabel(matchingSchedule.content);
+                }
+
+                dayContainer.Controls.Add(ucDays);
+            }
+        
         }
 
 
@@ -137,6 +175,7 @@ namespace Client
             {
 
                 DateTime date = new DateTime(startOfMonth.Year, startOfMonth.Month - 1 == 0 ? 12 : startOfMonth.Month-1, i) ;
+
                 
 
                 UserControlDays ucDays = new UserControlDays(date,MainForm,this);
@@ -156,6 +195,7 @@ namespace Client
                 DateTime date = new DateTime(startOfMonth.Year, startOfMonth.Month, i);
 
                 UserControlDays ucDays = new UserControlDays(date,MainForm,this);
+
                 ucDays.SetDay(i);
                 if (IsSunday(date) || IsHoliday(startOfMonth.Year, startOfMonth.Month, i))
                 {

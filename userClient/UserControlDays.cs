@@ -1,4 +1,6 @@
-﻿using System;
+﻿using EntityLibrary;
+using PacketLibrary;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,6 +8,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Management.Instrumentation;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -21,6 +24,8 @@ namespace Client
 
         private int day;
         private bool isLabelVisible = true;
+        //private int clickedDay;
+
 
         mainForm MainForm;
         calendarForm calendarForm;
@@ -46,10 +51,38 @@ namespace Client
             }
         }
 
+        NetworkStream netstrm;
+        mainForm mainform;
+        User myUserInfo = mainForm.myUserInfo;
+
+        private void list_load()
+        {
+            foreach (Schedule schedule in mainForm.schedules)
+            {
+                DateTime startDate = schedule.startTime;
+                DateTime endDate = schedule.endTime;
+
+                int year = DateTime.Now.Year; // 현재 연도 가져오기
+                int month = DateTime.Now.Month; // 현재 월 가져오기
+                int day = DateTime.Now.Day; // 현재 일 가져오기
+
+                // 현재 패널과 스케줄의 시작일과 종료일이 일치하는지 확인
+                if (startDate.Year == year && startDate.Month == month && startDate.Day <= day && day <= endDate.Day)
+                {
+                    // 스케줄 정보를 패널에 추가
+                    AddLabel(schedule.content, schedule.category);
+                }
+            }
+        }
+
+
 
         public UserControlDays(DateTime date,mainForm MainForm, calendarForm calForm)
+
         {
             InitializeComponent();
+            this.netstrm = netstrm;
+
 
             this.date = date;
             
@@ -67,6 +100,7 @@ namespace Client
             {
                 DBScheduleSynchronize(args);
             };
+
         }
 
         public void SetDay(int day)
@@ -75,6 +109,7 @@ namespace Client
             this.lbDay.Text = day.ToString();
             this.lbDay.ForeColor = Color.Black; // reset text color to black
         }
+
 
 
         public void setSchedules(List<Schedule> schedules)
@@ -175,6 +210,7 @@ namespace Client
                 libraryLbl.Text = schedule.content;
             }
 
+
         }
 
         private Color GetLabelColorByCategory(string category)
@@ -182,12 +218,14 @@ namespace Client
             // 카테고리에 따라 다른 색상 반환
             switch (category)
             {
+
                 case "CUSTOM":
                     return Color.Yellow;
                 case "KLAS":
                     return Color.LightGreen;
                 case "LIBRARY":
                     return Color.SkyBlue;
+
                 // 다른 카테고리에 대한 처리 추가
                 default:
                     return Color.White;
@@ -202,17 +240,32 @@ namespace Client
         private void UserControlDays_Load(object sender, EventArgs e)
         {
 
-        }
 
-        public event EventHandler<DateSelectedEventArgs> DateSelected;
+        public void ClearLabel()
+        {
+            label1.Text = string.Empty;
+            label1.Visible = false;
+            label2.Text = string.Empty;
+            label2.Visible = false;
+            label3.Text = string.Empty;
+            label3.Visible = false;
+        }
 
         private void UserControlDays_Click(object sender, EventArgs e)
         {
-            this.BackColor = Color.LightSlateGray;
-            ((UserControlDays)sender).BorderStyle = BorderStyle.Fixed3D;
-
-
-
+            UserControlDays clickedPanel = (UserControlDays)sender;
+            int selectedDay = clickedPanel.day; // 현재 패널의 날짜 가져오기
+            string selectedDayOfWeek = CultureInfo.CurrentCulture.DateTimeFormat.GetDayName(DateTime.Now.AddDays(selectedDay - 1).DayOfWeek);
+            EventForm todoEventForm = new EventForm(this);
+            todoEventForm.dtpStartDate.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, selectedDay);
+            todoEventForm.dtpEndDate.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, selectedDay);
+            todoEventForm.ShowDialog();
+            Schedule matchingSchedule = mainForm.schedules.FirstOrDefault(schedule => schedule.startTime.Date == todoEventForm.dtpStartDate.Value.Date || schedule.endTime.Date == todoEventForm.dtpEndDate.Value.Date);
+            if (matchingSchedule != null)
+            {
+                // 스케줄 정보를 패널에 추가
+                clickedPanel.AddLabel(matchingSchedule.content, matchingSchedule.category);
+            }
         }
 
         private void UserControlDays_DoubleClick(object sender, EventArgs e)
@@ -234,6 +287,8 @@ namespace Client
             ((UserControlDays)sender).BorderStyle = BorderStyle.None; 
         }
 
-
+        private void UserControlDays_Load(object sender, EventArgs e)
+        {
+        }
     }
 }

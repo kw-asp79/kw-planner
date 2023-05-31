@@ -56,6 +56,7 @@
             // 
             // label1
             // 
+
             this.customeLbl.AutoSize = true;
             this.customeLbl.Location = new System.Drawing.Point(3, 35);
             this.customeLbl.Name = "customLbl";
@@ -80,6 +81,7 @@
             this.libraryLbl.Size = new System.Drawing.Size(32, 12);
             this.libraryLbl.TabIndex = 4;
             this.libraryLbl.Text = "";
+
             // 
             // UserControlDays
             // 
