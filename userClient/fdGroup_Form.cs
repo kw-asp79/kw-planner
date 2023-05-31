@@ -245,25 +245,37 @@ namespace WindowsFormsApp1
             {
                 // mainform.groups의 string A = labelGroupName[id].Text에 해당하는 그룹 삭제
 
-                listBoxFriends[idx].DataSource = listBoxFriends[A - 1].DataSource;
-                mainForm.groups.Remove(labelGroupName[idx].Text);
-                labelGroupName[idx].Text = labelGroupName[A - 1].Text;
-                this.Controls.Remove(labelGroupName[A - 1]);
-                this.Controls.Remove(listBoxFriends[A - 1]);
-                this.Controls.Remove(btn_delete[A - 1]);
-                this.Controls.Remove(btn_share[A - 1]);
-                this.Controls.Remove(btn_add[A - 1]);
-                //grp_name_list[idx - 1] = null;
-                //grp_name_list[idx - 1] = grp_name_list[A - 2];
+                if (mainForm.groups.Count > 1)
+                {
+                    listBoxFriends[idx].DataSource = listBoxFriends[A - 1].DataSource;
+                    mainForm.groups.Remove(labelGroupName[idx].Text);
+                    labelGroupName[idx].Text = labelGroupName[A - 1].Text;
+                    this.Controls.Remove(labelGroupName[A - 1]);
+                    this.Controls.Remove(listBoxFriends[A - 1]);
+                    this.Controls.Remove(btn_delete[A - 1]);
+                    this.Controls.Remove(btn_share[A - 1]);
+                    this.Controls.Remove(btn_add[A - 1]);
 
-                listOfLists[idx - 1] = null;
-                listOfLists[idx - 1] = listOfLists[A - 2];
+                    listOfLists[idx - 1] = null;
+                    listOfLists[idx - 1] = listOfLists[A - 2];
 
-                listOfLists.RemoveAt(A - 2);
-                //grp_name_list.RemoveAt(A - 2);
-                
-                A--;
-                cntGrp--;
+                    listOfLists.RemoveAt(A - 2);
+
+                    A--;
+                    cntGrp--;
+                }
+                else
+                {
+                    mainForm.groups.Remove(labelGroupName[idx].Text);
+                    this.Controls.Remove(labelGroupName[idx ]);
+                    this.Controls.Remove(listBoxFriends[idx]);
+                    this.Controls.Remove(btn_delete[idx]);
+                    this.Controls.Remove(btn_share[idx]);
+                    this.Controls.Remove(btn_add[idx]);
+                    listOfLists.RemoveAt(idx - 1);
+                    A--;
+                    cntGrp--;
+                }
 
                 packet.action = ActionType.deleteGroup;
                 
