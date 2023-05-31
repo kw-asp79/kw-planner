@@ -96,7 +96,6 @@
             this.Controls.Add(this.lbDay);
             this.Name = "UserControlDays";
             this.Size = new System.Drawing.Size(115, 115);
-            this.Load += new System.EventHandler(this.UserControlDays_Load);
             this.Click += new System.EventHandler(this.UserControlDays_Click);
             this.DoubleClick += new System.EventHandler(this.UserControlDays_DoubleClick);
             this.MouseEnter += new System.EventHandler(this.UserControlDays_MouseEnter);
