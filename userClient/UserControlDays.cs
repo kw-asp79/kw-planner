@@ -174,17 +174,17 @@ namespace Client
             if (schedule.category == "CUSTOM")
             {
                 customeLbl.BackColor = labelColor;
-                customeLbl.Text = schedule.content;
+                customeLbl.Text = schedule.title;
             }
             else if (schedule.category == "KLAS")
             {
                 klasLbl.BackColor = labelColor;
-                klasLbl.Text = schedule.content;
+                klasLbl.Text = schedule.title;
             }
             else if (schedule.category == "LIBRARY")
             {
                 libraryLbl.BackColor = labelColor;
-                libraryLbl.Text = schedule.content;
+                libraryLbl.Text = schedule.title;
             }
 
 
