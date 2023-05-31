@@ -284,6 +284,9 @@ namespace WindowsFormsApp1
                 packet.data = fullData;
 
                 Packet.SendPacket(netstrm, packet);
+
+                packet = Packet.ReceivePacket(netstrm);
+
             }
             else
             {
