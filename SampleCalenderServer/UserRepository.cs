@@ -88,7 +88,6 @@ namespace SampleCalenderServer
 
             return user;
         }
-
         public static void CreateUser(User user)
         {
             MySqlCommand command = DBProcess.connection.CreateCommand();
@@ -144,6 +143,28 @@ namespace SampleCalenderServer
 
             return friends;
         }
+        public static void CreateFriendship(string user_id, string friend_id)
+        {
+            MySqlCommand command = DBProcess.connection.CreateCommand();
+            command.CommandText = "INSERT INTO friendship (user_id, friend_id) VALUES (@user_id, @friend_id)";
+            command.Parameters.AddWithValue("@user_id", user_id);
+            command.Parameters.AddWithValue("@friend_id", friend_id);
+
+            command.ExecuteNonQuery();
+        }
+
+
+
+        public static void DeleteFriendship(string user_id, string friend_id)
+        {
+            MySqlCommand command = DBProcess.connection.CreateCommand();
+            command.CommandText = "DELETE FROM friendship WHERE user_id = @user_id AND friend_id = @friend_id";
+            command.Parameters.AddWithValue("@user_id", user_id);
+            command.Parameters.AddWithValue("@friend_id", friend_id);
+
+            command.ExecuteNonQuery();
+        }
+
 
         public static void CreateFriendship(string user_id, string friend_id)
         {

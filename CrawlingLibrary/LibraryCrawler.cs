@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Threading;
 using CrawlingLibrary;
+using EntityLibrary;
 
-namespace Client
+namespace CrawlingLibrary
 {
     public class LibraryCrawler
     {
@@ -20,10 +21,14 @@ namespace Client
 
         public List<Book> books = new List<Book>();
 
+        private List<Schedule> librarySchedules = new List<Schedule>(); // 도서관 관련 Schedule
+
         private static ChromeDriverService chromeDriverService;
         private static ChromeDriver chromeDriver;
 
         public event EventHandler<EventArgs> loginSuccessEvent;
+
+        public event EventHandler<EventArgs> crawlingEvent;
 
         public LibraryCrawler() { }
 
@@ -35,7 +40,33 @@ namespace Client
 
         public string getPriceToPay() {  return priceToPay; }
 
+
+        public List<Schedule> getLibrarySchedules() {  return librarySchedules; }
+
+
         public ChromeDriver GetChromeDriver() { return chromeDriver; }  
+        
+
+        public void setSchedules()
+        {
+            // 빌린 책들에 대하여 반납 일정 추가 
+            foreach(Book book in books)
+            {
+                // 일정 세팅 
+                string content = book.getBookReturnDay() + " 까지 \"" + book.getBookTitle() + "\" 책 반납하기";
+
+                // 시작 시간은 반납일 자정으로 세팅 , 종료 시간은 반납일 23:59:59로 세팅 
+                DateTime startTime = Convert.ToDateTime(book.getBookReturnDay());
+
+                string endTimeLine = book.getBookReturnDay() + " 23:59:59";
+                DateTime endTime = DateTime.ParseExact(endTimeLine,"yyyy.MM.dd HH:mm:ss",null);
+                
+
+                Schedule scehdule = new Schedule("LIBRARY","책 반납 일정",content,startTime,endTime);
+                librarySchedules.Add(scehdule);
+            }
+
+        }
 
 
         public void initDriver()
@@ -89,6 +120,9 @@ namespace Client
             //*[@id="divContents"]/div[3]/div[3]/div[2]/ul/li[2]/span
             CrawlingStatus.Status crawlingStatus = crawlUserDatas();
 
+            // 도서관 관련 일정들 추가
+            setSchedules();
+
             endService();
 
             return CrawlingStatus.Status.AllSuccess;
@@ -141,27 +175,26 @@ namespace Client
                 // crawl number of books that I borrowed
                 var numOfBooks = chromeDriver.FindElement(By.XPath("//*[@id=\"divContents\"]/div[3]/div[3]/div[2]/ul/li[2]/span"));
                 this.numOfBooks = numOfBooks.Text.ToString();
-                //Console.WriteLine(numOfBooks.Text.ToString());
-
+               
                 // crawl number of books that are overdue
                 var numOfOverdue = chromeDriver.FindElement(By.XPath("//*[@id=\"divContents\"]/div[3]/div[3]/div[2]/ul/li[4]/span"));
                 this.numOfOverdue = numOfOverdue.Text.ToString();
-                //Console.WriteLine(numOfOverdue.Text.ToString());
-
+                
                 // crawl price that I have to pay for overdue
                 var priceToPay = chromeDriver.FindElement(By.XPath("//*[@id=\"divContents\"]/div[3]/div[3]/div[2]/ul/li[6]/span"));
                 this.priceToPay = priceToPay.Text.ToString();
-                //Console.WriteLine(priceToPay.Text.ToString());
-
+                
                 int numBooks = Int32.Parse(numOfBooks.Text.ToString());
 
                 // if user has borrowed some books
                 if (numBooks != 0)
                 {
                     // get books that user has borrowed
-                   CrawlingStatus.Status detailCrawlingStatus = getBorrowedBooks(numBooks);
-                   if (detailCrawlingStatus == CrawlingStatus.Status.CrawlingError) return CrawlingStatus.Status.CrawlingError;
+                    CrawlingStatus.Status detailCrawlingStatus = getBorrowedBooks(numBooks);
+                    if (detailCrawlingStatus == CrawlingStatus.Status.CrawlingError) return CrawlingStatus.Status.CrawlingError;
                 }
+                else
+                    crawlingEvent.Invoke(this, new EventArgs());
 
             }
             catch (Exception e)
@@ -239,6 +272,8 @@ namespace Client
 
                     Book book = new Book(sBookTitle, sBookAuthor, sBookLocation, sBookCallNumber, sBookISBN, sBookLoanDate, sBookReturnDate, sBookRenewCount);
                     books.Add(book);
+
+                    crawlingEvent.Invoke(this,new EventArgs());
                 }
 
             }

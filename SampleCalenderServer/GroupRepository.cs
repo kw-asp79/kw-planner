@@ -100,9 +100,11 @@ namespace SampleCalenderServer
         public static void UpdateGroup(int group_id, string name, string user_id)
         {
             MySqlCommand command = DBProcess.connection.CreateCommand();
-            command.CommandText = "UPDATE group SET name = @name WHERE group_id = @group_id;";
+          
+            command.CommandText = "UPDATE `group` SET name = @name, user_id = @user_id WHERE group_id = @group_id;";
             command.Parameters.AddWithValue("@group_id", group_id);
             command.Parameters.AddWithValue("@name", name);
+            command.Parameters.AddWithValue("@user_id", user_id);
 
             command.ExecuteNonQuery();
         }
@@ -110,12 +112,14 @@ namespace SampleCalenderServer
         public static void CreateUserGroup(int groupId, string userId)
         {
             MySqlCommand command = DBProcess.connection.CreateCommand();
+          
             command.CommandText = "INSERT INTO user_group (group_id, user_id) VALUES (@groupId, @userId);";
             command.Parameters.AddWithValue("@groupId", groupId);
             command.Parameters.AddWithValue("@userId", userId);
 
             command.ExecuteNonQuery();
         }
+      
         public static void DeleteUserGroup(int groupId, string userId)
         {
             MySqlCommand command = DBProcess.connection.CreateCommand();

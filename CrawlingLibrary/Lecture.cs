@@ -50,6 +50,10 @@ namespace CrawlingLibrary
             return professorName;
         }
 
+        public string[] getTime()
+        {
+            return Time;
+        }
        
 
         public void setNotice(List<Notice> notices)

@@ -39,10 +39,10 @@
             // pwdTbx
             // 
             this.pwdTbx.AcceptsTab = true;
-            this.pwdTbx.Location = new System.Drawing.Point(354, 391);
+            this.pwdTbx.Location = new System.Drawing.Point(372, 391);
             this.pwdTbx.Name = "pwdTbx";
             this.pwdTbx.PasswordChar = '*';
-            this.pwdTbx.Size = new System.Drawing.Size(191, 21);
+            this.pwdTbx.Size = new System.Drawing.Size(157, 21);
             this.pwdTbx.TabIndex = 10;
             // 
             // loginBtn
@@ -60,9 +60,9 @@
             // idTbx
             // 
             this.idTbx.AcceptsTab = true;
-            this.idTbx.Location = new System.Drawing.Point(354, 287);
+            this.idTbx.Location = new System.Drawing.Point(372, 287);
             this.idTbx.Name = "idTbx";
-            this.idTbx.Size = new System.Drawing.Size(191, 21);
+            this.idTbx.Size = new System.Drawing.Size(157, 21);
             this.idTbx.TabIndex = 9;
             // 
             // klasLbl
@@ -80,7 +80,7 @@
             // 
             this.pwdLbl.AutoSize = true;
             this.pwdLbl.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pwdLbl.Location = new System.Drawing.Point(242, 380);
+            this.pwdLbl.Location = new System.Drawing.Point(260, 380);
             this.pwdLbl.Name = "pwdLbl";
             this.pwdLbl.Size = new System.Drawing.Size(106, 33);
             this.pwdLbl.TabIndex = 13;
@@ -90,7 +90,7 @@
             // 
             this.idLbl.AutoSize = true;
             this.idLbl.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.idLbl.Location = new System.Drawing.Point(312, 276);
+            this.idLbl.Location = new System.Drawing.Point(320, 276);
             this.idLbl.Name = "idLbl";
             this.idLbl.Size = new System.Drawing.Size(36, 33);
             this.idLbl.TabIndex = 12;
