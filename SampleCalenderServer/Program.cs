@@ -44,6 +44,34 @@ namespace SampleCalenderServer
 
     public class Program
     {
+        public static Dictionary<string, TcpClient> connectedUsers = new Dictionary<string, TcpClient>();
+
+        public static Packet SignupProcess(User user)
+        {
+            Packet sendPacket = new Packet();
+
+            User result = UserRepository.SelectUser(user.id);
+
+            if (result.isEmpty())
+            {
+                sendPacket.action = ActionType.Success;
+                Console.WriteLine(".. id:{0}, pwd:{1}.. success", user.id, user.pwd);
+            }
+            else
+            {
+                sendPacket.action = ActionType.Fail;
+                Console.WriteLine(".. id:{0}, pwd:{1}.. fail", user.id, user.pwd);
+            }
+
+            if(sendPacket.action == ActionType.Success)
+            {
+                UserRepository.CreateUser(user);
+            }
+
+            sendPacket.data = null;
+
+            return sendPacket;
+        }
 
         public static Packet LoginProcess(User user)
         {
@@ -118,6 +146,16 @@ namespace SampleCalenderServer
                 User user = fullData["user"] as User;
                 User friend = fullData["friend"] as User;
                 UserRepository.CreateFriendship(user.id, friend.id);
+            }else if (forWhatProcess.Equals("user_group"))
+            {
+                Dictionary<string, Object> fullData = obj as Dictionary<string, object>;
+
+                string groupName = fullData["groupName"] as string;
+                User myUserInfo = fullData["myUserInfo"] as User;
+                List<User> friendsInGroup = fullData["friendsInGroup"] as List<User>;
+
+                int groupId = GroupRepository.SelectGroupIdByName(groupName, myUserInfo.id);
+                GroupRepository.AddUserListToGroup(groupId, friendsInGroup);
             }
 
             sendPacket.action = ActionType.Success;
@@ -190,6 +228,23 @@ namespace SampleCalenderServer
 
                 int groupId = GroupRepository.SelectGroupIdByName(group.name, user.id);
                 GroupRepository.DeleteGroup(groupId);
+            }else if (forWhatProcess.Equals("friendship"))
+            {
+                Dictionary<string, Object> fullData = obj as Dictionary<string, object>;
+
+                User user = fullData["user"] as User;
+                User friend = fullData["friend"] as User;
+                UserRepository.DeleteFriendship(user.id, friend.id);
+            }else if (forWhatProcess.Equals("user_group"))
+            {
+                Dictionary<string, Object> fullData = obj as Dictionary<string, object>;
+
+                string groupName = fullData["groupName"] as string;
+                User myUserInfo = fullData["myUserInfo"] as User;
+                List<User> friendsInGroup = fullData["friendsInGroup"] as List<User>;
+
+                int groupId = GroupRepository.SelectGroupIdByName(groupName, myUserInfo.id);
+                GroupRepository.DeleteUserListFromGroup(groupId, friendsInGroup);
             }
 
             sendPacket.action = ActionType.Success;
@@ -230,6 +285,30 @@ namespace SampleCalenderServer
             return sendPacket;
         }
 
+        public static void ShareScheduleProcess(Object obj)
+        {
+            /*
+            Dictionary<string, Object> fullData = obj as Dictionary<string, object>;
+
+            List<User> friends = fullData["friends"] as List<User>;
+            Schedule schedule = fullData["schedule"] as Schedule;
+
+            Packet sendPacket = new Packet();
+            sendPacket.action = ActionType.shareSchedule;
+            sendPacket.data = schedule;
+
+            foreach(User friend in friends)
+            {
+                string id = friend.id;
+                if(connectedUsers.TryGetValue(id, out TcpClient client))
+                {
+                    NetworkStream netstrm = client.GetStream();
+                    Packet.SendPacket(netstrm, sendPacket);
+                }
+            }
+            */
+        }
+
         async static void AsyncProcess(Object o)
         {
             TcpClient client = (TcpClient)o;
@@ -264,10 +343,17 @@ namespace SampleCalenderServer
 
                 switch (receivedPacket.action)
                 {
+                    case ActionType.signUp:
+                        Console.Write("[{0}] login request", remoteAddress);
+                        user = (User)receivedPacket.data;
+                        sendPacket = SignupProcess(user);
+                        break;
                     case ActionType.login:
                         Console.Write("[{0}] login request", remoteAddress);
                         user = (User)receivedPacket.data;
                         sendPacket = LoginProcess(user);
+                        // 접속중인 유저들 정보를 추가 (채팅과 일정공유에서 사용할 것임)
+                        connectedUsers.Add(user.id, client);
                         break;
                     case ActionType.readAllData:
                         Console.WriteLine("[{0}] readAllData request", remoteAddress);
@@ -328,6 +414,21 @@ namespace SampleCalenderServer
                         Console.WriteLine("[{0}] saveFriendship request", remoteAddress);
                         fullData = receivedPacket.data as Dictionary<string, object>;
                         sendPacket = CreateProcess(fullData, "friendship");
+                        break;
+                    case ActionType.deleteFriendship:
+                        Console.WriteLine("[{0}] deleteFriendship request", remoteAddress);
+                        fullData = receivedPacket.data as Dictionary<string, object>;
+                        sendPacket = DeleteProcess(fullData, "friendship");
+                        break;
+                    case ActionType.saveUserGroup:
+                        Console.WriteLine("[{0}] saveUserGroup request", remoteAddress);
+                        fullData = receivedPacket.data as Dictionary<string, object>;
+                        sendPacket = CreateProcess(fullData, "user_group");
+                        break;
+                    case ActionType.deleteUserGroup:
+                        Console.WriteLine("[{0}] deleteUserGroup request", remoteAddress);
+                        fullData = receivedPacket.data as Dictionary<string, object>;
+                        sendPacket = DeleteProcess(fullData, "user_group");
                         break;
                     default:
                         break;

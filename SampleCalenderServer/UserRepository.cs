@@ -13,6 +13,32 @@ namespace SampleCalenderServer
     public static class UserRepository
     {
 
+        public static User SelectUser(string user_id)
+        {
+            MySqlCommand command = DBProcess.connection.CreateCommand();
+
+            command.CommandText = "SELECT * FROM user WHERE user_id = @user_id;";
+            command.Parameters.AddWithValue("@user_id", user_id);
+
+            MySqlDataReader reader = command.ExecuteReader();
+
+            User user = new User();
+
+            // 데이터가 있다면
+            if (reader.HasRows)
+            {
+                reader.Read();
+
+                user.id = reader.GetString("user_id");
+                user.pwd = reader.GetString("pwd");
+                user.name = reader.GetString("name");
+            }
+
+            reader.Close();
+
+            return user;
+        }
+
         // User에 대한 CRUD 
         // Friendship에 대한 CRUD
         public static User SelectUser(string user_id, string user_pwd)

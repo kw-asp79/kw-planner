@@ -59,9 +59,7 @@ namespace SampleCalenderServer
         public static int SelectGroupIdByName(string groupName, string userId)
         {
             MySqlCommand command = DBProcess.connection.CreateCommand();
-            command.CommandText = "SELECT group_id FROM asp.group JOIN user_group WHERE asp.group.name = @groupName" +
-                " and user_group.user_id = @userId" +
-                " and user_group.group_id = asp.group.group_id;";
+            command.CommandText = "SELECT group_id FROM asp.group WHERE asp.group.name = @groupName and group.user_id = @userId";
             command.Parameters.AddWithValue("@groupName", groupName);
             command.Parameters.AddWithValue("@userId", userId);
 
@@ -102,7 +100,7 @@ namespace SampleCalenderServer
         public static void UpdateGroup(int group_id, string name, string user_id)
         {
             MySqlCommand command = DBProcess.connection.CreateCommand();
-            command.CommandText = "UPDATE `group` SET name = @name WHERE group_id = @group_id;";
+            command.CommandText = "UPDATE group SET name = @name WHERE group_id = @group_id;";
             command.Parameters.AddWithValue("@group_id", group_id);
             command.Parameters.AddWithValue("@name", name);
 
@@ -112,19 +110,36 @@ namespace SampleCalenderServer
         public static void CreateUserGroup(int groupId, string userId)
         {
             MySqlCommand command = DBProcess.connection.CreateCommand();
-            command.CommandText = "INSERT INTO `user_group` (group_id, user_id) VALUES (@groupId, @userId);";
+            command.CommandText = "INSERT INTO user_group (group_id, user_id) VALUES (@groupId, @userId);";
             command.Parameters.AddWithValue("@groupId", groupId);
             command.Parameters.AddWithValue("@userId", userId);
 
             command.ExecuteNonQuery();
         }
-        public static void DeleteUserGroup(int userGroupId)
+        public static void DeleteUserGroup(int groupId, string userId)
         {
             MySqlCommand command = DBProcess.connection.CreateCommand();
-            command.CommandText = "DELETE FROM `user_group` WHERE user_group_id = @userGroupId;";
-            command.Parameters.AddWithValue("@userGroupId", userGroupId);
+            command.CommandText = "DELETE FROM user_group WHERE user_id = @userId and group_id = @groupId;";
+            command.Parameters.AddWithValue("@userId", userId);
+            command.Parameters.AddWithValue("@groupId", groupId);
 
             command.ExecuteNonQuery();
+        }
+
+        public static void AddUserListToGroup(int GroupId, List<User> userList)
+        {
+            foreach(User friend in userList)
+            {
+                CreateUserGroup(GroupId, friend.id);
+            }
+        }
+
+        public static void DeleteUserListFromGroup(int GroupId, List<User> userList)
+        {
+            foreach (User friend in userList)
+            {
+                DeleteUserGroup(GroupId, friend.id);
+            }
         }
     }
 }
