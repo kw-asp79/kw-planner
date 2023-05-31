@@ -106,6 +106,8 @@ namespace Client
                         
                     }
 
+                    MessageBox.Show("1");
+
                     // Login eventHandler call! 
                     loginSuccessEvent.Invoke(this,new LoginEventArgs(schedules));
                     
@@ -153,7 +155,7 @@ namespace Client
             netstrm = server.GetStream();
 
             Task.Run(() => requestMyData(netstrm));
-            Task.Run(() => waitShareProcess(netstrm));
+
 
             // create KLAS Crawler
             klasCrawler = new KLASCrawler();
