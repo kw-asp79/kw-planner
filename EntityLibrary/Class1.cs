@@ -105,5 +105,24 @@ namespace EntityLibrary
         }
 
     }
+
+    [Serializable]
+    public class Message
+    {
+        public string content;
+        public DateTime sendTime;
+
+        public Message()
+        {
+            content = "";
+            sendTime = new DateTime(2000, 01, 01);
+        }
+
+        public Message(string content, DateTime sendTime)
+        {
+            this.content = content;
+            this.sendTime = sendTime;
+        }
+    }
     
 }
