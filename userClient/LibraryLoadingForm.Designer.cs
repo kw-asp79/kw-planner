@@ -64,7 +64,7 @@
             this.crawlingLbl.Name = "crawlingLbl";
             this.crawlingLbl.Size = new System.Drawing.Size(9, 12);
             this.crawlingLbl.TabIndex = 2;
-            this.crawlingLbl.Text = ".";
+            this.crawlingLbl.Text = "";
             // 
             // LibraryLoadingForm
             // 

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using CrawlingLibrary;
+using EntityLibrary;
 
 namespace Client
 {
@@ -18,18 +19,39 @@ namespace Client
         private int month;
         private int year;
 
+        mainForm MainForm;
+
         KLASCrawler klasCrawler;
         LibraryCrawler libraryCrawler;
 
         List<Dictionary<DateTime, string>> publicHolidays = new List<Dictionary<DateTime, string>>();
 
-        public calendarForm(KLASCrawler kLasCrawler, LibraryCrawler liBraryCrawler)
+        public List<Schedule> userSchedules; // User의 모든 스케줄을 여기에 저장.
+
+
+        public calendarForm(mainForm mForm, KLASCrawler kLasCrawler, LibraryCrawler liBraryCrawler)
         {
             InitializeComponent();
         
             this.klasCrawler = kLasCrawler;
             this.libraryCrawler = liBraryCrawler;
+
+            this.MainForm = mForm;
+            this.MainForm.loginSuccessEvent += delegate (object sender, LoginEventArgs args)
+            {
+                userSchedules = args.getSchedules(); 
+
+                
+            };
         }
+
+
+
+        public void setSchedules(List<Schedule> schedules)
+        {
+            this.userSchedules = schedules;
+        }
+
 
 
         public void showCalendar()
@@ -113,13 +135,13 @@ namespace Client
             // show previous month days
             for (int i = daysInPreviousMonth - daysOfWeek + 2; i <= daysInPreviousMonth; i++)
             {
-                UserControlDays ucDays = new UserControlDays();
+
+                DateTime date = new DateTime(startOfMonth.Year, startOfMonth.Month - 1 == 0 ? 12 : startOfMonth.Month-1, i) ;
+                
+                UserControlDays ucDays = new UserControlDays(date,MainForm,this);
                 ucDays.SetDay(i);
                 ucDays.lbDay.ForeColor = Color.WhiteSmoke; // set text color to gray for previous month days
-                
-
-                
-                
+            
                 dayContainer.Controls.Add(ucDays);
             }
 
@@ -127,7 +149,9 @@ namespace Client
             for (int i = 1; i <= days; i++)
             {
                 DateTime date = new DateTime(startOfMonth.Year, startOfMonth.Month, i);
-                UserControlDays ucDays = new UserControlDays();
+
+               
+                UserControlDays ucDays = new UserControlDays(date,MainForm,this);
                 ucDays.SetDay(i);
                 if (IsSunday(date) || IsHoliday(startOfMonth.Year, startOfMonth.Month, i))
                 {

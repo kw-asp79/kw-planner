@@ -19,6 +19,22 @@ using CrawlingLibrary;
 
 namespace Client
 {
+    public class LoginEventArgs : EventArgs
+    {
+        public List<Schedule> schedules;
+        public LoginEventArgs(List<Schedule> schedules)
+        {
+            this.schedules = schedules;
+        }
+
+        public List<Schedule> getSchedules()
+        {
+            return this.schedules;
+        }
+
+    }
+
+
     public partial class mainForm : Form
     {
         // 각 form 들을 멤버로 선언 => 추후 klas와 도서관 정보를 달력과 주고받기 위해 (다만 상황에 따라 변동 가능성 존재..)
@@ -31,9 +47,9 @@ namespace Client
         private static TcpClient server;
         private static NetworkStream netstrm;
 
-        public static List<User> friends;
-        public static List<Schedule> schedules;
-        public static Dictionary<string, List<User>> groups;
+        public static List<User> friends = new List<User>();
+        public static List<Schedule> schedules = new List<Schedule>();
+        public static Dictionary<string, List<User>> groups = new Dictionary<string,List<User>>();
 
         public User myUserInfo;
         public bool isLoginSuccess = false;
@@ -41,10 +57,13 @@ namespace Client
         KLASCrawler klasCrawler;
         LibraryCrawler libraryCrawler;
 
+        public event EventHandler<LoginEventArgs> loginSuccessEvent;
+
         public mainForm()
         {
             InitializeComponent();
             this.Load += new EventHandler(MainForm_Load);
+
         }
 
         public Control getCalendarContainer()
@@ -87,6 +106,9 @@ namespace Client
                         groups = fullData["groups"] as Dictionary<string, List<User>>;
                     }
 
+                    // Login eventHandler call! 
+                    loginSuccessEvent.Invoke(this,new LoginEventArgs(schedules));
+                    
                     break;
                 }
             }
@@ -115,7 +137,7 @@ namespace Client
             libraryCrawler = new LibraryCrawler();
 
             // show calendar form  
-            calendarForm = new calendarForm(klasCrawler,libraryCrawler);
+            calendarForm = new calendarForm(this, klasCrawler,libraryCrawler);
             calendarForm.showCalendar();
             calendarContainer.Controls.Add(calendarForm);
 

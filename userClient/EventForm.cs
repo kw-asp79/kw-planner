@@ -169,7 +169,7 @@ namespace Client
             bool allChecked = checkBoxes.All(cb => cb.Checked);
             bool hasSchedule = checkBoxes.Any();
 
-            UserControlDays.SetLabelIndicator(hasSchedule && !allChecked);
+           // UserControlDays.SetLabelIndicator(hasSchedule && !allChecked);
         }
 
 
