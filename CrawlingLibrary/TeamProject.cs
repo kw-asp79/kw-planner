@@ -20,6 +20,7 @@ namespace CrawlingLibrary
         {
             this.title = title;
             this.deadline = deadline;
+            this.dueDate = this.deadline.Split('~')[1].Split(' ')[1];
             this.state = state;
         }
 

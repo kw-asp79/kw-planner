@@ -34,6 +34,7 @@ namespace PacketLibrary
         saveFriendship,
         deleteFriendship,
         editFriendship,
+        ClientClosed,
         nothing
     }
 

@@ -30,18 +30,18 @@
         {
             this.lbDay = new System.Windows.Forms.Label();
             this.dayLbl = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.customeLbl = new System.Windows.Forms.Label();
+            this.klasLbl = new System.Windows.Forms.Label();
+            this.libraryLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbDay
             // 
             this.lbDay.AutoSize = true;
             this.lbDay.Font = new System.Drawing.Font("Ink Free", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbDay.Location = new System.Drawing.Point(2, 9);
+            this.lbDay.Location = new System.Drawing.Point(2, 7);
             this.lbDay.Name = "lbDay";
-            this.lbDay.Size = new System.Drawing.Size(32, 21);
+            this.lbDay.Size = new System.Drawing.Size(23, 16);
             this.lbDay.TabIndex = 0;
             this.lbDay.Text = "00";
             // 
@@ -49,49 +49,53 @@
             // 
             this.dayLbl.AutoSize = true;
             this.dayLbl.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dayLbl.Location = new System.Drawing.Point(48, 12);
+            this.dayLbl.Location = new System.Drawing.Point(42, 10);
             this.dayLbl.Name = "dayLbl";
-            this.dayLbl.Size = new System.Drawing.Size(0, 18);
+            this.dayLbl.Size = new System.Drawing.Size(0, 14);
             this.dayLbl.TabIndex = 1;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 48);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 15);
-            this.label1.TabIndex = 2;
+
+            this.customeLbl.AutoSize = true;
+            this.customeLbl.Location = new System.Drawing.Point(3, 35);
+            this.customeLbl.Name = "customLbl";
+            this.customeLbl.Size = new System.Drawing.Size(32, 12);
+            this.customeLbl.TabIndex = 2;
+            this.customeLbl.Text = "";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 86);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(0, 15);
-            this.label2.TabIndex = 3;
+            this.klasLbl.AutoSize = true;
+            this.klasLbl.Location = new System.Drawing.Point(3, 64);
+            this.klasLbl.Name = "klasLbl";
+            this.klasLbl.Size = new System.Drawing.Size(32, 12);
+            this.klasLbl.TabIndex = 3;
+            this.klasLbl.Text = "";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 116);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(0, 15);
-            this.label3.TabIndex = 4;
+            this.libraryLbl.AutoSize = true;
+            this.libraryLbl.Location = new System.Drawing.Point(3, 92);
+            this.libraryLbl.Name = "libraryLbl";
+            this.libraryLbl.Size = new System.Drawing.Size(32, 12);
+            this.libraryLbl.TabIndex = 4;
+            this.libraryLbl.Text = "";
+
             // 
             // UserControlDays
             // 
             this.AllowDrop = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gainsboro;
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.libraryLbl);
+            this.Controls.Add(this.klasLbl);
+            this.Controls.Add(this.customeLbl);
             this.Controls.Add(this.dayLbl);
             this.Controls.Add(this.lbDay);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "UserControlDays";
-            this.Size = new System.Drawing.Size(131, 144);
+            this.Size = new System.Drawing.Size(115, 115);
             this.Load += new System.EventHandler(this.UserControlDays_Load);
             this.Click += new System.EventHandler(this.UserControlDays_Click);
             this.DoubleClick += new System.EventHandler(this.UserControlDays_DoubleClick);
@@ -106,8 +110,8 @@
 
         public System.Windows.Forms.Label lbDay;
         public System.Windows.Forms.Label dayLbl;
-        public System.Windows.Forms.Label label1;
-        public System.Windows.Forms.Label label2;
-        public System.Windows.Forms.Label label3;
+        public System.Windows.Forms.Label customeLbl;
+        public System.Windows.Forms.Label klasLbl;
+        public System.Windows.Forms.Label libraryLbl;
     }
 }

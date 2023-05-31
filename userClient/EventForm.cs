@@ -196,31 +196,8 @@ namespace Client
             bool allChecked = checkBoxes.All(cb => cb.Checked);
             bool hasSchedule = checkBoxes.Any();
 
-            if (hasSchedule)
-            {
-                // 체크되지 않은 체크박스들의 텍스트 중에서 날짜 부분만 추출하여 일정으로 설정
-                var uncheckedCheckBoxes = checkBoxes.Where(cb => !cb.Checked);
+           // UserControlDays.SetLabelIndicator(hasSchedule && !allChecked);
 
-                string schedule = string.Join(", ", uncheckedCheckBoxes.Select(cb =>
-                {
-                    Event ev = events[checkBoxes.IndexOf(cb)]; // 해당 체크박스에 대응하는 Event 객체 가져오기
-                    return ev.Title; // Event의 Title 속성 반환
-                }));
-
-                // 텍스트가 7글자 이상이면 7글자까지만 유지하고 "..."을 추가하여 표시
-                if (schedule.Length > 7)
-                {
-                    schedule = schedule.Substring(0, 7) + "...";
-                }
-
-                // 기존의 레이블 삭제 후 새로운 레이블 추가
-                //UserControlDays.ClearLabel();  // 레이블 초기화
-                UserControlDays.AddLabel(schedule, "schedule");
-            }
-            else
-            {
-                UserControlDays.ClearLabel();  // 스케줄이 없는 경우 레이블을 초기화합니다.
-            }
         }
 
 
