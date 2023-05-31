@@ -124,6 +124,12 @@
     <Compile Include="fdGroup_Form_fdlist.Designer.cs">
       <DependentUpon>fdGroup_Form_fdlist.cs</DependentUpon>
     </Compile>
+    <Compile Include="fdGroup_Form_schdShare.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fdGroup_Form_schdShare.Designer.cs">
+      <DependentUpon>fdGroup_Form_schdShare.cs</DependentUpon>
+    </Compile>
     <Compile Include="fdList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -221,6 +227,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fdGroup_Form_fdlist.resx">
       <DependentUpon>fdGroup_Form_fdlist.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fdGroup_Form_schdShare.resx">
+      <DependentUpon>fdGroup_Form_schdShare.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fdList.resx">
       <DependentUpon>fdList.cs</DependentUpon>

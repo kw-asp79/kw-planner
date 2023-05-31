@@ -63,8 +63,7 @@ namespace Client
  
             displayDays(month, year);
         }
-
-
+        
 
         private bool IsSunday(DateTime date)
         {

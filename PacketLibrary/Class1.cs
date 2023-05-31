@@ -20,7 +20,10 @@ namespace PacketLibrary
     {
         Success = 0,
         Fail,
+        chatting,
+        shareSchedule,
         login,
+        signUp,
         readAllData,
         saveUser,
         deleteUser,
@@ -35,6 +38,9 @@ namespace PacketLibrary
         deleteFriendship,
         editFriendship,
         ClientClosed,
+        saveUserGroup,
+        deleteUserGroup,
+        readUser,
         nothing
     }
 

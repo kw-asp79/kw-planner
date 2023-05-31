@@ -136,7 +136,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F);
             this.label1.Location = new System.Drawing.Point(1, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(132, 26);
@@ -146,7 +146,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F);
             this.label2.Location = new System.Drawing.Point(12, 52);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(120, 26);
@@ -155,16 +155,16 @@
             // 
             // tbTitle
             // 
-            this.tbTitle.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
+            this.tbTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F);
             this.tbTitle.Location = new System.Drawing.Point(681, 8);
             this.tbTitle.Name = "tbTitle";
-            this.tbTitle.Size = new System.Drawing.Size(410, 34);
+            this.tbTitle.Size = new System.Drawing.Size(410, 28);
             this.tbTitle.TabIndex = 1;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F);
             this.label3.Location = new System.Drawing.Point(573, 9);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(61, 26);
@@ -174,7 +174,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Bookman Old Style", 13.8F);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F);
             this.label4.Location = new System.Drawing.Point(551, 52);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(112, 26);

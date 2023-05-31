@@ -31,6 +31,8 @@ namespace Client
         calendarForm calendarForm;
 
 
+        NetworkStream netstrm;
+
         List<Schedule> daySchedules = new List<Schedule>();
 
         Schedule customMainSchedule = new Schedule();
@@ -74,8 +76,6 @@ namespace Client
                 }
             }
         }
-
-
 
         public UserControlDays(DateTime date,mainForm MainForm, calendarForm calForm)
 
@@ -233,13 +233,6 @@ namespace Client
         }
 
 
-
-
-
-
-
-
-
         private void UserControlDays_Click(object sender, EventArgs e)
         {
             UserControlDays clickedPanel = (UserControlDays)sender;
@@ -276,6 +269,5 @@ namespace Client
             ((UserControlDays)sender).BorderStyle = BorderStyle.None; 
         }
 
- 
     }
 }
