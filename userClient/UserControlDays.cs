@@ -53,10 +53,6 @@ namespace Client
             }
         }
 
-        NetworkStream netstrm;
-        mainForm mainform;
-        User myUserInfo = mainForm.myUserInfo;
-
         private void list_load()
         {
             foreach (Schedule schedule in mainForm.schedules)

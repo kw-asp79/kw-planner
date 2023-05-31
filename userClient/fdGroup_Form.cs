@@ -235,6 +235,8 @@ namespace WindowsFormsApp1
 
             Packet.SendPacket(netstrm, packet);
 
+            packet = Packet.ReceivePacket(netstrm);
+
             // fullData 값을 다시 다른 값으로 채워야하므로 비워줌
             fullData.Clear();
 
@@ -279,7 +281,7 @@ namespace WindowsFormsApp1
 
                 packet.action = ActionType.deleteGroup;
                 
-                fullData.Add("group", new Group(groupName));
+                fullData.Add("group", new Group(groupName, myUserInfo.id));
                 fullData.Add("user", myUserInfo);
                 packet.data = fullData;
 
