@@ -28,6 +28,10 @@ namespace Client
 
         List<Schedule> daySchedules = new List<Schedule>();
 
+        Schedule customMainSchedule = new Schedule();
+        Schedule klasMainSchedule = new Schedule();
+        Schedule libraryMainSchedule = new Schedule();
+
 
         // 이벤트 핸들러에 전달할 인자를 담은 클래스 정의
         public class DateSelectedEventArgs : EventArgs
@@ -52,9 +56,16 @@ namespace Client
             this.calendarForm = calForm;
 
             this.MainForm = MainForm;
+
+            if(this.MainForm.isLoginSuccess == true)
+            {
+                setSchedules(calForm.userSchedules);
+            }
+
+
             this.MainForm.loginSuccessEvent += delegate (object sender, LoginEventArgs args)
             {
-                showMainSchedule(args);
+                DBScheduleSynchronize(args);
             };
         }
 
@@ -65,10 +76,9 @@ namespace Client
             this.lbDay.ForeColor = Color.Black; // reset text color to black
         }
 
-        public void showMainSchedule(LoginEventArgs args)
-        {
-            List<Schedule> schedules = args.getSchedules();
 
+        public void setSchedules(List<Schedule> schedules)
+        {
             // 스케줄의 기간안에 들어가는 일정들을 추가. 
             foreach (Schedule schedule in schedules)
             {
@@ -76,11 +86,71 @@ namespace Client
                     daySchedules.Add(schedule);
             }
 
-            foreach (Schedule schedule in this.daySchedules)
+
+            // CUSTOM, KLAS, LIBRARY 스케줄에서 하나씩 대표 스케줄을 선정하여 UserControlDay class에 저장
+            // 그 후 대표 스케줄 각각에 대해 AddLabel을 호출해준다.
+            bool customFlag = false;
+            bool klasFlag = false;
+            bool libFlag = false;
+
+            foreach (Schedule schedule in daySchedules)
             {
-                AddLabel(schedule);
+                switch (schedule.category)
+                {
+                    case "CUSTOM":
+                        if (customFlag == false)
+                        {
+                            customMainSchedule = schedule;
+                            AddLabel(customMainSchedule);
+                            customFlag = true;
+                        }
+                        break;
+
+                    case "KLAS":
+                        if (klasFlag == false)
+                        {
+                            klasMainSchedule = schedule;
+                            AddLabel(klasMainSchedule);
+                            klasFlag = true;
+                        }
+                        break;
+
+                    case "LIBRARY":
+                        if (libFlag == false)
+                        {
+                            libraryMainSchedule = schedule;
+                            AddLabel(libraryMainSchedule);
+                            libFlag = true;
+                        }
+                        break;
+
+                }
+
             }
 
+
+
+        }
+
+
+        public void DBScheduleSynchronize(LoginEventArgs args)
+        {
+            List<Schedule> schedules = args.getSchedules();
+
+            setSchedules(schedules);
+        }
+
+
+        public void showMainSchedule()
+        {
+            if (!String.IsNullOrEmpty(customMainSchedule.content))
+                AddLabel(customMainSchedule);
+
+            if (!String.IsNullOrEmpty(klasMainSchedule.content))
+                AddLabel(klasMainSchedule);
+
+            if (!String.IsNullOrEmpty(libraryMainSchedule.content))
+                AddLabel (libraryMainSchedule);
         }
 
 

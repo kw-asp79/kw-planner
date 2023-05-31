@@ -40,8 +40,8 @@ namespace Client
             this.MainForm.loginSuccessEvent += delegate (object sender, LoginEventArgs args)
             {
                 userSchedules = args.getSchedules(); 
-
                 
+                this.MainForm.isLoginSuccess = true;
             };
         }
 
@@ -138,10 +138,15 @@ namespace Client
 
                 DateTime date = new DateTime(startOfMonth.Year, startOfMonth.Month - 1 == 0 ? 12 : startOfMonth.Month-1, i) ;
                 
+
                 UserControlDays ucDays = new UserControlDays(date,MainForm,this);
+                
+                
                 ucDays.SetDay(i);
                 ucDays.lbDay.ForeColor = Color.WhiteSmoke; // set text color to gray for previous month days
-            
+
+                ucDays.showMainSchedule();
+
                 dayContainer.Controls.Add(ucDays);
             }
 
@@ -150,7 +155,6 @@ namespace Client
             {
                 DateTime date = new DateTime(startOfMonth.Year, startOfMonth.Month, i);
 
-               
                 UserControlDays ucDays = new UserControlDays(date,MainForm,this);
                 ucDays.SetDay(i);
                 if (IsSunday(date) || IsHoliday(startOfMonth.Year, startOfMonth.Month, i))
@@ -163,6 +167,9 @@ namespace Client
 
                     }
                 }
+
+                ucDays.showMainSchedule();
+
 
                 // klasCrawler 의 각 lecture 별로 이 날짜에 해당하는 온라인강의,과제,퀴즈,팀 프로젝트 마감일을 검사
 
