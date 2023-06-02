@@ -37,10 +37,12 @@ namespace Client
         mainForm mainform;
         User myUserInfo = mainForm.myUserInfo;
 
+        List<Schedule> daySchedules;
 
         public EventForm(UserControlDays form)
         {
             UserControlDays = form;
+            daySchedules = form.getSchedules();
 
             InitializeComponent();
             controlTop = -140;

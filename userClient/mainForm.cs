@@ -114,18 +114,18 @@ namespace Client
 
                     packet = Packet.ReceivePacket(netstrm);
 
-                    List<Schedule> tempSchedules = new List<Schedule>();
+                    List<Schedule> DBSchedules = new List<Schedule>();
                     if (packet.action == ActionType.Success)
                     {
                         Dictionary<string, Object> fullData = packet.data as Dictionary<string, object>;
 
                         friends = fullData["friends"] as List<User>;
-                        tempSchedules = fullData["schedules"] as List<Schedule>;
+                        DBSchedules = fullData["schedules"] as List<Schedule>;
                         groups = fullData["groups"] as Dictionary<string, List<User>>;
                         
                     }
 
-                    foreach (Schedule schedule in tempSchedules)
+                    foreach (Schedule schedule in DBSchedules)
                         schedules.Add(schedule);
 
                     // Login eventHandler call! 

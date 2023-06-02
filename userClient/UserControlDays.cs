@@ -105,6 +105,12 @@ namespace Client
 
 
 
+        public List<Schedule> getSchedules()
+        {
+            return daySchedules;
+        }
+
+
         public void setSchedules(List<Schedule> schedules)
         {
             // 스케줄의 기간안에 들어가는 일정들을 추가. 
