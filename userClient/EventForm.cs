@@ -99,10 +99,10 @@ namespace Client
                 dtpEndTime.Value.Hour, dtpEndTime.Value.Minute, 0);
             
             string title = tbTitle.Text;
-            string schedule = tbSchedule.Text;
-            string category = "schedule";
+            string content = tbContent.Text;
+            string category = "CUSTOM";
 
-            Event newEvent = new Event(category, title, startDateTime, endDateTime, schedule);
+            Event newEvent = new Event(category, title, startDateTime, endDateTime, content);
             events.Add(newEvent);
 
 
@@ -147,9 +147,9 @@ namespace Client
             eventschedule.id = A;
             eventschedule.startTime = startDateTime.Date;
             eventschedule.endTime = endDateTime.Date;
-            eventschedule.category = "schedule";
+            eventschedule.category = "CUSTOM";
             eventschedule.title = title;
-            eventschedule.content = schedule;
+            eventschedule.content = content;
             mainForm.schedules.Add(eventschedule);
             A++;
             UpdateLabelIndicator();
@@ -213,7 +213,7 @@ namespace Client
 
         private void ClearInputFields()
         {
-            tbSchedule.Text = "";
+            tbContent.Text = "";
             dtpStartDate.Value = DateTime.Now;
             dtpStartTime.Value = DateTime.Now;
             dtpEndDate.Value = DateTime.Now;

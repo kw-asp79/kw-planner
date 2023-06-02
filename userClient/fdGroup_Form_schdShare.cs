@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Client;
+using EntityLibrary;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,6 +10,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Client.EventForm;
 
 namespace WindowsFormsApp1
 {
@@ -16,19 +19,45 @@ namespace WindowsFormsApp1
         NetworkStream netstrm;
         fdGroup_Form fdGroup_Form;
         List<string> list = new List<string>();
-        public fdGroup_Form_schdShare(fdGroup_Form form, NetworkStream netstrm, List<string> list_id)
+        string group_name;
+        string user_id;
+        public fdGroup_Form_schdShare(fdGroup_Form form, NetworkStream netstrm, List<string> list_id,string grp_name)
         {
             InitializeComponent();
             fdGroup_Form = form;
             this.netstrm = netstrm;
             list = list_id;
+            group_name = grp_name;
         }
 
         private void btn_Add_Click(object sender, EventArgs e)
         {
-            //User들 id list에 담겨있어요. 
-            //this.tbx_content.Text;
-            //this.tbx_Schedule.Text;
+            DateTime startDateTime = new DateTime(dtpStartDate.Value.Year, dtpStartDate.Value.Month, dtpStartDate.Value.Day,
+               dtpStartTime.Value.Hour, dtpStartTime.Value.Minute, 0);
+            DateTime endDateTime = new DateTime(dtpEndDate.Value.Year, dtpEndDate.Value.Month, dtpEndDate.Value.Day,
+                dtpEndTime.Value.Hour, dtpEndTime.Value.Minute, 0);
+
+            string title = tbx_Title.Text;
+            string content = tbx_Content.Text;
+            string category = "REQUEST";
+            user_id = mainForm.myUserInfo.id;
+            Schedule eventschedule = new Schedule();
+            int A = mainForm.schedules.Count;
+            eventschedule.id = A;
+            eventschedule.startTime = startDateTime.Date;
+            eventschedule.endTime = endDateTime.Date;
+            eventschedule.category = category;
+            eventschedule.title = title;
+            eventschedule.content = content;
+            eventschedule.fromWho = user_id;
+            eventschedule.isDone = false;
+            mainForm.schedules.Add(eventschedule);
+
+
+
+            //User들 id/ list에 담겨있어요. 
+            //Group name /group_name에 있어요
+            //내 id user_id에 있어요 
         }
     }
 }

@@ -170,7 +170,7 @@ namespace WindowsFormsApp1
             List<User> userlist = mainForm.groups[key];
             List<string> userIdList = userlist.Select(user => user.id).ToList();
 
-            fdGroup_Form_schdShare fdGroup_Form_SchdShare = new fdGroup_Form_schdShare(this, this.netstrm, userIdList);
+            fdGroup_Form_schdShare fdGroup_Form_SchdShare = new fdGroup_Form_schdShare(this, this.netstrm, userIdList,key);
             fdGroup_Form_SchdShare.ShowDialog();
         }
         private void btn_add_Click(object sender, EventArgs e)
