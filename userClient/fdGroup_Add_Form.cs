@@ -66,6 +66,8 @@ namespace WindowsFormsApp1
             packet.data = fullData;
 
             Packet.SendPacket(netstrm, packet);
+            packet = Packet.ReceivePacket(netstrm);
+
 
             fullData.Clear();
 
@@ -78,6 +80,10 @@ namespace WindowsFormsApp1
             packet.data = fullData;
 
             Packet.SendPacket(netstrm, packet);
+            packet = Packet.ReceivePacket(netstrm);
+
+
+            packet = Packet.ReceivePacket(netstrm);
 
             fdGroupForm.add_Grouplist(this.txt_grpname.Text, list_frdname);
             mainForm.groups.Add(this.txt_grpname.Text, userList);

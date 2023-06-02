@@ -24,8 +24,6 @@ namespace WindowsFormsApp1
             list = list_id;
         }
 
-        
-
         private void btn_Add_Click(object sender, EventArgs e)
         {
             //User들 id list에 담겨있어요. 
