@@ -26,6 +26,9 @@ namespace Client
         private bool isLabelVisible = true;
         //private int clickedDay;
 
+        private static Boolean isProgramLogin = false;
+        private static Boolean isKLASLogin = false;
+        private static Boolean isLibraryLogin = false;
 
         mainForm MainForm;
         calendarForm calendarForm;
@@ -67,15 +70,28 @@ namespace Client
 
             this.MainForm = MainForm;
 
-            if(this.MainForm.isLoginSuccess == true)
-            {
+            if (isProgramLogin || isKLASLogin || isLibraryLogin)
                 setSchedules(calForm.userSchedules);
-            }
-
 
             this.MainForm.loginSuccessEvent += delegate (object sender, LoginEventArgs args)
             {
+                switch (args.getType())
+                {
+                    case LoginEventArgs.TYPE.PROGRAM_LOGIN:
+                        isProgramLogin = true;
+                        break;
+
+                    case LoginEventArgs.TYPE.KLAS_LOGIN:
+                        isKLASLogin = true;
+                        break;
+
+                    case LoginEventArgs.TYPE.LIBRARY_LOGIN:
+                        isLibraryLogin = true;
+                        break;
+                }
+
                 DBScheduleSynchronize(args);
+
             };
 
         }

@@ -61,12 +61,12 @@ namespace CrawlingLibrary
             foreach(Lecture lecture in lectures)
             {
                 // 모든 스케줄은 마감일 당일만 진행하도록 세팅 => 마감일 표시가 더 중요하므로..
-
+                
                 // OnlineLecture Schedule
                 foreach(OnlineLecture onlineLecture in lecture.getOnlineLecture())
                 {
                     string title = "온라인 강의 수강";
-                    string content = "    " + lecture.getName() + "\n  온라인 강의 수강";
+                    string content = lecture.getName() + "\n온라인 강의 수강";
 
                     DateTime startTime = Convert.ToDateTime(onlineLecture.getDueDate());
 
@@ -81,7 +81,7 @@ namespace CrawlingLibrary
                 foreach (Assignment assignment in lecture.getAssignment())
                 {
                     string title = "과제 제출";
-                    string content = "    " + lecture.getName() + "\n     과제 제출";
+                    string content = lecture.getName()  + "\n과제 제출";
 
                     DateTime startTime = Convert.ToDateTime(assignment.getDueDate());
 
@@ -99,7 +99,7 @@ namespace CrawlingLibrary
                 foreach (Quiz quiz in lecture.getQuiz())
                 {
                     string title = "퀴즈 응시";
-                    string content = "    " + lecture.getName() + "\n     퀴즈 응시";
+                    string content = lecture.getName() + "\n퀴즈 응시";
 
                     DateTime startTime = Convert.ToDateTime(quiz.getDueDate());
 
@@ -117,7 +117,7 @@ namespace CrawlingLibrary
                 foreach (TeamProject teamProject in lecture.getTeamProject())
                 {
                     string title = "팀 프로젝트 진행";
-                    string content = "    " + lecture.getName() + "\n  팀 프로젝트 진행";
+                    string content = lecture.getName() + "\n팀 프로젝트 진행";
 
                     DateTime startTime = Convert.ToDateTime(teamProject.getDueDate());
 

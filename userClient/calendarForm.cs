@@ -139,10 +139,7 @@ namespace Client
 
                 DateTime date = new DateTime(startOfMonth.Year, startOfMonth.Month - 1 == 0 ? 12 : startOfMonth.Month-1, i) ;
 
-                
-
                 UserControlDays ucDays = new UserControlDays(date,MainForm,this);
-                
                 
                 ucDays.SetDay(i);
                 ucDays.lbDay.ForeColor = Color.WhiteSmoke; // set text color to gray for previous month days
@@ -172,16 +169,6 @@ namespace Client
                 }
 
                 ucDays.showMainSchedule();
-
-
-                // klasCrawler 의 각 lecture 별로 이 날짜에 해당하는 온라인강의,과제,퀴즈,팀 프로젝트 마감일을 검사
-
-
-
-
-
-                // libraryCrawler의 각 Book 별로 이 날짜에 해당하는 반납일을 검사 
-
 
 
                 dayContainer.Controls.Add(ucDays);
