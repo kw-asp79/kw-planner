@@ -449,9 +449,15 @@ namespace SampleCalenderServer
                     await netstrm.WriteAsync(data, 0, packetInfo.size);
                     netstrm.Flush();
                 }
-                catch (Exception e)
+                catch (SocketException e)
                 {
 
+
+
+                    
+                }
+                catch(Exception e)
+                {
                     // 만약 클라이언트가 폼을 종료했다면.. 
                     if (e.Message.Contains("ClientClosed"))
                     {
@@ -459,10 +465,13 @@ namespace SampleCalenderServer
 
                         netstrm.Close();
                         client.Close();
-                      
+
                         return;
                     }
+
+
                 }
+
 
 
             }

@@ -59,19 +59,22 @@
             // customeLbl
             // 
             this.customeLbl.AutoSize = true;
-            this.customeLbl.Location = new System.Drawing.Point(4, 52);
-            this.customeLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+
+            this.customeLbl.Location = new System.Drawing.Point(3, 35);
             this.customeLbl.Name = "customeLbl";
-            this.customeLbl.Size = new System.Drawing.Size(0, 18);
+            this.customeLbl.Size = new System.Drawing.Size(0, 12);
+
             this.customeLbl.TabIndex = 2;
             // 
             // klasLbl
             // 
             this.klasLbl.AutoSize = true;
-            this.klasLbl.Location = new System.Drawing.Point(4, 96);
-            this.klasLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+
+            this.klasLbl.Font = new System.Drawing.Font("굴림", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.klasLbl.Location = new System.Drawing.Point(3, 64);
             this.klasLbl.Name = "klasLbl";
-            this.klasLbl.Size = new System.Drawing.Size(0, 18);
+            this.klasLbl.Size = new System.Drawing.Size(11, 11);
+
             this.klasLbl.TabIndex = 3;
             // 
             // libraryLbl
@@ -80,7 +83,9 @@
             this.libraryLbl.Location = new System.Drawing.Point(4, 138);
             this.libraryLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.libraryLbl.Name = "libraryLbl";
-            this.libraryLbl.Size = new System.Drawing.Size(0, 18);
+
+            this.libraryLbl.Size = new System.Drawing.Size(0, 12);
+
             this.libraryLbl.TabIndex = 4;
             // 
             // UserControlDays

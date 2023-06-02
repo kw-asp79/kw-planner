@@ -49,7 +49,7 @@ namespace Client
         {
             User user = new User();
             user.id = txt_id.Text;
-
+            
             Packet packet = new Packet();
             packet.action = ActionType.readUser;
             packet.data = user;
