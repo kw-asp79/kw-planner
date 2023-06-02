@@ -32,7 +32,9 @@ namespace SampleCalenderServer
                 schedule.content = reader.GetString("content");
                 schedule.startTime = reader.GetDateTime("start_time");
                 schedule.endTime = reader.GetDateTime("end_time");
-
+                schedule.fromWho = reader.GetString("from_who");
+                byte tinyintValue = reader.GetByte("is_done");
+                schedule.isDone = (Boolean)(tinyintValue !=0);
                 schedules.Add(schedule);
             }
 
