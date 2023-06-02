@@ -26,6 +26,9 @@ namespace Client
         private bool isLabelVisible = true;
         //private int clickedDay;
 
+        private static Boolean isProgramLogin = false;
+        private static Boolean isKLASLogin = false;
+        private static Boolean isLibraryLogin = false;
 
         mainForm MainForm;
         calendarForm calendarForm;
@@ -53,29 +56,6 @@ namespace Client
             }
         }
 
-        NetworkStream netstrm;
-        mainForm mainform;
-        User myUserInfo = mainForm.myUserInfo;
-
-        private void list_load()
-        {
-            foreach (Schedule schedule in mainForm.schedules)
-            {
-                DateTime startDate = schedule.startTime;
-                DateTime endDate = schedule.endTime;
-
-                int year = DateTime.Now.Year; // 현재 연도 가져오기
-                int month = DateTime.Now.Month; // 현재 월 가져오기
-                int day = DateTime.Now.Day; // 현재 일 가져오기
-
-                // 현재 패널과 스케줄의 시작일과 종료일이 일치하는지 확인
-                if (startDate.Year == year && startDate.Month == month && startDate.Day <= day && day <= endDate.Day)
-                {
-                    // 스케줄 정보를 패널에 추가
-                    //AddLabel(schedule.content, schedule.category);
-                }
-            }
-        }
 
         public UserControlDays(DateTime date,mainForm MainForm, calendarForm calForm)
 
@@ -90,15 +70,28 @@ namespace Client
 
             this.MainForm = MainForm;
 
-            if(this.MainForm.isLoginSuccess == true)
-            {
+            if (isProgramLogin || isKLASLogin || isLibraryLogin)
                 setSchedules(calForm.userSchedules);
-            }
-
 
             this.MainForm.loginSuccessEvent += delegate (object sender, LoginEventArgs args)
             {
+                switch (args.getType())
+                {
+                    case LoginEventArgs.TYPE.PROGRAM_LOGIN:
+                        isProgramLogin = true;
+                        break;
+
+                    case LoginEventArgs.TYPE.KLAS_LOGIN:
+                        isKLASLogin = true;
+                        break;
+
+                    case LoginEventArgs.TYPE.LIBRARY_LOGIN:
+                        isLibraryLogin = true;
+                        break;
+                }
+
                 DBScheduleSynchronize(args);
+
             };
 
         }
