@@ -46,7 +46,8 @@ namespace Client
             {
                 userSchedules = args.getSchedules(); 
                 
-                this.MainForm.isLoginSuccess = true;
+                if(args.getType() == LoginEventArgs.TYPE.PROGRAM_LOGIN)
+                    this.MainForm.isLoginSuccess = true;
             };
         }
 
