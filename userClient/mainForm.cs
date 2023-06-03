@@ -50,6 +50,12 @@ namespace Client
         }
 
 
+        public TYPE getType()
+        {
+            return type;
+        }
+
+
     }
 
 
@@ -175,6 +181,7 @@ namespace Client
             netstrm = server.GetStream();
 
             Task.Run(() => requestMyData(netstrm));
+            //Task.Run(() => waitShareProcess(netstrm));
 
 
             // create KLAS Crawler
