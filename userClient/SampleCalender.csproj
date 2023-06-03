@@ -142,9 +142,7 @@
     <Compile Include="KLASLoadingForm.Designer.cs">
       <DependentUpon>KLASLoadingForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="KLASLoginForm.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="KLASLoginForm.cs" />
     <Compile Include="KLASLoginForm.Designer.cs">
       <DependentUpon>KLASLoginForm.cs</DependentUpon>
     </Compile>

@@ -23,14 +23,30 @@ namespace Client
     public class LoginEventArgs : EventArgs
     {
         public List<Schedule> schedules;
-        public LoginEventArgs(List<Schedule> schedules)
+        public enum TYPE
+        {
+            PROGRAM_LOGIN,
+            KLAS_LOGIN,
+            LIBRARY_LOGIN
+        }
+
+        TYPE type;
+
+        public LoginEventArgs(List<Schedule> schedules,TYPE type)
         {
             this.schedules = schedules;
+            this.type = type;
         }
 
         public List<Schedule> getSchedules()
         {
             return this.schedules;
+        }
+
+
+        public TYPE getType()
+        {
+            return type;
         }
 
     }
@@ -58,6 +74,7 @@ namespace Client
         KLASCrawler klasCrawler;
         LibraryCrawler libraryCrawler;
 
+        // 프로그램 자체 로그인, KLAS 로그인, LIBRARY 로그인 통합 Event Handler
         public event EventHandler<LoginEventArgs> loginSuccessEvent;
 
         public mainForm()
@@ -96,18 +113,22 @@ namespace Client
 
                     packet = Packet.ReceivePacket(netstrm);
 
+                    List<Schedule> tempSchedules = new List<Schedule>();
                     if (packet.action == ActionType.Success)
                     {
                         Dictionary<string, Object> fullData = packet.data as Dictionary<string, object>;
 
                         friends = fullData["friends"] as List<User>;
-                        schedules = fullData["schedules"] as List<Schedule>;
+                        tempSchedules = fullData["schedules"] as List<Schedule>;
                         groups = fullData["groups"] as Dictionary<string, List<User>>;
                         
                     }
 
+                    foreach (Schedule schedule in tempSchedules)
+                        schedules.Add(schedule);
+
                     // Login eventHandler call! 
-                    loginSuccessEvent.Invoke(this,new LoginEventArgs(schedules));
+                    loginSuccessEvent.Invoke(this,new LoginEventArgs(schedules,LoginEventArgs.TYPE.PROGRAM_LOGIN));
                     
                     break;
                 }
@@ -153,6 +174,7 @@ namespace Client
             netstrm = server.GetStream();
 
             Task.Run(() => requestMyData(netstrm));
+            //Task.Run(() => waitShareProcess(netstrm));
 
 
             // create KLAS Crawler
@@ -213,8 +235,13 @@ namespace Client
         }
 
 
-        private void klasAllSuccess(object sender, EventArgs e)
+        private void klasAllSuccess(object sender, AllSuccessEventArgs args)
         {
+            // KLAS 스케줄들을 메인 스케줄에 추가
+            foreach(Schedule schedule in args.getSchedules())
+                schedules.Add(schedule);
+            loginSuccessEvent.Invoke(this, new LoginEventArgs(schedules, LoginEventArgs.TYPE.KLAS_LOGIN));
+
             klasUIForm.setMainUI();
 
             // 현재 화면이 klasLoginForm 일 때만 바로 출력하도록
@@ -239,8 +266,13 @@ namespace Client
 
         }
 
-        private void lbyAllSuccess(object sender, EventArgs e)
+        private void lbyAllSuccess(object sender, AllSuccessEventArgs args)
         {
+            // LIBRARY 스케줄들을 메인 스케줄에 추가
+            foreach (Schedule schedule in args.getSchedules())
+                schedules.Add(schedule);
+            loginSuccessEvent.Invoke(this, new LoginEventArgs(schedules, LoginEventArgs.TYPE.LIBRARY_LOGIN));
+
             libraryUIForm.setUI();
 
             // 현재 화면이 libraryLoginForm 일 때만 바로 출력하도록
@@ -286,7 +318,7 @@ namespace Client
         {
             calendarContainer.Controls.Clear();
 
-            ToDoUIForm todoUIForm = new ToDoUIForm(libraryCrawler.getLibrarySchedules(),klasCrawler.getKLASSchedules());
+            ToDoUIForm todoUIForm = new ToDoUIForm(libraryCrawler.getLibrarySchedules(),klasCrawler.getKLASSchedules(),this);
             calendarContainer.Controls.Add(todoUIForm);
         }
 

@@ -35,8 +35,8 @@ namespace SampleCalenderServer
                 schedule.fromWho = reader.GetString("from_who");
                 byte tinyintValue = reader.GetByte("is_done");
                 schedule.isDone = (Boolean)(tinyintValue != 0);
-               
-
+                
+              
                 // Boolean 변수에 저장합니다.
                 bool booleanValue = tinyintValue != 0;
 
