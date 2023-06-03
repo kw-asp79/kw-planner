@@ -106,8 +106,6 @@ namespace Client
                         
                     }
 
-                    MessageBox.Show("1");
-
                     // Login eventHandler call! 
                     loginSuccessEvent.Invoke(this,new LoginEventArgs(schedules));
                     

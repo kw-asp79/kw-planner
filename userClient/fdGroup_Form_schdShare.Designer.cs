@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tbx_Title = new System.Windows.Forms.TextBox();
             this.btn_Add = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.tbx_Schedule = new System.Windows.Forms.TextBox();
+            this.tbx_Content = new System.Windows.Forms.TextBox();
             this.lbl_time = new System.Windows.Forms.Label();
             this.dtpStartTime = new System.Windows.Forms.DateTimePicker();
             this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
             this.Grpname_lbl = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.tbx_content = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,10 +45,10 @@
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.HighlightText;
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.tbx_content);
+            this.panel1.Controls.Add(this.tbx_Title);
             this.panel1.Controls.Add(this.btn_Add);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.tbx_Schedule);
+            this.panel1.Controls.Add(this.tbx_Content);
             this.panel1.Controls.Add(this.lbl_time);
             this.panel1.Controls.Add(this.dtpStartTime);
             this.panel1.Controls.Add(this.dtpStartDate);
@@ -58,6 +58,26 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(582, 396);
             this.panel1.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label2.Location = new System.Drawing.Point(35, 174);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(39, 18);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "Title";
+            // 
+            // tbx_Title
+            // 
+            this.tbx_Title.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbx_Title.Location = new System.Drawing.Point(36, 196);
+            this.tbx_Title.Margin = new System.Windows.Forms.Padding(4);
+            this.tbx_Title.Name = "tbx_Title";
+            this.tbx_Title.Size = new System.Drawing.Size(256, 40);
+            this.tbx_Title.TabIndex = 17;
             // 
             // btn_Add
             // 
@@ -78,18 +98,18 @@
             this.label1.Location = new System.Drawing.Point(33, 249);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 18);
+            this.label1.Size = new System.Drawing.Size(71, 18);
             this.label1.TabIndex = 15;
-            this.label1.Text = "일정";
+            this.label1.Text = "Content";
             // 
-            // tbx_Schedule
+            // tbx_Content
             // 
-            this.tbx_Schedule.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbx_Schedule.Location = new System.Drawing.Point(36, 271);
-            this.tbx_Schedule.Margin = new System.Windows.Forms.Padding(4);
-            this.tbx_Schedule.Name = "tbx_Schedule";
-            this.tbx_Schedule.Size = new System.Drawing.Size(501, 40);
-            this.tbx_Schedule.TabIndex = 14;
+            this.tbx_Content.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbx_Content.Location = new System.Drawing.Point(36, 271);
+            this.tbx_Content.Margin = new System.Windows.Forms.Padding(4);
+            this.tbx_Content.Name = "tbx_Content";
+            this.tbx_Content.Size = new System.Drawing.Size(501, 40);
+            this.tbx_Content.TabIndex = 14;
             // 
             // lbl_time
             // 
@@ -134,26 +154,6 @@
             this.Grpname_lbl.TabIndex = 6;
             this.Grpname_lbl.Text = "Date";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label2.Location = new System.Drawing.Point(35, 174);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 18);
-            this.label2.TabIndex = 18;
-            this.label2.Text = "Content";
-            // 
-            // tbx_content
-            // 
-            this.tbx_content.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbx_content.Location = new System.Drawing.Point(36, 196);
-            this.tbx_content.Margin = new System.Windows.Forms.Padding(4);
-            this.tbx_content.Name = "tbx_content";
-            this.tbx_content.Size = new System.Drawing.Size(256, 40);
-            this.tbx_content.TabIndex = 17;
-            // 
             // fdGroup_Form_schdShare
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
@@ -176,9 +176,9 @@
         private System.Windows.Forms.Label lbl_time;
         private System.Windows.Forms.DateTimePicker dtpStartTime;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox tbx_Schedule;
+        private System.Windows.Forms.TextBox tbx_Content;
         private System.Windows.Forms.Button btn_Add;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox tbx_content;
+        private System.Windows.Forms.TextBox tbx_Title;
     }
 }

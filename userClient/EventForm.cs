@@ -17,6 +17,7 @@ using System.Collections;
 using System.Net.Sockets;
 using PacketLibrary;
 using Google.Protobuf.WellKnownTypes;
+using System.Diagnostics;
 
 //using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
@@ -33,7 +34,7 @@ namespace Client
         private List<Event> events;
         private List<CheckBox> checkBoxes; // 체크박스 리스트 추가
 
-        NetworkStream netstrm;
+        NetworkStream netstrm = mainForm.netstrm;
         mainForm mainform;
         User myUserInfo = mainForm.myUserInfo;
 
@@ -97,12 +98,24 @@ namespace Client
                 dtpEndTime.Value.Hour, dtpEndTime.Value.Minute, 0);
             
             string title = tbTitle.Text;
-            string schedule = tbSchedule.Text;
-            string category = "schedule";
+            string content = tbContent.Text;
+            string category = "CUSTOM";
 
-            Event newEvent = new Event(category, title, startDateTime, endDateTime, schedule);
+            Schedule schedule = new Schedule(category, title, content, startDateTime, endDateTime);
+
+            Dictionary<string, Object> fullData = new Dictionary<string, object>();
+            fullData.Add("schedule", schedule);
+            fullData.Add("user", myUserInfo);
+
+            Packet packet = new Packet();
+            packet.action = ActionType.saveSchedule;
+            packet.data = fullData;
+
+            Packet.SendPacket(netstrm, packet);
+            packet = Packet.ReceivePacket(netstrm);
+
+            Event newEvent = new Event(category, title, startDateTime, endDateTime, content);
             events.Add(newEvent);
-
 
             // 스케줄을 시작하는 시간 순서로 정렬
             events = events.OrderBy(ev => ev.StartDateTime).ToList();
@@ -147,7 +160,7 @@ namespace Client
             eventschedule.endTime = endDateTime.Date;
             eventschedule.category = "schedule";
             eventschedule.title = title;
-            eventschedule.content = schedule;
+            eventschedule.content = content;
             mainForm.schedules.Add(eventschedule);
             A++;
             UpdateLabelIndicator();
@@ -211,7 +224,7 @@ namespace Client
 
         private void ClearInputFields()
         {
-            tbSchedule.Text = "";
+            tbContent.Text = "";
             dtpStartDate.Value = DateTime.Now;
             dtpStartTime.Value = DateTime.Now;
             dtpEndDate.Value = DateTime.Now;
