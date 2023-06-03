@@ -23,9 +23,18 @@ namespace Client
     public class LoginEventArgs : EventArgs
     {
         public List<Schedule> schedules;
-        public LoginEventArgs(List<Schedule> schedules)
+        public enum TYPE
+        {
+            PROGRAM_LOGN,
+            KLAS_LOGIN,
+            LIBRARY_LOGIN
+        }
+
+        TYPE type;
+        public LoginEventArgs(List<Schedule> schedules, TYPE type)
         {
             this.schedules = schedules;
+            this.type = type;
         }
 
         public List<Schedule> getSchedules()
@@ -33,6 +42,11 @@ namespace Client
             return this.schedules;
         }
 
+
+        public TYPE getType()
+        {
+            return type;
+        }
     }
 
 
@@ -96,6 +110,7 @@ namespace Client
 
                     packet = Packet.ReceivePacket(netstrm);
 
+                    List<Schedule> DBSchedules = new List<Schedule>();
                     if (packet.action == ActionType.Success)
                     {
                         Dictionary<string, Object> fullData = packet.data as Dictionary<string, object>;
@@ -106,10 +121,11 @@ namespace Client
                         
                     }
 
-                    MessageBox.Show("1");
+                    foreach(Schedule schedule in DBSchedules)
+                        schedules.Add(schedule);
 
                     // Login eventHandler call! 
-                    loginSuccessEvent.Invoke(this,new LoginEventArgs(schedules));
+                    loginSuccessEvent.Invoke(this,new LoginEventArgs(schedules,LoginEventArgs.TYPE.PROGRAM_LOGN));
                     
                     break;
                 }
@@ -288,7 +304,7 @@ namespace Client
         {
             calendarContainer.Controls.Clear();
 
-            ToDoUIForm todoUIForm = new ToDoUIForm(libraryCrawler.getLibrarySchedules(),klasCrawler.getKLASSchedules());
+            ToDoUIForm todoUIForm = new ToDoUIForm(libraryCrawler.getLibrarySchedules(),klasCrawler.getKLASSchedules(),this);
             calendarContainer.Controls.Add(todoUIForm);
         }
 

@@ -573,7 +573,9 @@ namespace CrawlingLibrary
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error while crawlQuizPage() " + e);
+                Console.WriteLine("Error while crawlOnlineLecturePage() " + e);
+
+                moveToOverallPage();
             }
 
             return quizs;
@@ -832,7 +834,7 @@ namespace CrawlingLibrary
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error while crawlTeamProjectPage() " + e);
+                Console.WriteLine("Error while crawlOnlineLecturePage() " + e);
             }
 
             return teamProjects;

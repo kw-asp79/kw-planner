@@ -66,7 +66,6 @@ namespace WindowsFormsApp1
             Packet.SendPacket(netstrm, packet);
             packet = Packet.ReceivePacket(netstrm);
 
-            packet = Packet.ReceivePacket(netstrm);
 
             add_list = add_list.Union(list_frdname).ToList();
             fdGroupForm.update_list(add_list, k);
