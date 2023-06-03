@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.calendarContainer = new System.Windows.Forms.Panel();
+            this.btn_share = new System.Windows.Forms.Button();
             this.dayContainer = new System.Windows.Forms.FlowLayoutPanel();
             this.ymLbl = new System.Windows.Forms.Label();
             this.prevBtn = new System.Windows.Forms.Button();
@@ -40,7 +41,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btn_share = new System.Windows.Forms.Button();
             this.calendarContainer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,6 +66,16 @@
             this.calendarContainer.TabIndex = 1;
             this.calendarContainer.Paint += new System.Windows.Forms.PaintEventHandler(this.calendarContainer_Paint);
             // 
+            // btn_share
+            // 
+            this.btn_share.Location = new System.Drawing.Point(1001, 29);
+            this.btn_share.Name = "btn_share";
+            this.btn_share.Size = new System.Drawing.Size(181, 59);
+            this.btn_share.TabIndex = 10;
+            this.btn_share.Text = "공유된 일정";
+            this.btn_share.UseVisualStyleBackColor = true;
+            this.btn_share.Click += new System.EventHandler(this.btn_share_Click);
+            // 
             // dayContainer
             // 
             this.dayContainer.Location = new System.Drawing.Point(12, 130);
@@ -79,7 +89,7 @@
             this.ymLbl.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.ymLbl.AutoSize = true;
             this.ymLbl.Font = new System.Drawing.Font("Segoe Script", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ymLbl.Location = new System.Drawing.Point(544, 13);
+            this.ymLbl.Location = new System.Drawing.Point(544, 21);
             this.ymLbl.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.ymLbl.Name = "ymLbl";
             this.ymLbl.Size = new System.Drawing.Size(160, 60);
@@ -89,10 +99,10 @@
             // 
             // prevBtn
             // 
-            this.prevBtn.Location = new System.Drawing.Point(364, 26);
+            this.prevBtn.Location = new System.Drawing.Point(476, 27);
             this.prevBtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.prevBtn.Name = "prevBtn";
-            this.prevBtn.Size = new System.Drawing.Size(49, 26);
+            this.prevBtn.Size = new System.Drawing.Size(37, 44);
             this.prevBtn.TabIndex = 8;
             this.prevBtn.Text = "<";
             this.prevBtn.UseVisualStyleBackColor = true;
@@ -100,10 +110,10 @@
             // 
             // nextBtn
             // 
-            this.nextBtn.Location = new System.Drawing.Point(858, 26);
+            this.nextBtn.Location = new System.Drawing.Point(736, 27);
             this.nextBtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.nextBtn.Name = "nextBtn";
-            this.nextBtn.Size = new System.Drawing.Size(49, 26);
+            this.nextBtn.Size = new System.Drawing.Size(37, 44);
             this.nextBtn.TabIndex = 7;
             this.nextBtn.Text = ">";
             this.nextBtn.UseVisualStyleBackColor = true;
@@ -186,16 +196,6 @@
             this.label1.Size = new System.Drawing.Size(77, 26);
             this.label1.TabIndex = 0;
             this.label1.Text = "Sunday";
-            // 
-            // btn_share
-            // 
-            this.btn_share.Location = new System.Drawing.Point(1001, 29);
-            this.btn_share.Name = "btn_share";
-            this.btn_share.Size = new System.Drawing.Size(133, 44);
-            this.btn_share.TabIndex = 10;
-            this.btn_share.Text = "공유된 일정";
-            this.btn_share.UseVisualStyleBackColor = true;
-            this.btn_share.Click += new System.EventHandler(this.btn_share_Click);
             // 
             // calendarForm
             // 

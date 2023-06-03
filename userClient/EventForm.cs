@@ -143,17 +143,25 @@ namespace Client
                 dtpEndTime.Value.Hour, dtpEndTime.Value.Minute, 0);
   
             Schedule eventschedule = new Schedule();
-            int A = mainForm.schedules.Count;
-            eventschedule.id = A;
             eventschedule.startTime = startDateTime;
             eventschedule.endTime = endDateTime;
             eventschedule.category = "CUSTOM";
             eventschedule.title = tbTitle.Text;
             eventschedule.content = tbContent.Text;
-            eventschedule.fromWho = "0";
+            eventschedule.fromWho = "";
             eventschedule.isDone = false;
             mainForm.schedules.Add(eventschedule);
-            A++;
+
+            Dictionary<string, Object> fullData = new Dictionary<string, object>();
+            fullData.Add("schedule", eventschedule);
+            fullData.Add("user", myUserInfo);
+
+            Packet packet = new Packet();
+            packet.action = ActionType.saveSchedule;
+            packet.data = fullData;
+
+            Packet.SendPacket(netstrm, packet);
+            packet = Packet.ReceivePacket(netstrm);
 
             checkBox[k] = new CheckBox();
             checkBox[k].Location = new Point(0, -20+30*k);
@@ -332,8 +340,8 @@ namespace Client
         {
             CheckBox checkBox = (CheckBox)sender;
             int index = (int)checkBox.Tag;
-            string deleteTitle = title[index+1].Text;
-            string deleteContent = content[index+1].Text;
+            string deleteTitle = title[index].Text;
+            string deleteContent = content[index].Text;
 
             if (checkBox.Checked)
             {

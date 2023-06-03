@@ -97,13 +97,15 @@ namespace SampleCalenderServer
         public static int CreateSchedule(Schedule schedule)
         {
             MySqlCommand command = DBProcess.connection.CreateCommand();
-            command.CommandText = "INSERT INTO schedule (category, title, content, start_time, end_time) " +
-                                  "VALUES (@category, @title, @content, @startTime, @endTime);";
+            command.CommandText = "INSERT INTO schedule (category, title, content, start_time, end_time, from_who, is_done) " +
+                                  "VALUES (@category, @title, @content, @startTime, @endTime, @from_who, @is_done);";
             command.Parameters.AddWithValue("@category", schedule.category);
             command.Parameters.AddWithValue("@title", schedule.title);
             command.Parameters.AddWithValue("@content", schedule.content);
             command.Parameters.AddWithValue("@startTime", schedule.startTime);
             command.Parameters.AddWithValue("@endTime", schedule.endTime);
+            command.Parameters.AddWithValue("@from_who", schedule.fromWho);
+            command.Parameters.AddWithValue("is_done",schedule.isDone);
 
             command.ExecuteNonQuery();
 

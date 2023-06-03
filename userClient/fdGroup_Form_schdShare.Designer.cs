@@ -59,9 +59,8 @@
             this.panel1.Controls.Add(this.Grpname_lbl);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(466, 330);
+            this.panel1.Size = new System.Drawing.Size(582, 396);
             this.panel1.TabIndex = 0;
             // 
             // label2
@@ -87,10 +86,10 @@
             // btn_Add
             // 
             this.btn_Add.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Add.Location = new System.Drawing.Point(29, 278);
+            this.btn_Add.Location = new System.Drawing.Point(36, 333);
             this.btn_Add.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Add.Name = "btn_Add";
-            this.btn_Add.Size = new System.Drawing.Size(86, 29);
+            this.btn_Add.Size = new System.Drawing.Size(108, 35);
             this.btn_Add.TabIndex = 16;
             this.btn_Add.Text = "공유하기";
             this.btn_Add.UseVisualStyleBackColor = false;
@@ -100,7 +99,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(26, 208);
+            this.label1.Location = new System.Drawing.Point(33, 249);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 18);
@@ -182,11 +181,10 @@
             // 
             // fdGroup_Form_schdShare
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(466, 330);
+            this.ClientSize = new System.Drawing.Size(582, 396);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "fdGroup_Form_schdShare";
             this.Text = "fdGroup_Form_schdShare";
             this.panel1.ResumeLayout(false);

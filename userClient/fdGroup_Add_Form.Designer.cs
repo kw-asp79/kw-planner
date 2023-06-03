@@ -87,9 +87,9 @@
             this.Grpname_lbl.Location = new System.Drawing.Point(29, 29);
             this.Grpname_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Grpname_lbl.Name = "Grpname_lbl";
-            this.Grpname_lbl.Size = new System.Drawing.Size(110, 18);
+            this.Grpname_lbl.Size = new System.Drawing.Size(62, 18);
             this.Grpname_lbl.TabIndex = 4;
-            this.Grpname_lbl.Text = "Group Name";
+            this.Grpname_lbl.Text = "그룹명";
             // 
             // fdGroup_Add_Form
             // 
