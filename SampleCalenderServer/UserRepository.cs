@@ -138,7 +138,6 @@ namespace SampleCalenderServer
                 friends.Add(friend);
             }
 
-
             reader.Close();
 
             return friends;

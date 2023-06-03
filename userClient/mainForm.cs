@@ -125,6 +125,7 @@ namespace Client
                         
                     }
 
+
                     foreach (Schedule schedule in DBSchedules)
                         schedules.Add(schedule);
 
@@ -175,6 +176,7 @@ namespace Client
             netstrm = server.GetStream();
 
             Task.Run(() => requestMyData(netstrm));
+
             //Task.Run(() => waitShareProcess(netstrm));
 
             // create KLAS Crawler

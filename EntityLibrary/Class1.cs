@@ -47,6 +47,8 @@ namespace EntityLibrary
         public string content;
         public DateTime startTime;
         public DateTime endTime;
+        public string fromWho;
+        public Boolean isDone;
 
         public Schedule()
         {
@@ -55,17 +57,31 @@ namespace EntityLibrary
             this.content = "";
             this.startTime = new DateTime(2000, 01, 01);
             this.endTime = new DateTime(2000, 01, 01);
+            this.fromWho = "";
+            this.isDone = false;
         }
 
         public Schedule(string category, string title, string content, DateTime startTime, DateTime endTime)
-        { 
+        {
             this.category = category;
             this.title = title;
             this.content = content;
             this.startTime = startTime;
             this.endTime = endTime;
+            this.fromWho = "";
+            this.isDone = false;
         }
 
+        public Schedule(string category, string title, string content, DateTime startTime, DateTime endTime, string fromWho)
+        {
+            this.category = category;
+            this.title = title;
+            this.content = content;
+            this.startTime = startTime;
+            this.endTime = endTime;
+            this.fromWho = fromWho;
+            this.isDone = false;
+        }
 
     }
 
@@ -74,15 +90,19 @@ namespace EntityLibrary
     {
         public int id;
         public string name;
+        public string user_id;
 
         public Group()
         {
             name = "";
+            user_id = "";
         }
 
-        public Group(string name)
+
+        public Group(string name, string user_id)
         {
             this.name = name;
+            this.user_id = user_id;
         }
     }
 
@@ -124,5 +144,5 @@ namespace EntityLibrary
             this.sendTime = sendTime;
         }
     }
-    
+
 }
