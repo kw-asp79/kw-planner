@@ -82,7 +82,6 @@ namespace WindowsFormsApp1
             Packet.SendPacket(netstrm, packet);
             packet = Packet.ReceivePacket(netstrm);
 
-
             fdGroupForm.add_Grouplist(this.txt_grpname.Text, list_frdname);
             mainForm.groups.Add(this.txt_grpname.Text, userList);
 

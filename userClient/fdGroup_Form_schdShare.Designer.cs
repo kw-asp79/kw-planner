@@ -64,19 +64,20 @@
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label2.Location = new System.Drawing.Point(28, 145);
+            this.label2.Location = new System.Drawing.Point(35, 174);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(33, 15);
+            this.label2.Size = new System.Drawing.Size(39, 18);
             this.label2.TabIndex = 18;
             this.label2.Text = "Title";
             // 
             // tbx_Title
             // 
             this.tbx_Title.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbx_Title.Location = new System.Drawing.Point(29, 163);
+            this.tbx_Title.Location = new System.Drawing.Point(36, 196);
+            this.tbx_Title.Margin = new System.Windows.Forms.Padding(4);
             this.tbx_Title.Name = "tbx_Title";
-            this.tbx_Title.Size = new System.Drawing.Size(206, 34);
+            this.tbx_Title.Size = new System.Drawing.Size(256, 40);
             this.tbx_Title.TabIndex = 17;
             // 
             // btn_Add
@@ -98,16 +99,17 @@
             this.label1.Location = new System.Drawing.Point(26, 208);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(58, 15);
+            this.label1.Size = new System.Drawing.Size(71, 18);
             this.label1.TabIndex = 15;
             this.label1.Text = "Content";
             // 
             // tbx_Content
             // 
             this.tbx_Content.Font = new System.Drawing.Font("Bookman Old Style", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbx_Content.Location = new System.Drawing.Point(29, 226);
+            this.tbx_Content.Location = new System.Drawing.Point(36, 271);
+            this.tbx_Content.Margin = new System.Windows.Forms.Padding(4);
             this.tbx_Content.Name = "tbx_Content";
-            this.tbx_Content.Size = new System.Drawing.Size(402, 34);
+            this.tbx_Content.Size = new System.Drawing.Size(501, 40);
             this.tbx_Content.TabIndex = 14;
             // 
             // lbl_time

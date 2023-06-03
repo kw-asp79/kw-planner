@@ -35,6 +35,10 @@ namespace SampleCalenderServer
                 schedule.fromWho = reader.GetString("from_who");
                 byte tinyintValue = reader.GetByte("is_done");
                 schedule.isDone = (Boolean)(tinyintValue != 0);
+                
+              
+                // Boolean 변수에 저장합니다.
+                bool booleanValue = tinyintValue != 0;
 
                 schedules.Add(schedule);
             }
@@ -104,7 +108,7 @@ namespace SampleCalenderServer
             command.ExecuteNonQuery();
 
             command.CommandText = "SELECT LAST_INSERT_ID();";
-            int id = (int)command.ExecuteScalar();
+            int id = Convert.ToInt32(command.ExecuteScalar());
 
             return id;
         }
@@ -135,6 +139,36 @@ namespace SampleCalenderServer
             command.ExecuteNonQuery();
         }
 
+        public static List<Schedule> SelectRequestSchedules(User user)
+        {
+            MySqlCommand command = DBProcess.connection.CreateCommand();
 
+            command.CommandText = "SELECT schedule.* FROM schedule JOIN user_schedule WHERE schedule.category = `CUSTOM`" +
+                " and user_schedule.user_id = @myUserId AND user_schedule.schedule_id = schedule.schedule_id;";
+            command.Parameters.AddWithValue("@myUserId", user.id);
+
+            MySqlDataReader reader = command.ExecuteReader();
+
+            List<Schedule> schedules = new List<Schedule>();
+
+            while (reader.Read())
+            {
+                Schedule schedule = new Schedule();
+
+                schedule.category = reader.GetString("category");
+                schedule.title = reader.GetString("title");
+                schedule.content = reader.GetString("content");
+                schedule.startTime = reader.GetDateTime("start_time");
+                schedule.endTime = reader.GetDateTime("end_time");
+                schedule.fromWho = reader.GetString("from_who");
+                schedule.isDone = reader.GetBoolean("is_done");
+
+                schedules.Add(schedule);
+            }
+
+            reader.Close();
+
+            return schedules;
+        }
     }
 }

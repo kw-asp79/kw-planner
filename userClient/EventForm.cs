@@ -17,7 +17,7 @@ using System.Collections;
 using System.Net.Sockets;
 using PacketLibrary;
 using Google.Protobuf.WellKnownTypes;
-using System.CodeDom;
+using System.Diagnostics;
 
 //using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
@@ -28,7 +28,7 @@ namespace Client
 
         UserControlDays UserControlDays;
 
-        NetworkStream netstrm;
+        NetworkStream netstrm = mainForm.netstrm;
         mainForm mainform;
         User myUserInfo = mainForm.myUserInfo;
 
@@ -139,7 +139,7 @@ namespace Client
 
             DateTime endDateTime = new DateTime(dtpEndDate.Value.Year, dtpEndDate.Value.Month, dtpEndDate.Value.Day,
                 dtpEndTime.Value.Hour, dtpEndTime.Value.Minute, 0);
-
+  
             Schedule eventschedule = new Schedule();
             int A = mainForm.schedules.Count;
             eventschedule.id = A;
@@ -258,9 +258,9 @@ namespace Client
 
         private void ClearEventForm()
         {
+            // 나머지 입력 필드들을 초기화
             tbTitle.Text = "";
             tbSchedule.Text = "";
-            // 나머지 입력 필드들을 초기화
         }
         private void RenderSchedules()
         {
