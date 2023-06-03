@@ -17,7 +17,7 @@ using System.Collections;
 using System.Net.Sockets;
 using PacketLibrary;
 using Google.Protobuf.WellKnownTypes;
-using System.CodeDom;
+using System.Diagnostics;
 
 //using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
@@ -28,7 +28,7 @@ namespace Client
 
         UserControlDays UserControlDays;
 
-        NetworkStream netstrm;
+        NetworkStream netstrm = mainForm.netstrm;
         mainForm mainform;
         User myUserInfo = mainForm.myUserInfo;
 
@@ -43,11 +43,13 @@ namespace Client
         List<Schedule> daySchedules;
         int lbcount; // 클래스의 멤버 변수로 선언
         int k;
+
         public EventForm(UserControlDays form)
         {
             
             UserControlDays = form;
             daySchedules = form.getSchedules();
+            
             InitializeComponent();
 
             schedule_load();
@@ -140,19 +142,27 @@ namespace Client
 
             DateTime endDateTime = new DateTime(dtpEndDate.Value.Year, dtpEndDate.Value.Month, dtpEndDate.Value.Day,
                 dtpEndTime.Value.Hour, dtpEndTime.Value.Minute, 0);
-
+  
             Schedule eventschedule = new Schedule();
-            int A = mainForm.schedules.Count;
-            eventschedule.id = A;
             eventschedule.startTime = startDateTime;
             eventschedule.endTime = endDateTime;
             eventschedule.category = "CUSTOM";
             eventschedule.title = tbTitle.Text;
-            eventschedule.content = tbSchedule.Text;
-            eventschedule.fromWho = "0";
+            eventschedule.content = tbContent.Text;
+            eventschedule.fromWho = "";
             eventschedule.isDone = false;
             mainForm.schedules.Add(eventschedule);
-            A++;
+
+            Dictionary<string, Object> fullData = new Dictionary<string, object>();
+            fullData.Add("schedule", eventschedule);
+            fullData.Add("user", myUserInfo);
+
+            Packet packet = new Packet();
+            packet.action = ActionType.saveSchedule;
+            packet.data = fullData;
+
+            Packet.SendPacket(netstrm, packet);
+            packet = Packet.ReceivePacket(netstrm);
 
             checkBox[k] = new CheckBox();
             checkBox[k].Location = new Point(0, -20+30*k);
@@ -184,7 +194,7 @@ namespace Client
             content[k].Location = new Point(title[k].Location.X + 100, title[k].Location.Y);
             content[k].Size = new Size(labelWidth * 5, labelHeight);
             content[k].Font = new Font("Ink Free", 11, FontStyle.Regular);
-            content[k].Text = tbSchedule.Text;
+            content[k].Text = tbContent.Text;
             content[k].Tag = k;
 
             deletebtn[k] = new Button();
@@ -259,9 +269,9 @@ namespace Client
 
         private void ClearEventForm()
         {
-            tbTitle.Text = "";
-            tbSchedule.Text = "";
             // 나머지 입력 필드들을 초기화
+            tbTitle.Text = "";
+            tbContent.Text = "";
         }
         private void RenderSchedules()
         {
@@ -331,8 +341,8 @@ namespace Client
         {
             CheckBox checkBox = (CheckBox)sender;
             int index = (int)checkBox.Tag;
-            string deleteTitle = title[index+1].Text;
-            string deleteContent = content[index+1].Text;
+            string deleteTitle = title[index].Text;
+            string deleteContent = content[index].Text;
 
             if (checkBox.Checked)
             {

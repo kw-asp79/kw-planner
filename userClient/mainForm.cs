@@ -127,6 +127,13 @@ namespace Client
                     foreach (Schedule schedule in tempSchedules)
                         schedules.Add(schedule);
 
+                    string meesage = "";
+                    foreach (Schedule schedule in schedules)
+                    {
+                        meesage += schedule.title + ", " + schedule.content + ", " + schedule.fromWho + "\n";
+                    }
+                    MessageBox.Show(meesage);
+
                     // Login eventHandler call! 
                     loginSuccessEvent.Invoke(this,new LoginEventArgs(schedules,LoginEventArgs.TYPE.PROGRAM_LOGIN));
                     
@@ -176,6 +183,7 @@ namespace Client
             Task.Run(() => requestMyData(netstrm));
             //Task.Run(() => waitShareProcess(netstrm));
 
+            //Task.Run(() => waitShareProcess(netstrm));
 
             // create KLAS Crawler
             klasCrawler = new KLASCrawler();

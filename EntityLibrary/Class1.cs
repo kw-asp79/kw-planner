@@ -62,7 +62,7 @@ namespace EntityLibrary
         }
 
         public Schedule(string category, string title, string content, DateTime startTime, DateTime endTime)
-        { 
+        {
             this.category = category;
             this.title = title;
             this.content = content;
@@ -144,5 +144,5 @@ namespace EntityLibrary
             this.sendTime = sendTime;
         }
     }
-    
+
 }

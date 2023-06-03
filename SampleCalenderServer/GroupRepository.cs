@@ -145,5 +145,32 @@ namespace SampleCalenderServer
                 DeleteUserGroup(GroupId, friend.id);
             }
         }
+
+        public static List<User> SelectFriendsListByGroupId(int groupId)
+        {
+            MySqlCommand command = DBProcess.connection.CreateCommand();
+
+            command.CommandText = "SELECT * FROM user JOIN user_group WHERE user_group.group_id = @groupId and user_group.user_id = user.user_id;";
+            command.Parameters.AddWithValue("@groupId", groupId);
+
+            MySqlDataReader reader = command.ExecuteReader();
+
+            // group에 속한 user들을 담는 변수
+            List<User> userList = new List<User>();
+
+            while (reader.Read())
+            {
+                string user_id = reader.GetString("user_id");
+                string name = reader.GetString("name");
+
+                User user = new User(user_id, "", name);
+
+                userList.Add(user);
+            }
+
+            reader.Close();
+
+            return userList;
+        }
     }
 }
