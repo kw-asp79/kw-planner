@@ -18,6 +18,7 @@ namespace WindowsFormsApp1
     {
         calendarForm calendarForm;
         mainForm mainForm;
+        UserControlDays UserControlDays;
         CheckBox[] checkBox = new CheckBox [20];
         Label[] startDate = new Label[20];
         Label[] endDate = new Label[20];
@@ -124,9 +125,12 @@ namespace WindowsFormsApp1
                     {
                         mainForm.schedules[index].category = "CUSTOM";
                     }
+                    UserControlDays.addSchedule(schedule);
+                    UserControlDays.AddLabel(schedule);
                 }
             }
             MessageBox.Show(string.Format("선택한 일정이 내 일정으로 등록되었습니다."));
+
             this.Close();
         }
     }

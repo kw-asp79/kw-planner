@@ -94,7 +94,40 @@ namespace Client
 
             };
         }
-
+        public void addSchedule(Schedule updatedSchedule)
+        {
+            // 변경된 일정을 받아 즉시 반영
+            // 예시:
+            daySchedules.Add(updatedSchedule);
+        }
+        public void RemoveSchedule(string deleteTitle, string deleteContent)
+        {
+            // 패널 컨테이너에서 해당 스케줄의 라벨을 찾아 제거
+            for (int i = 0; i < daySchedules.Count; i++)
+            {
+                Schedule schedule = daySchedules[i];
+                if (schedule.title == deleteTitle && schedule.content == deleteContent)
+                {
+                    if (daySchedules[i].category == "CUSTOM")
+                    {
+                        customeLbl.BackColor = DefaultBackColor;
+                        customeLbl.Text = "";
+                    }
+                    else if (daySchedules[i].category == "KLAS")
+                    {
+                        klasLbl.BackColor = DefaultBackColor;
+                        klasLbl.Text = "";
+                    }
+                    else if (daySchedules[i].category == "LIBRARY")
+                    {
+                        libraryLbl.BackColor = DefaultBackColor;
+                        libraryLbl.Text = "";
+                    }
+                    daySchedules.RemoveAt(i);
+                    break;
+                }
+            }
+        }
         public List<Schedule> getSchedules()
         {
             return daySchedules;
@@ -206,8 +239,26 @@ namespace Client
                 libraryLbl.BackColor = labelColor;
                 libraryLbl.Text = schedule.content;
             }
+        }
 
-
+        private void RemoveLabelBySchedule(Schedule schedule)
+        {
+            // 라벨을 찾아 제거
+            if (schedule.category == "CUSTOM")
+            {
+                customeLbl.BackColor = DefaultBackColor;
+                customeLbl.Text = "";
+            }
+            else if (schedule.category == "KLAS")
+            {
+                klasLbl.BackColor = DefaultBackColor;
+                klasLbl.Text = "";
+            }
+            else if (schedule.category == "LIBRARY")
+            {
+                libraryLbl.BackColor = DefaultBackColor;
+                libraryLbl.Text = "";
+            }
         }
 
         private Color GetLabelColorByCategory(string category)
