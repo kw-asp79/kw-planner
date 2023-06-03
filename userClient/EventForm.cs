@@ -62,6 +62,7 @@ namespace Client
 
         private void schedule_load()
         {
+
             daySchedules = daySchedules.OrderBy(schedule => schedule.startTime).ToList();
             for (int i = 1; i <= daySchedules.Count; i++)
             {
