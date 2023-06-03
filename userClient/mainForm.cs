@@ -49,13 +49,6 @@ namespace Client
             return type;
         }
 
-
-        public TYPE getType()
-        {
-            return type;
-        }
-
-
     }
 
 
