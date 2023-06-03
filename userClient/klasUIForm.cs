@@ -46,13 +46,22 @@ namespace Client
         {
             setUserName();
 
-            // 과목선택 ComboBox 과목 아이템 추가 
-            List<Lecture> lectures = klasCrawler.lectures;
-            foreach (Lecture lecture in lectures)
-                lectureListCBX.Items.Add(lecture.getName());
+            // 만약 듣고 있는 강의가 최소 하나 이상이라면, 즉 휴학생이나 이런 조건의 학생이 아니라면
+            if (klasCrawler.getLectureNum() > 0)
+            {
+                // 과목선택 ComboBox 과목 아이템 추가 
+                List<Lecture> lectures = klasCrawler.lectures;
+                foreach (Lecture lecture in lectures)
+                    lectureListCBX.Items.Add(lecture.getName());
 
-            lectureListCBX.Text = lectureListCBX.Items[0].ToString();
-
+                lectureListCBX.Text = lectureListCBX.Items[0].ToString();
+            }
+            else
+            {
+                // 이번 학기에 듣는 강의가 없다면.. 
+                lectureListCBX.Text = "아~ 이번 학기 안 다니시나봐요?";
+                
+            }
         }
 
 
