@@ -28,7 +28,7 @@ namespace Client
 
         private static Boolean isProgramLogin = false;
         private static Boolean isKLASLogin = false;
-        private static bool isLibraryLogin = false;
+        private static Boolean isLibraryLogin = false;
 
         mainForm MainForm;
         calendarForm calendarForm;
@@ -56,6 +56,7 @@ namespace Client
             }
         }
 
+
         public UserControlDays(DateTime date,mainForm MainForm, calendarForm calForm)
 
         {
@@ -76,18 +77,21 @@ namespace Client
             {
                 switch (args.getType())
                 {
-                    case LoginEventArgs.TYPE.PROGRAM_LOGN:
+                    case LoginEventArgs.TYPE.PROGRAM_LOGIN:
                         isProgramLogin = true;
                         break;
+
                     case LoginEventArgs.TYPE.KLAS_LOGIN:
                         isKLASLogin = true;
                         break;
+
                     case LoginEventArgs.TYPE.LIBRARY_LOGIN:
                         isLibraryLogin = true;
                         break;
                 }
 
                 DBScheduleSynchronize(args);
+
             };
         }
 

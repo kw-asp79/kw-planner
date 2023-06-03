@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WindowsFormsApp1
+namespace Client  
 {
     public partial class KLASLoadingForm : Form
     {
@@ -30,7 +30,7 @@ namespace WindowsFormsApp1
 
             this.klasLoginForm = kLoginForm;
 
-            this.klasLoginForm.allSuccess += delegate (object sender, EventArgs e)
+            this.klasLoginForm.allSuccess += delegate (object sender, AllSuccessEventArgs e)
             {
                 this.Close();
             };

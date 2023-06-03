@@ -27,7 +27,7 @@ namespace Client
 
             this.libLoginForm = lLoginForm;
 
-            this.libLoginForm.allSuccess += delegate (object sender, EventArgs e)
+            this.libLoginForm.allSuccess += delegate (object sender, AllSuccessEventArgs e)
             {
                 this.Close();
             };

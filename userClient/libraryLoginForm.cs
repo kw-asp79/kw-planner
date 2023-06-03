@@ -26,7 +26,7 @@ namespace Client
 
         CrawlingStatus.Status status;
 
-        public event EventHandler<EventArgs> allSuccess; // event of login and crawling success
+        public event EventHandler<AllSuccessEventArgs> allSuccess; // event of login and crawling success
 
 
         public bool loginStatus = false;
@@ -80,7 +80,7 @@ namespace Client
 
             if (status == CrawlingStatus.Status.AllSuccess)
             {
-                allSuccess.Invoke(this, new EventArgs());
+                allSuccess.Invoke(this, new AllSuccessEventArgs(this.libraryCrawler.getLibrarySchedules()));
             }
         }
 

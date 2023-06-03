@@ -54,34 +54,31 @@
             this.dayLbl.Size = new System.Drawing.Size(0, 14);
             this.dayLbl.TabIndex = 1;
             // 
-            // label1
+            // customeLbl
             // 
-
             this.customeLbl.AutoSize = true;
             this.customeLbl.Location = new System.Drawing.Point(3, 35);
-            this.customeLbl.Name = "customLbl";
-            this.customeLbl.Size = new System.Drawing.Size(32, 12);
+            this.customeLbl.Name = "customeLbl";
+            this.customeLbl.Size = new System.Drawing.Size(0, 12);
             this.customeLbl.TabIndex = 2;
-            this.customeLbl.Text = "";
             // 
-            // label2
+            // klasLbl
             // 
             this.klasLbl.AutoSize = true;
+            this.klasLbl.Font = new System.Drawing.Font("굴림", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.klasLbl.Location = new System.Drawing.Point(3, 64);
             this.klasLbl.Name = "klasLbl";
-            this.klasLbl.Size = new System.Drawing.Size(32, 12);
+            this.klasLbl.Size = new System.Drawing.Size(11, 11);
             this.klasLbl.TabIndex = 3;
             this.klasLbl.Text = "";
             // 
-            // label3
+            // libraryLbl
             // 
             this.libraryLbl.AutoSize = true;
             this.libraryLbl.Location = new System.Drawing.Point(3, 92);
             this.libraryLbl.Name = "libraryLbl";
-            this.libraryLbl.Size = new System.Drawing.Size(32, 12);
+            this.libraryLbl.Size = new System.Drawing.Size(0, 12);
             this.libraryLbl.TabIndex = 4;
-            this.libraryLbl.Text = "";
-
             // 
             // UserControlDays
             // 

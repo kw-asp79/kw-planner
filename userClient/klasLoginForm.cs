@@ -1,5 +1,6 @@
 ﻿using Client;
 using CrawlingLibrary;
+using EntityLibrary;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,8 +12,24 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WindowsFormsApp1
+namespace Client
 {
+    public class AllSuccessEventArgs : EventArgs
+    {
+        public List<Schedule> schedules;
+        public AllSuccessEventArgs(List<Schedule> schedules)
+        {
+            this.schedules = schedules;
+        }
+
+        public List<Schedule> getSchedules()
+        {
+            return this.schedules;
+        }
+
+    }
+
+
     public partial class KLASLoginForm : UserControl
     {
         KLASUIForm klasUIForm;
@@ -23,7 +40,7 @@ namespace WindowsFormsApp1
 
         CrawlingStatus.Status status;
 
-        public event EventHandler<EventArgs> allSuccess;
+        public event EventHandler<AllSuccessEventArgs> allSuccess;
 
         public bool loginStatus = false;
 
@@ -74,7 +91,7 @@ namespace WindowsFormsApp1
 
             if (status == CrawlingStatus.Status.AllSuccess)
             {
-                allSuccess.Invoke(this, new EventArgs());
+                allSuccess.Invoke(this, new AllSuccessEventArgs(this.klasCrawler.getKLASSchedules()));
             }
 
         }
