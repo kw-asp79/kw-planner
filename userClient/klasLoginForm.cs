@@ -36,6 +36,8 @@ namespace Client
 
         KLASCrawler klasCrawler;
 
+        KLASLoadingForm klasLoadingForm;
+
         CrawlingStatus.Status status;
 
         public event EventHandler<AllSuccessEventArgs> allSuccess;
@@ -49,14 +51,24 @@ namespace Client
         {
             InitializeComponent();
 
+            this.status = CrawlingStatus.Status.BeforeLogin;
             this.klasUIForm = klasUIForm;
             this.klasCrawler = kLasCrawler;
-            this.klasCrawler.loginSuccessEvent += crawlingMessage;
+        
         }
 
         private void loginBtn_Click(object sender, EventArgs e)
         {
-            crawlingAsync();
+            if (status == CrawlingStatus.Status.BeforeLogin)
+            {
+                status = CrawlingStatus.Status.LoginProcess;
+
+                klasLoadingForm = new KLASLoadingForm(this,klasCrawler);
+                klasLoadingForm.Show();
+
+                crawlingAsync();
+
+            }
         }
 
         private async void crawlingAsync()
@@ -70,7 +82,9 @@ namespace Client
             // login 결과에 따라 libraryUIForm을 보여줄지 login error를 띄우며 그대로 loginForm 유지할지.    
             if (status == CrawlingStatus.Status.LoginFailure)
             {
+                klasLoadingForm.Close();
                 MessageBox.Show("로그인 실패! ID와 비밀번호를 다시 확인해주세요..", "KLAS Login");
+                status = CrawlingStatus.Status.BeforeLogin;
             }
             else
             {
@@ -82,12 +96,6 @@ namespace Client
                 allSuccess.Invoke(this, new AllSuccessEventArgs(this.klasCrawler.getKLASSchedules()));
             }
 
-        }
-
-
-        private void crawlingMessage(Object sender, EventArgs e)
-        {
-            MessageBox.Show("로그인 성공! 크롤링 작업이 진행됩니다!!.. ", "KLAS Crawling Process");
         }
 
 
