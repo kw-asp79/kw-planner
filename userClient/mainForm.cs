@@ -69,7 +69,7 @@ namespace Client
         public static List<Schedule> schedules = new List<Schedule>();
         public static Dictionary<string, List<User>> groups = new Dictionary<string, List<User>>();
 
-        public static User myUserInfo;
+        public static User myUserInfo = new User();
         public bool isLoginSuccess = false;
 
         KLASCrawler klasCrawler;
@@ -124,7 +124,6 @@ namespace Client
                         groups = fullData["groups"] as Dictionary<string, List<User>>;
                         
                     }
-
 
                     foreach (Schedule schedule in DBSchedules)
                         schedules.Add(schedule);
@@ -239,8 +238,29 @@ namespace Client
 
         private void klasAllSuccess(object sender, AllSuccessEventArgs args)
         {
+            // 받아온 KLAS 일정 리스트를 검사 위해 서버로 
+            Packet sendPacket = new Packet();
+
+            sendPacket.action = ActionType.validateKlasData;
+            Dictionary<string, Object> fullData = new Dictionary<string, object>();
+            
+
+            fullData["user"] = myUserInfo;
+            fullData["schedules"] = args.getSchedules();
+
+            sendPacket.data = fullData;
+
+            // 여기에 
+
+
+            Packet.SendPacket(netstrm, sendPacket);
+
+            Packet receivedPacket = Packet.ReceivePacket(netstrm);
+
+
+
             // KLAS 스케줄들을 메인 스케줄에 추가
-            foreach(Schedule schedule in args.getSchedules())
+            foreach (Schedule schedule in args.getSchedules())
                 schedules.Add(schedule);
             loginSuccessEvent.Invoke(this, new LoginEventArgs(schedules, LoginEventArgs.TYPE.KLAS_LOGIN));
 
@@ -270,6 +290,21 @@ namespace Client
 
         private void lbyAllSuccess(object sender, AllSuccessEventArgs args)
         {
+            // 받아온 도서관 일정 리스트를 검사 위해 서버로 
+            Packet sendPacket = new Packet();
+
+            sendPacket.action = ActionType.validateKlasData;
+            Dictionary<string, Object> fullData = new Dictionary<string, object>();
+            
+            fullData["user"] = myUserInfo;
+            fullData["schedules"] = args.getSchedules();
+            sendPacket.data = fullData;
+
+            Packet.SendPacket(netstrm, sendPacket);
+
+            Packet receivedPacket = Packet.ReceivePacket(netstrm);
+
+
             // LIBRARY 스케줄들을 메인 스케줄에 추가
             foreach (Schedule schedule in args.getSchedules())
                 schedules.Add(schedule);
@@ -320,7 +355,7 @@ namespace Client
         {
             calendarContainer.Controls.Clear();
 
-            ToDoUIForm todoUIForm = new ToDoUIForm(libraryCrawler.getLibrarySchedules(),klasCrawler.getKLASSchedules());
+            ToDoUIForm todoUIForm = new ToDoUIForm(libraryCrawler.getLibrarySchedules(),klasCrawler.getKLASSchedules(),this);
             calendarContainer.Controls.Add(todoUIForm);
         }
 

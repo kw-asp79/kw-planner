@@ -24,28 +24,29 @@ namespace Client
         }
 
 
-        public ToDoUIForm(List<Schedule> libschedules,List<Schedule> klasschedules)
+        public ToDoUIForm(List<Schedule> libschedules,List<Schedule> klasschedules,mainForm mainForm)
         {
             InitializeComponent();
     
             this.libSchedules = libschedules;
             this.klasSchedules = klasschedules;
-            setLibSchedules();
+            setLibSchedules(mainForm.schedules);
             setKLASSchedules();
         }
 
-        public void setLibSchedules()
+        public void setLibSchedules(List<Schedule> schedules)
         {
-            foreach(Schedule schedule in libSchedules)
+            foreach(Schedule schedule in schedules)
             {
                 textBox1.AppendText("No # \r\n");
-
+                textBox1.AppendText("id: " + schedule.id + "\r\n");
                 textBox1.AppendText("Category: " + schedule.category + "\r\n");
                 textBox1.AppendText("title: " + schedule.title + "\r\n");
                 textBox1.AppendText("content: " + schedule.content + "\r\n");
                 textBox1.AppendText("starttime: " + schedule.startTime + "\r\n");
                 textBox1.AppendText("endtime: " + schedule.endTime + "\r\n");
-
+                textBox1.AppendText("fromwho: " + schedule.fromWho + "\r\n");
+                textBox1.AppendText("isDone: " + schedule.isDone + "\r\n");
                 textBox1.AppendText("\r\n\r\n");
             }
 

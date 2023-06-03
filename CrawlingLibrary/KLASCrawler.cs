@@ -66,7 +66,7 @@ namespace CrawlingLibrary
                 foreach(OnlineLecture onlineLecture in lecture.getOnlineLecture())
                 {
                     string title = "온라인 강의 수강";
-                    string content = lecture.getName() + "\n온라인 강의 수강";
+                    string content = lecture.getName() + " \"" + onlineLecture.getTitle() + "\"  \n온라인 강의 수강";
 
                     DateTime startTime = Convert.ToDateTime(onlineLecture.getDueDate());
 
@@ -81,7 +81,7 @@ namespace CrawlingLibrary
                 foreach (Assignment assignment in lecture.getAssignment())
                 {
                     string title = "과제 제출";
-                    string content = lecture.getName()  + "\n과제 제출";
+                    string content = lecture.getName() + " \"" + assignment.getTitle() + "\" \n과제 제출";
 
                     DateTime startTime = Convert.ToDateTime(assignment.getDueDate());
 
@@ -99,7 +99,7 @@ namespace CrawlingLibrary
                 foreach (Quiz quiz in lecture.getQuiz())
                 {
                     string title = "퀴즈 응시";
-                    string content = lecture.getName() + "\n퀴즈 응시";
+                    string content = lecture.getName() + " \"" + quiz.getTitle() + "\" \n퀴즈 응시";
 
                     DateTime startTime = Convert.ToDateTime(quiz.getDueDate());
 
@@ -117,7 +117,7 @@ namespace CrawlingLibrary
                 foreach (TeamProject teamProject in lecture.getTeamProject())
                 {
                     string title = "팀 프로젝트 진행";
-                    string content = lecture.getName() + "\n팀 프로젝트 진행";
+                    string content = lecture.getName() + " \"" + teamProject.getTitle() + "\" \n팀 프로젝트 진행";
 
                     DateTime startTime = Convert.ToDateTime(teamProject.getDueDate());
 
@@ -138,12 +138,12 @@ namespace CrawlingLibrary
         public void initDriver()
         {
             ChromeOptions options = new ChromeOptions();
-            //options.AddArgument("--headless");
+            options.AddArgument("--headless");
             //options.AddArgument("--disable-gpu");
 
             chromeDriverService = ChromeDriverService.CreateDefaultService();
             // hide chromedriver.exe
-            //chromeDriverService.HideCommandPromptWindow = true;
+            chromeDriverService.HideCommandPromptWindow = true;
             chromeDriver = new ChromeDriver(chromeDriverService, options);
 
             chromeDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
@@ -450,7 +450,7 @@ namespace CrawlingLibrary
             WaitForVisible(chromeDriver, By.XPath("//*[@id=\"appModule\"]/div[1]/div[1]/div/div[1]/a"));
             var element = chromeDriver.FindElement(By.XPath("//*[@id=\"appModule\"]/div[1]/div[1]/div/div[1]/a"));
             element.Click();
-            Thread.Sleep(500);
+            Thread.Sleep(300);
         }
 
 
@@ -526,7 +526,7 @@ namespace CrawlingLibrary
             WaitForVisible(chromeDriver, By.XPath("//*[@id=\"appModule\"]/div[1]/div[2]/div/div[2]/div/div[2]/ul/li[3]/a"));
             var element = chromeDriver.FindElement(By.XPath("//*[@id=\"appModule\"]/div[1]/div[2]/div/div[2]/div/div[2]/ul/li[3]/a"));
             element.Click();
-            Thread.Sleep(500);
+            Thread.Sleep(300);
         }
 
         private List<Quiz> crawlQuizData()
@@ -600,7 +600,7 @@ namespace CrawlingLibrary
             var element = chromeDriver.FindElement(By.XPath("//*[@id=\"appModule\"]/div[1]/div[2]/div/div[2]/div/div[1]/ul/li[1]/a"));
             element.Click();
 
-            Thread.Sleep(500);
+            Thread.Sleep(300);
         }
 
         // 온라인 강의 정보 Crawling
@@ -692,7 +692,7 @@ namespace CrawlingLibrary
             var element = chromeDriver.FindElement(By.XPath("//*[@id=\"appModule\"]/div[1]/div[2]/div/div[2]/div/div[2]/ul/li[2]/a"));
             element.Click();
 
-            Thread.Sleep(500);
+            Thread.Sleep(300);
         }
 
 

@@ -234,19 +234,10 @@ namespace Client
 
         private void UserControlDays_Click(object sender, EventArgs e)
         {
-            UserControlDays clickedPanel = (UserControlDays)sender;
-            int selectedDay = clickedPanel.day; // 현재 패널의 날짜 가져오기
-            string selectedDayOfWeek = CultureInfo.CurrentCulture.DateTimeFormat.GetDayName(DateTime.Now.AddDays(selectedDay - 1).DayOfWeek);
             EventForm todoEventForm = new EventForm(this);
-            todoEventForm.dtpStartDate.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, selectedDay);
-            todoEventForm.dtpEndDate.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, selectedDay);
+            todoEventForm.dtpStartDate.Value = date;
+            todoEventForm.dtpEndDate.Value = date;
             todoEventForm.ShowDialog();
-            Schedule matchingSchedule = mainForm.schedules.FirstOrDefault(schedule => schedule.startTime.Date == todoEventForm.dtpStartDate.Value.Date || schedule.endTime.Date == todoEventForm.dtpEndDate.Value.Date);
-            if (matchingSchedule != null)
-            {
-                // 스케줄 정보를 패널에 추가
-                //clickedPanel.AddLabel(matchingSchedule.content, matchingSchedule.category);
-            }
         }
 
         private void UserControlDays_DoubleClick(object sender, EventArgs e)

@@ -32,6 +32,13 @@ namespace SampleCalenderServer
                 schedule.content = reader.GetString("content");
                 schedule.startTime = reader.GetDateTime("start_time");
                 schedule.endTime = reader.GetDateTime("end_time");
+                schedule.fromWho = reader.GetString("from_who");
+                byte tinyintValue = reader.GetByte("is_done");
+                schedule.isDone = (Boolean)(tinyintValue != 0);
+
+
+                // Boolean 변수에 저장합니다.
+                bool booleanValue = tinyintValue != 0;
 
                 schedules.Add(schedule);
             }
@@ -45,14 +52,14 @@ namespace SampleCalenderServer
         {
             MySqlCommand command = DBProcess.connection.CreateCommand();
 
-            command.CommandText = "SELECT schedule_id FROM schedule JOIN user_schedule WHERE schedule.category = @category and schedule.title = @title and schedule.content = @content" +
+            command.CommandText = "SELECT schedule.schedule_id FROM schedule JOIN user_schedule WHERE schedule.category = @category and schedule.title = @title and schedule.content = @content" +
                 " and schedule.start_time = @startTime and schedule.end_time = @endTime" +
-                " and user_schedule.user_id = @userId and schedule.schedule_id = user_schedule.schedule.id;";
+                " and user_schedule.user_id = @userId and schedule.schedule_id = user_schedule.schedule_id;";
             command.Parameters.AddWithValue("@category", schedule.category);
             command.Parameters.AddWithValue("@title", schedule.title);
             command.Parameters.AddWithValue("@content", schedule.content);
-            command.Parameters.AddWithValue("startTime", schedule.startTime);
-            command.Parameters.AddWithValue("endTime", schedule.endTime);
+            command.Parameters.AddWithValue("@startTime", schedule.startTime);
+            command.Parameters.AddWithValue("@endTime", schedule.endTime);
             command.Parameters.AddWithValue("@userId", userId);
 
             MySqlDataReader reader = command.ExecuteReader();
@@ -90,18 +97,20 @@ namespace SampleCalenderServer
         public static int CreateSchedule(Schedule schedule)
         {
             MySqlCommand command = DBProcess.connection.CreateCommand();
-            command.CommandText = "INSERT INTO schedule (category, title, content, start_time, end_time) " +
-                                  "VALUES (@category, @title, @content, @startTime, @endTime);";
+            command.CommandText = "INSERT INTO schedule (category, title, content, start_time, end_time, from_who, is_done) " +
+                                  "VALUES (@category, @title, @content, @startTime, @endTime, @from_who, @is_done);";
             command.Parameters.AddWithValue("@category", schedule.category);
             command.Parameters.AddWithValue("@title", schedule.title);
             command.Parameters.AddWithValue("@content", schedule.content);
             command.Parameters.AddWithValue("@startTime", schedule.startTime);
             command.Parameters.AddWithValue("@endTime", schedule.endTime);
+            command.Parameters.AddWithValue("@from_who", schedule.fromWho);
+            command.Parameters.AddWithValue("is_done", schedule.isDone);
 
             command.ExecuteNonQuery();
 
             command.CommandText = "SELECT LAST_INSERT_ID();";
-            int id = (int)command.ExecuteScalar();
+            int id = Convert.ToInt32(command.ExecuteScalar());
 
             return id;
         }
@@ -132,6 +141,36 @@ namespace SampleCalenderServer
             command.ExecuteNonQuery();
         }
 
+        public static List<Schedule> SelectRequestSchedules(User user)
+        {
+            MySqlCommand command = DBProcess.connection.CreateCommand();
 
+            command.CommandText = "SELECT schedule.* FROM schedule JOIN user_schedule WHERE schedule.category = `CUSTOM`" +
+                " and user_schedule.user_id = @myUserId AND user_schedule.schedule_id = schedule.schedule_id;";
+            command.Parameters.AddWithValue("@myUserId", user.id);
+
+            MySqlDataReader reader = command.ExecuteReader();
+
+            List<Schedule> schedules = new List<Schedule>();
+
+            while (reader.Read())
+            {
+                Schedule schedule = new Schedule();
+
+                schedule.category = reader.GetString("category");
+                schedule.title = reader.GetString("title");
+                schedule.content = reader.GetString("content");
+                schedule.startTime = reader.GetDateTime("start_time");
+                schedule.endTime = reader.GetDateTime("end_time");
+                schedule.fromWho = reader.GetString("from_who");
+                schedule.isDone = reader.GetBoolean("is_done");
+
+                schedules.Add(schedule);
+            }
+
+            reader.Close();
+
+            return schedules;
+        }
     }
 }
