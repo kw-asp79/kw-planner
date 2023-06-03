@@ -14,14 +14,14 @@ using EntityLibrary;
 using System.Net;
 
 namespace CrawlingLibrary
-{ 
+{
 
     // crawls KLAS web page and lecture datas that user takes
 
     public class KLASCrawler
     {
         public List<Lecture> lectures = new List<Lecture>();
-        
+
         List<string> lectureNames = new List<string>();
 
         int lectureNum;
@@ -40,7 +40,7 @@ namespace CrawlingLibrary
 
         public event EventHandler<EventArgs> crawlingEvent;
 
-        public KLASCrawler() {}
+        public KLASCrawler() { }
 
         public int getLectureNum()
         {
@@ -51,19 +51,19 @@ namespace CrawlingLibrary
         {
             return username;
         }
-        
 
-        public List<Schedule> getKLASSchedules() {  return  klasSchedules; }
+
+        public List<Schedule> getKLASSchedules() { return klasSchedules; }
 
 
         public void setSchedules()
         {
-            foreach(Lecture lecture in lectures)
+            foreach (Lecture lecture in lectures)
             {
                 // 모든 스케줄은 마감일 당일만 진행하도록 세팅 => 마감일 표시가 더 중요하므로..
-                
+
                 // OnlineLecture Schedule
-                foreach(OnlineLecture onlineLecture in lecture.getOnlineLecture())
+                foreach (OnlineLecture onlineLecture in lecture.getOnlineLecture())
                 {
                     string title = "온라인 강의 수강";
                     string content = lecture.getName() + "\n온라인 강의 수강";
@@ -73,7 +73,7 @@ namespace CrawlingLibrary
                     string endTimeLine = onlineLecture.getDueDate() + " 23:59:59";
                     DateTime endTime = DateTime.ParseExact(endTimeLine, "yyyy-MM-dd HH:mm:ss", null);
 
-                    Schedule schedule = new Schedule("KLAS",title,content,startTime,endTime);
+                    Schedule schedule = new Schedule("KLAS", title, content, startTime, endTime);
                     klasSchedules.Add(schedule);
                 }
 
@@ -81,7 +81,7 @@ namespace CrawlingLibrary
                 foreach (Assignment assignment in lecture.getAssignment())
                 {
                     string title = "과제 제출";
-                    string content = lecture.getName()  + "\n과제 제출";
+                    string content = lecture.getName() + "\n과제 제출";
 
                     DateTime startTime = Convert.ToDateTime(assignment.getDueDate());
 
@@ -89,7 +89,7 @@ namespace CrawlingLibrary
                     DateTime endTime = DateTime.ParseExact(endTimeLine, "yyyy-MM-dd HH:mm:ss", null);
 
 
-                    Schedule schedule = new Schedule("KLAS",title,content,startTime,endTime);
+                    Schedule schedule = new Schedule("KLAS", title, content, startTime, endTime);
                     klasSchedules.Add(schedule);
                 }
 
@@ -107,7 +107,7 @@ namespace CrawlingLibrary
                     DateTime endTime = DateTime.ParseExact(endTimeLine, "yyyy-MM-dd HH:mm:ss", null);
 
 
-                    Schedule schedule = new Schedule("KLAS",title,content,startTime,endTime) ;
+                    Schedule schedule = new Schedule("KLAS", title, content, startTime, endTime);
                     klasSchedules.Add(schedule);
                 }
 
@@ -124,7 +124,7 @@ namespace CrawlingLibrary
                     string endTimeLine = teamProject.getDueDate() + " 23:59:59";
                     DateTime endTime = DateTime.ParseExact(endTimeLine, "yyyy-MM-dd HH:mm:ss", null);
 
-                    Schedule schedule = new Schedule("KLAS",title,content,startTime,endTime);
+                    Schedule schedule = new Schedule("KLAS", title, content, startTime, endTime);
                     klasSchedules.Add(schedule);
                 }
 
@@ -154,7 +154,7 @@ namespace CrawlingLibrary
         // do all of things including login, crawling all datas and etc.. 
         public CrawlingStatus.Status doWork(string id, string pwd)
         {
-            
+
             KLASCrawler.id = id;
             KLASCrawler.pwd = pwd;
 
@@ -169,7 +169,7 @@ namespace CrawlingLibrary
                     return loginStatus;
                 }
                 else // 로그인 성공이면 로그인 폼에서 크롤링 작업을 시작한다는 메시지를 띄우도록
-                    loginSuccessEvent.Invoke(this,new EventArgs());                   
+                    loginSuccessEvent.Invoke(this, new EventArgs());
 
 
                 CrawlingStatus.Status crawlBasicStatus = crawlBasicLectureDatas();
@@ -191,7 +191,7 @@ namespace CrawlingLibrary
             catch (Exception ex)
             {
                 //Console.WriteLine("Error while Setting chromeDriverService and chromeDriver " + ex);
-                
+
             }
 
 
@@ -201,9 +201,9 @@ namespace CrawlingLibrary
 
         public void garbageResources()
         {
-            try 
+            try
             {
-              chromeDriver.Quit();
+                chromeDriver.Quit();
 
             }
             catch (Exception e)
@@ -235,8 +235,9 @@ namespace CrawlingLibrary
                 // klas 로그인 실패 시, 오류 알림이 뜸.. 
                 if (isElementExists(chromeDriver, By.XPath("//*[@id=\"ax5-dialog-27\"]/div[2]/div[1]")) == true)
                     return CrawlingStatus.Status.LoginFailure;
-                
-            } catch(Exception ex)
+
+            }
+            catch (Exception ex)
             {
                 //Console.WriteLine(ex.Message + "Error while loginKLAS process.. " + ex );
                 return CrawlingStatus.Status.LoginFailure;
@@ -337,8 +338,8 @@ namespace CrawlingLibrary
                 chromeDriver = new ChromeDriver(chromeDriverService, options);
                 chromeDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
 
-                loginKLAS(id,pwd);
-                
+                loginKLAS(id, pwd);
+
                 // 과목명 옵션별로 선택하기 버튼 
                 string optionXpath = "//*[@id=\"appModule\"]/div/div[1]/div[2]/ul/li[" + i + "]/div[1]";
 
@@ -350,7 +351,7 @@ namespace CrawlingLibrary
                 element.Click();
                 Thread.Sleep(300);
 
-                return chromeDriver; 
+                return chromeDriver;
             }
 
         }
@@ -359,7 +360,7 @@ namespace CrawlingLibrary
         // crawl notices,online lectures, assignments, quiz, team projects and online tests.. 
         private CrawlingStatus.Status crawlMainLectureDatas()
         {
-          //  var factory = new ChromeDriverFactory();
+            //  var factory = new ChromeDriverFactory();
 
             try
             {
@@ -406,7 +407,7 @@ namespace CrawlingLibrary
             {
                 //Console.WriteLine(e.ToString());
                 //Console.WriteLine("Error while crawling main lectureDatas process..");
-                return CrawlingStatus.Status.CrawlingError;
+                //return CrawlingStatus.Status.CrawlingError;
             }
 
             return CrawlingStatus.Status.CrawlingSuccess;
@@ -424,10 +425,10 @@ namespace CrawlingLibrary
                 //WaitForVisible(chromeDriver, By.XPath("//*[@id=\"appHeaderSubj\"]/div/div/div[1]/span[1]"));
                 var element = chromeDriver.FindElement(By.XPath("//*[@id=\"appHeaderSubj\"]/div/div/div[1]/span[1]"));
                 element.Click();
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
 
             }
-            catch (Exception e) 
+            catch (Exception e)
             {
                 Console.WriteLine("Error while moving to Overall Page " + e);
             }
@@ -446,7 +447,7 @@ namespace CrawlingLibrary
             //WaitForVisible(chromeDriver, By.XPath("//*[@id=\"appModule\"]/div[1]/div[1]/div/div[1]/a"));
             var element = chromeDriver.FindElement(By.XPath("//*[@id=\"appModule\"]/div[1]/div[1]/div/div[1]/a"));
             element.Click();
-            Thread.Sleep(300);
+            Thread.Sleep(1000);
         }
 
 
@@ -454,10 +455,10 @@ namespace CrawlingLibrary
         {
             moveToNoticePage();
             List<Notice> notices = new List<Notice>();
-  
+
             try
             {
-               // WaitForVisible(chromeDriver, By.XPath("//*[@id=\"appModule\"]/table/tbody/tr/td"));
+                // WaitForVisible(chromeDriver, By.XPath("//*[@id=\"appModule\"]/table/tbody/tr/td"));
                 // if notice doesn't exist, then testString is "글이 없습니다."
                 string testString = chromeDriver.FindElement(By.XPath("//*[@id=\"appModule\"]/table/tbody/tr/td")).Text.ToString();
 
@@ -466,7 +467,7 @@ namespace CrawlingLibrary
                     return notices;
                 }
                 else
-                {   
+                {
                     // if notice exists
                     //Console.WriteLine("Notice exists");
 
@@ -497,11 +498,11 @@ namespace CrawlingLibrary
 
                 }
             }
-            catch( Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine("Error while crawlNoticePage() " + e);
             }
-            
+
             return notices;
         }
 
@@ -515,7 +516,7 @@ namespace CrawlingLibrary
         {
             var element = chromeDriver.FindElement(By.XPath("//*[@id=\"appModule\"]/div[1]/div[2]/div/div[2]/div/div[2]/ul/li[3]/a"));
             element.Click();
-            Thread.Sleep(300);
+            Thread.Sleep(1000);
         }
 
         private List<Quiz> crawlQuizData()
@@ -538,7 +539,7 @@ namespace CrawlingLibrary
                 {
                     //Console.WriteLine("Quiz exists");
                     moveToQuizPage();
-                    
+
                     // crawl whole quiz table data
                     var quizTable = chromeDriver.FindElement(By.XPath("//*[@id=\"prjctList\"]/tbody"));
                     Console.WriteLine(quizTable.Text);
@@ -552,15 +553,15 @@ namespace CrawlingLibrary
 
                         // 상태 추출 
                         string state = pureQuiz.Split(' ').Reverse().ToArray()[0];
-                        
+
                         // 제출기한 추출
                         string[] deadlinePart = pureQuiz.Split(' ').Reverse().Skip(1).Take(5).Reverse().ToArray();
                         string deadline = string.Join(" ", deadlinePart);
-                        
+
                         // 퀴즈 제목 추출 
                         string[] titlePart = pureQuiz.Split(' ').Reverse().Skip(6).Reverse().ToArray();
                         string title = string.Join(" ", titlePart);
-                        
+
                         Quiz quiz = new Quiz(title, deadline, state);
                         quizs.Add(quiz);
                     }
@@ -572,6 +573,7 @@ namespace CrawlingLibrary
             catch (Exception e)
             {
                 Console.WriteLine("Error while crawlQuizPage() " + e);
+                moveToOverallPage();
             }
 
             return quizs;
@@ -584,11 +586,11 @@ namespace CrawlingLibrary
         // move to Online Lecture Page (해당 강의 종합 페이지 -> 온라인강의 버튼 클릭 후 이동)
         private void moveToOnlineLecturePage()
         {
-           // WaitForVisible(chromeDriver, By.XPath("//*[@id=\"appModule\"]/div[1]/div[2]/div/div[2]/div/div[1]/ul/li[1]/a/span"));
-              
+            // WaitForVisible(chromeDriver, By.XPath("//*[@id=\"appModule\"]/div[1]/div[2]/div/div[2]/div/div[1]/ul/li[1]/a/span"));
+
             var element = chromeDriver.FindElement(By.XPath("//*[@id=\"appModule\"]/div[1]/div[2]/div/div[2]/div/div[1]/ul/li[1]/a"));
             element.Click();
-            Thread.Sleep(300);
+            Thread.Sleep(1000);
         }
 
         // 온라인 강의 정보 Crawling
@@ -598,7 +600,7 @@ namespace CrawlingLibrary
 
             try
             {
-                  
+
                 // 강의 페이지에서 온라인 강의 "n/m" 데이터 parsing
                 string testString = chromeDriver.FindElement(By.XPath("//*[@id=\"appModule\"]/div[1]/div[2]/div/div[2]/div/div[1]/ul/li[1]/a/span")).Text.ToString();
                 testString = testString.Split('/')[1];
@@ -612,12 +614,12 @@ namespace CrawlingLibrary
                 {
                     //Console.WriteLine("OnlineLecture exists");
                     moveToOnlineLecturePage();
-                    
+
                     // crawl whole quiz table data
                     var onlineLectureTable = chromeDriver.FindElement(By.XPath("//*[@id=\"prjctList\"]/tbody"));
-                    
+
                     string[] fullRawOnlineLectures = onlineLectureTable.Text.Split('\n').ToArray();
-                    
+
                     for (int i = 0; i < fullRawOnlineLectures.Length;)
                     {
                         string fullRawOnlineLecture = fullRawOnlineLectures[i];
@@ -668,6 +670,8 @@ namespace CrawlingLibrary
             catch (Exception e)
             {
                 Console.WriteLine("Error while crawlOnlineLecturePage() " + e);
+
+                moveToOverallPage();
             }
 
             return onlineLectures;
@@ -681,19 +685,19 @@ namespace CrawlingLibrary
         {
             var element = chromeDriver.FindElement(By.XPath("//*[@id=\"appModule\"]/div[1]/div[2]/div/div[2]/div/div[2]/ul/li[2]/a"));
             element.Click();
-            Thread.Sleep(300);
+            Thread.Sleep(1000);
         }
 
 
         // 과제 정보 Crawling 
         private List<Assignment> crawlAssignmentData()
         {
-            
+
             List<Assignment> assignments = new List<Assignment>();
 
             try
             {
-                
+
                 // 강의 페이지에서 과제 "n/m" 데이터 parsing
                 string testString = chromeDriver.FindElement(By.XPath("//*[@id=\"appModule\"]/div[1]/div[2]/div/div[2]/div/div[2]/ul/li[2]/a/span")).Text.ToString();
                 testString = testString.Split('/')[1];
@@ -701,19 +705,19 @@ namespace CrawlingLibrary
 
                 if (numAssignment == 0)
                 {
-                     return assignments;
+                    return assignments;
                 }
                 else
                 {
                     //Console.WriteLine("Assignment exists");
                     moveToAssignmentPage();
-                    
+
 
                     // crawl whole assignment table data
                     var assignmentTable = chromeDriver.FindElement(By.XPath("//*[@id=\"appModule\"]/div/div[3]/table"));
 
                     string[] fullRawAssignments = assignmentTable.Text.Split('\n').Skip(2).ToArray();
-                    
+
                     List<string> rawAssignments = new List<string>();
                     // extract additional deadline(추가제출기한) 
                     for (int i = 0; i < fullRawAssignments.Length; i += 2)
@@ -748,11 +752,13 @@ namespace CrawlingLibrary
 
                     moveToOverallPage();
                 }
-                
+
             }
             catch (Exception e)
             {
                 Console.WriteLine("Error while crawlOnlineLecturePage() " + e);
+
+                moveToOverallPage();
             }
 
             return assignments;
@@ -768,7 +774,7 @@ namespace CrawlingLibrary
         {
             var element = chromeDriver.FindElement(By.XPath("//*[@id=\"appModule\"]/div[1]/div[2]/div/div[2]/div/div[1]/ul/li[2]/a"));
             element.Click();
-            Thread.Sleep(300);
+            Thread.Sleep(1000);
         }
 
         private List<TeamProject> crawlTeamProjectData()
@@ -784,26 +790,26 @@ namespace CrawlingLibrary
 
                 if (numTeamProject == 0)
                 {
-                   return teamProjects;
+                    return teamProjects;
                 }
                 else
                 {
                     //Console.WriteLine("Project exists");
                     moveToTeamProjectPage();
-                    
+
                     // crawl whole assignment table data
                     var teamProjectTable = chromeDriver.FindElement(By.XPath("//*[@id=\"appModule\"]/table"));
                     //Console.WriteLine(teamProjectTable.Text);
 
                     string[] fullRawTeamProjects = teamProjectTable.Text.Split('\n').Skip(2).ToArray();
-                    
+
                     List<string> rawTeamProjects = new List<string>();
                     for (int i = 0; i < fullRawTeamProjects.Length; i += 2)
                         rawTeamProjects.Add(fullRawTeamProjects[i]);
 
                     foreach (string rawTeamProject in rawTeamProjects)
                     {
-                    
+
                         // 번호, 조회, 과제공개여부 부분 삭제 
                         string[] pureTeamProjectArray = rawTeamProject.Split(' ').Skip(1).Reverse().Skip(2).Reverse().ToArray();
                         string pureTeamProject = string.Join(" ", pureTeamProjectArray);
@@ -831,6 +837,8 @@ namespace CrawlingLibrary
             catch (Exception e)
             {
                 Console.WriteLine("Error while crawlTeamProjectPage() " + e);
+
+                moveToOverallPage();
             }
 
             return teamProjects;
@@ -851,30 +859,5 @@ namespace CrawlingLibrary
                 return false;
             }
         }
-
-
-        /*private static bool WaitForVisible(IWebDriver driver, By by,string targetName)
-        {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(3));
-            
-            try
-            {
-                IWebElement element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(by));
-                if(element.Text.Contains(targetName))
-                {
-                    Console.WriteLine(element.Text);
-                    return true;
-                }
-            }
-            catch(Exception e)
-            {
-                return false;
-            }
-
-            return false;
-        }
-*/
-
-
     }
 }

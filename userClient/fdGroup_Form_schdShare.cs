@@ -34,15 +34,17 @@ namespace WindowsFormsApp1
         {
             DateTime startDateTime = new DateTime(dtpStartDate.Value.Year, dtpStartDate.Value.Month, dtpStartDate.Value.Day,
                dtpStartTime.Value.Hour, dtpStartTime.Value.Minute, 0);
+            string formatteddtpStartTime = startDateTime.ToString("yyyy-MM-dd HH:mm:ss");
             DateTime endDateTime = new DateTime(dtpEndDate.Value.Year, dtpEndDate.Value.Month, dtpEndDate.Value.Day,
                 dtpEndTime.Value.Hour, dtpEndTime.Value.Minute, 0);
+            string formatteddtpEndTime = startDateTime.ToString("yyyy-MM-dd HH:mm:ss");
 
             string title = tbx_Title.Text;
             string content = tbx_Content.Text;
-            string category = "REQUEST";
+            string category = "CUSTOM";
             user_id = mainForm.myUserInfo.id;
             Schedule eventschedule = new Schedule();
-            int A = mainForm.schedules.Count;
+            int A = mainForm.schedules.Count +1;
             eventschedule.id = A;
             eventschedule.startTime = startDateTime.Date;
             eventschedule.endTime = endDateTime.Date;
@@ -52,7 +54,8 @@ namespace WindowsFormsApp1
             eventschedule.fromWho = user_id;
             eventschedule.isDone = false;
             mainForm.schedules.Add(eventschedule);
-
+            string message = string.Format("{0} 님이 {1} 친{2}구로 {3}등록{4}되었습{5}니다.{6},{7} dddd,{8}", A, startDateTime.Date, endDateTime.Date, category, title, content, user_id, list.Count, group_name);
+            MessageBox.Show(message);
 
 
             //User들 id/ list에 담겨있어요. 
