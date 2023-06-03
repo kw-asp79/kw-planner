@@ -49,7 +49,6 @@ namespace Client
             return type;
         }
 
-
     }
 
 
@@ -114,19 +113,18 @@ namespace Client
 
                     packet = Packet.ReceivePacket(netstrm);
 
-                    List<Schedule> DBSchedules = new List<Schedule>();
+                    List<Schedule> tempSchedules = new List<Schedule>();
                     if (packet.action == ActionType.Success)
                     {
                         Dictionary<string, Object> fullData = packet.data as Dictionary<string, object>;
 
                         friends = fullData["friends"] as List<User>;
-                        DBSchedules = fullData["schedules"] as List<Schedule>;
+                        tempSchedules = fullData["schedules"] as List<Schedule>;
                         groups = fullData["groups"] as Dictionary<string, List<User>>;
                         
                     }
 
-
-                    foreach (Schedule schedule in DBSchedules)
+                    foreach (Schedule schedule in tempSchedules)
                         schedules.Add(schedule);
 
                     // Login eventHandler call! 
@@ -176,6 +174,7 @@ namespace Client
             netstrm = server.GetStream();
 
             Task.Run(() => requestMyData(netstrm));
+            //Task.Run(() => waitShareProcess(netstrm));
 
             //Task.Run(() => waitShareProcess(netstrm));
 
@@ -320,7 +319,7 @@ namespace Client
         {
             calendarContainer.Controls.Clear();
 
-            ToDoUIForm todoUIForm = new ToDoUIForm(libraryCrawler.getLibrarySchedules(),klasCrawler.getKLASSchedules());
+            ToDoUIForm todoUIForm = new ToDoUIForm(libraryCrawler.getLibrarySchedules(),klasCrawler.getKLASSchedules(),this);
             calendarContainer.Controls.Add(todoUIForm);
         }
 

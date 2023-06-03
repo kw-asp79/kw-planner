@@ -61,14 +61,14 @@
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(149, 78);
             this.btnSave.TabIndex = 4;
-            this.btnSave.Text = "save";
+            this.btnSave.Text = "저장하기";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // lblSelectedDate
             // 
             this.lblSelectedDate.AutoSize = true;
-            this.lblSelectedDate.Location = new System.Drawing.Point(28, 11);
+            this.lblSelectedDate.Location = new System.Drawing.Point(65, 11);
             this.lblSelectedDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSelectedDate.Name = "lblSelectedDate";
             this.lblSelectedDate.Size = new System.Drawing.Size(0, 18);
@@ -139,23 +139,23 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F);
-            this.label1.Location = new System.Drawing.Point(1, 11);
+            this.label1.Location = new System.Drawing.Point(52, 11);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(147, 32);
+            this.label1.Size = new System.Drawing.Size(98, 32);
             this.label1.TabIndex = 0;
-            this.label1.Text = "start_Time";
+            this.label1.Text = "시작시간";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F);
-            this.label2.Location = new System.Drawing.Point(15, 62);
+            this.label2.Location = new System.Drawing.Point(52, 62);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(140, 32);
+            this.label2.Size = new System.Drawing.Size(98, 32);
             this.label2.TabIndex = 1;
-            this.label2.Text = "end_Time";
+            this.label2.Text = "종료시간";
             // 
             // tbTitle
             // 
@@ -170,23 +170,23 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F);
-            this.label3.Location = new System.Drawing.Point(716, 11);
+            this.label3.Location = new System.Drawing.Point(781, 11);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 32);
+            this.label3.Size = new System.Drawing.Size(56, 32);
             this.label3.TabIndex = 15;
-            this.label3.Text = "Title";
+            this.label3.Text = "제목";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F);
-            this.label4.Location = new System.Drawing.Point(689, 62);
+            this.label4.Location = new System.Drawing.Point(781, 62);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(114, 32);
+            this.label4.Size = new System.Drawing.Size(56, 32);
             this.label4.TabIndex = 16;
-            this.label4.Text = "Content";
+            this.label4.Text = "내용";
             // 
             // EventForm
             // 
