@@ -147,7 +147,7 @@ namespace Client
             eventschedule.endTime = endDateTime;
             eventschedule.category = "CUSTOM";
             eventschedule.title = tbTitle.Text;
-            eventschedule.content = tbSchedule.Text;
+            eventschedule.content = tbContent.Text;
             eventschedule.fromWho = "0";
             eventschedule.isDone = false;
             mainForm.schedules.Add(eventschedule);
@@ -183,7 +183,7 @@ namespace Client
             content[k].Location = new Point(title[k].Location.X + 100, title[k].Location.Y);
             content[k].Size = new Size(labelWidth * 5, labelHeight);
             content[k].Font = new Font("Ink Free", 11, FontStyle.Regular);
-            content[k].Text = tbSchedule.Text;
+            content[k].Text = tbContent.Text;
             content[k].Tag = k;
 
             deletebtn[k] = new Button();
@@ -260,7 +260,7 @@ namespace Client
         {
             // 나머지 입력 필드들을 초기화
             tbTitle.Text = "";
-            tbSchedule.Text = "";
+            tbContent.Text = "";
         }
         private void RenderSchedules()
         {
