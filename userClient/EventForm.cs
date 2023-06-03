@@ -229,17 +229,35 @@ namespace Client
 
             string deleteTitle = title[index].Text;
             string deleteContent = content[index].Text;
+            DateTime startTime = DateTime.Parse(start[index].Text);
+            DateTime endTime = DateTime.Parse(end[index].Text);
 
             // mainForm의 schedules 리스트에서 해당하는 스케줄을 찾아 삭제
             for (int i = 0; i < mainForm.schedules.Count; i++)
             {
                 Schedule schedule = mainForm.schedules[i];
-                if (schedule.title == deleteTitle && schedule.content == deleteContent)
+                if (schedule.title == deleteTitle && schedule.content == deleteContent && schedule.startTime == startTime && schedule.endTime == endTime)
                 {
+                    // mainForm의 변수에서 삭제
                     mainForm.schedules.RemoveAt(i);
                     break;
+
+                    // 서버에 스케쥴 삭제를 요청
+                    Dictionary<string, Object> fullData = new Dictionary<string, object>();
+                    fullData.Add("user", mainForm.myUserInfo);
+                    fullData.Add("schedule", schedule);
+
+                    Packet packet = new Packet();
+                    packet.action = ActionType.deleteSchedule;
+                    packet.data = fullData;
+
+                    Packet.SendPacket(netstrm, packet);
+                    packet = Packet.ReceivePacket(netstrm);
+
                 }
             }
+
+
 
 
             if (index < k - 1)
@@ -342,6 +360,8 @@ namespace Client
             int index = (int)checkBox.Tag;
             string deleteTitle = title[index].Text;
             string deleteContent = content[index].Text;
+            DateTime startTime = DateTime.Parse(start[index].Text);
+            DateTime endTime = DateTime.Parse(end[index].Text);
 
             if (checkBox.Checked)
             {
@@ -353,9 +373,22 @@ namespace Client
                 for (int i = 0; i < mainForm.schedules.Count; i++)
                 {
                     Schedule schedule = mainForm.schedules[i];
-                    if (schedule.title == deleteTitle && schedule.content == deleteContent)
+                    if (schedule.title == deleteTitle && schedule.content == deleteContent && schedule.startTime == startTime && schedule.endTime == endTime)
                     {
                         schedule.isDone = true;
+
+                        // 서버에 스케쥴 업데이트를 요청
+                        Dictionary<string, Object> fullData = new Dictionary<string, object>();
+                        fullData.Add("user", mainForm.myUserInfo);
+                        fullData.Add("schedule", schedule);
+
+                        Packet packet = new Packet();
+                        packet.action = ActionType.editSchedule;
+                        packet.data = fullData;
+
+                        Packet.SendPacket(netstrm, packet);
+                        packet = Packet.ReceivePacket(netstrm);
+
                         break;
                     }
                 }
@@ -370,9 +403,22 @@ namespace Client
                 for (int i = 0; i < mainForm.schedules.Count; i++)
                 {
                     Schedule schedule = mainForm.schedules[i];
-                    if (schedule.title == deleteTitle && schedule.content == deleteContent)
+                    if (schedule.title == deleteTitle && schedule.content == deleteContent && schedule.startTime == startTime && schedule.endTime == endTime)
                     {
                         schedule.isDone = false;
+
+                        // 서버에 스케쥴 업데이트를 요청
+                        Dictionary<string, Object> fullData = new Dictionary<string, object>();
+                        fullData.Add("user", mainForm.myUserInfo);
+                        fullData.Add("schedule", schedule);
+
+                        Packet packet = new Packet();
+                        packet.action = ActionType.editSchedule;
+                        packet.data = fullData;
+
+                        Packet.SendPacket(netstrm, packet);
+                        packet = Packet.ReceivePacket(netstrm);
+
                         break;
                     }
                 }

@@ -97,8 +97,6 @@ namespace Client
 
         public void requestMyData(NetworkStream netstrm)
         {
-            MessageBox.Show("readAllData 실행");
-
             while (true)
             {
                 if (isLoginSuccess)
@@ -127,12 +125,7 @@ namespace Client
                     foreach (Schedule schedule in tempSchedules)
                         schedules.Add(schedule);
 
-                    string meesage = "";
-                    foreach (Schedule schedule in schedules)
-                    {
-                        meesage += schedule.title + ", " + schedule.content + ", " + schedule.fromWho + "\n";
-                    }
-                    MessageBox.Show(meesage);
+                    
 
                     // Login eventHandler call! 
                     loginSuccessEvent.Invoke(this,new LoginEventArgs(schedules,LoginEventArgs.TYPE.PROGRAM_LOGIN));
@@ -140,28 +133,6 @@ namespace Client
                     break;
                 }
             }
-        }
-
-        public void waitShareProcess(NetworkStream netstrm)
-        {
-            /*
-            while (true)
-            {
-                if (isLoginSuccess)
-                {
-                    Packet packet = new Packet();
-
-                    packet = Packet.ReceivePacket(netstrm);
-
-                    if(packet.action == ActionType.shareSchedule)
-                    {
-                        Schedule schedule = (Schedule)packet.data;
-                        MessageBox.Show("Schedule title : " + schedule.title +", content : " + schedule.content);
-                    }
-                    
-                }
-            }
-            */
         }
 
         private async void Form1_Load(object sender, EventArgs e)

@@ -351,21 +351,31 @@ namespace SampleCalenderServer
             Group group = fullData["group"] as Group;
             Schedule schedule = fullData["schedule"] as Schedule;
             // 아랫줄은 클라이언트에서 초기화한 다음에 넘어와도 괜찮음
-            schedule.fromWho = group.user_id;
+
 
             int group_id = GroupRepository.SelectGroupIdByName(group.name, group.user_id);
 
             List<User> userList = GroupRepository.SelectFriendsListByGroupId(group_id);
 
-            // Insert Schedule
-            int schedule_id = ScheduleRepository.CreateSchedule(schedule);
+            Schedule scheduleOfSender = schedule;
+            scheduleOfSender.category = "CUSTOM";
+
+            // Insert Schedule of me
+            int schedule_id = ScheduleRepository.CreateSchedule(scheduleOfSender);
 
             // Insert UserSchedule of me
             ScheduleRepository.CreateUserSchedule(group.user_id, schedule_id);
 
-            // Insert UserSchedule of List<User>
-            foreach(User friend in userList)
+
+            Schedule scheduleOfReceiver = schedule;
+            scheduleOfReceiver.category = "REQUEST";
+
+            foreach (User friend in userList)
             {
+                // Insert Schedule of List<User>
+                schedule_id = ScheduleRepository.CreateSchedule(scheduleOfReceiver);
+
+                // Insert UserSchedule of List<User>
                 ScheduleRepository.CreateUserSchedule(friend.id, schedule_id);
             }
 
@@ -384,11 +394,11 @@ namespace SampleCalenderServer
 
             User myUserInfo = fullData["user"] as User;
 
-            ScheduleRepository.SelectRequestSchedules(myUserInfo);
+            List<Schedule> requestSchedules = ScheduleRepository.SelectRequestSchedules(myUserInfo);
 
             Packet sendPacket = new Packet();
             sendPacket.action = ActionType.Success;
-            sendPacket.data = null;
+            sendPacket.data = requestSchedules;
 
             return sendPacket;
         }
@@ -564,7 +574,17 @@ namespace SampleCalenderServer
                         fullData = receivedPacket.data as Dictionary<string, object>;
                         sendPacket = ShareScheduleProcess(fullData);
                         break;
-                    case ActionType.ClientClosed:
+                    case ActionType.viewRequestSchedules:
+                        Console.WriteLine("[{0}] viewRequestSchedules request", remoteAddress);
+                        fullData = receivedPacket.data as Dictionary<string, object>;
+                        sendPacket = ViewRequestSchedules(fullData);
+                        break;
+                    case ActionType.updateRequestToCustom:
+                        Console.WriteLine("[{0}] updateRequestToCustom request", remoteAddress);
+                        fullData = receivedPacket.data as Dictionary<string, object>;
+                        sendPacket = UpdateRequestToCustom(fullData);
+                        break;
+                        case ActionType.ClientClosed:
                         Console.WriteLine("[{0}] ClientClosed request", remoteAddress);
                         throw new Exception("ClientClosed");                   
                     default:
