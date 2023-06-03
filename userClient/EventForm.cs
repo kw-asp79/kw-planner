@@ -43,11 +43,13 @@ namespace Client
         List<Schedule> daySchedules;
         int lbcount; // 클래스의 멤버 변수로 선언
         int k;
+
         public EventForm(UserControlDays form)
         {
             
             UserControlDays = form;
             daySchedules = form.getSchedules();
+            
             InitializeComponent();
 
             schedule_load();

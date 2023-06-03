@@ -11,6 +11,7 @@ using System.IO;
 using CrawlingLibrary;
 
 using EntityLibrary;
+using WindowsFormsApp1;
 
 namespace Client
 {
@@ -216,6 +217,25 @@ namespace Client
         private void calendarContainer_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void btn_share_Click(object sender, EventArgs e)
+        {
+            var requestSchedules = mainForm.schedules.Where(schedule => schedule.category == "REQUEST").ToList();
+            if (requestSchedules.Count == 0)
+            {
+                string message = string.Format("공유된 일정이 없습니다");
+                MessageBox.Show(message);
+                return;
+            }
+            else
+            {
+                string message = string.Format("수락하실 일정을 체크한 후 수락 버튼을 눌러주세요");
+                MessageBox.Show(message);
+                calendar_Share_chk calendar_Share_Chk = new calendar_Share_chk(this);
+                calendar_Share_Chk.ShowDialog();
+            }
+            
         }
     }
 }

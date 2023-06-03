@@ -581,19 +581,24 @@ namespace SampleCalenderServer
                     await netstrm.WriteAsync(data, 0, packetInfo.size);
                     netstrm.Flush();
                 }
-                catch (Exception e)
+              
+                catch(Exception e)
                 {
                     Console.WriteLine(e.Message);
+                  
                     // 만약 클라이언트가 폼을 종료했다면.. 
                     if (e.Message.Contains("ClientClosed"))
                     {
                         Console.WriteLine("main form closed event: Client closed!!");
                         netstrm.Close();
                         client.Close();
-                      
+
                         return;
                     }
+
+
                 }
+
 
 
             }

@@ -176,6 +176,7 @@ namespace Client
             Task.Run(() => requestMyData(netstrm));
             //Task.Run(() => waitShareProcess(netstrm));
 
+            //Task.Run(() => waitShareProcess(netstrm));
 
             // create KLAS Crawler
             klasCrawler = new KLASCrawler();
