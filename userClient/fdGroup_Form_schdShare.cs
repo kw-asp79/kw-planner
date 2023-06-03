@@ -46,18 +46,17 @@ namespace WindowsFormsApp1
             Schedule eventschedule = new Schedule();
             int A = mainForm.schedules.Count +1;
             eventschedule.id = A;
-            eventschedule.startTime = startDateTime.Date;
-            eventschedule.endTime = endDateTime.Date;
+            eventschedule.startTime = startDateTime;
+            eventschedule.endTime = endDateTime;
             eventschedule.category = category;
             eventschedule.title = title;
             eventschedule.content = content;
             eventschedule.fromWho = user_id;
             eventschedule.isDone = false;
             mainForm.schedules.Add(eventschedule);
-            string message = string.Format("{0} 님이 {1} 친{2}구로 {3}등록{4}되었습{5}니다.{6},{7} dddd,{8}", A, startDateTime.Date, endDateTime.Date, category, title, content, user_id, list.Count, group_name);
-            MessageBox.Show(message);
-
-
+            
+            MessageBox.Show(string.Format("그룹원들에게 일정이 공유되었습니다."));
+            this.Close();
             //User들 id/ list에 담겨있어요. 
             //Group name /group_name에 있어요
             //내 id user_id에 있어요 
