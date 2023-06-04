@@ -58,7 +58,6 @@ namespace Client
 
 
         public UserControlDays(DateTime date,mainForm MainForm, calendarForm calForm)
-
         {
             InitializeComponent();
             this.netstrm = netstrm;
@@ -94,6 +93,15 @@ namespace Client
 
             };
 
+            EventForm.saveEvent += delegate (object sender, EventFormArgs args)
+            {
+                if (isProgramLogin)
+                {
+                    List<Schedule> updatedSchedules = args.getSchedules();
+                    setSchedules(updatedSchedules);
+                }
+            };
+
         }
 
         public void SetDay(int day)
@@ -113,6 +121,8 @@ namespace Client
 
         public void setSchedules(List<Schedule> schedules)
         {
+
+
             // 스케줄의 기간안에 들어가는 일정들을 추가. 
             foreach (Schedule schedule in schedules)
             {

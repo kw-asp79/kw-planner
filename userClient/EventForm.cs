@@ -23,8 +23,25 @@ using System.CodeDom;
 
 namespace Client
 {
-    public partial class EventForm : Form
+    public class EventFormArgs : EventArgs
     {
+        public List<Schedule> schedules;
+
+
+        public EventFormArgs(List<Schedule> schedules)
+        {
+            this.schedules = schedules;
+        }
+
+        public List<Schedule> getSchedules()
+        {
+            return this.schedules;
+        }
+
+    }
+
+        public partial class EventForm : Form
+     {
 
         UserControlDays UserControlDays;
 
@@ -34,15 +51,22 @@ namespace Client
 
         CheckBox[] checkBox = new CheckBox[20];
         Button[] deletebtn = new Button[20];
+        
         Label[] start = new Label[20];
         Label[] end = new Label[20];
         Label[] content = new Label[20];
         Label[] title = new Label[20];
+        
         int labelWidth = 50;
         int labelHeight = 25;
-        List<Schedule> daySchedules;
+        
+        List<Schedule> daySchedules; // userControlDays 통해 받은 스케줄들
+       
         int lbcount; // 클래스의 멤버 변수로 선언
         int k;
+
+        public static event EventHandler<EventFormArgs> saveEvent;
+
         public EventForm(UserControlDays form)
         {
 
@@ -208,8 +232,8 @@ namespace Client
             daySchedules.Add(eventschedule); // daySchedules에 새로운 일정 추가
             daySchedules = daySchedules.OrderBy(schedule => schedule.startTime).ToList(); // startTime을 기준으로 일정 정렬
 
-            ClearEventForm();
-            RenderSchedules();
+            // save 클릭시 EventHandler call
+            saveEvent.Invoke(this, new EventFormArgs(daySchedules));
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
