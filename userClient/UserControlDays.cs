@@ -30,6 +30,14 @@ namespace Client
         private static Boolean isKLASLogin = false;
         private static Boolean isLibraryLogin = false;
 
+        public enum Option
+        {
+            NEWSTATE,
+            SAVESCHEDULE,
+            DELETESCHEDULE
+        }
+
+
         mainForm MainForm;
         calendarForm calendarForm;
 
@@ -70,7 +78,7 @@ namespace Client
             this.MainForm = MainForm;
 
             if (isProgramLogin || isKLASLogin || isLibraryLogin)
-                setSchedules(calForm.userSchedules);
+                setSchedules(calForm.userSchedules,Option.NEWSTATE);
 
             this.MainForm.loginSuccessEvent += delegate (object sender, LoginEventArgs args)
             {
@@ -89,7 +97,7 @@ namespace Client
                         break;
                 }
 
-                DBScheduleSynchronize(args);
+                DBScheduleSynchronize(args, Option.NEWSTATE);
 
             };
 
@@ -98,7 +106,7 @@ namespace Client
                 if (isProgramLogin)
                 {
                     List<Schedule> updatedSchedules = args.getSchedules();
-                    setSchedules(updatedSchedules);
+                    setSchedules(updatedSchedules, Option.SAVESCHEDULE);
                 }
             };
 
@@ -119,15 +127,47 @@ namespace Client
         }
 
 
-        public void setSchedules(List<Schedule> schedules)
+        // 로그인 시 그리고 처음 생성단계에서 스케줄을 세팅
+        public void setSchedules(List<Schedule> schedules, Option option)
         {
 
-
-            // 스케줄의 기간안에 들어가는 일정들을 추가. 
-            foreach (Schedule schedule in schedules)
+            switch (option)
             {
-                if (schedule.startTime.Date <= date && date <= schedule.endTime.Date)
-                    daySchedules.Add(schedule);
+                // 로그인 시 혹은 기존상황에서 달력에 렌더링되는 상황에서의 case
+                case Option.NEWSTATE:
+                    foreach (Schedule schedule in schedules)
+                    {
+                        if (schedule.startTime.Date <= date && date <= schedule.endTime.Date)
+                            daySchedules.Add(schedule);
+                    }
+                    break;
+
+                // 새로운 스케줄이 추가되었을 때 새로운 스케줄만 추가되도록 
+                case Option.SAVESCHEDULE:
+                    foreach (Schedule schedule in schedules)
+                    {
+                        
+                            if (schedule.startTime.Date <= date && date <= schedule.endTime.Date)
+
+                                daySchedules.Add(schedule);
+                        
+
+                    }
+
+                    break;
+
+                // 기존 스케줄이 삭제되었을 때 삭제된 부분이 똑같이 삭제되도록
+                case Option.DELETESCHEDULE:
+                    foreach (Schedule schedule in schedules)
+                    {
+
+
+                        if (schedule.startTime.Date <= date && date <= schedule.endTime.Date)
+                            ;
+                    }
+
+                    break;
+
             }
 
 
@@ -177,11 +217,11 @@ namespace Client
         }
 
 
-        public void DBScheduleSynchronize(LoginEventArgs args)
+        public void DBScheduleSynchronize(LoginEventArgs args,Option option)
         {
             List<Schedule> schedules = args.getSchedules();
 
-            setSchedules(schedules);
+            setSchedules(schedules,option);
         }
 
 
