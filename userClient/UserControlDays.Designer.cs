@@ -98,7 +98,6 @@
             this.Name = "UserControlDays";
             this.Size = new System.Drawing.Size(164, 172);
             this.Click += new System.EventHandler(this.UserControlDays_Click);
-            this.DoubleClick += new System.EventHandler(this.UserControlDays_DoubleClick);
             this.MouseEnter += new System.EventHandler(this.UserControlDays_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.UserControlDays_MouseLeave);
             this.ResumeLayout(false);

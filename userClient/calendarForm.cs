@@ -12,6 +12,8 @@ using CrawlingLibrary;
 
 using EntityLibrary;
 using WindowsFormsApp1;
+using static Client.EventForm;
+using System.Management.Instrumentation;
 
 namespace Client
 {
@@ -50,11 +52,66 @@ namespace Client
                 if(args.getType() == LoginEventArgs.TYPE.PROGRAM_LOGIN)
                     this.MainForm.isLoginSuccess = true;
             };
+
+            EventForm.saveEvent += delegate (object sender, SaveEventArgs args)
+            {
+                // EventForm에서 바뀐 최신 일정 리스트를 전달
+                List<Schedule> updatedSchedules = args.getSchedules();
+
+                // 일정에서 바뀐 부분만 추가하도록 
+                foreach (Schedule schedule in updatedSchedules)
+                {
+                        userSchedules.Add(schedule);
+                }
+
+            };
+            calendar_Share_chk.saveShare += delegate (object sender, SaveShare args)
+            {
+                // EventForm에서 바뀐 최신 일정 리스트를 전달
+                List<Schedule> updatedSchedules = args.getSchedules();
+
+                // 일정에서 바뀐 부분만 추가하도록 
+                foreach (Schedule schedule in updatedSchedules)
+                {
+                    userSchedules.Add(schedule);
+                }
+
+            };
+
+            EventForm.deleteEvent += delegate (object sender, SaveEventArgs args)
+            {
+                List<Schedule> updatedSchedules = args.getSchedules();
+                foreach (Schedule schedule in updatedSchedules)
+                {
+                    bool isExist = false;
+                    foreach (Schedule calSchedule in userSchedules)
+                    {
+                        if (calSchedule.Equals(schedule))
+                        {
+                            userSchedules.Remove(schedule);
+                            
+                        }
+                    }
+                    if (!isExist)
+                    {
+                        isExist = true;
+                        break; 
+                    }
+
+                }
+
+            };
+
         }
 
 
+        private EventForm eventForm; // EventForm 인스턴스를 저장할 변수
+        private UserControlDays days1;
 
+        private void calendarForm_Load(object sender, EventArgs e)
+        {
 
+        }
 
         public void showCalendar()
         {
@@ -179,7 +236,7 @@ namespace Client
         }
 
         // show next month of the calendar
-        private void nextBtn_Click(object sender, EventArgs e)
+        public void nextBtn_Click(object sender, EventArgs e)
         {
             dayContainer.Controls.Clear();
 
@@ -199,7 +256,7 @@ namespace Client
 
 
         // show previous month of the calendar
-        private void prevBtn_Click(object sender, EventArgs e)
+        public void prevBtn_Click(object sender, EventArgs e)
         {
             dayContainer.Controls.Clear();
 
@@ -214,10 +271,7 @@ namespace Client
             displayDays(month, year);
         }
 
-        private void calendarContainer_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
 
         private void btn_share_Click(object sender, EventArgs e)
         {

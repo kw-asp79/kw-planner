@@ -18,11 +18,30 @@ using System.Net.Sockets;
 using PacketLibrary;
 using Google.Protobuf.WellKnownTypes;
 using System.Diagnostics;
+using WindowsFormsApp1;
 
 //using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace Client
 {
+    public class SaveEventArgs : EventArgs
+    {
+        public List<Schedule> schedules;
+
+
+        public SaveEventArgs(List<Schedule> schedules)
+        {
+            this.schedules = schedules;
+        }
+
+        public List<Schedule> getSchedules()
+        {
+            return this.schedules;
+        }
+
+
+
+    }
     public partial class EventForm : Form
     {
 
@@ -31,7 +50,7 @@ namespace Client
         NetworkStream netstrm = mainForm.netstrm;
         mainForm mainform;
         User myUserInfo = mainForm.myUserInfo;
-
+        calendarForm calendarForm;
         CheckBox[] checkBox = new CheckBox[20];
         Button[] deletebtn = new Button[20];
         Label[] start = new Label[20];
@@ -44,9 +63,12 @@ namespace Client
         int lbcount; // 클래스의 멤버 변수로 선언
         int k;
 
-        public EventForm(UserControlDays form)
+        public static event EventHandler<SaveEventArgs> saveEvent;
+        public static event EventHandler<SaveEventArgs> deleteEvent;
+
+        public EventForm(UserControlDays form, calendarForm calendar)
         {
-            
+            calendarForm = calendar;
             UserControlDays = form;
             daySchedules = form.getSchedules();
             
@@ -55,12 +77,8 @@ namespace Client
             schedule_load();
             lbcount = daySchedules.Count;
             k = lbcount+1 ;
-            //int lbcount = daySchedules.Count;
         }
 
-        
-        //public delegate void DateSelectedHandler(int day, string dayOfWeek);
-        //public event DateSelectedHandler DateSelected;
 
         private void schedule_load()
         {
@@ -135,8 +153,10 @@ namespace Client
 
         //int cntlbl = daySchedules.Count;
 
-        private void btnSave_Click(object sender, EventArgs e)
+        public void btnSave_Click(object sender, EventArgs e)
         {
+            List<Schedule> schedules = new List<Schedule>();
+
             DateTime startDateTime = new DateTime(dtpStartDate.Value.Year, dtpStartDate.Value.Month, dtpStartDate.Value.Day,
                 dtpStartTime.Value.Hour, dtpStartTime.Value.Minute, 0);
 
@@ -216,12 +236,15 @@ namespace Client
             lbcount++;
             k++;
 
-            UserControlDays.addSchedule(eventschedule);
-            UserControlDays.AddLabel(eventschedule);
+            schedules.Add(eventschedule);
+            //daySchedules = daySchedules.OrderBy(Schedule => Schedule.startTime).ToList();
+            saveEvent.Invoke(this, new SaveEventArgs(schedules));
+
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
+            List<Schedule> schedules = new List<Schedule>();
             Button btn = sender as Button;
             int index = (int)btn.Tag;
 
@@ -236,19 +259,19 @@ namespace Client
                 {
                     mainForm.schedules.RemoveAt(i);
                     break;
+
                 }
             }
-
 
             if (index < k - 1)
             {
                 // 아래에 있는 스케줄들을 한 칸씩 위로 올림
                 for (int i = index+1; i < k - 1; i++)
                 {
-                    start[i].Text = start[i + 1].Text;
-                    end[i].Text = end[i + 1].Text;
-                    title[i].Text = title[i + 1].Text;
-                    content[i].Text = content[i + 1].Text;
+                    start[i-1].Text = start[i ].Text;
+                    end[i - 1].Text = end[i ].Text;
+                    title[i - 1].Text = title[i ].Text;
+                    content[i - 1].Text = content[i ].Text;
                 }
             }
 
@@ -263,7 +286,9 @@ namespace Client
             // k 변수를 감소시킴
             k--;
 
-            UserControlDays.RemoveSchedule(deleteTitle, deleteContent);
+            schedules.Add(daySchedules[index - 1]);
+            //daySchedules = daySchedules.OrderBy(Schedule => Schedule.startTime).ToList();
+            deleteEvent.Invoke(this, new SaveEventArgs(schedules));
 
         }
 

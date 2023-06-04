@@ -1,5 +1,6 @@
 ﻿using Client;
 using EntityLibrary;
+using Google.Protobuf.WellKnownTypes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +15,7 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
+
     public partial class calendar_Share_chk : Form
     {
         calendarForm calendarForm;
@@ -27,7 +29,7 @@ namespace WindowsFormsApp1
         Label[] title = new Label[20];
 
         Button Button = new Button ();
-
+        public static event EventHandler<SaveShare> saveShare;
         List<Schedule> requestSchedules = new List<Schedule>();
         public calendar_Share_chk(calendarForm form )
         {
@@ -125,15 +127,32 @@ namespace WindowsFormsApp1
                     {
                         mainForm.schedules[index].category = "CUSTOM";
                     }
-                    UserControlDays.addSchedule(schedule);
-                    UserControlDays.AddLabel(schedule);
                 }
             }
+
+            saveShare.Invoke(this, new SaveShare(selectedSchedules));
             MessageBox.Show(string.Format("선택한 일정이 내 일정으로 등록되었습니다."));
 
             this.Close();
         }
     }
-    
 
+    public class SaveShare : EventArgs
+    {
+        public List<Schedule> schedules;
+
+
+        public SaveShare(List<Schedule> schedules)
+        {
+            this.schedules = schedules;
+        }
+
+        public List<Schedule> getSchedules()
+        {
+            return this.schedules;
+        }
+
+
+
+    }
 }

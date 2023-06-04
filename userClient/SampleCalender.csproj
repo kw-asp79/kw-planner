@@ -100,9 +100,7 @@
     <Compile Include="calendar_Share_chk.Designer.cs">
       <DependentUpon>calendar_Share_chk.cs</DependentUpon>
     </Compile>
-    <Compile Include="EventForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="EventForm.cs" />
     <Compile Include="EventForm.Designer.cs">
       <DependentUpon>EventForm.cs</DependentUpon>
     </Compile>
