@@ -61,20 +61,7 @@ namespace Client
                     // 일정에서 바뀐 부분만 추가하도록 
                     foreach (Schedule schedule in updatedSchedules)
                     {
-                        bool isExist = false;
-
-                        foreach (Schedule calSchedule in userSchedules)
-                        {
-                            if (calSchedule.Equals(schedule))
-                            {
-                                isExist = true;
-                                break;
-                            }
-
-                        }
-
-                        if (!isExist)
-                            userSchedules.Add(schedule);
+                        userSchedules.Add(schedule);
                     }
 
                 }
@@ -84,6 +71,30 @@ namespace Client
                 }
 
             };
+
+
+            EventForm.deleteEvent += delegate (object sender, EventFormArgs args)
+            {
+                List<Schedule> updatedSchedules = args.getSchedules();
+                foreach (Schedule schedule in updatedSchedules)
+                {
+                    foreach (Schedule calSchedule in userSchedules)
+                    {
+                        if (Schedule.scheduleCompare(schedule,calSchedule))
+                        {
+                            userSchedules.Remove(schedule);
+                            break;
+                        }
+                    }
+
+                }
+
+            };
+
+
+
+
+
 
         }
 

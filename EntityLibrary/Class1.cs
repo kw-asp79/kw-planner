@@ -83,6 +83,16 @@ namespace EntityLibrary
             this.isDone = false;
         }
 
+        public static Boolean scheduleCompare(Schedule schedule1, Schedule schedule2)
+        {
+            if (schedule1.startTime.Date == schedule2.startTime.Date && schedule1.endTime.Date == schedule2.endTime.Date &&
+               schedule1.category == schedule2.category && schedule1.title == schedule2.title && schedule1.content == schedule2.content)
+                return true;
+            else
+                return false;
+
+        }
+
     }
 
     [Serializable]

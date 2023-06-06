@@ -243,7 +243,7 @@ namespace Client
 
             sendPacket.action = ActionType.validateKlasData;
             Dictionary<string, Object> fullData = new Dictionary<string, object>();
-            
+
 
             fullData["user"] = myUserInfo;
             fullData["schedules"] = args.getSchedules();
