@@ -253,6 +253,7 @@ namespace Client
                 if (Schedule.scheduleCompare(daySchedules[deleteIndex],schedule))
                 {
                     mainForm.schedules.Remove(schedule);
+                    daySchedules.Remove(schedule);
                     deleteSchedule = schedule;
                     break;
                 }
