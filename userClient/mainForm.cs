@@ -49,7 +49,6 @@ namespace Client
             return type;
         }
 
-
     }
 
 
@@ -98,8 +97,6 @@ namespace Client
 
         public void requestMyData(NetworkStream netstrm)
         {
-            MessageBox.Show("readAllData 실행");
-
             while (true)
             {
                 if (isLoginSuccess)
@@ -114,19 +111,21 @@ namespace Client
 
                     packet = Packet.ReceivePacket(netstrm);
 
-                    List<Schedule> DBSchedules = new List<Schedule>();
+                    List<Schedule> tempSchedules = new List<Schedule>();
                     if (packet.action == ActionType.Success)
                     {
                         Dictionary<string, Object> fullData = packet.data as Dictionary<string, object>;
 
                         friends = fullData["friends"] as List<User>;
-                        DBSchedules = fullData["schedules"] as List<Schedule>;
+                        tempSchedules = fullData["schedules"] as List<Schedule>;
                         groups = fullData["groups"] as Dictionary<string, List<User>>;
                         
                     }
 
-                    foreach (Schedule schedule in DBSchedules)
+                    foreach (Schedule schedule in tempSchedules)
                         schedules.Add(schedule);
+
+                    
 
                     // Login eventHandler call! 
                     loginSuccessEvent.Invoke(this,new LoginEventArgs(schedules,LoginEventArgs.TYPE.PROGRAM_LOGIN));
@@ -134,28 +133,6 @@ namespace Client
                     break;
                 }
             }
-        }
-
-        public void waitShareProcess(NetworkStream netstrm)
-        {
-            /*
-            while (true)
-            {
-                if (isLoginSuccess)
-                {
-                    Packet packet = new Packet();
-
-                    packet = Packet.ReceivePacket(netstrm);
-
-                    if(packet.action == ActionType.shareSchedule)
-                    {
-                        Schedule schedule = (Schedule)packet.data;
-                        MessageBox.Show("Schedule title : " + schedule.title +", content : " + schedule.content);
-                    }
-                    
-                }
-            }
-            */
         }
 
         private async void Form1_Load(object sender, EventArgs e)
@@ -175,6 +152,7 @@ namespace Client
             netstrm = server.GetStream();
 
             Task.Run(() => requestMyData(netstrm));
+            //Task.Run(() => waitShareProcess(netstrm));
 
             //Task.Run(() => waitShareProcess(netstrm));
 

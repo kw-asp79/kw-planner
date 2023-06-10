@@ -22,6 +22,8 @@ namespace PacketLibrary
         Fail,
         chatting,
         shareSchedule,
+        viewRequestSchedules,
+        updateRequestToCustom,
         login,
         signUp,
         readAllData,

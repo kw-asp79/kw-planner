@@ -31,7 +31,7 @@ namespace Client
             User user = new User();
             user.id = this.txt_id.Text;
             user.name = this.txt_SearchedName.Text;
-
+            if (this.txt_SearchedName.Text == "(해당 사용자 정보가 없습니다.") user.name = "";
             if (!user.name.Equals(""))
             {
                 mainForm.friends.Add(user);
@@ -60,6 +60,9 @@ namespace Client
 
             if (packet.action == ActionType.Fail)
             {
+                string message = string.Format("{0} 님은 등록되지 않은 정보입니다.", this.txt_id.Text);
+                MessageBox.Show(message);
+                txt_id.Clear();
                 txt_SearchedName.Text = "(해당 사용자 정보가 없습니다)";
                 user.name = "";
             }

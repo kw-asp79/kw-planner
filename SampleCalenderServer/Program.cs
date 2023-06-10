@@ -300,13 +300,13 @@ namespace SampleCalenderServer
             User user = fullData["user"] as User;
             List<Schedule> schedules = fullData["schedules"] as List<Schedule>;
 
-            foreach (Schedule schedule in schedules)
+            foreach(Schedule schedule in schedules)
             {
                 // 해당 klas schedule이 데이터베이스에 없으면 -1을 반환함
                 int schedule_id = ScheduleRepository.SelectScheduleId(schedule, user.id);
 
                 // 해당 klas schedule이 데이터베이스에 없으면 생성해줌
-                if (schedule_id == -1)
+                if(schedule_id == -1)
                 {
                     int created_schedule_id = ScheduleRepository.CreateSchedule(schedule);
                     ScheduleRepository.CreateUserSchedule(user.id, created_schedule_id);
@@ -318,7 +318,6 @@ namespace SampleCalenderServer
             sendPacket.data = null;
 
             return sendPacket;
-
         }
 
         public static Packet ValidateLibraryDataProcess(Object obj)
@@ -352,27 +351,35 @@ namespace SampleCalenderServer
         // 일정 공유하기 폼에서 <공유> 버튼 클릭 시
         public static Packet ShareScheduleProcess(Object obj)
         {
-
             Dictionary<string, Object> fullData = obj as Dictionary<string, object>;
 
             Group group = fullData["group"] as Group;
             Schedule schedule = fullData["schedule"] as Schedule;
             // 아랫줄은 클라이언트에서 초기화한 다음에 넘어와도 괜찮음
-            schedule.fromWho = group.user_id;
 
             int group_id = GroupRepository.SelectGroupIdByName(group.name, group.user_id);
 
             List<User> userList = GroupRepository.SelectFriendsListByGroupId(group_id);
 
-            // Insert Schedule
-            int schedule_id = ScheduleRepository.CreateSchedule(schedule);
+            Schedule scheduleOfSender = schedule;
+            scheduleOfSender.category = "CUSTOM";
+
+            // Insert Schedule of me
+            int schedule_id = ScheduleRepository.CreateSchedule(scheduleOfSender);
 
             // Insert UserSchedule of me
             ScheduleRepository.CreateUserSchedule(group.user_id, schedule_id);
 
-            // Insert UserSchedule of List<User>
+
+            Schedule scheduleOfReceiver = schedule;
+            scheduleOfReceiver.category = "REQUEST";
+
             foreach (User friend in userList)
             {
+                // Insert Schedule of List<User>
+                schedule_id = ScheduleRepository.CreateSchedule(scheduleOfReceiver);
+
+                // Insert UserSchedule of List<User>
                 ScheduleRepository.CreateUserSchedule(friend.id, schedule_id);
             }
 
@@ -390,12 +397,11 @@ namespace SampleCalenderServer
             Dictionary<string, Object> fullData = obj as Dictionary<string, object>;
 
             User myUserInfo = fullData["user"] as User;
-
-            ScheduleRepository.SelectRequestSchedules(myUserInfo);
+            List<Schedule> requestSchedules = ScheduleRepository.SelectRequestSchedules(myUserInfo);
 
             Packet sendPacket = new Packet();
             sendPacket.action = ActionType.Success;
-            sendPacket.data = null;
+            sendPacket.data = requestSchedules;
 
             return sendPacket;
         }
@@ -409,7 +415,7 @@ namespace SampleCalenderServer
             List<Schedule> schedules = fullData["schedules"] as List<Schedule>;
 
             // Schedule이 클라이언트에서 CUSTOM으로 바뀌기 전에 도달해야함
-            foreach (Schedule schedule in schedules)
+            foreach(Schedule schedule in schedules)
             {
                 int schedule_id = ScheduleRepository.SelectScheduleId(schedule, myUserInfo.id);
 
@@ -466,116 +472,125 @@ namespace SampleCalenderServer
 
                     receivedPacket = Packet.Desserialize(data, packetInfo);
 
-
-                    switch (receivedPacket.action)
-                    {
-                        case ActionType.signUp:
-                            Console.Write("[{0}] login request", remoteAddress);
-                            user = (User)receivedPacket.data;
-                            sendPacket = SignupProcess(user);
-                            break;
-                        case ActionType.login:
-                            Console.Write("[{0}] login request", remoteAddress);
-                            user = (User)receivedPacket.data;
-                            sendPacket = LoginProcess(user);
-                            // 접속중인 유저들 정보를 추가 (채팅과 일정공유에서 사용할 것임)
-                            connectedUsers.Add(user.id, client);
-                            break;
-                        case ActionType.readAllData:
-                            Console.WriteLine("[{0}] readAllData request", remoteAddress);
-                            user = (User)receivedPacket.data;
-                            sendPacket = ReadAllDataProcess(user);
-                            break;
-                        case ActionType.readUser:
-                            Console.WriteLine("[{0}] readUser request", remoteAddress);
-                            user = (User)receivedPacket.data;
-                            sendPacket = ReadProcess(user, "user");
-                            break;
-                        case ActionType.saveUser:
-                            Console.WriteLine("[{0}] saveUser request", remoteAddress);
-                            user = (User)receivedPacket.data;
-                            sendPacket = CreateProcess(user, "user");
-                            break;
-                        case ActionType.deleteUser:
-                            Console.WriteLine("[{0}] deleteUser request", remoteAddress);
-                            user = (User)receivedPacket.data;
-                            sendPacket = DeleteProcess(user, "user");
-                            break;
-                        case ActionType.editUser:
-                            Console.WriteLine("[{0}] editUser request", remoteAddress);
-                            user = (User)receivedPacket.data;
-                            sendPacket = UpdateProcess(user, "user");
-                            break;
-                        case ActionType.saveSchedule:
-                            Console.WriteLine("[{0}] saveSchedule request", remoteAddress);
-                            fullData = receivedPacket.data as Dictionary<string, object>;
-                            sendPacket = CreateProcess(fullData, "schedule");
-                            break;
-                        case ActionType.deleteSchedule:
-                            Console.WriteLine("[{0}] deleteSchedule request", remoteAddress);
-                            fullData = receivedPacket.data as Dictionary<string, object>;
-                            sendPacket = DeleteProcess(fullData, "schedule");
-                            break;
-                        case ActionType.editSchedule:
-                            Console.WriteLine("[{0}] editSchedule request", remoteAddress);
-                            fullData = receivedPacket.data as Dictionary<string, object>;
-                            sendPacket = UpdateProcess(fullData, "schedule");
-                            break;
-                        case ActionType.saveGroup:
-                            Console.WriteLine("[{0}] saveGroup request", remoteAddress);
-                            fullData = receivedPacket.data as Dictionary<string, object>;
-                            sendPacket = CreateProcess(fullData, "group");
-                            break;
-                        case ActionType.deleteGroup:
-                            Console.WriteLine("[{0}] deleteGroup request", remoteAddress);
-                            fullData = receivedPacket.data as Dictionary<string, object>;
-                            sendPacket = DeleteProcess(fullData, "group");
-                            break;
-                        case ActionType.editGroup:
-                            Console.WriteLine("[{0}] editGroup request", remoteAddress);
-                            fullData = receivedPacket.data as Dictionary<string, object>;
-                            sendPacket = UpdateProcess(fullData, "group");
-                            break;
-                        case ActionType.saveFriendship:
-                            Console.WriteLine("[{0}] saveFriendship request", remoteAddress);
-                            fullData = receivedPacket.data as Dictionary<string, object>;
-                            sendPacket = CreateProcess(fullData, "friendship");
-                            break;
-                        case ActionType.deleteFriendship:
-                            Console.WriteLine("[{0}] deleteFriendship request", remoteAddress);
-                            fullData = receivedPacket.data as Dictionary<string, object>;
-                            sendPacket = DeleteProcess(fullData, "friendship");
-                            break;
-                        case ActionType.saveUserGroup:
-                            Console.WriteLine("[{0}] saveUserGroup request", remoteAddress);
-                            fullData = receivedPacket.data as Dictionary<string, object>;
-                            sendPacket = CreateProcess(fullData, "user_group");
-                            break;
-                        case ActionType.deleteUserGroup:
-                            Console.WriteLine("[{0}] deleteUserGroup request", remoteAddress);
-                            fullData = receivedPacket.data as Dictionary<string, object>;
-                            sendPacket = DeleteProcess(fullData, "user_group");
-                            break;
-                        case ActionType.validateKlasData:
-                            Console.WriteLine("[{0}] validateKlasData request", remoteAddress);
-                            fullData = receivedPacket.data as Dictionary<string, object>;
-                            sendPacket = ValidateKlasDataProcess(fullData);
-                            break;
-                        case ActionType.validateLibraryData:
-                            Console.WriteLine("[{0}] validateLibraryData request", remoteAddress);
-                            fullData = receivedPacket.data as Dictionary<string, object>;
-                            sendPacket = ValidateLibraryDataProcess(fullData);
-                            break;
-                        case ActionType.shareSchedule:
-                            Console.WriteLine("[{0}] shareSchedule request", remoteAddress);
-                            fullData = receivedPacket.data as Dictionary<string, object>;
-                            sendPacket = ShareScheduleProcess(fullData);
-                            break;
+                switch (receivedPacket.action)
+                {
+                    case ActionType.signUp:
+                        Console.Write("[{0}] login request", remoteAddress);
+                        user = (User)receivedPacket.data;
+                        sendPacket = SignupProcess(user);
+                        break;
+                    case ActionType.login:
+                        Console.Write("[{0}] login request", remoteAddress);
+                        user = (User)receivedPacket.data;
+                        sendPacket = LoginProcess(user);
+                        // 접속중인 유저들 정보를 추가 (채팅과 일정공유에서 사용할 것임)
+                        connectedUsers.Add(user.id, client);
+                        break;
+                    case ActionType.readAllData:
+                        Console.WriteLine("[{0}] readAllData request", remoteAddress);
+                        user = (User)receivedPacket.data;
+                        sendPacket = ReadAllDataProcess(user);
+                        break;
+                    case ActionType.readUser:
+                        Console.WriteLine("[{0}] readUser request", remoteAddress);
+                        user = (User)receivedPacket.data;
+                        sendPacket = ReadProcess(user, "user");
+                        break;
+                    case ActionType.saveUser:
+                        Console.WriteLine("[{0}] saveUser request", remoteAddress);
+                        user = (User)receivedPacket.data;
+                        sendPacket = CreateProcess(user, "user");
+                        break;
+                    case ActionType.deleteUser:
+                        Console.WriteLine("[{0}] deleteUser request", remoteAddress);
+                        user = (User)receivedPacket.data;
+                        sendPacket = DeleteProcess(user, "user");
+                        break;
+                    case ActionType.editUser:
+                        Console.WriteLine("[{0}] editUser request", remoteAddress);
+                        user = (User)receivedPacket.data;
+                        sendPacket = UpdateProcess(user, "user");
+                        break;
+                    case ActionType.saveSchedule:
+                        Console.WriteLine("[{0}] saveSchedule request", remoteAddress);
+                        fullData = receivedPacket.data as Dictionary<string, object>;
+                        sendPacket = CreateProcess(fullData, "schedule");
+                        break;
+                    case ActionType.deleteSchedule:
+                        Console.WriteLine("[{0}] deleteSchedule request", remoteAddress);
+                        fullData = receivedPacket.data as Dictionary<string, object>;
+                        sendPacket = DeleteProcess(fullData, "schedule");
+                        break;
+                    case ActionType.editSchedule:
+                        Console.WriteLine("[{0}] editSchedule request", remoteAddress);
+                        fullData = receivedPacket.data as Dictionary<string, object>;
+                        sendPacket = UpdateProcess(fullData, "schedule");
+                        break;
+                    case ActionType.saveGroup:
+                        Console.WriteLine("[{0}] saveGroup request", remoteAddress);
+                        fullData = receivedPacket.data as Dictionary<string, object>;
+                        sendPacket = CreateProcess(fullData, "group");
+                        break;
+                    case ActionType.deleteGroup:
+                        Console.WriteLine("[{0}] deleteGroup request", remoteAddress);
+                        fullData = receivedPacket.data as Dictionary<string, object>;
+                        sendPacket = DeleteProcess(fullData, "group");
+                        break;
+                    case ActionType.editGroup:
+                        Console.WriteLine("[{0}] editGroup request", remoteAddress);
+                        fullData = receivedPacket.data as Dictionary<string, object>;
+                        sendPacket = UpdateProcess(fullData, "group");
+                        break;
+                    case ActionType.saveFriendship:
+                        Console.WriteLine("[{0}] saveFriendship request", remoteAddress);
+                        fullData = receivedPacket.data as Dictionary<string, object>;
+                        sendPacket = CreateProcess(fullData, "friendship");
+                        break;
+                    case ActionType.deleteFriendship:
+                        Console.WriteLine("[{0}] deleteFriendship request", remoteAddress);
+                        fullData = receivedPacket.data as Dictionary<string, object>;
+                        sendPacket = DeleteProcess(fullData, "friendship");
+                        break;
+                    case ActionType.saveUserGroup:
+                        Console.WriteLine("[{0}] saveUserGroup request", remoteAddress);
+                        fullData = receivedPacket.data as Dictionary<string, object>;
+                        sendPacket = CreateProcess(fullData, "user_group");
+                        break;
+                    case ActionType.deleteUserGroup:
+                        Console.WriteLine("[{0}] deleteUserGroup request", remoteAddress);
+                        fullData = receivedPacket.data as Dictionary<string, object>;
+                        sendPacket = DeleteProcess(fullData, "user_group");
+                        break;
+                    case ActionType.validateKlasData:
+                        Console.WriteLine("[{0}] validateKlasData request", remoteAddress);
+                        fullData = receivedPacket.data as Dictionary<string, object>;
+                        sendPacket = ValidateKlasDataProcess(fullData);
+                        break;
+                    case ActionType.validateLibraryData:
+                        Console.WriteLine("[{0}] validateLibraryData request", remoteAddress);
+                        fullData = receivedPacket.data as Dictionary<string, object>;
+                        sendPacket = ValidateLibraryDataProcess(fullData);
+                        break;
+                    case ActionType.shareSchedule:
+                        Console.WriteLine("[{0}] shareSchedule request", remoteAddress);
+                        fullData = receivedPacket.data as Dictionary<string, object>;
+                        sendPacket = ShareScheduleProcess(fullData);
+                        break;
+                    case ActionType.viewRequestSchedules:
+                        Console.WriteLine("[{0}] viewRequestSchedules request", remoteAddress);
+                        fullData = receivedPacket.data as Dictionary<string, object>;
+                        sendPacket = ViewRequestSchedules(fullData);
+                        break;
+                    case ActionType.updateRequestToCustom:
+                        Console.WriteLine("[{0}] updateRequestToCustom request", remoteAddress);
+                        fullData = receivedPacket.data as Dictionary<string, object>;
+                        sendPacket = UpdateRequestToCustom(fullData);
+                        break;
                         case ActionType.ClientClosed:
-                            Console.WriteLine("[{0}] ClientClosed request", remoteAddress);
-                            throw new Exception("ClientClosed");
-                        default:
-                            break;
+                        Console.WriteLine("[{0}] ClientClosed request", remoteAddress);
+                        throw new Exception("ClientClosed");                   
+                    default:
+                        break;
                     }
 
                     // 응답을 전송함
@@ -588,11 +603,11 @@ namespace SampleCalenderServer
                     await netstrm.WriteAsync(data, 0, packetInfo.size);
                     netstrm.Flush();
                 }
-
-                catch (Exception e)
+              
+                catch(Exception e)
                 {
                     Console.WriteLine(e.Message);
-
+                  
                     // 만약 클라이언트가 폼을 종료했다면.. 
                     if (e.Message.Contains("ClientClosed"))
                     {

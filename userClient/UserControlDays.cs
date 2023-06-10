@@ -118,7 +118,11 @@ namespace Client
                     setSchedules(updatedSchedules, Option.DELETESCHEDULE);
                 }
             };
+        }
 
+        public List<Schedule> getSchedules()
+        {
+            return daySchedules;
         }
 
         public void SetDay(int day)

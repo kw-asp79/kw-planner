@@ -11,12 +11,15 @@ using System.IO;
 using CrawlingLibrary;
 
 using EntityLibrary;
+using WindowsFormsApp1;
+using PacketLibrary;
+using System.Net.Sockets;
 
 namespace Client
 {
     public partial class calendarForm : UserControl
     {
-
+        NetworkStream netstrm;
         private static int month;
         private static int year;
         DateTime starttime;
@@ -31,7 +34,7 @@ namespace Client
 
 
         public List<Schedule> userSchedules; // User의 모든 스케줄을 여기에 저장.
-
+        public List<Schedule> requestSchedules;// category가 REQUEST인 schedules를 저장
 
         public calendarForm(mainForm mForm, KLASCrawler kLasCrawler, LibraryCrawler liBraryCrawler)
 
@@ -49,7 +52,6 @@ namespace Client
                 if(args.getType() == LoginEventArgs.TYPE.PROGRAM_LOGIN)
                     this.MainForm.isLoginSuccess = true;
             };
-
 
             EventForm.saveEvent += delegate (object sender, EventFormArgs args)
             {
@@ -92,10 +94,9 @@ namespace Client
             };
 
 
-
-
-
-
+            // mainForm에 있는 schedules 중에서 category가 Request 인 데이터를 불러옴
+            this.netstrm = mainForm.netstrm;
+            this.requestSchedules = new List<Schedule>();
         }
 
 
@@ -263,6 +264,44 @@ namespace Client
         private void calendarContainer_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void btn_share_Click(object sender, EventArgs e)
+        {
+            //this.requestSchedules = mainForm.schedules.Where(schedule => schedule.category == "REQUEST").ToList();
+
+            // 유저정보 불러옴
+            User user = mainForm.myUserInfo;
+
+            // 클라이언트가 켜져있는동안 데이터베이스에 새롭게 추가된 Request Schedule 데이터 정보를 불러오기 위한 작업
+            Packet packet = new Packet();
+            packet.action = ActionType.viewRequestSchedules;
+
+            Dictionary<string, Object> fullData = new Dictionary<string, object>();
+            fullData.Add("user", user);
+            packet.data = fullData;
+
+            Packet.SendPacket(netstrm, packet);
+            packet = Packet.ReceivePacket(netstrm);
+
+            List<Schedule> requestSchedulesInDB = packet.data as List<Schedule>;
+
+            requestSchedules.AddRange(requestSchedulesInDB);
+
+            if (requestSchedules.Count == 0)
+            {
+                string message = string.Format("공유된 일정이 없습니다");
+                MessageBox.Show(message);
+                return;
+            }
+            else
+            {
+                string message = string.Format("수락하실 일정을 체크한 후 수락 버튼을 눌러주세요");
+                MessageBox.Show(message);
+                calendar_Share_chk calendar_Share_Chk = new calendar_Share_chk(this);
+                calendar_Share_Chk.ShowDialog();
+            }
+            
         }
     }
 }

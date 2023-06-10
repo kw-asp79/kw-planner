@@ -32,7 +32,6 @@ namespace Client
 
         static int cntlbl = mainForm.friends.Count;
 
-
         public fdList(NetworkStream netstrm)
         {
             InitializeComponent();

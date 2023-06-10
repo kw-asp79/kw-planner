@@ -165,12 +165,12 @@ namespace WindowsFormsApp1
         }
         private void btn_share_Click(object sender, EventArgs e)
         {
-           int idx = (int)((Button)sender).Tag;
+            int idx = (int)((Button)sender).Tag;
             string key = labelGroupName[idx].Text;
             List<User> userlist = mainForm.groups[key];
-            List<string> userIdList = userlist.Select(user=>user.id).ToList();
+            List<string> userIdList = userlist.Select(user => user.id).ToList();
 
-            fdGroup_Form_schdShare fdGroup_Form_SchdShare = new fdGroup_Form_schdShare(this,this.netstrm,userIdList);
+            fdGroup_Form_schdShare fdGroup_Form_SchdShare = new fdGroup_Form_schdShare(this, this.netstrm, userIdList,key);
             fdGroup_Form_SchdShare.ShowDialog();
         }
         private void btn_add_Click(object sender, EventArgs e)
@@ -183,13 +183,14 @@ namespace WindowsFormsApp1
             list = frd_all.Except((List<string>)listBoxFriends[idx].DataSource).ToList();
 
 
-            if(list.Count != 0) {
+            if (list.Count != 0)
+            {
                 fdGroup_Form_fdlist fdGroup_form_Fdlist = new fdGroup_Form_fdlist(this, list, (List<string>)listBoxFriends[idx].DataSource, idx);
                 fdGroup_form_Fdlist.ShowDialog();
             }
             else
             {
-                MessageBox.Show("추가할 친구가 더 이상 없습니다.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Warning); return; 
+                MessageBox.Show("추가할 친구가 더 이상 없습니다.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Warning); return;
 
             }
 
@@ -268,7 +269,7 @@ namespace WindowsFormsApp1
                 else
                 {
                     mainForm.groups.Remove(labelGroupName[idx].Text);
-                    this.Controls.Remove(labelGroupName[idx ]);
+                    this.Controls.Remove(labelGroupName[idx]);
                     this.Controls.Remove(listBoxFriends[idx]);
                     this.Controls.Remove(btn_delete[idx]);
                     this.Controls.Remove(btn_share[idx]);

@@ -45,18 +45,16 @@ namespace Client
 
         UserControlDays UserControlDays;
 
-        NetworkStream netstrm;
+        NetworkStream netstrm = mainForm.netstrm;
         mainForm mainform;
         User myUserInfo = mainForm.myUserInfo;
 
         CheckBox[] checkBox = new CheckBox[20];
         Button[] deletebtn = new Button[20];
-        
         Label[] start = new Label[20];
         Label[] end = new Label[20];
         Label[] content = new Label[20];
         Label[] title = new Label[20];
-        
         int labelWidth = 50;
         int labelHeight = 25;
         
@@ -77,8 +75,6 @@ namespace Client
             schedule_load();
             lbcount = daySchedules.Count;
         }
-
-
         //public delegate void DateSelectedHandler(int day, string dayOfWeek);
         //public event DateSelectedHandler DateSelected;
 
@@ -161,7 +157,7 @@ namespace Client
 
             DateTime endDateTime = new DateTime(dtpEndDate.Value.Year, dtpEndDate.Value.Month, dtpEndDate.Value.Day,
                 dtpEndTime.Value.Hour, dtpEndTime.Value.Minute, 0);
-
+                
             // 새로운 스케줄을 mainForm에 추가
             Schedule eventschedule = new Schedule();
             eventschedule.startTime = startDateTime;
@@ -289,6 +285,7 @@ namespace Client
 
             deleteEvent.Invoke(this, new EventFormArgs(schedules));
         }
+
 
 
 
