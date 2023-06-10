@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApp1;
 
 namespace Client
 {
@@ -20,11 +21,37 @@ namespace Client
 
         KLASCrawler klasCrawler;
 
+        private Point[] noticePositions;
+
+        private const int LEFT_NOTICE_XPOS = 100;
+        private const int LEFT_NOTICE_YPOS = 240;
+
+        private const int MID_NOTICE_XPOS = 380;
+        private const int MID_NOTICE_YPOS = 55;
+
+        private const int RIGHT_NOTICE_XPOS = 580;
+        private const int RIGHT_NOTICE_YPOS = 280;
+
+        NoticeInfo noticeInfo1 = new NoticeInfo();
+        NoticeInfo noticeInfo2 = new NoticeInfo();
+        NoticeInfo noticeInfo3 = new NoticeInfo();
 
         public KLASUIForm()
         {
             InitializeComponent();
 
+            noticePositions = new Point[3];
+
+            noticePositions[0] = new Point(MID_NOTICE_XPOS, MID_NOTICE_YPOS);
+            noticePositions[1] = new Point(LEFT_NOTICE_XPOS,LEFT_NOTICE_YPOS);
+            noticePositions[2] = new Point(RIGHT_NOTICE_XPOS,RIGHT_NOTICE_YPOS);
+
+            noticeInfo1.Location = noticePositions[0];
+            this.Controls.Add(noticeInfo1);
+            noticeInfo2.Location = noticePositions[1];
+            this.Controls.Add(noticeInfo2);
+            noticeInfo3.Location = noticePositions[2];
+            this.Controls.Add(noticeInfo3);
         }
 
         public CrawlingStatus.Status doWork(string id, string pwd,KLASCrawler klasCrawler)
@@ -76,7 +103,6 @@ namespace Client
         // clear all TextBoxes : notice, onlinelecture, assignment, quiz, teamproject
         public void clearTBX()
         {
-            noticeTBX.Clear();
             olecTBX.Clear();
             amtTBX.Clear();
             quizTBX.Clear();
@@ -107,19 +133,33 @@ namespace Client
         public void setNotice(Lecture lecture)
         {
             List<Notice> notices = lecture.getNotice();
+            noticeInfo1.textClear();
+            noticeInfo2.textClear(); 
+            noticeInfo3.textClear();
 
-            if (notices.Count == 0)
-                noticeTBX.AppendText("공지가 없습니다. ");
+            if (notices.Count >= 3)
+            {
+                noticeInfo1.setNoticeInfo(notices[0].getTitle(), notices[0].getAuthor(), notices[0].getDate());
+                noticeInfo2.setNoticeInfo(notices[1].getTitle(), notices[1].getAuthor(), notices[1].getDate());
+                noticeInfo3.setNoticeInfo(notices[2].getTitle(), notices[2].getAuthor(), notices[2].getDate());
+            }
+            else if(notices.Count >= 2)
+            {
+                noticeInfo1.setNoticeInfo(notices[0].getTitle(), notices[0].getAuthor(), notices[0].getDate());
+                noticeInfo2.setNoticeInfo(notices[1].getTitle(), notices[1].getAuthor(), notices[1].getDate());
+                noticeInfo3.setNoNotice();
+            }
+            else if(notices.Count == 1)
+            {
+                noticeInfo1.setNoticeInfo(notices[0].getTitle(), notices[0].getAuthor(), notices[0].getDate());
+                noticeInfo2.setNoNotice();
+                noticeInfo3.setNoNotice();
+            }
             else
             {
-                foreach (Notice notice in notices)
-                {
-                    noticeTBX.AppendText("No #" + "\r\n");
-                    noticeTBX.AppendText("Title: " + notice.getTitle() + "\r\n");
-                    noticeTBX.AppendText("Author: " + notice.getAuthor() + "\r\n");
-                    noticeTBX.AppendText("Date: " + notice.getDate() + "\r\n");
-                    noticeTBX.AppendText("ViewCount: " + notice.getViewCount() + "\r\n");
-                }
+                noticeInfo1.setNoNotice();
+                noticeInfo2.setNoNotice();
+                noticeInfo3.setNoNotice();
             }
 
         }
@@ -140,10 +180,9 @@ namespace Client
                     // 아직 다 듣지 않은 온라인 강의만 출력
                     if (onlineLecture.getPercentage().Contains("100%") != true)
                     {
-                        olecTBX.AppendText("No #" + "\r\n");
-                        olecTBX.AppendText("Title: " + onlineLecture.getTitle() + "\r\n");
-                        olecTBX.AppendText("Deadline: " + onlineLecture.getDueDate() + "\r\n");
-                        olecTBX.AppendText("Percentage: " + onlineLecture.getPercentage() + "\r\n");
+                        olecTBX.AppendText("강의: " + onlineLecture.getTitle() + "\r\n");
+                        olecTBX.AppendText("마감기한: " + onlineLecture.getDueDate() + "\r\n");
+                        olecTBX.AppendText("학습률: " + onlineLecture.getPercentage() + "\r\n\r\n");
                     }
                     else
                         oLecDone++;
@@ -172,10 +211,8 @@ namespace Client
                     // 아직 진행하지 않은 퀴즈만 출력
                     if (string.Compare(quiz.getState(), "응시") != 0)
                     {
-                        quizTBX.AppendText("No #" + "\r\n");
-                        quizTBX.AppendText("Title: " + quiz.getTitle() + "\r\n");
-                        quizTBX.AppendText("Deadline: " + quiz.getDueDate() + "\r\n");
-                        quizTBX.AppendText("State: " + quiz.getState() + "\r\n");
+                        quizTBX.AppendText("퀴즈: " + quiz.getTitle() + "\r\n");
+                        quizTBX.AppendText("마감기한: " + quiz.getDueDate() + "\r\n\r\n");
                     }
                     else
                         numQuizDone++; 
@@ -203,10 +240,8 @@ namespace Client
                     // 아직 제출하지 않은 과제만 출력
                     if (string.Compare(assignment.getState(), "제출") != 0)
                     {
-                        amtTBX.AppendText("No #" + "\r\n");
-                        amtTBX.AppendText("Title: " + assignment.getTitle() + "\r\n");
-                        amtTBX.AppendText("Deadline: " + assignment.getDueDate() + "\r\n");
-                        amtTBX.AppendText("State: " + assignment.getState() + "\r\n");
+                        amtTBX.AppendText("과제: " + assignment.getTitle() + "\r\n");
+                        amtTBX.AppendText("마감기한: " + assignment.getDueDate() + "\r\n\r\n");
                     }
                     else
                         numAssignmentsDone++;
@@ -227,7 +262,7 @@ namespace Client
             {
                 tproTBX.AppendText("수업에서 출제된 팀 프로젝트가 없습니다. \r\n");
                 
-                tproTBX.AppendText(lecture.getTime()[0] + "  " + lecture.getTime()[1]);
+                //tproTBX.AppendText(lecture.getTime()[0] + "  " + lecture.getTime()[1]);
             }
             else
             {
@@ -238,10 +273,8 @@ namespace Client
                     // 아직 제출하지 않은 팀프로젝트만 출력
                     if (string.Compare(teamProject.getState(), "제출") != 0)
                     {
-                        tproTBX.AppendText("No #" + "\r\n");
-                        tproTBX.AppendText("Title: " + teamProject.getTitle() + "\r\n");
-                        tproTBX.AppendText("Deadline: " + teamProject.getDueDate() + "\r\n");
-                        tproTBX.AppendText("State: " + teamProject.getState() + "\r\n");
+                        tproTBX.AppendText("팀프로젝트: " + teamProject.getTitle() + "\r\n");
+                        tproTBX.AppendText("마감기한: " + teamProject.getDueDate() + "\r\n\r\n");
                     }
                     else
                         numTeamsDone++;

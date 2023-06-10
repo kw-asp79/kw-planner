@@ -250,9 +250,6 @@ namespace Client
 
             sendPacket.data = fullData;
 
-            // 여기에 
-
-
             Packet.SendPacket(netstrm, sendPacket);
 
             Packet receivedPacket = Packet.ReceivePacket(netstrm);
