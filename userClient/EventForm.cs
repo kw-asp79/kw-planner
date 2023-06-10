@@ -164,10 +164,21 @@ namespace Client
             eventschedule.endTime = endDateTime;
             eventschedule.category = "CUSTOM";
             eventschedule.title = tbTitle.Text;
-            eventschedule.content = tbSchedule.Text;
+            eventschedule.content = tbContent.Text;
             eventschedule.fromWho = "";
             eventschedule.isDone = false;
             mainForm.schedules.Add(eventschedule);
+
+            Dictionary<string, Object> fullData = new Dictionary<string, object>();
+            fullData.Add("schedule", eventschedule);
+            fullData.Add("user", myUserInfo);
+
+            Packet packet = new Packet();
+            packet.action = ActionType.saveSchedule;
+            packet.data = fullData;
+
+            Packet.SendPacket(netstrm, packet);
+            packet = Packet.ReceivePacket(netstrm);
 
             daySchedules.Add(eventschedule);
 
@@ -201,7 +212,7 @@ namespace Client
             content[lbcount].Location = new Point(title[lbcount].Location.X + 100, title[lbcount].Location.Y);
             content[lbcount].Size = new Size(labelWidth * 5, labelHeight);
             content[lbcount].Font = new Font("Ink Free", 11, FontStyle.Regular);
-            content[lbcount].Text = tbSchedule.Text;
+            content[lbcount].Text = tbContent.Text;
             content[lbcount].Tag = lbcount;
 
             deletebtn[lbcount] = new Button();
@@ -237,10 +248,10 @@ namespace Client
             Button btn = sender as Button;
             int deleteIndex = (int)btn.Tag;
 
-            string startTime = start[deleteIndex].ToString();
-            string endTime = end[deleteIndex].ToString();
             string deleteTitle = title[deleteIndex].Text;
             string deleteContent = content[deleteIndex].Text;
+            DateTime startTime = DateTime.Parse(start[deleteIndex].Text);
+            DateTime endTime = DateTime.Parse(end[deleteIndex].Text);
 
             Schedule deleteSchedule = new Schedule();
             // mainForm의 schedules 리스트에서 해당하는 스케줄을 찾아 삭제
@@ -251,6 +262,19 @@ namespace Client
                     mainForm.schedules.Remove(schedule);
                     daySchedules.Remove(schedule);
                     deleteSchedule = schedule;
+
+                    // 서버에 스케쥴 삭제를 요청
+                    Dictionary<string, Object> fullData = new Dictionary<string, object>();
+                    fullData.Add("user", mainForm.myUserInfo);
+                    fullData.Add("schedule", schedule);
+
+                    Packet packet = new Packet();
+                    packet.action = ActionType.deleteSchedule;
+                    packet.data = fullData;
+
+                    Packet.SendPacket(netstrm, packet);
+                    packet = Packet.ReceivePacket(netstrm);
+
                     break;
                 }
             }

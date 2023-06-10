@@ -96,6 +96,7 @@
   <ItemGroup>
     <Compile Include="BookInfo.cs">
       <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="calendar_Share_chk.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -231,6 +232,7 @@
     </Compile>
     <EmbeddedResource Include="BookInfo.resx">
       <DependentUpon>BookInfo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="calendar_Share_chk.resx">
       <DependentUpon>calendar_Share_chk.cs</DependentUpon>
     </EmbeddedResource>

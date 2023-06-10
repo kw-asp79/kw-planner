@@ -101,7 +101,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.kw_image4;
             this.Controls.Add(this.pwdTbx);
             this.Controls.Add(this.loginBtn);
             this.Controls.Add(this.idTbx);

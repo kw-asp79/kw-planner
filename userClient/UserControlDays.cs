@@ -134,12 +134,6 @@ namespace Client
 
 
 
-        public List<Schedule> getSchedules()
-        {
-            return daySchedules;
-        }
-
-
         // 로그인 시 그리고 처음 생성단계에서 스케줄을 세팅
         public void setSchedules(List<Schedule> schedules, Option option)
         {
