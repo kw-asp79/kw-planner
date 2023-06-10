@@ -24,7 +24,7 @@ namespace CrawlingLibrary
         
         List<string> lectureNames = new List<string>();
 
-        int lectureNum;
+        int lectureNum=0;
 
         List<Schedule> klasSchedules = new List<Schedule>(); // klas 관련 Schedules
 
@@ -224,7 +224,7 @@ namespace CrawlingLibrary
             try
             {
                 chromeDriver.Navigate().GoToUrl("https://klas.kw.ac.kr/");
-                WaitForVisible(chromeDriver, By.XPath("//*[@id=\"loginId\"]"));
+                Thread.Sleep(500);
 
                 // send id and pwd data 
                 var element = chromeDriver.FindElement(By.XPath("//*[@id=\"loginId\"]"));
@@ -371,10 +371,8 @@ namespace CrawlingLibrary
 
             try
             {
-                WaitForVisible(chromeDriver, By.XPath("//*[@id=\"appModule\"]/div/div[1]/div[2]/ul/li[1]/div[1]"));
-                // 처음에는 메인페이지에서 첫 과목의 종합페이지로 진입
-                var element = chromeDriver.FindElement(By.XPath("//*[@id=\"appModule\"]/div/div[1]/div[2]/ul/li[1]/div[1]"));
-                element.Click();
+                // 과목 메인 페이지로 진입
+                moveToOverallPage();
 
                 // index starts from 1 => for each lecture!
                 for (int i = 1; i <= lectureNum; i++)
@@ -382,10 +380,10 @@ namespace CrawlingLibrary
                     // 과목명 옵션별로 선택하기 버튼 
                     string optionXpath = "//*[@id=\"appSelectSubj\"]/div[2]/div/div[2]/select/option[" + i + "]";
 
-                    WaitForVisible(chromeDriver, By.XPath(optionXpath));
                     // 각 과목 선택 후 클릭 
-                    element = chromeDriver.FindElement(By.XPath(optionXpath));
+                    var element = chromeDriver.FindElement(By.XPath(optionXpath));
                     element.Click();
+                    Thread.Sleep(300);
 
                     // time to crawl all datas..
                     List<Notice> notices = crawlNoticeData();
@@ -406,6 +404,8 @@ namespace CrawlingLibrary
                     lectures[i - 1].setTeamProject(teamProjects);
 
                     crawlingEvent.Invoke(this, new EventArgs());
+
+                    moveToOverallPage();
                 }
             }
             catch (Exception e)
@@ -425,11 +425,11 @@ namespace CrawlingLibrary
         {
             try
             {
-                WaitForVisible(chromeDriver, By.XPath("//*[@id=\"appHeaderSubj\"]/div/div/div[1]/span[1]"));
-                var element = chromeDriver.FindElement(By.XPath("//*[@id=\"appHeaderSubj\"]/div/div/div[1]/span[1]"));
+                chromeDriver.Navigate().GoToUrl("https://klas.kw.ac.kr/std/lis/evltn/LctrumHomeStdPage.do");
+                //var element = chromeDriver.FindElement(By.XPath("//*[@id=\"appHeaderSubj\"]/div/div/div[1]/span[1]"));
                 //Console.WriteLine(element.Text.ToString());
-                element.Click();
-
+                //element.Click();
+                Thread.Sleep(300);
             }
             catch (Exception e) 
             {
@@ -447,7 +447,6 @@ namespace CrawlingLibrary
         // move to Notice Page 
         private void moveToNoticePage()
         {
-            WaitForVisible(chromeDriver, By.XPath("//*[@id=\"appModule\"]/div[1]/div[1]/div/div[1]/a"));
             var element = chromeDriver.FindElement(By.XPath("//*[@id=\"appModule\"]/div[1]/div[1]/div/div[1]/a"));
             element.Click();
             Thread.Sleep(300);
@@ -468,7 +467,7 @@ namespace CrawlingLibrary
                 if (testString.Contains("글이 없습니다"))
                 {
 
-                    moveToOverallPage();
+                    //moveToOverallPage();
                     return notices;
                 }
                 else
@@ -509,9 +508,8 @@ namespace CrawlingLibrary
                 Console.WriteLine("Error while crawlNoticePage() " + e);
             }
 
-
-            moveToOverallPage();
-
+            
+            //moveToOverallPage();
             return notices;
         }
 
@@ -523,9 +521,9 @@ namespace CrawlingLibrary
         // move to Quiz page (해당 강의 종합 페이지 -> 퀴즈 버튼 클릭 후 이동)
         private void moveToQuizPage()
         {
-            WaitForVisible(chromeDriver, By.XPath("//*[@id=\"appModule\"]/div[1]/div[2]/div/div[2]/div/div[2]/ul/li[3]/a"));
-            var element = chromeDriver.FindElement(By.XPath("//*[@id=\"appModule\"]/div[1]/div[2]/div/div[2]/div/div[2]/ul/li[3]/a"));
-            element.Click();
+            chromeDriver.Navigate().GoToUrl("https://klas.kw.ac.kr/std/lis/evltn/AnytmQuizStdPage.do");
+            //var element = chromeDriver.FindElement(By.XPath("//*[@id=\"appModule\"]/div[1]/div[2]/div/div[2]/div/div[2]/ul/li[3]/a"));
+            //element.Click();
             Thread.Sleep(300);
         }
 
@@ -543,7 +541,7 @@ namespace CrawlingLibrary
                 if (testString.Contains("출제된 수시퀴즈가 없습니다"))
                 {
 
-                    moveToOverallPage();
+                    //moveToOverallPage();
                     return quizs;
                 }
                 else
@@ -585,7 +583,7 @@ namespace CrawlingLibrary
             }
 
 
-            moveToOverallPage();
+            //moveToOverallPage();
             return quizs;
         }
 
@@ -596,9 +594,9 @@ namespace CrawlingLibrary
         // move to Online Lecture Page (해당 강의 종합 페이지 -> 온라인강의 버튼 클릭 후 이동)
         private void moveToOnlineLecturePage()
         {
-            WaitForVisible(chromeDriver, By.XPath("//*[@id=\"appModule\"]/div[1]/div[2]/div/div[2]/div/div[1]/ul/li[1]/a"));
-            var element = chromeDriver.FindElement(By.XPath("//*[@id=\"appModule\"]/div[1]/div[2]/div/div[2]/div/div[1]/ul/li[1]/a"));
-            element.Click();
+            chromeDriver.Navigate().GoToUrl("https://klas.kw.ac.kr/std/lis/evltn/OnlineCntntsStdPage.do");
+            //var element = chromeDriver.FindElement(By.XPath("//*[@id=\"appModule\"]/div[1]/div[2]/div/div[2]/div/div[1]/ul/li[1]/a"));
+            //element.Click();
 
             Thread.Sleep(300);
         }
@@ -617,7 +615,7 @@ namespace CrawlingLibrary
                 if (testString.Contains("등록된 온라인강의가 없습니다"))
                 {
 
-                    moveToOverallPage();
+                    //moveToOverallPage();
                     return onlineLectures;
                 }
                 else
@@ -678,7 +676,7 @@ namespace CrawlingLibrary
             }
 
 
-            moveToOverallPage();
+            //moveToOverallPage();
             return onlineLectures;
         }
 
@@ -688,9 +686,9 @@ namespace CrawlingLibrary
         // move to Assignment Page(해당 강의 종합 페이지 -> 과제 버튼 클릭 후 이동)
         private void moveToAssignmentPage()
         {
-            WaitForVisible(chromeDriver, By.XPath("//*[@id=\"appModule\"]/div[1]/div[2]/div/div[2]/div/div[2]/ul/li[2]/a"));
-            var element = chromeDriver.FindElement(By.XPath("//*[@id=\"appModule\"]/div[1]/div[2]/div/div[2]/div/div[2]/ul/li[2]/a"));
-            element.Click();
+            chromeDriver.Navigate().GoToUrl("https://klas.kw.ac.kr/std/lis/evltn/TaskStdPage.do");
+            //var element = chromeDriver.FindElement(By.XPath("//*[@id=\"appModule\"]/div[1]/div[2]/div/div[2]/div/div[2]/ul/li[2]/a"));
+            //element.Click();
 
             Thread.Sleep(300);
         }
@@ -712,7 +710,7 @@ namespace CrawlingLibrary
                 if (testString.Contains("출제된 레포트가 없습니다"))
                 {
 
-                    moveToOverallPage();
+                    //moveToOverallPage();
                     return assignments;
                 }
                 else
@@ -762,7 +760,7 @@ namespace CrawlingLibrary
             }
 
 
-            moveToOverallPage();
+            //moveToOverallPage();
             return assignments;
         }
 
@@ -774,9 +772,9 @@ namespace CrawlingLibrary
         // move to Team Project Page (해당 강의 종합 페이지 -> 팀프로젝트 버튼 클릭 후 이동)
         private void moveToTeamProjectPage()
         {
-            WaitForVisible(chromeDriver, By.XPath("//*[@id=\"appModule\"]/div[1]/div[2]/div/div[2]/div/div[1]/ul/li[2]/a"));
-            var element = chromeDriver.FindElement(By.XPath("//*[@id=\"appModule\"]/div[1]/div[2]/div/div[2]/div/div[1]/ul/li[2]/a"));
-            element.Click();
+            chromeDriver.Navigate().GoToUrl("https://klas.kw.ac.kr/std/lis/evltn/PrjctStdPage.do");
+            //var element = chromeDriver.FindElement(By.XPath("//*[@id=\"appModule\"]/div[1]/div[2]/div/div[2]/div/div[1]/ul/li[2]/a"));
+            //element.Click();
 
             Thread.Sleep(500);
         }
@@ -795,7 +793,7 @@ namespace CrawlingLibrary
                 if (testString.Contains("출제된 프로젝트가 없습니다"))
                 {
 
-                    moveToOverallPage();
+                    //moveToOverallPage();
                     return teamProjects;
                 }
                 else
@@ -841,7 +839,7 @@ namespace CrawlingLibrary
             }
 
 
-            moveToOverallPage();
+            //moveToOverallPage();
             return teamProjects;
         }
 

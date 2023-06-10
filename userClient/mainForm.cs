@@ -260,8 +260,22 @@ namespace Client
 
 
             // KLAS 스케줄들을 메인 스케줄에 추가
-            foreach (Schedule schedule in args.getSchedules())
-                schedules.Add(schedule);
+            foreach (Schedule klasSchedule in args.getSchedules())
+            {
+                bool isExist = false;
+                foreach (Schedule mainSchedule in schedules)
+                {
+                    if (Schedule.scheduleCompare(mainSchedule, klasSchedule) == true)
+                    {
+                        isExist = true;
+                        break;
+                    }
+                }
+
+                if(isExist == false)
+                    schedules.Add(klasSchedule);
+            }
+
             loginSuccessEvent.Invoke(this, new LoginEventArgs(schedules, LoginEventArgs.TYPE.KLAS_LOGIN));
 
             klasUIForm.setMainUI();
@@ -306,8 +320,23 @@ namespace Client
 
 
             // LIBRARY 스케줄들을 메인 스케줄에 추가
-            foreach (Schedule schedule in args.getSchedules())
-                schedules.Add(schedule);
+            foreach (Schedule libSchedule in args.getSchedules())
+            {
+                bool isExist = false;
+                foreach (Schedule mainSchedule in schedules)
+                {
+                    if(Schedule.scheduleCompare(libSchedule, mainSchedule) == true)
+                    {
+                        isExist = true;
+                        break;
+                    }
+                }
+
+                if(isExist == false)
+                    schedules.Add(libSchedule);
+
+            }
+
             loginSuccessEvent.Invoke(this, new LoginEventArgs(schedules, LoginEventArgs.TYPE.LIBRARY_LOGIN));
 
             libraryUIForm.setUI();
