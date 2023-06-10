@@ -22,6 +22,8 @@ namespace PacketLibrary
         Fail,
         chatting,
         shareSchedule,
+        viewRequestSchedules,
+        updateRequestToCustom,
         login,
         signUp,
         readAllData,
@@ -64,7 +66,7 @@ namespace PacketLibrary
             BinaryFormatter formatter = new BinaryFormatter();
 
             formatter.Serialize(memstrm, packet);
-            
+
             // Packet의 size를 구해서 PacketInfo 클래스에 할당
             int packetSize = (int)memstrm.Length;
             packetInfo.size = packetSize;

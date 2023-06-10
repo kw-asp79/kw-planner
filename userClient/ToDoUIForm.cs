@@ -24,19 +24,18 @@ namespace Client
         }
 
 
-        public ToDoUIForm(List<Schedule> libschedules, List<Schedule> klasschedules, mainForm mainform)
+        public ToDoUIForm(List<Schedule> libschedules,List<Schedule> klasschedules,mainForm mainForm)
         {
             InitializeComponent();
 
             this.libSchedules = libschedules;
             this.klasSchedules = klasschedules;
             setLibSchedules(mainForm.schedules);
-            setKLASSchedules(mainForm.schedules);
         }
 
         public void setLibSchedules(List<Schedule> schedules)
         {
-            foreach (Schedule schedule in schedules)
+            foreach(Schedule schedule in schedules)
             {
                 textBox1.AppendText("No # \r\n");
                 textBox1.AppendText("id: " + schedule.id + "\r\n");

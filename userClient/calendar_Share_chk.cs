@@ -1,5 +1,6 @@
 ﻿using Client;
 using EntityLibrary;
+using PacketLibrary;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,7 @@ namespace WindowsFormsApp1
 {
     public partial class calendar_Share_chk : Form
     {
+        NetworkStream netstrm;
         calendarForm calendarForm;
         mainForm mainForm;
         CheckBox[] checkBox = new CheckBox [20];
@@ -33,11 +35,12 @@ namespace WindowsFormsApp1
             InitializeComponent();
             this.calendarForm = form;
             requestlist_load();
+            this.netstrm = mainForm.netstrm;
         }
 
         private void requestlist_load()
         {
-            requestSchedules = mainForm.schedules.Where(schedule => schedule.category == "REQUEST").ToList();
+            requestSchedules = calendarForm.requestSchedules.Where(schedule => schedule.category == "REQUEST").ToList();
             
             int t = 0;
             for (int i = 1; i <= requestSchedules.Count; i++) 
@@ -117,15 +120,37 @@ namespace WindowsFormsApp1
                 {
                     var schedule = requestSchedules[i - 1];
                     selectedSchedules.Add(schedule);
-                    string co = schedule.content;
-                    var index = mainForm.schedules.FindIndex(s => s.content == co);
+                    calendarForm.requestSchedules.RemoveAt(i - 1);
+                    //string co = schedule.content;
+                    //var index = mainForm.schedules.FindIndex(s => s.content == co);
                     
-                    if (index != -1)
-                    {
-                        mainForm.schedules[index].category = "CUSTOM";
-                    }
+                    //if (index != -1)
+                    //{
+                    //    mainForm.schedules[index].category = "CUSTOM";
+                    //}
                 }
             }
+
+            Dictionary<string, Object> fullData = new Dictionary<string, object>();
+            fullData.Add("user", mainForm.myUserInfo);
+            fullData.Add("schedules", selectedSchedules);
+
+            Packet packet = new Packet();
+            packet.action = ActionType.updateRequestToCustom;
+            packet.data = fullData;
+
+            Packet.SendPacket(netstrm, packet);
+            packet = Packet.ReceivePacket(netstrm);
+
+            mainForm.schedules.AddRange(selectedSchedules);
+
+            //string meesage = "";
+            //foreach (schedule schedule in mainform.schedules)
+            //{
+            //    meesage += schedule.title + ", " + schedule.content + ", " + schedule.fromwho + "\n";
+            //}
+            //messagebox.show(meesage);
+
             MessageBox.Show(string.Format("선택한 일정이 내 일정으로 등록되었습니다."));
             this.Close();
         }

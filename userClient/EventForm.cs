@@ -17,14 +17,31 @@ using System.Collections;
 using System.Net.Sockets;
 using PacketLibrary;
 using Google.Protobuf.WellKnownTypes;
-using System.Diagnostics;
+using System.CodeDom;
 
 //using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace Client
 {
-    public partial class EventForm : Form
+    public class EventFormArgs : EventArgs
     {
+        public List<Schedule> schedules;
+
+
+        public EventFormArgs(List<Schedule> schedules)
+        {
+            this.schedules = schedules;
+        }
+
+        public List<Schedule> getSchedules()
+        {
+            return this.schedules;
+        }
+
+    }
+
+        public partial class EventForm : Form
+     {
 
         UserControlDays UserControlDays;
 
@@ -40,69 +57,68 @@ namespace Client
         Label[] title = new Label[20];
         int labelWidth = 50;
         int labelHeight = 25;
-        List<Schedule> daySchedules;
+        
+        List<Schedule> daySchedules; // userControlDays 통해 받은 스케줄들
+       
         int lbcount; // 클래스의 멤버 변수로 선언
-        int k;
+       
+        public static event EventHandler<EventFormArgs> saveEvent;
+        public static event EventHandler<EventFormArgs> deleteEvent;
 
         public EventForm(UserControlDays form)
         {
-            
+
             UserControlDays = form;
             daySchedules = form.getSchedules();
-            
             InitializeComponent();
 
             schedule_load();
             lbcount = daySchedules.Count;
-            k = lbcount+1 ;
-            //int lbcount = daySchedules.Count;
         }
-
-        
         //public delegate void DateSelectedHandler(int day, string dayOfWeek);
         //public event DateSelectedHandler DateSelected;
 
         private void schedule_load()
         {
             daySchedules = daySchedules.OrderBy(schedule => schedule.startTime).ToList();
-            for (int i = 1; i <= daySchedules.Count; i++)
+            for (int i = 0; i < daySchedules.Count; i++)
             {
                 checkBox[i] = new CheckBox();
-                checkBox[i].Location = new Point(0, -20+30*i);
+                checkBox[i].Location = new Point(0, -20 + 30 * (i+1));
                 checkBox[i].Size = new Size(labelWidth, labelHeight);
                 checkBox[i].Tag = i;
-                checkBox[i].Checked = daySchedules[i - 1].isDone;
+                checkBox[i].Checked = daySchedules[i].isDone;
 
                 start[i] = new Label();
                 start[i].Location = new Point(checkBox[i].Location.X + 50, checkBox[i].Location.Y);
-                start[i].Size = new Size(labelWidth *3, labelHeight+5);
+                start[i].Size = new Size(labelWidth * 3, labelHeight + 5);
                 start[i].Font = new Font("Ink Free", 11, FontStyle.Regular);
-                start[i].Text = daySchedules[i - 1].startTime.ToString("yyyy-MM-dd HH:mm");
+                start[i].Text = daySchedules[i].startTime.ToString("yyyy-MM-dd HH:mm");
                 start[i].Tag = i;
 
                 end[i] = new Label();
                 end[i].Location = new Point(start[i].Location.X + 150, start[i].Location.Y);
-                end[i].Size = new Size(labelWidth*3, labelHeight);
+                end[i].Size = new Size(labelWidth * 3, labelHeight);
                 end[i].Font = new Font("Ink Free", 11, FontStyle.Regular);
-                end[i].Text = daySchedules[i - 1].endTime.ToString("yyyy-MM-dd HH:mm");
+                end[i].Text = daySchedules[i].endTime.ToString("yyyy-MM-dd HH:mm");
                 end[i].Tag = i;
 
                 title[i] = new Label();
                 title[i].Location = new Point(end[i].Location.X + 150, end[i].Location.Y);
-                title[i].Size = new Size(labelWidth*2, labelHeight);
+                title[i].Size = new Size(labelWidth * 2, labelHeight);
                 title[i].Font = new Font("Ink Free", 11, FontStyle.Regular);
-                title[i].Text = daySchedules[i - 1].title;
+                title[i].Text = daySchedules[i].title;
                 title[i].Tag = i;
 
                 content[i] = new Label();
                 content[i].Location = new Point(title[i].Location.X + 100, title[i].Location.Y);
-                content[i].Size = new Size(labelWidth*5, labelHeight);
+                content[i].Size = new Size(labelWidth * 5, labelHeight);
                 content[i].Font = new Font("Ink Free", 11, FontStyle.Regular);
-                content[i].Text = daySchedules[i - 1].content;
+                content[i].Text = daySchedules[i].content;
                 content[i].Tag = i;
 
                 deletebtn[i] = new Button();
-                deletebtn[i].Location = new Point(content[i].Location.X+300,content[i].Location.Y);
+                deletebtn[i].Location = new Point(content[i].Location.X + 300, content[i].Location.Y);
                 deletebtn[i].Size = new Size(labelWidth, labelHeight);
                 deletebtn[i].Text = "삭제";
                 deletebtn[i].Tag = i;
@@ -118,7 +134,7 @@ namespace Client
                 panel1.Controls.Add(content[i]);
                 panel1.Controls.Add(title[i]);
 
-                if (daySchedules[i - 1].isDone)
+                if (daySchedules[i].isDone)
                 {
                     checkBox[i].Checked = true;
                     start[i].Font = new Font(start[i].Font, FontStyle.Strikeout);
@@ -141,7 +157,8 @@ namespace Client
 
             DateTime endDateTime = new DateTime(dtpEndDate.Value.Year, dtpEndDate.Value.Month, dtpEndDate.Value.Day,
                 dtpEndTime.Value.Hour, dtpEndTime.Value.Minute, 0);
-  
+                
+            // 새로운 스케줄을 mainForm에 추가
             Schedule eventschedule = new Schedule();
             eventschedule.startTime = startDateTime;
             eventschedule.endTime = endDateTime;
@@ -163,89 +180,110 @@ namespace Client
             Packet.SendPacket(netstrm, packet);
             packet = Packet.ReceivePacket(netstrm);
 
-            checkBox[k] = new CheckBox();
-            checkBox[k].Location = new Point(0, -20+30*k);
-            checkBox[k].Size = new Size(labelWidth, labelHeight);
-            checkBox[k].Tag = k;
+            daySchedules.Add(eventschedule);
 
-            start[k] = new Label();
-            start[k].Location = new Point(checkBox[k].Location.X + 50, checkBox[k].Location.Y);
-            start[k].Size = new Size(labelWidth * 3, labelHeight + 5);
-            start[k].Font = new Font("Ink Free", 11, FontStyle.Regular);
-            start[k].Text = startDateTime.ToString("yyyy-MM-dd HH:mm");
-            start[k].Tag = k;
+            checkBox[lbcount] = new CheckBox();
+            checkBox[lbcount].Location = new Point(0, -20 + 30 * (lbcount+1));
+            checkBox[lbcount].Size = new Size(labelWidth, labelHeight);
+            checkBox[lbcount].Tag = lbcount;
 
-            end[k] = new Label();
-            end[k].Location = new Point(start[k].Location.X + 150, start[k].Location.Y);
-            end[k].Size = new Size(labelWidth * 3, labelHeight);
-            end[k].Font = new Font("Ink Free", 11, FontStyle.Regular);
-            end[k].Text = endDateTime.ToString("yyyy-MM-dd HH:mm");
-            end[k].Tag = k;
+            start[lbcount] = new Label();
+            start[lbcount].Location = new Point(checkBox[lbcount].Location.X + 50, checkBox[lbcount].Location.Y);
+            start[lbcount].Size = new Size(labelWidth * 3, labelHeight + 5);
+            start[lbcount].Font = new Font("Ink Free", 11, FontStyle.Regular);
+            start[lbcount].Text = startDateTime.ToString("yyyy-MM-dd HH:mm");
+            start[lbcount].Tag = lbcount;
 
-            title[k] = new Label();
-            title[k].Location = new Point(end[k].Location.X + 150, end[k].Location.Y);
-            title[k].Size = new Size(labelWidth*2, labelHeight);
-            title[k].Font = new Font("Ink Free", 11, FontStyle.Regular);
-            title[k].Text = tbTitle.Text;
-            title[k].Tag = k;
+            end[lbcount] = new Label();
+            end[lbcount].Location = new Point(start[lbcount].Location.X + 150, start[lbcount].Location.Y);
+            end[lbcount].Size = new Size(labelWidth * 3, labelHeight);
+            end[lbcount].Font = new Font("Ink Free", 11, FontStyle.Regular);
+            end[lbcount].Text = endDateTime.ToString("yyyy-MM-dd HH:mm");
+            end[lbcount].Tag = lbcount;
 
-            content[k] = new Label();
-            content[k].Location = new Point(title[k].Location.X + 100, title[k].Location.Y);
-            content[k].Size = new Size(labelWidth * 5, labelHeight);
-            content[k].Font = new Font("Ink Free", 11, FontStyle.Regular);
-            content[k].Text = tbContent.Text;
-            content[k].Tag = k;
+            title[lbcount] = new Label();
+            title[lbcount].Location = new Point(end[lbcount].Location.X + 150, end[lbcount].Location.Y);
+            title[lbcount].Size = new Size(labelWidth * 2, labelHeight);
+            title[lbcount].Font = new Font("Ink Free", 11, FontStyle.Regular);
+            title[lbcount].Text = tbTitle.Text;
+            title[lbcount].Tag = lbcount;
 
-            deletebtn[k] = new Button();
-            deletebtn[k].Location = new Point(content[k].Location.X + 300, content[k].Location.Y);
-            deletebtn[k].Size = new Size(labelWidth, labelHeight);
-            deletebtn[k].Text = "삭제";
-            deletebtn[k].Tag = k;
+            content[lbcount] = new Label();
+            content[lbcount].Location = new Point(title[lbcount].Location.X + 100, title[lbcount].Location.Y);
+            content[lbcount].Size = new Size(labelWidth * 5, labelHeight);
+            content[lbcount].Font = new Font("Ink Free", 11, FontStyle.Regular);
+            content[lbcount].Text = tbContent.Text;
+            content[lbcount].Tag = lbcount;
 
-            checkBox[k].Click += new EventHandler(CheckBox_CheckedChanged);
-            deletebtn[k].Click += new EventHandler(DeleteButton_Click);
+            deletebtn[lbcount] = new Button();
+            deletebtn[lbcount].Location = new Point(content[lbcount].Location.X + 300, content[lbcount].Location.Y);
+            deletebtn[lbcount].Size = new Size(labelWidth, labelHeight);
+            deletebtn[lbcount].Text = "삭제";
+            deletebtn[lbcount].Tag = lbcount;
 
-            panel1.Controls.Add(deletebtn[k]);
-            panel1.Controls.Add(checkBox[k]);
-            panel1.Controls.Add(start[k]);
-            panel1.Controls.Add(end[k]);
-            panel1.Controls.Add(content[k]);
-            panel1.Controls.Add(title[k]);
+            checkBox[lbcount].Click += new EventHandler(CheckBox_CheckedChanged);
+            deletebtn[lbcount].Click += new EventHandler(DeleteButton_Click);
+
+            panel1.Controls.Add(deletebtn[lbcount]);
+            panel1.Controls.Add(checkBox[lbcount]);
+            panel1.Controls.Add(start[lbcount]);
+            panel1.Controls.Add(end[lbcount]);
+            panel1.Controls.Add(content[lbcount]);
+            panel1.Controls.Add(title[lbcount]);
 
             lbcount++;
-            k++;
+ 
+            List<Schedule> schedules = new List<Schedule>();
+            schedules.Add(eventschedule); // Schedules에 새로운 일정 추가
+            //daySchedules = daySchedules.OrderBy(schedule => schedule.startTime).ToList(); // startTime을 기준으로 일정 정렬
 
- /*           daySchedules.Add(eventschedule); // daySchedules에 새로운 일정 추가
-            daySchedules = daySchedules.OrderBy(schedule => schedule.startTime).ToList(); // startTime을 기준으로 일정 정렬
-
-            //ClearEventForm(); // 이벤트 폼 초기화
-            RenderSchedules();*/
+            // save 클릭시 EventHandler call
+            saveEvent.Invoke(this, new EventFormArgs(schedules));
         }
+
+
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
             Button btn = sender as Button;
-            int index = (int)btn.Tag;
+            int deleteIndex = (int)btn.Tag;
 
-            string deleteTitle = title[index].Text;
-            string deleteContent = content[index].Text;
+            string deleteTitle = title[deleteIndex].Text;
+            string deleteContent = content[deleteIndex].Text;
+            DateTime startTime = DateTime.Parse(start[deleteIndex].Text);
+            DateTime endTime = DateTime.Parse(end[deleteIndex].Text);
 
+            Schedule deleteSchedule = new Schedule();
             // mainForm의 schedules 리스트에서 해당하는 스케줄을 찾아 삭제
-            for (int i = 0; i < mainForm.schedules.Count; i++)
+            foreach(Schedule schedule in mainForm.schedules)
             {
-                Schedule schedule = mainForm.schedules[i];
-                if (schedule.title == deleteTitle && schedule.content == deleteContent)
+                if (Schedule.scheduleCompare(daySchedules[deleteIndex],schedule))
                 {
-                    mainForm.schedules.RemoveAt(i);
+                    mainForm.schedules.Remove(schedule);
+                    daySchedules.Remove(schedule);
+                    deleteSchedule = schedule;
+
+                    // 서버에 스케쥴 삭제를 요청
+                    Dictionary<string, Object> fullData = new Dictionary<string, object>();
+                    fullData.Add("user", mainForm.myUserInfo);
+                    fullData.Add("schedule", schedule);
+
+                    Packet packet = new Packet();
+                    packet.action = ActionType.deleteSchedule;
+                    packet.data = fullData;
+
+                    Packet.SendPacket(netstrm, packet);
+                    packet = Packet.ReceivePacket(netstrm);
+
                     break;
                 }
             }
 
 
-            if (index < k - 1)
+            if (deleteIndex < lbcount - 1)
             {
                 // 아래에 있는 스케줄들을 한 칸씩 위로 올림
-                for (int i = index+1; i < k - 1; i++)
+                for (int i = deleteIndex; i < lbcount - 1; i++)
                 {
                     start[i].Text = start[i + 1].Text;
                     end[i].Text = end[i + 1].Text;
@@ -255,91 +293,34 @@ namespace Client
             }
 
             // 마지막 스케줄의 컨트롤들을 제거
-            panel1.Controls.Remove(deletebtn[k - 1]);
-            panel1.Controls.Remove(checkBox[k - 1]);
-            panel1.Controls.Remove(start[k - 1]);
-            panel1.Controls.Remove(end[k - 1]);
-            panel1.Controls.Remove(content[k - 1]);
-            panel1.Controls.Remove(title[k - 1]);
+            panel1.Controls.Remove(deletebtn[lbcount -1]);
+            panel1.Controls.Remove(checkBox[lbcount -1]);
+            panel1.Controls.Remove(start[lbcount - 1]);
+            panel1.Controls.Remove(end[lbcount - 1]);
+            panel1.Controls.Remove(content[lbcount - 1]);
+            panel1.Controls.Remove(title[lbcount - 1]);
 
-            // k 변수를 감소시킴
-            k--;
+            // lbCount를 감소시킴
+            lbcount--;
+
+            // 삭제할 스케줄을 전송
+            List<Schedule> schedules = new List<Schedule>();
+            schedules.Add(deleteSchedule);
+
+            deleteEvent.Invoke(this, new EventFormArgs(schedules));
         }
 
-        private void ClearEventForm()
-        {
-            // 나머지 입력 필드들을 초기화
-            tbTitle.Text = "";
-            tbContent.Text = "";
-        }
-        private void RenderSchedules()
-        {
-            panel1.Controls.Clear(); // panel1의 모든 컨트롤 제거
 
-            for (int i = 1; i <= daySchedules.Count; i++)
-            {
-                // CheckBox 생성 및 설정
-                CheckBox checkBox = new CheckBox();
-                checkBox.Location = new Point(0, -20 + 30 * i);
-                checkBox.Size = new Size(labelWidth, labelHeight);
-                checkBox.Tag = i;
-                checkBox.Click += new EventHandler(CheckBox_CheckedChanged);
-
-                // Start 레이블 생성 및 설정
-                Label startLabel = new Label();
-                startLabel.Location = new Point(checkBox.Location.X + 50, checkBox.Location.Y);
-                startLabel.Size = new Size(labelWidth * 3, labelHeight + 5);
-                startLabel.Font = new Font("Ink Free", 11, FontStyle.Regular);
-                startLabel.Text = daySchedules[i-1].startTime.ToString("yyyy-MM-dd HH:mm");
-                startLabel.Tag = i;
-
-                // End 레이블 생성 및 설정
-                Label endLabel = new Label();
-                endLabel.Location = new Point(startLabel.Location.X + 150, startLabel.Location.Y);
-                endLabel.Size = new Size(labelWidth * 3, labelHeight);
-                endLabel.Font = new Font("Ink Free", 11, FontStyle.Regular);
-                endLabel.Text = daySchedules[i-1].endTime.ToString("yyyy-MM-dd HH:mm");
-                endLabel.Tag = i;
-
-                // Title 레이블 생성 및 설정
-                Label titleLabel = new Label();
-                titleLabel.Location = new Point(endLabel.Location.X + 150, endLabel.Location.Y);
-                titleLabel.Size = new Size(labelWidth * 2, labelHeight);
-                titleLabel.Font = new Font("Ink Free", 11, FontStyle.Regular);
-                titleLabel.Text = daySchedules[i-1].title;
-                titleLabel.Tag = i;
-
-                // Content 레이블 생성 및 설정
-                Label contentLabel = new Label();
-                contentLabel.Location = new Point(titleLabel.Location.X + 100, titleLabel.Location.Y);
-                contentLabel.Size = new Size(labelWidth * 5, labelHeight);
-                contentLabel.Font = new Font("Ink Free", 11, FontStyle.Regular);
-                contentLabel.Text = daySchedules[i - 1].content;
-                contentLabel.Tag = i;
-
-                // Delete 버튼 생성 및 설정
-                Button deleteButton = new Button();
-                deleteButton.Location = new Point(contentLabel.Location.X + 300, contentLabel.Location.Y);
-                deleteButton.Size = new Size(labelWidth, labelHeight);
-                deleteButton.Text = "삭제";
-                deleteButton.Tag = i;
-                deleteButton.Click += new EventHandler(DeleteButton_Click);
-
-                // 생성한 컨트롤들을 panel1에 추가
-                panel1.Controls.Add(checkBox);
-                panel1.Controls.Add(startLabel);
-                panel1.Controls.Add(endLabel);
-                panel1.Controls.Add(titleLabel);
-                panel1.Controls.Add(contentLabel);
-                panel1.Controls.Add(deleteButton);
-            }
-        }
 
 
         private void CheckBox_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox checkBox = (CheckBox)sender;
             int index = (int)checkBox.Tag;
+
+            // 체크될 스케줄의 요소들
+            string deleteStartTime = start[index].Text;
+            string deleteEndTime = end[index].Text;
             string deleteTitle = title[index].Text;
             string deleteContent = content[index].Text;
 
@@ -353,7 +334,9 @@ namespace Client
                 for (int i = 0; i < mainForm.schedules.Count; i++)
                 {
                     Schedule schedule = mainForm.schedules[i];
-                    if (schedule.title == deleteTitle && schedule.content == deleteContent)
+                    if (schedule.startTime.ToString("yyyy-MM-dd HH:mm") == deleteStartTime &&
+                        schedule.endTime.ToString("yyyy-MM-dd HH:mm") == deleteEndTime &&
+                        schedule.title == deleteTitle && schedule.content == deleteContent)
                     {
                         schedule.isDone = true;
                         break;
@@ -370,7 +353,9 @@ namespace Client
                 for (int i = 0; i < mainForm.schedules.Count; i++)
                 {
                     Schedule schedule = mainForm.schedules[i];
-                    if (schedule.title == deleteTitle && schedule.content == deleteContent)
+                    if (schedule.startTime.ToString("yyyy-MM-dd HH:mm") == deleteStartTime &&
+                        schedule.endTime.ToString("yyyy-MM-dd HH:mm") == deleteEndTime &&
+                        schedule.title == deleteTitle && schedule.content == deleteContent)
                     {
                         schedule.isDone = false;
                         break;

@@ -16,7 +16,8 @@ namespace CrawlingLibrary
             LoginFailure,
             CrawlingSuccess,
             CrawlingError,
-            AllSuccess
+            AllSuccess,
+            None
         }
 
 

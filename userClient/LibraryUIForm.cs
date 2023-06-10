@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApp1;
 
 namespace Client
 {
@@ -19,6 +20,11 @@ namespace Client
         private string pwd;
 
         public LibraryCrawler libraryCrawler;
+
+
+        private const int BOOK_START_XPOS = 50;
+        private const int BOOK_START_YPOS = 350;
+        private const int INTERVAL = 300;
 
         public LibraryUIForm()
         {
@@ -68,27 +74,31 @@ namespace Client
         {
             int numOfBooks = Int32.Parse(libraryCrawler.getNumOfBooks());
             List<Book> books = libraryCrawler.books;
-            int index = 1;
+            int i = 0;
 
-           // bookStateTbx.Clear();
+            // bookStateTbx.Clear();
 
-            foreach (Book book in books)
+            if (books.Count == 0)
             {
-                bookStateTbx.AppendText("No " + index + "#" + "\r\n");
+                bookStateLbl.Font = new Font(FontFamily.GenericMonospace,20,FontStyle.Italic);
+                bookStateLbl.Text = "현재 빌린 책이 없습니다!!";
 
-                bookStateTbx.AppendText("이름: " + book.getBookTitle() + "\r\n");
-                bookStateTbx.AppendText("저자: " + book.getBookAuthor() + "\r\n");
-                bookStateTbx.AppendText("위치: " + book.getBookLocation() + "\r\n");
-                bookStateTbx.AppendText("등록번호: " + book.getBookCallNumber() + "\r\n");
-                bookStateTbx.AppendText("청구기호: " + book.getBookISBN() + "\r\n");
-                bookStateTbx.AppendText("대출일: " + book.getBookBorrowedDay() + "\r\n");
-                bookStateTbx.AppendText("반납일: " + book.getBookReturnDay() + "\r\n");
-                bookStateTbx.AppendText("연장횟수: " + book.getBookRenewCount() + "\r\n");
-
-                bookStateTbx.AppendText("\r\n\r\n");
-                index++;
             }
+            else
+            {
+                foreach (Book book in books)
+                {
+                    BookInfo bookInfo = new BookInfo(book.getBookTitle(), book.getBookAuthor(), book.getBookCallNumber(),
+                                                     book.getBookBorrowedDay(), book.getBookReturnDay());
 
+
+                    bookInfo.Location = new Point(BOOK_START_XPOS + INTERVAL * (i % 4), BOOK_START_YPOS + INTERVAL * (i / 4));
+
+                    this.Controls.Add(bookInfo);
+
+                    i++;
+                }
+            }
 
         }
 

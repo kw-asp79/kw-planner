@@ -16,7 +16,8 @@ namespace SampleCalenderServer
         {
             MySqlCommand command = DBProcess.connection.CreateCommand();
 
-            command.CommandText = "SELECT schedule.* FROM schedule JOIN user_schedule WHERE user_schedule.user_id = @myUserId AND user_schedule.schedule_id = schedule.schedule_id;";
+            command.CommandText = "SELECT schedule.* FROM schedule JOIN user_schedule WHERE user_schedule.user_id = @myUserId AND user_schedule.schedule_id = schedule.schedule_id"
+                + " and schedule.category != 'REQUEST'";
             command.Parameters.AddWithValue("@myUserId", user.id);
 
             MySqlDataReader reader = command.ExecuteReader();
@@ -35,8 +36,6 @@ namespace SampleCalenderServer
                 schedule.fromWho = reader.GetString("from_who");
                 byte tinyintValue = reader.GetByte("is_done");
                 schedule.isDone = (Boolean)(tinyintValue != 0);
-                
-              
                 // Boolean 변수에 저장합니다.
                 bool booleanValue = tinyintValue != 0;
 
@@ -52,14 +51,14 @@ namespace SampleCalenderServer
         {
             MySqlCommand command = DBProcess.connection.CreateCommand();
 
-            command.CommandText = "SELECT schedule_id FROM schedule JOIN user_schedule WHERE schedule.category = @category and schedule.title = @title and schedule.content = @content" +
+            command.CommandText = "SELECT schedule.schedule_id FROM schedule JOIN user_schedule WHERE schedule.category = @category and schedule.title = @title and schedule.content = @content" +
                 " and schedule.start_time = @startTime and schedule.end_time = @endTime" +
-                " and user_schedule.user_id = @userId and schedule.schedule_id = user_schedule.schedule.id;";
+                " and user_schedule.user_id = @userId and schedule.schedule_id = user_schedule.schedule_id;";
             command.Parameters.AddWithValue("@category", schedule.category);
             command.Parameters.AddWithValue("@title", schedule.title);
             command.Parameters.AddWithValue("@content", schedule.content);
-            command.Parameters.AddWithValue("startTime", schedule.startTime);
-            command.Parameters.AddWithValue("endTime", schedule.endTime);
+            command.Parameters.AddWithValue("@startTime", schedule.startTime);
+            command.Parameters.AddWithValue("@endTime", schedule.endTime);
             command.Parameters.AddWithValue("@userId", userId);
 
             MySqlDataReader reader = command.ExecuteReader();
@@ -120,13 +119,14 @@ namespace SampleCalenderServer
             MySqlCommand command = DBProcess.connection.CreateCommand();
             command.CommandText = "UPDATE schedule " +
                                   "SET category = @category, title = @title, content = @content, " +
-                                  "start_time = @startTime, end_time = @endTime " +
+                                  "start_time = @startTime, end_time = @endTime, is_done = @isDone " +
                                   "WHERE schedule_id = @scheduleId;";
             command.Parameters.AddWithValue("@category", schedule.category);
             command.Parameters.AddWithValue("@title", schedule.title);
             command.Parameters.AddWithValue("@content", schedule.content);
             command.Parameters.AddWithValue("@startTime", schedule.startTime);
             command.Parameters.AddWithValue("@endTime", schedule.endTime);
+            command.Parameters.AddWithValue("@isDone", schedule.isDone);
             command.Parameters.AddWithValue("@scheduleId", schedule.id);
 
             command.ExecuteNonQuery();
@@ -145,8 +145,8 @@ namespace SampleCalenderServer
         {
             MySqlCommand command = DBProcess.connection.CreateCommand();
 
-            command.CommandText = "SELECT schedule.* FROM schedule JOIN user_schedule WHERE schedule.category = `CUSTOM`" +
-                " and user_schedule.user_id = @myUserId AND user_schedule.schedule_id = schedule.schedule_id;";
+            command.CommandText = "SELECT * FROM schedule JOIN user_schedule WHERE schedule.category = 'REQUEST'" +
+                " and user_schedule.user_id = 2 and user_schedule.schedule_id = schedule.schedule_id;";
             command.Parameters.AddWithValue("@myUserId", user.id);
 
             MySqlDataReader reader = command.ExecuteReader();
