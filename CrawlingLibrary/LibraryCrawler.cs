@@ -53,7 +53,7 @@ namespace CrawlingLibrary
             foreach(Book book in books)
             {
                 // 일정 세팅 
-                string content = book.getBookReturnDay() + " 까지 \"" + book.getBookTitle() + "\" 책 반납하기";
+                string content = book.getBookReturnDay() + " 까지 \"" + book.getBookTitle() + "\" 책 반납";
 
                 // 시작 시간은 반납일 자정으로 세팅 , 종료 시간은 반납일 23:59:59로 세팅 
                 DateTime startTime = Convert.ToDateTime(book.getBookReturnDay());
@@ -149,7 +149,7 @@ namespace CrawlingLibrary
                 element = chromeDriver.FindElement(By.XPath("//*[@id=\"loginId\"]/div[2]/fieldset/input[3]"));
                 element.Click();
                 // Need to synchronize crawling moment and accessing web page! // 웹 페이지 접근 전에 데이터에 접근하는 에러 방지를 위해 
-                Thread.Sleep(300);
+                Thread.Sleep(1000);
 
 
                 // if login failed, move to kupis.kw.ac.kr/login page

@@ -52,6 +52,48 @@ namespace Client
                 if(args.getType() == LoginEventArgs.TYPE.PROGRAM_LOGIN)
                     this.MainForm.isLoginSuccess = true;
             };
+
+            EventForm.saveEvent += delegate (object sender, EventFormArgs args)
+            {
+                // EventForm에서 바뀐 최신 일정 리스트를 전달
+                List<Schedule> updatedSchedules = args.getSchedules();
+
+                if (this.MainForm.isLoginSuccess == true)
+                {
+                    // 일정에서 바뀐 부분만 추가하도록 
+                    foreach (Schedule schedule in updatedSchedules)
+                    {
+                        userSchedules.Add(schedule);
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("일정을 달력에 저장하려면 먼저 로그인을 해주세요!!");
+                }
+
+            };
+
+
+            EventForm.deleteEvent += delegate (object sender, EventFormArgs args)
+            {
+                List<Schedule> updatedSchedules = args.getSchedules();
+                foreach (Schedule schedule in updatedSchedules)
+                {
+                    foreach (Schedule calSchedule in userSchedules)
+                    {
+                        if (Schedule.scheduleCompare(schedule,calSchedule))
+                        {
+                            userSchedules.Remove(schedule);
+                            break;
+                        }
+                    }
+
+                }
+
+            };
+
+
             // mainForm에 있는 schedules 중에서 category가 Request 인 데이터를 불러옴
             this.netstrm = mainForm.netstrm;
             this.requestSchedules = new List<Schedule>();

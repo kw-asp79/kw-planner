@@ -64,7 +64,7 @@ namespace SampleCalenderServer
                 Console.WriteLine(".. id:{0}, pwd:{1}.. fail", user.id, user.pwd);
             }
 
-            if(sendPacket.action == ActionType.Success)
+            if (sendPacket.action == ActionType.Success)
             {
                 UserRepository.CreateUser(user);
             }
@@ -91,7 +91,7 @@ namespace SampleCalenderServer
                 sendPacket.action = ActionType.Success;
                 Console.WriteLine(".. id:{0}, pwd:{1}.. success", user.id, user.pwd);
             }
-            
+
             sendPacket.data = result;
 
             return sendPacket;
@@ -125,8 +125,9 @@ namespace SampleCalenderServer
             {
                 User user = (User)obj;
                 // UserRepository.InsertUser(user);
-            } 
-            else if (forWhatProcess.Equals("schedule")){
+            }
+            else if (forWhatProcess.Equals("schedule"))
+            {
                 Dictionary<string, Object> fullData = obj as Dictionary<string, object>;
 
                 Schedule schedule = fullData["schedule"] as Schedule;
@@ -135,19 +136,23 @@ namespace SampleCalenderServer
                 // 연관관계를 맺어주는 메서드
                 ScheduleRepository.CreateUserSchedule(user.id, scheduleId);
             }
-            else if (forWhatProcess.Equals("group")){
+            else if (forWhatProcess.Equals("group"))
+            {
                 Dictionary<string, Object> fullData = obj as Dictionary<string, object>;
 
                 Group group = fullData["group"] as Group;
                 User user = fullData["user"] as User;
                 GroupRepository.CreateGroup(group.name, user.id);
-            }else if (forWhatProcess.Equals("friendship")){
+            }
+            else if (forWhatProcess.Equals("friendship"))
+            {
                 Dictionary<string, Object> fullData = obj as Dictionary<string, object>;
 
                 User user = fullData["user"] as User;
                 User friend = fullData["friend"] as User;
                 UserRepository.CreateFriendship(user.id, friend.id);
-            }else if (forWhatProcess.Equals("user_group"))
+            }
+            else if (forWhatProcess.Equals("user_group"))
             {
                 Dictionary<string, Object> fullData = obj as Dictionary<string, object>;
 
@@ -229,14 +234,16 @@ namespace SampleCalenderServer
 
                 int groupId = GroupRepository.SelectGroupIdByName(group.name, user.id);
                 GroupRepository.DeleteGroup(groupId);
-            }else if (forWhatProcess.Equals("friendship"))
+            }
+            else if (forWhatProcess.Equals("friendship"))
             {
                 Dictionary<string, Object> fullData = obj as Dictionary<string, object>;
 
                 User user = fullData["user"] as User;
                 User friend = fullData["friend"] as User;
                 UserRepository.DeleteFriendship(user.id, friend.id);
-            }else if (forWhatProcess.Equals("user_group"))
+            }
+            else if (forWhatProcess.Equals("user_group"))
             {
                 Dictionary<string, Object> fullData = obj as Dictionary<string, object>;
 
@@ -311,7 +318,6 @@ namespace SampleCalenderServer
             sendPacket.data = null;
 
             return sendPacket;
-            
         }
 
         public static Packet ValidateLibraryDataProcess(Object obj)
@@ -345,13 +351,11 @@ namespace SampleCalenderServer
         // 일정 공유하기 폼에서 <공유> 버튼 클릭 시
         public static Packet ShareScheduleProcess(Object obj)
         {
-            
             Dictionary<string, Object> fullData = obj as Dictionary<string, object>;
 
             Group group = fullData["group"] as Group;
             Schedule schedule = fullData["schedule"] as Schedule;
             // 아랫줄은 클라이언트에서 초기화한 다음에 넘어와도 괜찮음
-
 
             int group_id = GroupRepository.SelectGroupIdByName(group.name, group.user_id);
 
@@ -393,7 +397,6 @@ namespace SampleCalenderServer
             Dictionary<string, Object> fullData = obj as Dictionary<string, object>;
 
             User myUserInfo = fullData["user"] as User;
-
             List<Schedule> requestSchedules = ScheduleRepository.SelectRequestSchedules(myUserInfo);
 
             Packet sendPacket = new Packet();
@@ -468,7 +471,6 @@ namespace SampleCalenderServer
                     recv = await netstrm.ReadAsync(data, 0, packetInfo.size);
 
                     receivedPacket = Packet.Desserialize(data, packetInfo);
-
 
                 switch (receivedPacket.action)
                 {
@@ -616,6 +618,7 @@ namespace SampleCalenderServer
                         return;
                     }
 
+                    Console.WriteLine(e.StackTrace);
 
                 }
 

@@ -68,7 +68,7 @@ namespace Client
         public static List<Schedule> schedules = new List<Schedule>();
         public static Dictionary<string, List<User>> groups = new Dictionary<string, List<User>>();
 
-        public static User myUserInfo;
+        public static User myUserInfo = new User();
         public bool isLoginSuccess = false;
 
         KLASCrawler klasCrawler;
@@ -216,9 +216,41 @@ namespace Client
 
         private void klasAllSuccess(object sender, AllSuccessEventArgs args)
         {
+            // 받아온 KLAS 일정 리스트를 검사 위해 서버로 
+            Packet sendPacket = new Packet();
+
+            sendPacket.action = ActionType.validateKlasData;
+            Dictionary<string, Object> fullData = new Dictionary<string, object>();
+
+
+            fullData["user"] = myUserInfo;
+            fullData["schedules"] = args.getSchedules();
+
+            sendPacket.data = fullData;
+
+            Packet.SendPacket(netstrm, sendPacket);
+
+            Packet receivedPacket = Packet.ReceivePacket(netstrm);
+
+
+
             // KLAS 스케줄들을 메인 스케줄에 추가
-            foreach(Schedule schedule in args.getSchedules())
-                schedules.Add(schedule);
+            foreach (Schedule klasSchedule in args.getSchedules())
+            {
+                bool isExist = false;
+                foreach (Schedule mainSchedule in schedules)
+                {
+                    if (Schedule.scheduleCompare(mainSchedule, klasSchedule) == true)
+                    {
+                        isExist = true;
+                        break;
+                    }
+                }
+
+                if(isExist == false)
+                    schedules.Add(klasSchedule);
+            }
+
             loginSuccessEvent.Invoke(this, new LoginEventArgs(schedules, LoginEventArgs.TYPE.KLAS_LOGIN));
 
             klasUIForm.setMainUI();
@@ -247,9 +279,39 @@ namespace Client
 
         private void lbyAllSuccess(object sender, AllSuccessEventArgs args)
         {
+            // 받아온 도서관 일정 리스트를 검사 위해 서버로 
+            Packet sendPacket = new Packet();
+
+            sendPacket.action = ActionType.validateKlasData;
+            Dictionary<string, Object> fullData = new Dictionary<string, object>();
+            
+            fullData["user"] = myUserInfo;
+            fullData["schedules"] = args.getSchedules();
+            sendPacket.data = fullData;
+
+            Packet.SendPacket(netstrm, sendPacket);
+
+            Packet receivedPacket = Packet.ReceivePacket(netstrm);
+
+
             // LIBRARY 스케줄들을 메인 스케줄에 추가
-            foreach (Schedule schedule in args.getSchedules())
-                schedules.Add(schedule);
+            foreach (Schedule libSchedule in args.getSchedules())
+            {
+                bool isExist = false;
+                foreach (Schedule mainSchedule in schedules)
+                {
+                    if(Schedule.scheduleCompare(libSchedule, mainSchedule) == true)
+                    {
+                        isExist = true;
+                        break;
+                    }
+                }
+
+                if(isExist == false)
+                    schedules.Add(libSchedule);
+
+            }
+
             loginSuccessEvent.Invoke(this, new LoginEventArgs(schedules, LoginEventArgs.TYPE.LIBRARY_LOGIN));
 
             libraryUIForm.setUI();
