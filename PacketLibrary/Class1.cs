@@ -41,6 +41,8 @@ namespace PacketLibrary
         saveUserGroup,
         deleteUserGroup,
         readUser,
+        validateKlasData,
+        validateLibraryData,
         nothing
     }
 

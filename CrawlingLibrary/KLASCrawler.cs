@@ -81,7 +81,8 @@ namespace CrawlingLibrary
                 foreach (Assignment assignment in lecture.getAssignment())
                 {
                     string title = "과제 제출";
-                    string content = lecture.getName() + "\n과제 제출";
+
+                    string content = lecture.getName()  + "\n과제 제출";
 
                     DateTime startTime = Convert.ToDateTime(assignment.getDueDate());
 
@@ -572,7 +573,8 @@ namespace CrawlingLibrary
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error while crawlQuizPage() " + e);
+                Console.WriteLine("Error while crawlOnlineLecturePage() " + e);
+              
                 moveToOverallPage();
             }
 
