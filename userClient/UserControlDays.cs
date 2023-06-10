@@ -109,10 +109,10 @@ namespace Client
 
 
 
-        public List<Schedule> getSchedules()
-        {
-            return daySchedules;
-        }
+        //public List<Schedule> getSchedules()
+        //{
+        //    return daySchedules;
+        //}
 
 
         public void setSchedules(List<Schedule> schedules)
