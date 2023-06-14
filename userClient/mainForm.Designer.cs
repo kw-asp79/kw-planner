@@ -60,7 +60,7 @@
             // mainBtn
             // 
             this.mainBtn.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mainBtn.Location = new System.Drawing.Point(74, 87);
+            this.mainBtn.Location = new System.Drawing.Point(74, 100);
             this.mainBtn.Margin = new System.Windows.Forms.Padding(4, 9, 4, 3);
             this.mainBtn.Name = "mainBtn";
             this.mainBtn.Size = new System.Drawing.Size(120, 48);
@@ -72,7 +72,7 @@
             // groupBtn
             // 
             this.groupBtn.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBtn.Location = new System.Drawing.Point(74, 783);
+            this.groupBtn.Location = new System.Drawing.Point(74, 900);
             this.groupBtn.Margin = new System.Windows.Forms.Padding(4, 9, 4, 3);
             this.groupBtn.Name = "groupBtn";
             this.groupBtn.Size = new System.Drawing.Size(120, 51);
@@ -84,7 +84,7 @@
             // settingBtn
             // 
             this.settingBtn.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.settingBtn.Location = new System.Drawing.Point(151, 1167);
+            this.settingBtn.Location = new System.Drawing.Point(151, 1152);
             this.settingBtn.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.settingBtn.Name = "settingBtn";
             this.settingBtn.Size = new System.Drawing.Size(103, 45);
@@ -96,7 +96,7 @@
             // loginBtn
             // 
             this.loginBtn.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loginBtn.Location = new System.Drawing.Point(4, 1167);
+            this.loginBtn.Location = new System.Drawing.Point(4, 1152);
             this.loginBtn.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.loginBtn.Name = "loginBtn";
             this.loginBtn.Size = new System.Drawing.Size(104, 45);
@@ -108,7 +108,7 @@
             // fndBtn
             // 
             this.fndBtn.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fndBtn.Location = new System.Drawing.Point(74, 603);
+            this.fndBtn.Location = new System.Drawing.Point(74, 700);
             this.fndBtn.Margin = new System.Windows.Forms.Padding(4, 9, 4, 3);
             this.fndBtn.Name = "fndBtn";
             this.fndBtn.Size = new System.Drawing.Size(120, 48);
@@ -120,7 +120,7 @@
             // lbyBtn
             // 
             this.lbyBtn.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbyBtn.Location = new System.Drawing.Point(74, 423);
+            this.lbyBtn.Location = new System.Drawing.Point(74, 500);
             this.lbyBtn.Margin = new System.Windows.Forms.Padding(4, 9, 4, 3);
             this.lbyBtn.Name = "lbyBtn";
             this.lbyBtn.Size = new System.Drawing.Size(120, 48);
@@ -132,7 +132,7 @@
             // klasBtn
             // 
             this.klasBtn.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.klasBtn.Location = new System.Drawing.Point(74, 249);
+            this.klasBtn.Location = new System.Drawing.Point(74, 300);
             this.klasBtn.Margin = new System.Windows.Forms.Padding(4, 9, 4, 3);
             this.klasBtn.Name = "klasBtn";
             this.klasBtn.Size = new System.Drawing.Size(120, 48);
