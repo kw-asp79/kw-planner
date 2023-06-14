@@ -37,21 +37,24 @@ namespace Client
             // fdlistLbl
             // 
             this.fdlistLbl.AutoSize = true;
-            this.fdlistLbl.BackColor = System.Drawing.Color.Transparent;
-            this.fdlistLbl.Font = new System.Drawing.Font("Segoe Script", 20F, System.Drawing.FontStyle.Bold);
-            this.fdlistLbl.Location = new System.Drawing.Point(339, 33);
-            this.fdlistLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+
+            this.fdlistLbl.Font = new System.Drawing.Font("Leelawadee UI", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fdlistLbl.ForeColor = System.Drawing.Color.CornflowerBlue;
+            this.fdlistLbl.Location = new System.Drawing.Point(460, 50);
+            this.fdlistLbl.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.fdlistLbl.Name = "fdlistLbl";
-            this.fdlistLbl.Size = new System.Drawing.Size(138, 44);
+            this.fdlistLbl.Size = new System.Drawing.Size(291, 81);
             this.fdlistLbl.TabIndex = 2;
             this.fdlistLbl.Text = "친구 목록";
             // 
             // btn_addfd
             // 
-            this.btn_addfd.BackColor = System.Drawing.Color.Transparent;
-            this.btn_addfd.Location = new System.Drawing.Point(631, 74);
+
+            this.btn_addfd.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_addfd.Location = new System.Drawing.Point(893, 111);
+            this.btn_addfd.Margin = new System.Windows.Forms.Padding(4);
             this.btn_addfd.Name = "btn_addfd";
-            this.btn_addfd.Size = new System.Drawing.Size(68, 30);
+            this.btn_addfd.Size = new System.Drawing.Size(105, 45);
             this.btn_addfd.TabIndex = 3;
             this.btn_addfd.Text = "친구 추가";
             this.btn_addfd.UseVisualStyleBackColor = false;

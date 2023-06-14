@@ -56,14 +56,8 @@ namespace Client
                 labels[i].Text = mainForm.friends[i - 1].name;
                 labels[i].Tag = i;
 
-                btn_chat[i] = new Button();
-                btn_chat[i].Location = new Point(labels2[i].Location.X + 115, labels2[i].Location.Y - 10);
-                btn_chat[i].Size = new Size(labelWidth, labelHeight);
-                btn_chat[i].Text = "채팅";
-                btn_chat[i].Tag = i;
-
                 btn_delete[i] = new Button();
-                btn_delete[i].Location = new Point(labels2[i].Location.X + 165, labels2[i].Location.Y - 10);
+                btn_delete[i].Location = new Point(labels2[i].Location.X + 125, labels2[i].Location.Y - 10);
                 btn_delete[i].Size = new Size(labelWidth, labelHeight);
                 btn_delete[i].Text = "삭제";
                 btn_delete[i].Tag = i;
@@ -73,14 +67,13 @@ namespace Client
 
                 panel[i] = new Panel();
                 panel[i].Location = new Point(labels2[i].Location.X, labels2[i].Location.Y + 15);
-                panel[i].Size = new Size(215, 1);
+                panel[i].Size = new Size(175, 1);
                 panel[i].BackColor = Color.Black;
                 panel[i].Tag = i;
 
                 this.Controls.Add(panel[i]);
                 this.Controls.Add(labels2[i]);
                 this.Controls.Add(labels[i]);
-                this.Controls.Add(btn_chat[i]);
                 this.Controls.Add(btn_delete[i]);
             }
 
@@ -131,14 +124,9 @@ namespace Client
                     labels[A].Text = s;
                     labels[A].Tag = A;
 
-                    btn_chat[A] = new Button();
-                    btn_chat[A].Location = new Point(labels2[A].Location.X + 115, labels2[A].Location.Y - 10);
-                    btn_chat[A].Size = new Size(labelWidth, labelHeight);
-                    btn_chat[A].Text = "채팅";
-                    btn_chat[A].Tag = A;
-
+                    
                     btn_delete[A] = new Button();
-                    btn_delete[A].Location = new Point(labels2[A].Location.X + 165, labels2[A].Location.Y - 10);
+                    btn_delete[A].Location = new Point(labels2[A].Location.X + 125, labels2[A].Location.Y - 10);
                     btn_delete[A].Size = new Size(labelWidth, labelHeight);
                     btn_delete[A].Text = "삭제";
                     btn_delete[A].Tag = A;
@@ -148,14 +136,14 @@ namespace Client
 
                     panel[A] = new Panel();
                     panel[A].Location = new Point(labels2[A].Location.X, labels2[A].Location.Y + 15);
-                    panel[A].Size = new Size(215, 1);
+                    panel[A].Size = new Size(175, 1);
                     panel[A].BackColor = Color.Black;
                     panel[A].Tag = A;
 
                     this.Controls.Add(panel[A]);
                     this.Controls.Add(labels2[A]);
                     this.Controls.Add(labels[A]);
-                    this.Controls.Add(btn_chat[A]);
+                   
                     this.Controls.Add(btn_delete[A]);
 
                     cntlbl++;
@@ -200,7 +188,7 @@ namespace Client
                     this.Controls.Remove(labels2[A - 1]);
                     this.Controls.Remove(btn_delete[A - 1]);
                     this.Controls.Remove(labels[A - 1]);
-                    this.Controls.Remove(btn_chat[A - 1]);
+                    
                     this.Controls.Remove(panel[A - 1]);
 
                 }
@@ -209,7 +197,7 @@ namespace Client
                     this.Controls.Remove(labels2[idx]);
                     this.Controls.Remove(btn_delete[idx]);
                     this.Controls.Remove(labels[idx]);
-                    this.Controls.Remove(btn_chat[idx]);
+                  
                     this.Controls.Remove(panel[idx]);
                 }
                 A--;

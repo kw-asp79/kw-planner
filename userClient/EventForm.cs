@@ -44,7 +44,7 @@ namespace Client
         List<Schedule> daySchedules; // userControlDays 통해 받은 스케줄들
        
         int lbcount; // 클래스의 멤버 변수로 선언
-       
+
         public static event EventHandler<EventFormArgs> saveEvent;
         public static event EventHandler<EventFormArgs> deleteEvent;
 
@@ -152,6 +152,17 @@ namespace Client
             eventschedule.isDone = false;
             mainForm.schedules.Add(eventschedule);
 
+            Dictionary<string, Object> fullData = new Dictionary<string, object>();
+            fullData.Add("schedule", eventschedule);
+            fullData.Add("user", myUserInfo);
+
+            Packet packet = new Packet();
+            packet.action = ActionType.saveSchedule;
+            packet.data = fullData;
+
+            Packet.SendPacket(netstrm, packet);
+            packet = Packet.ReceivePacket(netstrm);
+
             daySchedules.Add(eventschedule);
 
             checkBox[lbcount] = new CheckBox();
@@ -220,10 +231,10 @@ namespace Client
             Button btn = sender as Button;
             int deleteIndex = (int)btn.Tag;
 
-            string startTime = start[deleteIndex].ToString();
-            string endTime = end[deleteIndex].ToString();
             string deleteTitle = title[deleteIndex].Text;
             string deleteContent = content[deleteIndex].Text;
+            DateTime startTime = DateTime.Parse(start[deleteIndex].Text);
+            DateTime endTime = DateTime.Parse(end[deleteIndex].Text);
 
             Schedule deleteSchedule = new Schedule();
             // mainForm의 schedules 리스트에서 해당하는 스케줄을 찾아 삭제
@@ -234,6 +245,19 @@ namespace Client
                     mainForm.schedules.Remove(schedule);
                     daySchedules.Remove(schedule);
                     deleteSchedule = schedule;
+
+                    // 서버에 스케쥴 삭제를 요청
+                    Dictionary<string, Object> fullData = new Dictionary<string, object>();
+                    fullData.Add("user", mainForm.myUserInfo);
+                    fullData.Add("schedule", schedule);
+
+                    Packet packet = new Packet();
+                    packet.action = ActionType.deleteSchedule;
+                    packet.data = fullData;
+
+                    Packet.SendPacket(netstrm, packet);
+                    packet = Packet.ReceivePacket(netstrm);
+
                     break;
                 }
             }
@@ -322,11 +346,7 @@ namespace Client
                 }
             }
         }
-
-
     }
-
-
     public class EventFormArgs : EventArgs
     {
         public List<Schedule> schedules;

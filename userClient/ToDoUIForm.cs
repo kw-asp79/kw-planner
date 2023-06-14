@@ -31,7 +31,6 @@ namespace Client
             this.libSchedules = libschedules;
             this.klasSchedules = klasschedules;
             setLibSchedules(mainForm.schedules);
-        
         }
 
         public void setLibSchedules(List<Schedule> schedules)
