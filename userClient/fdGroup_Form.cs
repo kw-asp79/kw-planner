@@ -58,6 +58,7 @@ namespace WindowsFormsApp1
                 labelGroupName[v].Size = new Size(100, 100);
                 labelGroupName[v].Font = new Font("Segoe Script", 12, FontStyle.Bold);
                 labelGroupName[v].Tag = v;
+                labelGroupName[v].BackColor = Color.Transparent;
 
                 listBoxFriends[v] = new ListBox();
                 listBoxFriends[v].Tag = v;
@@ -122,6 +123,7 @@ namespace WindowsFormsApp1
                 labelGroupName[A].Size = new Size(100, 100);
                 labelGroupName[A].Font = new Font("Segoe Script", 12, FontStyle.Bold);
                 labelGroupName[A].Tag = A;
+                labelGroupName[A].BackColor = Color.Transparent;
 
                 listBoxFriends[A] = new ListBox();
                 listBoxFriends[A].Tag = A;

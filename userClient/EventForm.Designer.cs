@@ -209,7 +209,7 @@
             this.Controls.Add(this.label4);
             this.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
             this.Name = "EventForm";
-            this.Text = "EventForm";
+            this.Text = "일정 관리";
             this.ResumeLayout(false);
             this.PerformLayout();
 

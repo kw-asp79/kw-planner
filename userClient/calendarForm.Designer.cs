@@ -6,7 +6,6 @@
         /// 필수 디자이너 변수입니다.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-
         /// <summary> 
         /// 사용 중인 모든 리소스를 정리합니다.
         /// </summary>
@@ -19,9 +18,7 @@
             }
             base.Dispose(disposing);
         }
-
         #region 구성 요소 디자이너에서 생성한 코드
-
         /// <summary> 
         /// 디자이너 지원에 필요한 메서드입니다. 
         /// 이 메서드의 내용을 코드 편집기로 수정하지 마세요.
@@ -60,17 +57,18 @@
             this.calendarContainer.Controls.Add(this.label1);
             this.calendarContainer.Dock = System.Windows.Forms.DockStyle.Right;
             this.calendarContainer.Location = new System.Drawing.Point(0, 0);
+            this.calendarContainer.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.calendarContainer.Name = "calendarContainer";
-            this.calendarContainer.Size = new System.Drawing.Size(862, 817);
+            this.calendarContainer.Size = new System.Drawing.Size(1231, 1225);
             this.calendarContainer.TabIndex = 1;
             this.calendarContainer.Paint += new System.Windows.Forms.PaintEventHandler(this.calendarContainer_Paint);
             // 
             // btn_share
             // 
             this.btn_share.Font = new System.Drawing.Font("한컴산뜻돋움", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_share.Location = new System.Drawing.Point(1001, 29);
+            this.btn_share.Location = new System.Drawing.Point(932, 23);
             this.btn_share.Name = "btn_share";
-            this.btn_share.Size = new System.Drawing.Size(114, 36);
+            this.btn_share.Size = new System.Drawing.Size(181, 59);
             this.btn_share.TabIndex = 10;
             this.btn_share.Text = "공유된 일정";
             this.btn_share.UseVisualStyleBackColor = true;
@@ -78,9 +76,10 @@
             // 
             // dayContainer
             // 
-            this.dayContainer.Location = new System.Drawing.Point(8, 87);
+            this.dayContainer.Location = new System.Drawing.Point(12, 130);
+            this.dayContainer.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dayContainer.Name = "dayContainer";
-            this.dayContainer.Size = new System.Drawing.Size(853, 728);
+            this.dayContainer.Size = new System.Drawing.Size(1218, 1092);
             this.dayContainer.TabIndex = 9;
             // 
             // ymLbl
@@ -88,7 +87,7 @@
             this.ymLbl.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.ymLbl.AutoSize = true;
             this.ymLbl.Font = new System.Drawing.Font("한컴산뜻돋움", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ymLbl.Location = new System.Drawing.Point(544, 30);
+            this.ymLbl.Location = new System.Drawing.Point(544, 26);
             this.ymLbl.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.ymLbl.Name = "ymLbl";
             this.ymLbl.Size = new System.Drawing.Size(136, 47);
@@ -98,9 +97,10 @@
             // 
             // prevBtn
             // 
-            this.prevBtn.Location = new System.Drawing.Point(333, 18);
+            this.prevBtn.Location = new System.Drawing.Point(476, 27);
+            this.prevBtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.prevBtn.Name = "prevBtn";
-            this.prevBtn.Size = new System.Drawing.Size(26, 29);
+            this.prevBtn.Size = new System.Drawing.Size(37, 44);
             this.prevBtn.TabIndex = 8;
             this.prevBtn.Text = "<";
             this.prevBtn.UseVisualStyleBackColor = true;
@@ -108,10 +108,10 @@
             // 
             // nextBtn
             // 
-            this.nextBtn.Location = new System.Drawing.Point(711, 27);
+            this.nextBtn.Location = new System.Drawing.Point(721, 27);
             this.nextBtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.nextBtn.Name = "nextBtn";
-            this.nextBtn.Size = new System.Drawing.Size(26, 29);
+            this.nextBtn.Size = new System.Drawing.Size(37, 44);
             this.nextBtn.TabIndex = 7;
             this.nextBtn.Text = ">";
             this.nextBtn.UseVisualStyleBackColor = true;
@@ -197,19 +197,18 @@
             // 
             // calendarForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.calendarContainer);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "calendarForm";
-            this.Size = new System.Drawing.Size(862, 817);
+            this.Size = new System.Drawing.Size(1231, 1225);
             this.calendarContainer.ResumeLayout(false);
             this.calendarContainer.PerformLayout();
             this.ResumeLayout(false);
 
         }
-
         #endregion
-
         private System.Windows.Forms.Panel calendarContainer;
         private System.Windows.Forms.FlowLayoutPanel dayContainer;
         private System.Windows.Forms.Label ymLbl;

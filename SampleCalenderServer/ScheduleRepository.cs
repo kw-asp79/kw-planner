@@ -146,7 +146,7 @@ namespace SampleCalenderServer
             MySqlCommand command = DBProcess.connection.CreateCommand();
 
             command.CommandText = "SELECT * FROM schedule JOIN user_schedule WHERE schedule.category = 'REQUEST'" +
-                " and user_schedule.user_id = 2 and user_schedule.schedule_id = schedule.schedule_id;";
+                " and user_schedule.user_id = @myUserId and user_schedule.schedule_id = schedule.schedule_id;";
             command.Parameters.AddWithValue("@myUserId", user.id);
 
             MySqlDataReader reader = command.ExecuteReader();

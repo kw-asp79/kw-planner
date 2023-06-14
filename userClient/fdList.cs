@@ -48,6 +48,7 @@ namespace Client
                 labels2[i].Size = new Size(labelWidth + 15, labelHeight);
                 labels2[i].Text = mainForm.friends[i - 1].id;
                 labels2[i].Tag = i;
+                labels2[i].BackColor = Color.Transparent;
 
 
                 labels[i] = new Label();
@@ -55,6 +56,7 @@ namespace Client
                 labels[i].Size = new Size(labelWidth, labelHeight);
                 labels[i].Text = mainForm.friends[i - 1].name;
                 labels[i].Tag = i;
+                labels[i].BackColor = Color.Transparent;
 
                 btn_delete[i] = new Button();
                 btn_delete[i].Location = new Point(labels2[i].Location.X + 125, labels2[i].Location.Y - 10);
@@ -116,15 +118,16 @@ namespace Client
                     labels2[A].Size = new Size(labelWidth + 15, labelHeight);
                     labels2[A].Text = id;
                     labels2[A].Tag = A;
-
+                    labels2[A].BackColor = Color.Transparent;
 
                     labels[A] = new Label();
                     labels[A].Location = new Point(labels2[A].Location.X + 65, labels2[A].Location.Y);
                     labels[A].Size = new Size(labelWidth, labelHeight);
                     labels[A].Text = s;
                     labels[A].Tag = A;
+                    labels[A].BackColor = Color.Transparent;
 
-                    
+
                     btn_delete[A] = new Button();
                     btn_delete[A].Location = new Point(labels2[A].Location.X + 125, labels2[A].Location.Y - 10);
                     btn_delete[A].Size = new Size(labelWidth, labelHeight);

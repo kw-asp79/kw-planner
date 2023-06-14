@@ -34,14 +34,14 @@
             // 
             // btn_addfd
             // 
-
             this.btn_addfd.BackColor = System.Drawing.SystemColors.Control;
             this.btn_addfd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btn_addfd.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_addfd.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btn_addfd.Location = new System.Drawing.Point(887, 114);
+            this.btn_addfd.Location = new System.Drawing.Point(867, 98);
+            this.btn_addfd.Margin = new System.Windows.Forms.Padding(4);
             this.btn_addfd.Name = "btn_addfd";
-            this.btn_addfd.Size = new System.Drawing.Size(99, 30);
+            this.btn_addfd.Size = new System.Drawing.Size(141, 45);
             this.btn_addfd.TabIndex = 5;
             this.btn_addfd.Text = "신규그룹 추가";
             this.btn_addfd.UseVisualStyleBackColor = false;
@@ -50,11 +50,11 @@
             // fdlistLbl
             // 
             this.fdlistLbl.AutoSize = true;
-
+            this.fdlistLbl.BackColor = System.Drawing.Color.Transparent;
             this.fdlistLbl.Font = new System.Drawing.Font("Leelawadee UI", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fdlistLbl.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.fdlistLbl.Location = new System.Drawing.Point(420, 60);
-            this.fdlistLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.fdlistLbl.ForeColor = System.Drawing.Color.Navy;
+            this.fdlistLbl.Location = new System.Drawing.Point(425, 51);
+            this.fdlistLbl.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.fdlistLbl.Name = "fdlistLbl";
             this.fdlistLbl.Size = new System.Drawing.Size(411, 81);
             this.fdlistLbl.TabIndex = 4;
@@ -62,16 +62,15 @@
             // 
             // fdGroup_Form
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.kw_blur1;
-            this.ClientSize = new System.Drawing.Size(770, 497);
-
+            this.ClientSize = new System.Drawing.Size(1823, 959);
             this.Controls.Add(this.btn_addfd);
             this.Controls.Add(this.fdlistLbl);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "fdGroup_Form";
-            this.Text = "fdGroupForm";
+            this.Text = "친구그룹 목록";
             this.ResumeLayout(false);
             this.PerformLayout();
 
