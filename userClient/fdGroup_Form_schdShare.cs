@@ -10,7 +10,9 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PacketLibrary;
 using static Client.EventForm;
+using System.Diagnostics;
 
 namespace WindowsFormsApp1
 {
@@ -54,6 +56,19 @@ namespace WindowsFormsApp1
             eventschedule.fromWho = user_id;
             eventschedule.isDone = false;
             mainForm.schedules.Add(eventschedule);
+
+            Group group = new Group(group_name, user_id);
+
+            Dictionary<string, Object> fullData = new Dictionary<string, object>();
+            fullData.Add("group", group);
+            fullData.Add("schedule", eventschedule);
+
+            Packet packet = new Packet();
+            packet.action = ActionType.shareSchedule;
+            packet.data = fullData;
+
+            Packet.SendPacket(netstrm, packet);
+            packet = Packet.ReceivePacket(netstrm);
             
             MessageBox.Show(string.Format("그룹원들에게 일정이 공유되었습니다."));
             this.Close();

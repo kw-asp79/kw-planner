@@ -26,9 +26,17 @@ namespace Client
         private bool isLabelVisible = true;
         //private int clickedDay;
 
-        private static Boolean isProgramLogin = false;
-        private static Boolean isKLASLogin = false;
-        private static Boolean isLibraryLogin = false;
+        public static Boolean isProgramLogin = false;
+        public static Boolean isKLASLogin = false;
+        public static Boolean isLibraryLogin = false;
+
+        public enum Option
+        {
+            NEWSTATE,
+            SAVESCHEDULE,
+            DELETESCHEDULE
+        }
+
 
         mainForm MainForm;
         calendarForm calendarForm;
@@ -58,7 +66,6 @@ namespace Client
 
 
         public UserControlDays(DateTime date,mainForm MainForm, calendarForm calForm)
-
         {
             InitializeComponent();
             this.netstrm = netstrm;
@@ -71,7 +78,7 @@ namespace Client
             this.MainForm = MainForm;
 
             if (isProgramLogin || isKLASLogin || isLibraryLogin)
-                setSchedules(calForm.userSchedules);
+                setSchedules(calForm.userSchedules,Option.NEWSTATE);
 
             this.MainForm.loginSuccessEvent += delegate (object sender, LoginEventArgs args)
             {
@@ -90,8 +97,26 @@ namespace Client
                         break;
                 }
 
-                DBScheduleSynchronize(args);
+                DBScheduleSynchronize(args, Option.NEWSTATE);
 
+            };
+
+            EventForm.saveEvent += delegate (object sender, EventFormArgs args)
+            {
+                if (isProgramLogin)
+                {
+                    List<Schedule> updatedSchedules = args.getSchedules();
+                    setSchedules(updatedSchedules, Option.SAVESCHEDULE);
+                }
+            };
+
+            EventForm.deleteEvent += delegate (object sender, EventFormArgs args)
+            {
+                if (isProgramLogin)
+                {
+                    List<Schedule> updatedSchedules = args.getSchedules();
+                    setSchedules(updatedSchedules, Option.DELETESCHEDULE);
+                }
             };
         }
 
@@ -109,73 +134,144 @@ namespace Client
 
 
 
-        //public List<Schedule> getSchedules()
-        //{
-        //    return daySchedules;
-        //}
-
-
-        public void setSchedules(List<Schedule> schedules)
+        // 로그인 시 그리고 처음 생성단계에서 스케줄을 세팅
+        public void setSchedules(List<Schedule> schedules, Option option)
         {
-            // 스케줄의 기간안에 들어가는 일정들을 추가. 
-            foreach (Schedule schedule in schedules)
-            {
-                if (schedule.startTime.Date <= date && date <= schedule.endTime.Date)
-                    daySchedules.Add(schedule);
-            }
-
-
-            // CUSTOM, KLAS, LIBRARY 스케줄에서 하나씩 대표 스케줄을 선정하여 UserControlDay class에 저장
-            // 그 후 대표 스케줄 각각에 대해 AddLabel을 호출해준다.
             bool customFlag = false;
             bool klasFlag = false;
             bool libFlag = false;
 
-            foreach (Schedule schedule in daySchedules)
+            switch (option)
             {
-                switch (schedule.category)
-                {
-                    case "CUSTOM":
-                        if (customFlag == false)
+
+                // 로그인 시 혹은 기존상황에서 달력에 렌더링되는 상황에서의 case
+                case Option.NEWSTATE:
+                // 새로운 스케줄이 추가되었을 때 새로운 스케줄만 추가되도록 
+                case Option.SAVESCHEDULE:
+                    foreach (Schedule schedule in schedules)
+                    {
+
+                        if (schedule.startTime.Date <= date && date <= schedule.endTime.Date)
+                            if (!daySchedules.Contains(schedule))
+                                daySchedules.Add(schedule);
+                    }
+
+                    foreach (Schedule schedule in daySchedules)
+                    {
+                        switch (schedule.category)
                         {
-                            customMainSchedule = schedule;
-                            AddLabel(customMainSchedule);
-                            customFlag = true;
-                        }
-                        break;
+                            case "CUSTOM":
+                                if (customFlag == false)
+                                {
+                                    customMainSchedule = schedule;
+                                    AddLabel(customMainSchedule);
+                                    customFlag = true;
+                                }
+                                break;
 
-                    case "KLAS":
-                        if (klasFlag == false)
+                            case "KLAS":
+                                if (klasFlag == false)
+                                {
+                                    klasMainSchedule = schedule;
+                                    AddLabel(klasMainSchedule);
+                                    klasFlag = true;
+                                }
+                                break;
+
+                            case "LIBRARY":
+                                if (libFlag == false)
+                                {
+                                    libraryMainSchedule = schedule;
+                                    AddLabel(libraryMainSchedule);
+                                    libFlag = true;
+                                }
+                                break;
+
+                        }
+
+                    }
+                    break;
+
+
+                // 기존 스케줄이 삭제되었을 때 삭제된 부분이 똑같이 삭제되도록
+                case Option.DELETESCHEDULE:
+                    foreach (Schedule schedule in schedules)
+                    {
+                        foreach(Schedule dSchedule in daySchedules)
                         {
-                            klasMainSchedule = schedule;
-                            AddLabel(klasMainSchedule);
-                            klasFlag = true;
+                            if (Schedule.scheduleCompare(schedule,dSchedule))
+                            {
+                                daySchedules.Remove(schedule);
+
+                                // 스케줄에 해당하는 라벨을 찾아 제거
+                                RemoveLabel(schedule);
+                                break;
+                            }
                         }
-                        break;
-
-                    case "LIBRARY":
-                        if (libFlag == false)
-                        {
-                            libraryMainSchedule = schedule;
-                            AddLabel(libraryMainSchedule);
-                            libFlag = true;
-                        }
-                        break;
-
-                }
-
+                    }
+                    break;
             }
+        }
+    
 
 
 
+        public void RemoveLabel(Schedule schedule)
+        {
+            if (schedule.category == "CUSTOM")
+            {
+                customeLbl.BackColor = DefaultBackColor;
+                customeLbl.Text = "";
+                customMainSchedule = null;
+
+                // 다른 스케줄이 존재할 경우 해당 스케줄의 라벨을 표시
+                var otherSchedule = daySchedules.FirstOrDefault(s => s.category == "CUSTOM" && s != schedule);
+                if (otherSchedule != null)
+                {
+                    customMainSchedule = otherSchedule;
+                    AddLabel(otherSchedule);
+                }
+                
+                    
+            }
+            else if (schedule.category == "KLAS")
+            {
+                klasLbl.BackColor = DefaultBackColor;
+                klasLbl.Text = "";
+                klasMainSchedule = null;
+
+                // 다른 스케줄이 존재할 경우 해당 스케줄의 라벨을 표시
+                var otherSchedule = daySchedules.FirstOrDefault(s => s.category == "KLAS" && s != schedule);
+                if (otherSchedule != null)
+                {
+                    klasMainSchedule = otherSchedule;
+                    AddLabel(otherSchedule);
+                }
+            }
+            else if (schedule.category == "LIBRARY")
+            {
+                libraryLbl.BackColor = DefaultBackColor;
+                libraryLbl.Text = "";
+                libraryMainSchedule = null;
+
+                // 다른 스케줄이 존재할 경우 해당 스케줄의 라벨을 표시
+                var otherSchedule = daySchedules.FirstOrDefault(s => s.category == "LIBRARY" && s != schedule);
+                if (otherSchedule != null)
+                {
+                    libraryMainSchedule = otherSchedule;
+                    AddLabel(otherSchedule);
+                }
+            }
         }
 
 
-        public void DBScheduleSynchronize(LoginEventArgs args)
+
+
+        public void DBScheduleSynchronize(LoginEventArgs args,Option option)
         {
             List<Schedule> schedules = args.getSchedules();
 
-            setSchedules(schedules);
+            setSchedules(schedules,option);
         }
 
 
@@ -242,7 +338,6 @@ namespace Client
             todoEventForm.dtpStartDate.Value = date;
             todoEventForm.dtpEndDate.Value = date;
             todoEventForm.ShowDialog();
-
         }
 
         private void UserControlDays_DoubleClick(object sender, EventArgs e)
