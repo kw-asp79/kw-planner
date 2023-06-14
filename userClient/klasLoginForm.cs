@@ -30,16 +30,16 @@ namespace Client
         public bool loginStatus = false;
 
         public void setLoginStatus(bool status) { this.loginStatus = status; }
-        public bool getLoginStatus() { return loginStatus;}
+        public bool getLoginStatus() { return loginStatus; }
 
-        public KLASLoginForm(KLASUIForm klasUIForm,KLASCrawler kLasCrawler)
+        public KLASLoginForm(KLASUIForm klasUIForm, KLASCrawler kLasCrawler)
         {
             InitializeComponent();
 
             this.status = CrawlingStatus.Status.BeforeLogin;
             this.klasUIForm = klasUIForm;
             this.klasCrawler = kLasCrawler;
-        
+
         }
 
         private void loginBtn_Click(object sender, EventArgs e)
@@ -48,7 +48,7 @@ namespace Client
             {
                 status = CrawlingStatus.Status.LoginProcess;
 
-                klasLoadingForm = new KLASLoadingForm(this,klasCrawler);
+                klasLoadingForm = new KLASLoadingForm(this, klasCrawler);
                 klasLoadingForm.Show();
 
                 crawlingAsync();
@@ -59,7 +59,7 @@ namespace Client
         private async void crawlingAsync()
         {
             var klasCrawlingTask = Task.Run(() =>
-                klasUIForm.doWork(idTbx.Text, pwdTbx.Text,this.klasCrawler)
+                klasUIForm.doWork(idTbx.Text, pwdTbx.Text, this.klasCrawler)
             );
 
             status = await klasCrawlingTask;
