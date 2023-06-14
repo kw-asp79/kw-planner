@@ -24,7 +24,6 @@ namespace WindowsFormsApp1
         int k = 0;
         public fdGroup_Form_fdlist(fdGroup_Form fdGroup_Form, List<string> list, List<string> list1, int i)
         {
-
             InitializeComponent();
             fdGroupForm = fdGroup_Form;
             친구_list.DataSource = list;

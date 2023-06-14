@@ -49,11 +49,12 @@
             // fdlistLbl
             // 
             this.fdlistLbl.AutoSize = true;
-            this.fdlistLbl.Font = new System.Drawing.Font("Segoe Script", 30F, System.Drawing.FontStyle.Bold);
-            this.fdlistLbl.Location = new System.Drawing.Point(420, 50);
+            this.fdlistLbl.Font = new System.Drawing.Font("Leelawadee UI", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fdlistLbl.ForeColor = System.Drawing.Color.CornflowerBlue;
+            this.fdlistLbl.Location = new System.Drawing.Point(420, 60);
             this.fdlistLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.fdlistLbl.Name = "fdlistLbl";
-            this.fdlistLbl.Size = new System.Drawing.Size(444, 99);
+            this.fdlistLbl.Size = new System.Drawing.Size(411, 81);
             this.fdlistLbl.TabIndex = 4;
             this.fdlistLbl.Text = "친구그룹 목록";
             // 
@@ -61,7 +62,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1100, 745);
             this.Controls.Add(this.btn_addfd);
             this.Controls.Add(this.fdlistLbl);

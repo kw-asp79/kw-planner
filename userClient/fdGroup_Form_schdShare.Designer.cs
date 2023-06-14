@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.dtpEndTime = new System.Windows.Forms.DateTimePicker();
+            this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.tbx_Title = new System.Windows.Forms.TextBox();
             this.btn_Add = new System.Windows.Forms.Button();
@@ -37,9 +40,6 @@
             this.dtpStartTime = new System.Windows.Forms.DateTimePicker();
             this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
             this.Grpname_lbl = new System.Windows.Forms.Label();
-            this.dtpEndTime = new System.Windows.Forms.DateTimePicker();
-            this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
-            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,6 +62,38 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(582, 396);
             this.panel1.TabIndex = 0;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label3.Location = new System.Drawing.Point(35, 106);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(85, 18);
+            this.label3.TabIndex = 21;
+            this.label3.Text = "end_Time";
+            // 
+            // dtpEndTime
+            // 
+            this.dtpEndTime.CustomFormat = "HH:mm";
+            this.dtpEndTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpEndTime.Location = new System.Drawing.Point(299, 126);
+            this.dtpEndTime.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.dtpEndTime.Name = "dtpEndTime";
+            this.dtpEndTime.ShowUpDown = true;
+            this.dtpEndTime.Size = new System.Drawing.Size(250, 28);
+            this.dtpEndTime.TabIndex = 20;
+            // 
+            // dtpEndDate
+            // 
+            this.dtpEndDate.CustomFormat = "yyyy-MM-dd";
+            this.dtpEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpEndDate.Location = new System.Drawing.Point(41, 126);
+            this.dtpEndDate.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.dtpEndDate.Name = "dtpEndDate";
+            this.dtpEndDate.Size = new System.Drawing.Size(250, 28);
+            this.dtpEndDate.TabIndex = 19;
             // 
             // label2
             // 
@@ -146,38 +178,6 @@
             this.Grpname_lbl.Size = new System.Drawing.Size(91, 18);
             this.Grpname_lbl.TabIndex = 6;
             this.Grpname_lbl.Text = "start_Time";
-            // 
-            // dtpEndTime
-            // 
-            this.dtpEndTime.CustomFormat = "HH:mm";
-            this.dtpEndTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpEndTime.Location = new System.Drawing.Point(299, 126);
-            this.dtpEndTime.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
-            this.dtpEndTime.Name = "dtpEndTime";
-            this.dtpEndTime.ShowUpDown = true;
-            this.dtpEndTime.Size = new System.Drawing.Size(250, 28);
-            this.dtpEndTime.TabIndex = 20;
-            // 
-            // dtpEndDate
-            // 
-            this.dtpEndDate.CustomFormat = "yyyy-MM-dd";
-            this.dtpEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpEndDate.Location = new System.Drawing.Point(41, 126);
-            this.dtpEndDate.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
-            this.dtpEndDate.Name = "dtpEndDate";
-            this.dtpEndDate.Size = new System.Drawing.Size(250, 28);
-            this.dtpEndDate.TabIndex = 19;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label3.Location = new System.Drawing.Point(35, 106);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(85, 18);
-            this.label3.TabIndex = 21;
-            this.label3.Text = "end_Time";
             // 
             // fdGroup_Form_schdShare
             // 

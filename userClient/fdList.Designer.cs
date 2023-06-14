@@ -37,11 +37,12 @@ namespace Client
             // fdlistLbl
             // 
             this.fdlistLbl.AutoSize = true;
-            this.fdlistLbl.Font = new System.Drawing.Font("Segoe Script", 30F, System.Drawing.FontStyle.Bold);
+            this.fdlistLbl.Font = new System.Drawing.Font("Leelawadee UI", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fdlistLbl.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.fdlistLbl.Location = new System.Drawing.Point(460, 50);
             this.fdlistLbl.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.fdlistLbl.Name = "fdlistLbl";
-            this.fdlistLbl.Size = new System.Drawing.Size(318, 99);
+            this.fdlistLbl.Size = new System.Drawing.Size(291, 81);
             this.fdlistLbl.TabIndex = 2;
             this.fdlistLbl.Text = "친구 목록";
             // 

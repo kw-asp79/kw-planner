@@ -20,36 +20,7 @@ using CrawlingLibrary;
 
 namespace Client
 {
-    public class LoginEventArgs : EventArgs
-    {
-        public List<Schedule> schedules;
-        public enum TYPE
-        {
-            PROGRAM_LOGIN,
-            KLAS_LOGIN,
-            LIBRARY_LOGIN
-        }
-
-        TYPE type;
-
-        public LoginEventArgs(List<Schedule> schedules,TYPE type)
-        {
-            this.schedules = schedules;
-            this.type = type;
-        }
-
-        public List<Schedule> getSchedules()
-        {
-            return this.schedules;
-        }
-
-
-        public TYPE getType()
-        {
-            return type;
-        }
-
-    }
+   
 
 
     public partial class mainForm : Form
@@ -73,7 +44,7 @@ namespace Client
 
         KLASCrawler klasCrawler;
         LibraryCrawler libraryCrawler;
-
+        
         // 프로그램 자체 로그인, KLAS 로그인, LIBRARY 로그인 통합 Event Handler
         public event EventHandler<LoginEventArgs> loginSuccessEvent;
 
@@ -375,5 +346,35 @@ namespace Client
             netstrm.Close();
             server.Close();
         }
+    }
+    public class LoginEventArgs : EventArgs
+    {
+        public List<Schedule> schedules;
+        public enum TYPE
+        {
+            PROGRAM_LOGIN,
+            KLAS_LOGIN,
+            LIBRARY_LOGIN
+        }
+
+        TYPE type;
+
+        public LoginEventArgs(List<Schedule> schedules, TYPE type)
+        {
+            this.schedules = schedules;
+            this.type = type;
+        }
+
+        public List<Schedule> getSchedules()
+        {
+            return this.schedules;
+        }
+
+
+        public TYPE getType()
+        {
+            return type;
+        }
+
     }
 }
