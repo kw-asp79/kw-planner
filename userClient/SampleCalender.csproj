@@ -155,7 +155,9 @@
     <Compile Include="KLASLoadingForm.Designer.cs">
       <DependentUpon>KLASLoadingForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="KLASLoginForm.cs" />
+    <Compile Include="KLASLoginForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="KLASLoginForm.Designer.cs">
       <DependentUpon>KLASLoginForm.cs</DependentUpon>
     </Compile>
@@ -335,13 +337,10 @@
     <None Include="Resources\스크린샷 2023-05-06 1420101.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\kw-image2.jpg" />
+    <None Include="Resources\kw-image1.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\kw-image3.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\kw-image4.jpg" />
+    <None Include="Resources\kw-blur1.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\Selenium.WebDriver.4.9.1\build\Selenium.WebDriver.targets" Condition="Exists('packages\Selenium.WebDriver.4.9.1\build\Selenium.WebDriver.targets')" />

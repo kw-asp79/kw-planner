@@ -68,6 +68,7 @@
             // klasLbl
             // 
             this.klasLbl.AutoSize = true;
+            this.klasLbl.BackColor = System.Drawing.Color.Transparent;
             this.klasLbl.Font = new System.Drawing.Font("Comic Sans MS", 36F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.klasLbl.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.klasLbl.Location = new System.Drawing.Point(377, 138);
@@ -79,6 +80,7 @@
             // pwdLbl
             // 
             this.pwdLbl.AutoSize = true;
+            this.pwdLbl.BackColor = System.Drawing.Color.Transparent;
             this.pwdLbl.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pwdLbl.Location = new System.Drawing.Point(260, 380);
             this.pwdLbl.Name = "pwdLbl";
@@ -89,6 +91,7 @@
             // idLbl
             // 
             this.idLbl.AutoSize = true;
+            this.idLbl.BackColor = System.Drawing.Color.Transparent;
             this.idLbl.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.idLbl.Location = new System.Drawing.Point(320, 276);
             this.idLbl.Name = "idLbl";
@@ -100,6 +103,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.kw_blur1;
             this.Controls.Add(this.pwdTbx);
             this.Controls.Add(this.loginBtn);
             this.Controls.Add(this.idTbx);

@@ -147,6 +147,7 @@
             this.calendarContainer.Location = new System.Drawing.Point(263, 0);
             this.calendarContainer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.calendarContainer.Name = "calendarContainer";
+
             this.calendarContainer.Size = new System.Drawing.Size(1231, 1054);
             this.calendarContainer.TabIndex = 0;
             // 
@@ -154,7 +155,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1494, 1054);
+            this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.kw_blur1;
+            this.ClientSize = new System.Drawing.Size(1046, 676);
+
             this.Controls.Add(this.menuContainer);
             this.Controls.Add(this.calendarContainer);
             this.IsMdiContainer = true;

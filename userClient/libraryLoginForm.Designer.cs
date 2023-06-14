@@ -71,7 +71,8 @@
             // pwdLbl
             // 
             this.pwdLbl.AutoSize = true;
-            this.pwdLbl.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pwdLbl.BackColor = System.Drawing.Color.Transparent;
+            this.pwdLbl.Font = new System.Drawing.Font("Segoe Print", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pwdLbl.Location = new System.Drawing.Point(246, 354);
             this.pwdLbl.Name = "pwdLbl";
             this.pwdLbl.Size = new System.Drawing.Size(106, 33);
@@ -81,7 +82,8 @@
             // idLbl
             // 
             this.idLbl.AutoSize = true;
-            this.idLbl.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.idLbl.BackColor = System.Drawing.Color.Transparent;
+            this.idLbl.Font = new System.Drawing.Font("Segoe Print", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.idLbl.Location = new System.Drawing.Point(316, 257);
             this.idLbl.Name = "idLbl";
             this.idLbl.Size = new System.Drawing.Size(36, 33);
@@ -101,6 +103,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.kw_blur1;
+
             this.Controls.Add(this.pwdTbx);
             this.Controls.Add(this.loginBtn);
             this.Controls.Add(this.idTbx);

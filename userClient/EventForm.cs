@@ -23,8 +23,6 @@ using System.CodeDom;
 
 namespace Client
 {
-
-
         public partial class EventForm : Form
      {
 
@@ -348,10 +346,7 @@ namespace Client
                 }
             }
         }
-
-
     }
-
     public class EventFormArgs : EventArgs
     {
         public List<Schedule> schedules;

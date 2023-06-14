@@ -20,9 +20,6 @@ using CrawlingLibrary;
 
 namespace Client
 {
-   
-
-
     public partial class mainForm : Form
     {
         // 각 form 들을 멤버로 선언 => 추후 klas와 도서관 정보를 달력과 주고받기 위해 (다만 상황에 따라 변동 가능성 존재..)
