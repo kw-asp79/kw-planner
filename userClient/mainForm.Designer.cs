@@ -56,7 +56,7 @@
             this.menuContainer.Location = new System.Drawing.Point(0, 0);
             this.menuContainer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.menuContainer.Name = "menuContainer";
-            this.menuContainer.Size = new System.Drawing.Size(186, 703);
+            this.menuContainer.Size = new System.Drawing.Size(186, 676);
             this.menuContainer.TabIndex = 1;
             // 
             // mainBtn
@@ -161,14 +161,15 @@
             this.calendarContainer.Location = new System.Drawing.Point(184, 0);
             this.calendarContainer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.calendarContainer.Name = "calendarContainer";
-            this.calendarContainer.Size = new System.Drawing.Size(862, 703);
+            this.calendarContainer.Size = new System.Drawing.Size(862, 676);
             this.calendarContainer.TabIndex = 0;
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1046, 703);
+            this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.kw_blur1;
+            this.ClientSize = new System.Drawing.Size(1046, 676);
             this.Controls.Add(this.menuContainer);
             this.Controls.Add(this.calendarContainer);
             this.IsMdiContainer = true;

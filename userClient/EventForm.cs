@@ -23,23 +23,6 @@ using System.CodeDom;
 
 namespace Client
 {
-    public class EventFormArgs : EventArgs
-    {
-        public List<Schedule> schedules;
-
-
-        public EventFormArgs(List<Schedule> schedules)
-        {
-            this.schedules = schedules;
-        }
-
-        public List<Schedule> getSchedules()
-        {
-            return this.schedules;
-        }
-
-    }
-
         public partial class EventForm : Form
      {
 
@@ -164,7 +147,7 @@ namespace Client
             eventschedule.endTime = endDateTime;
             eventschedule.category = "CUSTOM";
             eventschedule.title = tbTitle.Text;
-            eventschedule.content = tbSchedule.Text;
+            eventschedule.content = tbContent.Text;
             eventschedule.fromWho = "";
             eventschedule.isDone = false;
             mainForm.schedules.Add(eventschedule);
@@ -201,7 +184,7 @@ namespace Client
             content[lbcount].Location = new Point(title[lbcount].Location.X + 100, title[lbcount].Location.Y);
             content[lbcount].Size = new Size(labelWidth * 5, labelHeight);
             content[lbcount].Font = new Font("Ink Free", 11, FontStyle.Regular);
-            content[lbcount].Text = tbSchedule.Text;
+            content[lbcount].Text = tbContent.Text;
             content[lbcount].Tag = lbcount;
 
             deletebtn[lbcount] = new Button();
@@ -342,4 +325,23 @@ namespace Client
 
 
     }
+
+
+    public class EventFormArgs : EventArgs
+    {
+        public List<Schedule> schedules;
+
+
+        public EventFormArgs(List<Schedule> schedules)
+        {
+            this.schedules = schedules;
+        }
+
+        public List<Schedule> getSchedules()
+        {
+            return this.schedules;
+        }
+
+    }
+
 }

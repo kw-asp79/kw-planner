@@ -14,21 +14,6 @@ using System.Windows.Forms;
 
 namespace Client
 {
-    public class AllSuccessEventArgs : EventArgs
-    {
-        public List<Schedule> schedules;
-        public AllSuccessEventArgs(List<Schedule> schedules)
-        {
-            this.schedules = schedules;
-        }
-
-        public List<Schedule> getSchedules()
-        {
-            return this.schedules;
-        }
-
-    }
-
 
     public partial class KLASLoginForm : UserControl
     {
@@ -99,6 +84,21 @@ namespace Client
         }
 
 
+
+    }
+
+    public class AllSuccessEventArgs : EventArgs
+    {
+        public List<Schedule> schedules;
+        public AllSuccessEventArgs(List<Schedule> schedules)
+        {
+            this.schedules = schedules;
+        }
+
+        public List<Schedule> getSchedules()
+        {
+            return this.schedules;
+        }
 
     }
 }

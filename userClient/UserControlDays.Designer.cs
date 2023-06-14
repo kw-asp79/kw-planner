@@ -39,10 +39,9 @@
             // 
             this.lbDay.AutoSize = true;
             this.lbDay.Font = new System.Drawing.Font("Ink Free", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbDay.Location = new System.Drawing.Point(3, 10);
-            this.lbDay.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbDay.Location = new System.Drawing.Point(2, 7);
             this.lbDay.Name = "lbDay";
-            this.lbDay.Size = new System.Drawing.Size(36, 25);
+            this.lbDay.Size = new System.Drawing.Size(23, 16);
             this.lbDay.TabIndex = 0;
             this.lbDay.Text = "00";
             // 
@@ -50,17 +49,16 @@
             // 
             this.dayLbl.AutoSize = true;
             this.dayLbl.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dayLbl.Location = new System.Drawing.Point(60, 15);
-            this.dayLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.dayLbl.Location = new System.Drawing.Point(42, 10);
             this.dayLbl.Name = "dayLbl";
-            this.dayLbl.Size = new System.Drawing.Size(0, 22);
+            this.dayLbl.Size = new System.Drawing.Size(0, 14);
             this.dayLbl.TabIndex = 1;
             // 
             // customeLbl
             // 
             this.customeLbl.AutoSize = true;
-
-            this.customeLbl.Location = new System.Drawing.Point(3, 35);
+            this.customeLbl.Location = new System.Drawing.Point(2, 23);
+            this.customeLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.customeLbl.Name = "customeLbl";
             this.customeLbl.Size = new System.Drawing.Size(0, 12);
             this.customeLbl.TabIndex = 2;
@@ -69,16 +67,16 @@
             // 
             this.klasLbl.AutoSize = true;
             this.klasLbl.Font = new System.Drawing.Font("굴림", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.klasLbl.Location = new System.Drawing.Point(3, 64);
+            this.klasLbl.Location = new System.Drawing.Point(3, 58);
+            this.klasLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.klasLbl.Name = "klasLbl";
-            this.klasLbl.Size = new System.Drawing.Size(11, 11);
+            this.klasLbl.Size = new System.Drawing.Size(0, 11);
             this.klasLbl.TabIndex = 3;
             // 
             // libraryLbl
             // 
             this.libraryLbl.AutoSize = true;
-            this.libraryLbl.Location = new System.Drawing.Point(4, 138);
-            this.libraryLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.libraryLbl.Location = new System.Drawing.Point(3, 92);
             this.libraryLbl.Name = "libraryLbl";
             this.libraryLbl.Size = new System.Drawing.Size(0, 12);
             this.libraryLbl.TabIndex = 4;
@@ -86,7 +84,7 @@
             // UserControlDays
             // 
             this.AllowDrop = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gainsboro;
             this.Controls.Add(this.libraryLbl);
@@ -94,9 +92,8 @@
             this.Controls.Add(this.customeLbl);
             this.Controls.Add(this.dayLbl);
             this.Controls.Add(this.lbDay);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "UserControlDays";
-            this.Size = new System.Drawing.Size(164, 172);
+            this.Size = new System.Drawing.Size(115, 115);
             this.Click += new System.EventHandler(this.UserControlDays_Click);
             this.DoubleClick += new System.EventHandler(this.UserControlDays_DoubleClick);
             this.MouseEnter += new System.EventHandler(this.UserControlDays_MouseEnter);

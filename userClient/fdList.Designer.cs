@@ -37,33 +37,35 @@ namespace Client
             // fdlistLbl
             // 
             this.fdlistLbl.AutoSize = true;
+            this.fdlistLbl.BackColor = System.Drawing.Color.Transparent;
             this.fdlistLbl.Font = new System.Drawing.Font("Segoe Script", 20F, System.Drawing.FontStyle.Bold);
-            this.fdlistLbl.Location = new System.Drawing.Point(484, 50);
-            this.fdlistLbl.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.fdlistLbl.Location = new System.Drawing.Point(339, 33);
+            this.fdlistLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.fdlistLbl.Name = "fdlistLbl";
-            this.fdlistLbl.Size = new System.Drawing.Size(213, 67);
+            this.fdlistLbl.Size = new System.Drawing.Size(138, 44);
             this.fdlistLbl.TabIndex = 2;
             this.fdlistLbl.Text = "친구 목록";
             // 
             // btn_addfd
             // 
-            this.btn_addfd.Location = new System.Drawing.Point(901, 111);
-            this.btn_addfd.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_addfd.BackColor = System.Drawing.Color.Transparent;
+            this.btn_addfd.Location = new System.Drawing.Point(631, 74);
             this.btn_addfd.Name = "btn_addfd";
-            this.btn_addfd.Size = new System.Drawing.Size(97, 45);
+            this.btn_addfd.Size = new System.Drawing.Size(68, 30);
             this.btn_addfd.TabIndex = 3;
             this.btn_addfd.Text = "친구 추가";
-            this.btn_addfd.UseVisualStyleBackColor = true;
+            this.btn_addfd.UseVisualStyleBackColor = false;
             this.btn_addfd.Click += new System.EventHandler(this.btn_addfd_Click);
             // 
             // fdList
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1100, 745);
+            this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.kw_blur1;
+            this.ClientSize = new System.Drawing.Size(770, 497);
             this.Controls.Add(this.btn_addfd);
             this.Controls.Add(this.fdlistLbl);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.Name = "fdList";
             this.Text = "fdList";
             this.ResumeLayout(false);
