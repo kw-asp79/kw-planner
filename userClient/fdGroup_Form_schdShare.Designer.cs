@@ -186,7 +186,7 @@
             this.ClientSize = new System.Drawing.Size(582, 396);
             this.Controls.Add(this.panel1);
             this.Name = "fdGroup_Form_schdShare";
-            this.Text = "fdGroup_Form_schdShare";
+            this.Text = "일정 공유하기";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

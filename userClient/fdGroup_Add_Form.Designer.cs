@@ -98,7 +98,7 @@
             this.ClientSize = new System.Drawing.Size(498, 451);
             this.Controls.Add(this.panel1);
             this.Name = "fdGroup_Add_Form";
-            this.Text = "fdGroup_Add_Form";
+            this.Text = "신규 그룹 추가";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

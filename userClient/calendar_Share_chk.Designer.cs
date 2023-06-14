@@ -60,7 +60,7 @@
             this.ClientSize = new System.Drawing.Size(1247, 324);
             this.Controls.Add(this.panel1);
             this.Name = "calendar_Share_chk";
-            this.Text = "calendar_Share_chk";
+            this.Text = "공유된 일정 목록";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

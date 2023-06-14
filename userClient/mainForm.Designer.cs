@@ -54,13 +54,13 @@
             this.menuContainer.Location = new System.Drawing.Point(0, 0);
             this.menuContainer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.menuContainer.Name = "menuContainer";
-            this.menuContainer.Size = new System.Drawing.Size(266, 1054);
+            this.menuContainer.Size = new System.Drawing.Size(266, 1196);
             this.menuContainer.TabIndex = 1;
             // 
             // mainBtn
             // 
             this.mainBtn.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mainBtn.Location = new System.Drawing.Point(52, 67);
+            this.mainBtn.Location = new System.Drawing.Point(74, 100);
             this.mainBtn.Margin = new System.Windows.Forms.Padding(3, 6, 3, 2);
             this.mainBtn.Name = "mainBtn";
             this.mainBtn.Size = new System.Drawing.Size(120, 48);
@@ -72,7 +72,7 @@
             // groupBtn
             // 
             this.groupBtn.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBtn.Location = new System.Drawing.Point(52, 600);
+            this.groupBtn.Location = new System.Drawing.Point(74, 900);
             this.groupBtn.Margin = new System.Windows.Forms.Padding(3, 6, 3, 2);
             this.groupBtn.Name = "groupBtn";
             this.groupBtn.Size = new System.Drawing.Size(120, 48);
@@ -84,7 +84,7 @@
             // settingBtn
             // 
             this.settingBtn.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.settingBtn.Location = new System.Drawing.Point(106, 768);
+            this.settingBtn.Location = new System.Drawing.Point(150, 1150);
             this.settingBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.settingBtn.Name = "settingBtn";
             this.settingBtn.Size = new System.Drawing.Size(103, 45);
@@ -96,7 +96,7 @@
             // loginBtn
             // 
             this.loginBtn.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loginBtn.Location = new System.Drawing.Point(3, 768);
+            this.loginBtn.Location = new System.Drawing.Point(4, 1150);
             this.loginBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.loginBtn.Name = "loginBtn";
             this.loginBtn.Size = new System.Drawing.Size(104, 45);
@@ -108,7 +108,7 @@
             // fndBtn
             // 
             this.fndBtn.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fndBtn.Location = new System.Drawing.Point(52, 467);
+            this.fndBtn.Location = new System.Drawing.Point(74, 700);
             this.fndBtn.Margin = new System.Windows.Forms.Padding(3, 6, 3, 2);
             this.fndBtn.Name = "fndBtn";
             this.fndBtn.Size = new System.Drawing.Size(120, 48);
@@ -120,7 +120,7 @@
             // lbyBtn
             // 
             this.lbyBtn.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbyBtn.Location = new System.Drawing.Point(52, 333);
+            this.lbyBtn.Location = new System.Drawing.Point(74, 500);
             this.lbyBtn.Margin = new System.Windows.Forms.Padding(3, 6, 3, 2);
             this.lbyBtn.Name = "lbyBtn";
             this.lbyBtn.Size = new System.Drawing.Size(120, 48);
@@ -132,7 +132,7 @@
             // klasBtn
             // 
             this.klasBtn.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.klasBtn.Location = new System.Drawing.Point(52, 200);
+            this.klasBtn.Location = new System.Drawing.Point(74, 300);
             this.klasBtn.Margin = new System.Windows.Forms.Padding(3, 6, 3, 2);
             this.klasBtn.Name = "klasBtn";
             this.klasBtn.Size = new System.Drawing.Size(120, 48);
@@ -144,10 +144,10 @@
             // calendarContainer
             // 
             this.calendarContainer.Dock = System.Windows.Forms.DockStyle.Right;
-            this.calendarContainer.Location = new System.Drawing.Point(-499, 0);
+            this.calendarContainer.Location = new System.Drawing.Point(263, 0);
             this.calendarContainer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.calendarContainer.Name = "calendarContainer";
-            this.calendarContainer.Size = new System.Drawing.Size(1231, 1054);
+            this.calendarContainer.Size = new System.Drawing.Size(1231, 1196);
             this.calendarContainer.TabIndex = 0;
             // 
             // mainForm
@@ -155,7 +155,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.kw_blur1;
-            this.ClientSize = new System.Drawing.Size(1046, 703);
+            this.ClientSize = new System.Drawing.Size(1494, 1196);
             this.Controls.Add(this.menuContainer);
             this.Controls.Add(this.calendarContainer);
             this.IsMdiContainer = true;

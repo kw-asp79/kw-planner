@@ -37,10 +37,11 @@
             // 
             this.crawlingPBar.BackColor = System.Drawing.Color.DimGray;
             this.crawlingPBar.ForeColor = System.Drawing.Color.Gold;
-            this.crawlingPBar.Location = new System.Drawing.Point(12, 84);
+            this.crawlingPBar.Location = new System.Drawing.Point(17, 126);
+            this.crawlingPBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.crawlingPBar.MarqueeAnimationSpeed = 400;
             this.crawlingPBar.Name = "crawlingPBar";
-            this.crawlingPBar.Size = new System.Drawing.Size(375, 23);
+            this.crawlingPBar.Size = new System.Drawing.Size(536, 34);
             this.crawlingPBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.crawlingPBar.TabIndex = 0;
             // 
@@ -50,9 +51,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.statusLbl.AutoSize = true;
             this.statusLbl.Font = new System.Drawing.Font("SimSun-ExtB", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.statusLbl.Location = new System.Drawing.Point(110, 37);
+            this.statusLbl.Location = new System.Drawing.Point(157, 56);
+            this.statusLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.statusLbl.Name = "statusLbl";
-            this.statusLbl.Size = new System.Drawing.Size(175, 19);
+            this.statusLbl.Size = new System.Drawing.Size(262, 29);
             this.statusLbl.TabIndex = 1;
             this.statusLbl.Text = "로그인 진행 중입니다..";
             this.statusLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -60,25 +62,26 @@
             // crawlingLbl
             // 
             this.crawlingLbl.AutoSize = true;
-            this.crawlingLbl.Location = new System.Drawing.Point(75, 56);
+            this.crawlingLbl.Location = new System.Drawing.Point(107, 84);
+            this.crawlingLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.crawlingLbl.Name = "crawlingLbl";
-            this.crawlingLbl.Size = new System.Drawing.Size(9, 12);
+            this.crawlingLbl.Size = new System.Drawing.Size(0, 18);
             this.crawlingLbl.TabIndex = 2;
-            this.crawlingLbl.Text = "";
             // 
             // LibraryLoadingForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.ClientSize = new System.Drawing.Size(399, 117);
+            this.ClientSize = new System.Drawing.Size(570, 176);
             this.Controls.Add(this.crawlingLbl);
             this.Controls.Add(this.statusLbl);
             this.Controls.Add(this.crawlingPBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "LibraryLoadingForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "LibraryLoadingForm";
+            this.Text = "도서관 로딩중..";
             this.ResumeLayout(false);
             this.PerformLayout();
 

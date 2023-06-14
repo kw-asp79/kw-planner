@@ -125,7 +125,7 @@
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "fdAdd";
-            this.Text = "fdAdd";
+            this.Text = "친구추가";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
