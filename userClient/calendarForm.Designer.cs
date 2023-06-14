@@ -68,7 +68,7 @@
             // 
             // btn_share
             // 
-            this.btn_share.Location = new System.Drawing.Point(1001, 29);
+            this.btn_share.Location = new System.Drawing.Point(960, 29);
             this.btn_share.Name = "btn_share";
             this.btn_share.Size = new System.Drawing.Size(181, 59);
             this.btn_share.TabIndex = 10;
@@ -110,7 +110,7 @@
             // 
             // nextBtn
             // 
-            this.nextBtn.Location = new System.Drawing.Point(736, 27);
+            this.nextBtn.Location = new System.Drawing.Point(769, 27);
             this.nextBtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.nextBtn.Name = "nextBtn";
             this.nextBtn.Size = new System.Drawing.Size(37, 44);
