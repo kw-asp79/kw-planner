@@ -20,38 +20,6 @@ using CrawlingLibrary;
 
 namespace Client
 {
-    public class LoginEventArgs : EventArgs
-    {
-        public List<Schedule> schedules;
-        public enum TYPE
-        {
-            PROGRAM_LOGIN,
-            KLAS_LOGIN,
-            LIBRARY_LOGIN
-        }
-
-        TYPE type;
-
-        public LoginEventArgs(List<Schedule> schedules,TYPE type)
-        {
-            this.schedules = schedules;
-            this.type = type;
-        }
-
-        public List<Schedule> getSchedules()
-        {
-            return this.schedules;
-        }
-
-
-        public TYPE getType()
-        {
-            return type;
-        }
-
-    }
-
-
     public partial class mainForm : Form
     {
         // 각 form 들을 멤버로 선언 => 추후 klas와 도서관 정보를 달력과 주고받기 위해 (다만 상황에 따라 변동 가능성 존재..)
@@ -76,6 +44,8 @@ namespace Client
 
         // 프로그램 자체 로그인, KLAS 로그인, LIBRARY 로그인 통합 Event Handler
         public event EventHandler<LoginEventArgs> loginSuccessEvent;
+
+        
 
         public mainForm()
         {
@@ -375,5 +345,36 @@ namespace Client
             netstrm.Close();
             server.Close();
         }
+    }
+
+    public class LoginEventArgs : EventArgs
+    {
+        public List<Schedule> schedules;
+        public enum TYPE
+        {
+            PROGRAM_LOGIN,
+            KLAS_LOGIN,
+            LIBRARY_LOGIN
+        }
+
+        TYPE type;
+
+        public LoginEventArgs(List<Schedule> schedules, TYPE type)
+        {
+            this.schedules = schedules;
+            this.type = type;
+        }
+
+        public List<Schedule> getSchedules()
+        {
+            return this.schedules;
+        }
+
+
+        public TYPE getType()
+        {
+            return type;
+        }
+
     }
 }

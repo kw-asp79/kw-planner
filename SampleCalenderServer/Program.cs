@@ -483,8 +483,6 @@ namespace SampleCalenderServer
                         Console.Write("[{0}] login request", remoteAddress);
                         user = (User)receivedPacket.data;
                         sendPacket = LoginProcess(user);
-                        // 접속중인 유저들 정보를 추가 (채팅과 일정공유에서 사용할 것임)
-                        connectedUsers.Add(user.id, client);
                         break;
                     case ActionType.readAllData:
                         Console.WriteLine("[{0}] readAllData request", remoteAddress);

@@ -18,27 +18,12 @@ using System.Net.Sockets;
 using PacketLibrary;
 using Google.Protobuf.WellKnownTypes;
 using System.CodeDom;
+using System.Diagnostics;
 
 //using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace Client
 {
-    public class EventFormArgs : EventArgs
-    {
-        public List<Schedule> schedules;
-
-
-        public EventFormArgs(List<Schedule> schedules)
-        {
-            this.schedules = schedules;
-        }
-
-        public List<Schedule> getSchedules()
-        {
-            return this.schedules;
-        }
-
-    }
 
         public partial class EventForm : Form
      {
@@ -339,9 +324,21 @@ namespace Client
                         schedule.title == deleteTitle && schedule.content == deleteContent)
                     {
                         schedule.isDone = true;
+
+                        Dictionary<string, Object> fullData = new Dictionary<string, object>();
+                        fullData.Add("user", mainForm.myUserInfo);
+                        fullData.Add("schedule", schedule);
+
+                        Packet packet = new Packet();
+                        packet.action = ActionType.editSchedule;
+                        packet.data = fullData;
+
+                        Packet.SendPacket(netstrm, packet);
+                        packet = Packet.ReceivePacket(netstrm);
                         break;
                     }
                 }
+
             }
             else
             {
@@ -358,12 +355,40 @@ namespace Client
                         schedule.title == deleteTitle && schedule.content == deleteContent)
                     {
                         schedule.isDone = false;
+
+                        Dictionary<string, Object> fullData = new Dictionary<string, object>();
+                        fullData.Add("user", mainForm.myUserInfo);
+                        fullData.Add("schedule", schedule);
+
+                        Packet packet = new Packet();
+                        packet.action = ActionType.editSchedule;
+                        packet.data = fullData;
+
+                        Packet.SendPacket(netstrm, packet);
+                        packet = Packet.ReceivePacket(netstrm);
                         break;
                     }
                 }
             }
         }
 
+
+    }
+
+    public class EventFormArgs : EventArgs
+    {
+        public List<Schedule> schedules;
+
+
+        public EventFormArgs(List<Schedule> schedules)
+        {
+            this.schedules = schedules;
+        }
+
+        public List<Schedule> getSchedules()
+        {
+            return this.schedules;
+        }
 
     }
 }

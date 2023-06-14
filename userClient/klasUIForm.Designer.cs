@@ -48,56 +48,62 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("SimSun", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(371, 18);
+            this.label7.Font = new System.Drawing.Font("SimSun", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(530, 27);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(116, 15);
+            this.label7.Size = new System.Drawing.Size(215, 28);
             this.label7.TabIndex = 40;
             this.label7.Text = "님 오늘도 개고생..";
             // 
             // tproTBX
             // 
-            this.tproTBX.Location = new System.Drawing.Point(622, 661);
+            this.tproTBX.Location = new System.Drawing.Point(889, 992);
+            this.tproTBX.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tproTBX.Multiline = true;
             this.tproTBX.Name = "tproTBX";
             this.tproTBX.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tproTBX.Size = new System.Drawing.Size(208, 144);
+            this.tproTBX.Size = new System.Drawing.Size(295, 214);
             this.tproTBX.TabIndex = 39;
             // 
             // quizTBX
             // 
-            this.quizTBX.Location = new System.Drawing.Point(270, 661);
+            this.quizTBX.Location = new System.Drawing.Point(386, 992);
+            this.quizTBX.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.quizTBX.Multiline = true;
             this.quizTBX.Name = "quizTBX";
             this.quizTBX.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.quizTBX.Size = new System.Drawing.Size(208, 144);
+            this.quizTBX.Size = new System.Drawing.Size(295, 214);
             this.quizTBX.TabIndex = 38;
             // 
             // amtTBX
             // 
-            this.amtTBX.Location = new System.Drawing.Point(622, 501);
+            this.amtTBX.Location = new System.Drawing.Point(889, 752);
+            this.amtTBX.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.amtTBX.Multiline = true;
             this.amtTBX.Name = "amtTBX";
             this.amtTBX.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.amtTBX.Size = new System.Drawing.Size(208, 144);
+            this.amtTBX.Size = new System.Drawing.Size(295, 214);
             this.amtTBX.TabIndex = 37;
             // 
             // olecTBX
             // 
-            this.olecTBX.Location = new System.Drawing.Point(270, 501);
+            this.olecTBX.Location = new System.Drawing.Point(386, 752);
+            this.olecTBX.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.olecTBX.Multiline = true;
             this.olecTBX.Name = "olecTBX";
             this.olecTBX.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.olecTBX.Size = new System.Drawing.Size(208, 144);
+            this.olecTBX.Size = new System.Drawing.Size(295, 214);
             this.olecTBX.TabIndex = 36;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(568, 500);
+            this.label9.Location = new System.Drawing.Point(811, 750);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(34, 18);
+            this.label9.Size = new System.Drawing.Size(46, 25);
             this.label9.TabIndex = 35;
             this.label9.Text = "과제";
             // 
@@ -105,9 +111,10 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(216, 656);
+            this.label6.Location = new System.Drawing.Point(309, 984);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(34, 18);
+            this.label6.Size = new System.Drawing.Size(46, 25);
             this.label6.TabIndex = 34;
             this.label6.Text = "퀴즈";
             // 
@@ -115,9 +122,10 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(537, 660);
+            this.label5.Location = new System.Drawing.Point(767, 990);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(73, 18);
+            this.label5.Size = new System.Drawing.Size(97, 25);
             this.label5.TabIndex = 33;
             this.label5.Text = "팀프로젝트";
             // 
@@ -125,9 +133,10 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(185, 501);
+            this.label4.Location = new System.Drawing.Point(264, 752);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(73, 18);
+            this.label4.Size = new System.Drawing.Size(97, 25);
             this.label4.TabIndex = 32;
             this.label4.Text = "온라인강의";
             // 
@@ -136,9 +145,10 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe Print", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.label3.Location = new System.Drawing.Point(77, 493);
+            this.label3.Location = new System.Drawing.Point(110, 740);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(78, 42);
+            this.label3.Size = new System.Drawing.Size(115, 63);
             this.label3.TabIndex = 31;
             this.label3.Text = "Todo";
             // 
@@ -146,29 +156,32 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Sylfaen", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(606, 14);
+            this.label8.Location = new System.Drawing.Point(864, 32);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(74, 22);
+            this.label8.Size = new System.Drawing.Size(106, 31);
             this.label8.TabIndex = 30;
             this.label8.Text = "과목선택";
             // 
             // myklasLbl
             // 
             this.myklasLbl.AutoSize = true;
-            this.myklasLbl.Font = new System.Drawing.Font("MV Boli", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.myklasLbl.Font = new System.Drawing.Font("Ink Free", 36F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
             this.myklasLbl.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.myklasLbl.Location = new System.Drawing.Point(23, 0);
+            this.myklasLbl.Location = new System.Drawing.Point(24, 33);
+            this.myklasLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.myklasLbl.Name = "myklasLbl";
-            this.myklasLbl.Size = new System.Drawing.Size(171, 41);
+            this.myklasLbl.Size = new System.Drawing.Size(322, 90);
             this.myklasLbl.TabIndex = 29;
             this.myklasLbl.Text = "My KLAS";
             // 
             // lectureListCBX
             // 
             this.lectureListCBX.FormattingEnabled = true;
-            this.lectureListCBX.Location = new System.Drawing.Point(686, 16);
+            this.lectureListCBX.Location = new System.Drawing.Point(978, 35);
+            this.lectureListCBX.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lectureListCBX.Name = "lectureListCBX";
-            this.lectureListCBX.Size = new System.Drawing.Size(147, 20);
+            this.lectureListCBX.Size = new System.Drawing.Size(208, 26);
             this.lectureListCBX.TabIndex = 28;
             this.lectureListCBX.SelectedIndexChanged += new System.EventHandler(this.lectureListCBX_SelectedIndexChanged);
             // 
@@ -177,9 +190,10 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe Print", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.label2.Location = new System.Drawing.Point(390, 287);
+            this.label2.Location = new System.Drawing.Point(557, 430);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(120, 56);
+            this.label2.Size = new System.Drawing.Size(180, 84);
             this.label2.TabIndex = 27;
             this.label2.Text = "notice";
             // 
@@ -187,15 +201,16 @@
             // 
             this.usernameLbl.AutoSize = true;
             this.usernameLbl.Font = new System.Drawing.Font("Ink Free", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.usernameLbl.Location = new System.Drawing.Point(306, 12);
+            this.usernameLbl.Location = new System.Drawing.Point(437, 18);
+            this.usernameLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.usernameLbl.Name = "usernameLbl";
-            this.usernameLbl.Size = new System.Drawing.Size(59, 26);
+            this.usernameLbl.Size = new System.Drawing.Size(88, 39);
             this.usernameLbl.TabIndex = 26;
             this.usernameLbl.Text = "name";
             // 
             // KLASUIForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.label7);
             this.Controls.Add(this.tproTBX);
@@ -212,8 +227,9 @@
             this.Controls.Add(this.lectureListCBX);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.usernameLbl);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "KLASUIForm";
-            this.Size = new System.Drawing.Size(862, 817);
+            this.Size = new System.Drawing.Size(1231, 1226);
             this.ResumeLayout(false);
             this.PerformLayout();
 
