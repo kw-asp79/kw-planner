@@ -67,7 +67,8 @@
             // 
             // btn_share
             // 
-            this.btn_share.Location = new System.Drawing.Point(706, 18);
+            this.btn_share.Font = new System.Drawing.Font("한컴산뜻돋움", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_share.Location = new System.Drawing.Point(1001, 29);
             this.btn_share.Name = "btn_share";
             this.btn_share.Size = new System.Drawing.Size(114, 36);
             this.btn_share.TabIndex = 10;
@@ -86,11 +87,11 @@
             // 
             this.ymLbl.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.ymLbl.AutoSize = true;
-            this.ymLbl.Font = new System.Drawing.Font("Segoe Script", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ymLbl.Location = new System.Drawing.Point(381, 14);
-            this.ymLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ymLbl.Font = new System.Drawing.Font("한컴산뜻돋움", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ymLbl.Location = new System.Drawing.Point(544, 30);
+            this.ymLbl.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.ymLbl.Name = "ymLbl";
-            this.ymLbl.Size = new System.Drawing.Size(111, 40);
+            this.ymLbl.Size = new System.Drawing.Size(136, 47);
             this.ymLbl.TabIndex = 1;
             this.ymLbl.Text = "2023.4";
             this.ymLbl.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -107,7 +108,7 @@
             // 
             // nextBtn
             // 
-            this.nextBtn.Location = new System.Drawing.Point(555, 18);
+            this.nextBtn.Location = new System.Drawing.Point(711, 27);
             this.nextBtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.nextBtn.Name = "nextBtn";
             this.nextBtn.Size = new System.Drawing.Size(26, 29);
@@ -119,78 +120,78 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Sylfaen", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(764, 64);
-            this.label7.Margin = new System.Windows.Forms.Padding(3);
+            this.label7.Font = new System.Drawing.Font("한컴산뜻돋움", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(1092, 96);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(56, 18);
+            this.label7.Size = new System.Drawing.Size(96, 26);
             this.label7.TabIndex = 6;
             this.label7.Text = "Saturday";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Sylfaen", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(651, 64);
-            this.label6.Margin = new System.Windows.Forms.Padding(3);
+            this.label6.Font = new System.Drawing.Font("한컴산뜻돋움", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(930, 96);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(43, 18);
+            this.label6.Size = new System.Drawing.Size(70, 26);
             this.label6.TabIndex = 5;
             this.label6.Text = "Friday";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Sylfaen", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(522, 64);
-            this.label5.Margin = new System.Windows.Forms.Padding(3);
+            this.label5.Font = new System.Drawing.Font("한컴산뜻돋움", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(746, 96);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(59, 18);
+            this.label5.Size = new System.Drawing.Size(100, 26);
             this.label5.TabIndex = 4;
             this.label5.Text = "Thursday";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Sylfaen", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(398, 64);
-            this.label4.Margin = new System.Windows.Forms.Padding(3);
+            this.label4.Font = new System.Drawing.Font("한컴산뜻돋움", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(568, 96);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(71, 18);
+            this.label4.Size = new System.Drawing.Size(121, 26);
             this.label4.TabIndex = 3;
             this.label4.Text = "Wednesday";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Sylfaen", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(286, 64);
-            this.label3.Margin = new System.Windows.Forms.Padding(3);
+            this.label3.Font = new System.Drawing.Font("한컴산뜻돋움", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(408, 96);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 18);
+            this.label3.Size = new System.Drawing.Size(91, 26);
             this.label3.TabIndex = 2;
             this.label3.Text = "Tuesday";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Sylfaen", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(162, 64);
-            this.label2.Margin = new System.Windows.Forms.Padding(3);
+            this.label2.Font = new System.Drawing.Font("한컴산뜻돋움", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(232, 96);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 18);
+            this.label2.Size = new System.Drawing.Size(88, 26);
             this.label2.TabIndex = 1;
             this.label2.Text = "Monday";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Sylfaen", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(43, 64);
-            this.label1.Margin = new System.Windows.Forms.Padding(3);
+            this.label1.Font = new System.Drawing.Font("한컴산뜻돋움", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(62, 96);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.label1.Name = "label1";
             this.label1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label1.Size = new System.Drawing.Size(48, 18);
+            this.label1.Size = new System.Drawing.Size(82, 26);
             this.label1.TabIndex = 0;
             this.label1.Text = "Sunday";
             // 

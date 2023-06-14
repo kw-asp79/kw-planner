@@ -52,9 +52,9 @@
             this.menuContainer.Controls.Add(this.klasBtn);
             this.menuContainer.Dock = System.Windows.Forms.DockStyle.Left;
             this.menuContainer.Location = new System.Drawing.Point(0, 0);
-            this.menuContainer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.menuContainer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.menuContainer.Name = "menuContainer";
-            this.menuContainer.Size = new System.Drawing.Size(186, 451);
+            this.menuContainer.Size = new System.Drawing.Size(266, 1054);
             this.menuContainer.TabIndex = 1;
             // 
             // mainBtn
@@ -63,9 +63,9 @@
             this.mainBtn.Location = new System.Drawing.Point(52, 67);
             this.mainBtn.Margin = new System.Windows.Forms.Padding(3, 6, 3, 2);
             this.mainBtn.Name = "mainBtn";
-            this.mainBtn.Size = new System.Drawing.Size(84, 32);
+            this.mainBtn.Size = new System.Drawing.Size(120, 48);
             this.mainBtn.TabIndex = 8;
-            this.mainBtn.Text = "Main";
+            this.mainBtn.Text = "캘린더";
             this.mainBtn.UseVisualStyleBackColor = true;
             this.mainBtn.Click += new System.EventHandler(this.mainBtn_Click);
             // 
@@ -75,7 +75,7 @@
             this.groupBtn.Location = new System.Drawing.Point(52, 600);
             this.groupBtn.Margin = new System.Windows.Forms.Padding(3, 6, 3, 2);
             this.groupBtn.Name = "groupBtn";
-            this.groupBtn.Size = new System.Drawing.Size(84, 34);
+            this.groupBtn.Size = new System.Drawing.Size(120, 48);
             this.groupBtn.TabIndex = 6;
             this.groupBtn.Text = "Group";
             this.groupBtn.UseVisualStyleBackColor = true;
@@ -87,7 +87,7 @@
             this.settingBtn.Location = new System.Drawing.Point(106, 768);
             this.settingBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.settingBtn.Name = "settingBtn";
-            this.settingBtn.Size = new System.Drawing.Size(72, 30);
+            this.settingBtn.Size = new System.Drawing.Size(103, 45);
             this.settingBtn.TabIndex = 5;
             this.settingBtn.Text = "signup";
             this.settingBtn.UseVisualStyleBackColor = true;
@@ -99,7 +99,7 @@
             this.loginBtn.Location = new System.Drawing.Point(3, 768);
             this.loginBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.loginBtn.Name = "loginBtn";
-            this.loginBtn.Size = new System.Drawing.Size(73, 30);
+            this.loginBtn.Size = new System.Drawing.Size(104, 45);
             this.loginBtn.TabIndex = 4;
             this.loginBtn.Text = "login";
             this.loginBtn.UseVisualStyleBackColor = true;
@@ -111,7 +111,7 @@
             this.fndBtn.Location = new System.Drawing.Point(52, 467);
             this.fndBtn.Margin = new System.Windows.Forms.Padding(3, 6, 3, 2);
             this.fndBtn.Name = "fndBtn";
-            this.fndBtn.Size = new System.Drawing.Size(84, 32);
+            this.fndBtn.Size = new System.Drawing.Size(120, 48);
             this.fndBtn.TabIndex = 2;
             this.fndBtn.Text = "Friends";
             this.fndBtn.UseVisualStyleBackColor = true;
@@ -123,7 +123,7 @@
             this.lbyBtn.Location = new System.Drawing.Point(52, 333);
             this.lbyBtn.Margin = new System.Windows.Forms.Padding(3, 6, 3, 2);
             this.lbyBtn.Name = "lbyBtn";
-            this.lbyBtn.Size = new System.Drawing.Size(84, 32);
+            this.lbyBtn.Size = new System.Drawing.Size(120, 48);
             this.lbyBtn.TabIndex = 1;
             this.lbyBtn.Text = "Library";
             this.lbyBtn.UseVisualStyleBackColor = true;
@@ -135,7 +135,7 @@
             this.klasBtn.Location = new System.Drawing.Point(52, 200);
             this.klasBtn.Margin = new System.Windows.Forms.Padding(3, 6, 3, 2);
             this.klasBtn.Name = "klasBtn";
-            this.klasBtn.Size = new System.Drawing.Size(84, 32);
+            this.klasBtn.Size = new System.Drawing.Size(120, 48);
             this.klasBtn.TabIndex = 0;
             this.klasBtn.Text = "KLAS";
             this.klasBtn.UseVisualStyleBackColor = true;
@@ -147,19 +147,19 @@
             this.calendarContainer.Location = new System.Drawing.Point(-499, 0);
             this.calendarContainer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.calendarContainer.Name = "calendarContainer";
-            this.calendarContainer.Size = new System.Drawing.Size(862, 703);
+            this.calendarContainer.Size = new System.Drawing.Size(1231, 1054);
             this.calendarContainer.TabIndex = 0;
             // 
             // mainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.kw_blur1;
             this.ClientSize = new System.Drawing.Size(1046, 703);
             this.Controls.Add(this.menuContainer);
             this.Controls.Add(this.calendarContainer);
             this.IsMdiContainer = true;
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "mainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "KW-Planner";

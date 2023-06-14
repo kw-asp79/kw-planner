@@ -48,11 +48,19 @@
             // label7
             // 
             this.label7.AutoSize = true;
+<<<<<<< seonghooni
+            this.label7.Font = new System.Drawing.Font("SimSun", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(530, 27);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(215, 28);
+=======
             this.label7.Font = new System.Drawing.Font("SimSun", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
             this.label7.Location = new System.Drawing.Point(371, 18);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(177, 23);
+>>>>>>> main
             this.label7.TabIndex = 40;
             this.label7.Text = "님 오늘도 개고생..";
             // 
@@ -156,9 +164,8 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Sylfaen", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-
-            this.label8.Location = new System.Drawing.Point(606, 14);
-
+            this.label8.Location = new System.Drawing.Point(864, 32);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(106, 31);
             this.label8.TabIndex = 30;
@@ -167,20 +174,20 @@
             // myklasLbl
             // 
             this.myklasLbl.AutoSize = true;
-            this.myklasLbl.Font = new System.Drawing.Font("MV Boli", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.myklasLbl.Font = new System.Drawing.Font("Ink Free", 36F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
             this.myklasLbl.ForeColor = System.Drawing.Color.CornflowerBlue;
-
-            this.myklasLbl.Location = new System.Drawing.Point(23, 0);
+            this.myklasLbl.Location = new System.Drawing.Point(24, 33);
+            this.myklasLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.myklasLbl.Name = "myklasLbl";
-            this.myklasLbl.Size = new System.Drawing.Size(250, 63);
+            this.myklasLbl.Size = new System.Drawing.Size(322, 90);
             this.myklasLbl.TabIndex = 29;
             this.myklasLbl.Text = "My KLAS";
             // 
             // lectureListCBX
             // 
             this.lectureListCBX.FormattingEnabled = true;
-
-            this.lectureListCBX.Location = new System.Drawing.Point(686, 16);
+            this.lectureListCBX.Location = new System.Drawing.Point(978, 35);
+            this.lectureListCBX.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lectureListCBX.Name = "lectureListCBX";
             this.lectureListCBX.Size = new System.Drawing.Size(208, 26);
             this.lectureListCBX.TabIndex = 28;
@@ -191,10 +198,10 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe Print", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.CornflowerBlue;
-
-            this.label2.Location = new System.Drawing.Point(390, 287);
+            this.label2.Location = new System.Drawing.Point(557, 430);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(120, 56);
+            this.label2.Size = new System.Drawing.Size(180, 84);
             this.label2.TabIndex = 27;
             this.label2.Text = "notice";
             // 
@@ -202,8 +209,8 @@
             // 
             this.usernameLbl.AutoSize = true;
             this.usernameLbl.Font = new System.Drawing.Font("Ink Free", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-
-            this.usernameLbl.Location = new System.Drawing.Point(306, 12);
+            this.usernameLbl.Location = new System.Drawing.Point(437, 18);
+            this.usernameLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.usernameLbl.Name = "usernameLbl";
             this.usernameLbl.Size = new System.Drawing.Size(88, 39);
             this.usernameLbl.TabIndex = 26;
@@ -228,7 +235,7 @@
             this.Controls.Add(this.lectureListCBX);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.usernameLbl);
-
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "KLASUIForm";
             this.Size = new System.Drawing.Size(1231, 1226);
             this.ResumeLayout(false);

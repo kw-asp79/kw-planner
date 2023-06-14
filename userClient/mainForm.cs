@@ -45,6 +45,8 @@ namespace Client
         // 프로그램 자체 로그인, KLAS 로그인, LIBRARY 로그인 통합 Event Handler
         public event EventHandler<LoginEventArgs> loginSuccessEvent;
 
+        
+
         public mainForm()
         {
             InitializeComponent();
@@ -344,6 +346,7 @@ namespace Client
             server.Close();
         }
     }
+
     public class LoginEventArgs : EventArgs
     {
         public List<Schedule> schedules;
