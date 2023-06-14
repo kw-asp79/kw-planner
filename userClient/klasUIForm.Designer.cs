@@ -48,11 +48,19 @@
             // label7
             // 
             this.label7.AutoSize = true;
+<<<<<<< seonghooni
             this.label7.Font = new System.Drawing.Font("SimSun", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(530, 27);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(215, 28);
+=======
+            this.label7.Font = new System.Drawing.Font("SimSun", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+
+            this.label7.Location = new System.Drawing.Point(371, 18);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(177, 23);
+>>>>>>> main
             this.label7.TabIndex = 40;
             this.label7.Text = "님 오늘도 개고생..";
             // 

@@ -60,9 +60,8 @@
             this.calendarContainer.Controls.Add(this.label1);
             this.calendarContainer.Dock = System.Windows.Forms.DockStyle.Right;
             this.calendarContainer.Location = new System.Drawing.Point(0, 0);
-            this.calendarContainer.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.calendarContainer.Name = "calendarContainer";
-            this.calendarContainer.Size = new System.Drawing.Size(1231, 1225);
+            this.calendarContainer.Size = new System.Drawing.Size(862, 817);
             this.calendarContainer.TabIndex = 1;
             this.calendarContainer.Paint += new System.Windows.Forms.PaintEventHandler(this.calendarContainer_Paint);
             // 
@@ -71,7 +70,7 @@
             this.btn_share.Font = new System.Drawing.Font("한컴산뜻돋움", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_share.Location = new System.Drawing.Point(1001, 29);
             this.btn_share.Name = "btn_share";
-            this.btn_share.Size = new System.Drawing.Size(181, 59);
+            this.btn_share.Size = new System.Drawing.Size(114, 36);
             this.btn_share.TabIndex = 10;
             this.btn_share.Text = "공유된 일정";
             this.btn_share.UseVisualStyleBackColor = true;
@@ -79,10 +78,9 @@
             // 
             // dayContainer
             // 
-            this.dayContainer.Location = new System.Drawing.Point(12, 130);
-            this.dayContainer.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.dayContainer.Location = new System.Drawing.Point(8, 87);
             this.dayContainer.Name = "dayContainer";
-            this.dayContainer.Size = new System.Drawing.Size(1218, 1092);
+            this.dayContainer.Size = new System.Drawing.Size(853, 728);
             this.dayContainer.TabIndex = 9;
             // 
             // ymLbl
@@ -100,10 +98,9 @@
             // 
             // prevBtn
             // 
-            this.prevBtn.Location = new System.Drawing.Point(476, 27);
-            this.prevBtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.prevBtn.Location = new System.Drawing.Point(333, 18);
             this.prevBtn.Name = "prevBtn";
-            this.prevBtn.Size = new System.Drawing.Size(37, 44);
+            this.prevBtn.Size = new System.Drawing.Size(26, 29);
             this.prevBtn.TabIndex = 8;
             this.prevBtn.Text = "<";
             this.prevBtn.UseVisualStyleBackColor = true;
@@ -114,7 +111,7 @@
             this.nextBtn.Location = new System.Drawing.Point(711, 27);
             this.nextBtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.nextBtn.Name = "nextBtn";
-            this.nextBtn.Size = new System.Drawing.Size(37, 44);
+            this.nextBtn.Size = new System.Drawing.Size(26, 29);
             this.nextBtn.TabIndex = 7;
             this.nextBtn.Text = ">";
             this.nextBtn.UseVisualStyleBackColor = true;
@@ -200,12 +197,11 @@
             // 
             // calendarForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.calendarContainer);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "calendarForm";
-            this.Size = new System.Drawing.Size(1231, 1225);
+            this.Size = new System.Drawing.Size(862, 817);
             this.calendarContainer.ResumeLayout(false);
             this.calendarContainer.PerformLayout();
             this.ResumeLayout(false);

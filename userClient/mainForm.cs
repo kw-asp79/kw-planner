@@ -41,7 +41,7 @@ namespace Client
 
         KLASCrawler klasCrawler;
         LibraryCrawler libraryCrawler;
-
+        
         // 프로그램 자체 로그인, KLAS 로그인, LIBRARY 로그인 통합 Event Handler
         public event EventHandler<LoginEventArgs> loginSuccessEvent;
 

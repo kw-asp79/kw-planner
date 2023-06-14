@@ -62,9 +62,9 @@ namespace WindowsFormsApp1
                 listBoxFriends[v] = new ListBox();
                 listBoxFriends[v].Tag = v;
                 listBoxFriends[v].DataSource = mainForm.groups.Values.ElementAt(i).Select(user => user.name).ToList();
-                listOfLists.Add((List<string>)listBoxFriends[v].DataSource);
                 listBoxFriends[v].Size = new Size(150, 78);
                 listBoxFriends[v].Location = new Point { X = 100 + 270 * (k - 1), Y = 150 + T };
+                listOfLists.Add((List<string>)listBoxFriends[v].DataSource);
 
                 btn_share[v] = new Button();
                 btn_share[v].Tag = v;
@@ -89,18 +89,20 @@ namespace WindowsFormsApp1
                 this.Controls.Add(listBoxFriends[v]);
                 this.Controls.Add(labelGroupName[v]);
                 this.Controls.Add(btn_share[v]);
+
                 listBoxFriends[v].SelectionMode = SelectionMode.MultiSimple;
-                listBoxFriends[v].SelectedIndex = -1;
+               listBoxFriends[v].SelectedIndex = -1;
 
                 btn_add[v].Click += new EventHandler(btn_add_Click);
                 btn_delete[v].Click += new EventHandler(btn_delete_Click);
                 btn_share[v].Click += new EventHandler(btn_share_Click);
+                
             }
         }
         private void btn_addfd_Click(object sender, EventArgs e)
         {
             fdGroup_Add_Form fdGroup_Add_Form = new fdGroup_Add_Form(this);
-            fdGroup_Add_Form.Show();
+            fdGroup_Add_Form.ShowDialog();
         }
         public void add_Grouplist(string grpname, List<string> ts)
         {
@@ -126,7 +128,7 @@ namespace WindowsFormsApp1
                 listBoxFriends[A].DataSource = ts;
                 listBoxFriends[A].Size = new Size(150, 78);
                 listBoxFriends[A].Location = new Point { X = 100 + 270 * (B - 1), Y = 150 + T };
-
+                
                 listOfLists.Add(ts);
 
                 btn_share[A] = new Button();
@@ -182,7 +184,6 @@ namespace WindowsFormsApp1
             //mainform.friends에 저장된 name들과 이미 추가된 친구들의 except만 목록으로 보여주기
             list = frd_all.Except((List<string>)listBoxFriends[idx].DataSource).ToList();
 
-
             if (list.Count != 0)
             {
                 fdGroup_Form_fdlist fdGroup_form_Fdlist = new fdGroup_Form_fdlist(this, list, (List<string>)listBoxFriends[idx].DataSource, idx);
@@ -191,9 +192,7 @@ namespace WindowsFormsApp1
             else
             {
                 MessageBox.Show("추가할 친구가 더 이상 없습니다.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Warning); return;
-
             }
-
         }
         public void update_list(List<string> list, int i)
         {
@@ -220,7 +219,6 @@ namespace WindowsFormsApp1
                 check_list.RemoveAt(selectedIndex - i);
                 mainForm.groups.ElementAt(idx - 1).Value.RemoveAt(selectedIndex - i);
             }
-
             // 그룹에서 해당 친구들을 삭제
             string groupName = mainForm.groups.ElementAt(idx - 1).Key;
 
@@ -298,6 +296,5 @@ namespace WindowsFormsApp1
             }
 
         }
-
     }
 }

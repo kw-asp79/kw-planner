@@ -24,7 +24,6 @@ using System.Diagnostics;
 
 namespace Client
 {
-
         public partial class EventForm : Form
      {
 
@@ -46,7 +45,7 @@ namespace Client
         List<Schedule> daySchedules; // userControlDays 통해 받은 스케줄들
        
         int lbcount; // 클래스의 멤버 변수로 선언
-       
+
         public static event EventHandler<EventFormArgs> saveEvent;
         public static event EventHandler<EventFormArgs> deleteEvent;
 
@@ -371,10 +370,7 @@ namespace Client
                 }
             }
         }
-
-
     }
-
     public class EventFormArgs : EventArgs
     {
         public List<Schedule> schedules;
@@ -391,4 +387,5 @@ namespace Client
         }
 
     }
+
 }

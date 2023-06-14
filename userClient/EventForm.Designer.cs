@@ -161,7 +161,7 @@
             // 
             this.tbTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F);
             this.tbTitle.Location = new System.Drawing.Point(851, 10);
-            this.tbTitle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbTitle.Margin = new System.Windows.Forms.Padding(4);
             this.tbTitle.Name = "tbTitle";
             this.tbTitle.Size = new System.Drawing.Size(512, 39);
             this.tbTitle.TabIndex = 1;

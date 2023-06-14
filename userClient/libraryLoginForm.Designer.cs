@@ -77,6 +77,7 @@
             this.pwdLbl.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pwdLbl.Location = new System.Drawing.Point(351, 467);
             this.pwdLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.pwdLbl.BackColor = System.Drawing.Color.Transparent;
             this.pwdLbl.Name = "pwdLbl";
             this.pwdLbl.Size = new System.Drawing.Size(159, 50);
             this.pwdLbl.TabIndex = 7;
@@ -88,6 +89,7 @@
             this.idLbl.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.idLbl.Location = new System.Drawing.Point(451, 386);
             this.idLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.idLbl.BackColor = System.Drawing.Color.Transparent;
             this.idLbl.Name = "idLbl";
             this.idLbl.Size = new System.Drawing.Size(54, 50);
             this.idLbl.TabIndex = 6;
@@ -107,6 +109,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.kw_blur1;
+
             this.Controls.Add(this.pwdTbx);
             this.Controls.Add(this.loginBtn);
             this.Controls.Add(this.idTbx);
