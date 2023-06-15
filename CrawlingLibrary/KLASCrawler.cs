@@ -66,7 +66,7 @@ namespace CrawlingLibrary
                 foreach (OnlineLecture onlineLecture in lecture.getOnlineLecture())
                 {
                     string title = "온라인 강의 수강";
-                    string content = lecture.getName() + " \"" + onlineLecture.getTitle();
+                    string content = lecture.getName() + " \"" + onlineLecture.getTitle() + "\"";
 
                     DateTime startTime = Convert.ToDateTime(onlineLecture.getDueDate());
 
@@ -81,7 +81,7 @@ namespace CrawlingLibrary
                 foreach (Assignment assignment in lecture.getAssignment())
                 {
                     string title = "과제 제출";
-                    string content = lecture.getName() + " \"" + assignment.getTitle();
+                    string content = lecture.getName() + " \"" + assignment.getTitle() + "\"";
 
                     DateTime startTime = Convert.ToDateTime(assignment.getDueDate());
 
@@ -99,7 +99,7 @@ namespace CrawlingLibrary
                 foreach (Quiz quiz in lecture.getQuiz())
                 {
                     string title = "퀴즈 응시";
-                    string content = lecture.getName() + " \"" + quiz.getTitle();
+                    string content = lecture.getName() + " \"" + quiz.getTitle() + "\"";
 
                     DateTime startTime = Convert.ToDateTime(quiz.getDueDate());
 
@@ -117,7 +117,7 @@ namespace CrawlingLibrary
                 foreach (TeamProject teamProject in lecture.getTeamProject())
                 {
                     string title = "팀 프로젝트 진행";
-                    string content = lecture.getName() + " \"" + teamProject.getTitle();
+                    string content = lecture.getName() + " \"" + teamProject.getTitle() + "\"";
 
                     DateTime startTime = Convert.ToDateTime(teamProject.getDueDate());
 

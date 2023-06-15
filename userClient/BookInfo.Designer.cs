@@ -89,7 +89,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BackColor = System.Drawing.Color.LightBlue;
+            this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.pngwing_com;
             this.Controls.Add(this.returnDayLbl);
             this.Controls.Add(this.loanDayLbl);
             this.Controls.Add(this.locationLbl);

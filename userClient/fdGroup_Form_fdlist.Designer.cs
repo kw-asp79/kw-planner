@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp1
+﻿namespace Client
 {
     partial class fdGroup_Form_fdlist
     {

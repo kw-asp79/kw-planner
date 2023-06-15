@@ -78,7 +78,7 @@ namespace Client
             this.MainForm = MainForm;
 
             if (isProgramLogin || isKLASLogin || isLibraryLogin)
-                setSchedules(calForm.userSchedules,Option.NEWSTATE);
+                setSchedules(calendarForm.userSchedules,Option.NEWSTATE);
 
             this.MainForm.loginSuccessEvent += delegate (object sender, LoginEventArgs args)
             {
@@ -118,6 +118,22 @@ namespace Client
                     setSchedules(updatedSchedules, Option.DELETESCHEDULE);
                 }
             };
+
+            // 일정 공유를 요청한 쪽에서 달력에 즉시 보이도록 
+            fdGroup_Form_schdShare.shareScheduleEvent += delegate (object sender, EventFormArgs args)
+            {
+                List<Schedule> sharedSchedules = args.getSchedules();
+                setSchedules(sharedSchedules, Option.SAVESCHEDULE);
+            };
+
+
+            // 일정 공유를 수락한 쪽에서 달력에 즉시 보이도록
+            calendar_Share_chk.AcceptShareScheduleEvent += delegate (object sender, EventFormArgs args)
+            {
+                List<Schedule> acceptedSchedules = args.getSchedules();
+                setSchedules(acceptedSchedules, Option.SAVESCHEDULE);
+            };
+
         }
 
         public List<Schedule> getSchedules()

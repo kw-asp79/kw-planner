@@ -45,11 +45,11 @@
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Ink Free", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.CornflowerBlue;
+            this.label3.Font = new System.Drawing.Font("Ink Free", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.LightCyan;
             this.label3.Location = new System.Drawing.Point(329, 271);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(218, 34);
+            this.label3.Size = new System.Drawing.Size(247, 39);
             this.label3.TabIndex = 8;
             this.label3.Text = "내가 빌린 책들 정보";
             // 
@@ -57,11 +57,11 @@
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Ink Free", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.CornflowerBlue;
+            this.label2.Font = new System.Drawing.Font("Ink Free", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.LightCyan;
             this.label2.Location = new System.Drawing.Point(329, 137);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(223, 34);
+            this.label2.Size = new System.Drawing.Size(254, 39);
             this.label2.TabIndex = 7;
             this.label2.Text = "내가 책을 빌렸었나?";
             // 
@@ -70,7 +70,7 @@
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Ink Free", 36F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.CornflowerBlue;
+            this.label4.ForeColor = System.Drawing.Color.LightCyan;
             this.label4.Location = new System.Drawing.Point(17, 22);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(255, 60);
@@ -93,7 +93,7 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Ink Free", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.SkyBlue;
+            this.label1.ForeColor = System.Drawing.Color.RoyalBlue;
             this.label1.Location = new System.Drawing.Point(196, 200);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(90, 26);
@@ -105,7 +105,7 @@
             this.numOfBookLbl.AutoSize = true;
             this.numOfBookLbl.BackColor = System.Drawing.Color.Transparent;
             this.numOfBookLbl.Font = new System.Drawing.Font("Ink Free", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numOfBookLbl.ForeColor = System.Drawing.Color.SkyBlue;
+            this.numOfBookLbl.ForeColor = System.Drawing.Color.RoyalBlue;
             this.numOfBookLbl.Location = new System.Drawing.Point(301, 200);
             this.numOfBookLbl.Name = "numOfBookLbl";
             this.numOfBookLbl.Size = new System.Drawing.Size(26, 26);
@@ -173,6 +173,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
+            this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.bima_blur4;
             this.Controls.Add(this.bookStateLbl);
             this.Controls.Add(this.priceToPayLbl);
             this.Controls.Add(this.label9);
@@ -186,7 +187,7 @@
             this.Controls.Add(this.label2);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "LibraryUIForm";
-            this.Size = new System.Drawing.Size(862, 817);
+            this.Size = new System.Drawing.Size(862, 860);
             this.ResumeLayout(false);
             this.PerformLayout();
 
