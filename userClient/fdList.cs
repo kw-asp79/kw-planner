@@ -44,7 +44,7 @@ namespace Client
             for (int i = 1; i <= mainForm.friends.Count; i++)
             {
                 labels2[i] = new Label();
-                labels2[i].Location = new Point(310, 60 + 50 * i);
+                labels2[i].Location = new Point(310, 80 + 50 * i);
                 labels2[i].Size = new Size(labelWidth + 15, labelHeight);
                 labels2[i].Text = mainForm.friends[i - 1].id;
                 labels2[i].Tag = i;
@@ -114,7 +114,7 @@ namespace Client
                     A = cntlbl;
 
                     labels2[A] = new Label();
-                    labels2[A].Location = new Point(310, 60 + 50 * A);
+                    labels2[A].Location = new Point(310, 80 + 50 * A);
                     labels2[A].Size = new Size(labelWidth + 15, labelHeight);
                     labels2[A].Text = id;
                     labels2[A].Tag = A;

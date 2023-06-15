@@ -122,7 +122,6 @@ namespace Client
                 if (checkBox[i].Checked)
                 {
                     var schedule = requestSchedules[i - 1];
-                    schedule.category = "CUSTOM";
 
                     selectedSchedules.Add(schedule);
                     //calendarForm.requestSchedules.RemoveAt(i - 1);
@@ -157,6 +156,12 @@ namespace Client
 
             Packet.SendPacket(netstrm, packet);
             packet = Packet.ReceivePacket(netstrm);
+            
+
+            foreach(Schedule rSchedule in selectedSchedules)
+            {
+                rSchedule.category = "CUSTOM";
+            }
 
             mainForm.schedules.AddRange(selectedSchedules);
             calendarForm.userSchedules.AddRange(selectedSchedules);
