@@ -14,7 +14,7 @@ using PacketLibrary;
 using static Client.EventForm;
 using System.Diagnostics;
 
-namespace WindowsFormsApp1
+namespace Client
 {
     public partial class fdGroup_Form_schdShare : Form
     {
@@ -23,6 +23,9 @@ namespace WindowsFormsApp1
         List<string> list = new List<string>();
         string group_name;
         string user_id;
+
+        public static event EventHandler<EventFormArgs> shareScheduleEvent;
+
         public fdGroup_Form_schdShare(fdGroup_Form form, NetworkStream netstrm, List<string> list_id,string grp_name)
         {
             InitializeComponent();
@@ -55,7 +58,9 @@ namespace WindowsFormsApp1
             eventschedule.content = content;
             eventschedule.fromWho = user_id;
             eventschedule.isDone = false;
+
             mainForm.schedules.Add(eventschedule);
+            calendarForm.userSchedules.Add(eventschedule);
 
             Group group = new Group(group_name, user_id);
 
@@ -71,6 +76,11 @@ namespace WindowsFormsApp1
             packet = Packet.ReceivePacket(netstrm);
             
             MessageBox.Show(string.Format("그룹원들에게 일정이 공유되었습니다."));
+
+            List<Schedule> eventSchedules = new List<Schedule>();
+            eventSchedules.Add(eventschedule);
+            shareScheduleEvent.Invoke(this, new EventFormArgs(eventSchedules));
+
             this.Close();
             //User들 id/ list에 담겨있어요. 
             //Group name /group_name에 있어요
