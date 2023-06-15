@@ -163,7 +163,7 @@
             // bookStateLbl
             // 
             this.bookStateLbl.AutoSize = true;
-            this.bookStateLbl.Location = new System.Drawing.Point(199, 365);
+            this.bookStateLbl.Location = new System.Drawing.Point(104, 393);
             this.bookStateLbl.Name = "bookStateLbl";
             this.bookStateLbl.Size = new System.Drawing.Size(0, 12);
             this.bookStateLbl.TabIndex = 21;

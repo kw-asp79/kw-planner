@@ -77,11 +77,11 @@ namespace Client
             int i = 0;
 
             // bookStateTbx.Clear();
-
+            
             if (books.Count == 0)
             {
-                bookStateLbl.Font = new Font(FontFamily.GenericMonospace,20,FontStyle.Italic);
-                bookStateLbl.Text = "현재 빌린 책이 없습니다!! 어서 책을 빌려 기다리고 있던 영혼에게 안부의 인사를..";
+                bookStateLbl.Font = new Font(FontFamily.GenericMonospace,15,FontStyle.Italic);
+                bookStateLbl.Text = "현재 빌린 책이 없습니다.. 어서 책을 빌려 기다리고 있던 영혼에게 안부의 인사를..";
 
             }
             else
