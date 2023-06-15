@@ -19,6 +19,7 @@ using PacketLibrary;
 using Google.Protobuf.WellKnownTypes;
 using System.CodeDom;
 using System.Diagnostics;
+using System.Reflection;
 
 //using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
@@ -270,9 +271,31 @@ namespace Client
                 for (int i = deleteIndex; i < lbcount - 1; i++)
                 {
                     start[i].Text = start[i + 1].Text;
+                    if (start[i + 1].Font.Style == FontStyle.Strikeout)
+                        start[i].Font = new Font(start[i].Font, FontStyle.Strikeout);
+                    else if (start[i].Font.Style == FontStyle.Strikeout && start[i+1].Font.Style != FontStyle.Strikeout)
+                        start[i].Font = new Font(start[i].Font, FontStyle.Regular);
+
                     end[i].Text = end[i + 1].Text;
+                    if (end[i + 1].Font.Style == FontStyle.Strikeout)
+                        end[i].Font = new Font(end[i].Font, FontStyle.Strikeout);
+                    else if (end[i].Font.Style == FontStyle.Strikeout && end[i + 1].Font.Style != FontStyle.Strikeout)
+                        end[i].Font = new Font(end[i].Font, FontStyle.Regular);
+
                     title[i].Text = title[i + 1].Text;
+                    if (title[i + 1].Font.Style == FontStyle.Strikeout)
+                        title[i].Font = new Font(title[i].Font, FontStyle.Strikeout);
+                    else if (title[i].Font.Style == FontStyle.Strikeout && title[i + 1].Font.Style != FontStyle.Strikeout)
+                        title[i].Font = new Font(title[i].Font, FontStyle.Regular);
+
                     content[i].Text = content[i + 1].Text;
+                    if (content[i + 1].Font.Style == FontStyle.Strikeout)
+                        content[i].Font = new Font(content[i].Font, FontStyle.Strikeout);
+                    else if (content[i].Font.Style == FontStyle.Strikeout && content[i + 1].Font.Style != FontStyle.Strikeout)
+                        content[i].Font = new Font(content[i].Font, FontStyle.Regular);
+
+                    checkBox[i].Checked = checkBox[i + 1].Checked;
+
                 }
             }
 
