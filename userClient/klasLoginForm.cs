@@ -1,6 +1,5 @@
 ﻿using Client;
 using CrawlingLibrary;
-using EntityLibrary;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,20 +11,17 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Client
+namespace WindowsFormsApp1
 {
-
     public partial class KLASLoginForm : UserControl
     {
         KLASUIForm klasUIForm;
 
         KLASCrawler klasCrawler;
 
-        KLASLoadingForm klasLoadingForm;
-
         CrawlingStatus.Status status;
 
-        public event EventHandler<AllSuccessEventArgs> allSuccess;
+        public event EventHandler<EventArgs> allSuccess;
 
         public bool loginStatus = false;
 
@@ -36,24 +32,14 @@ namespace Client
         {
             InitializeComponent();
 
-            this.status = CrawlingStatus.Status.BeforeLogin;
             this.klasUIForm = klasUIForm;
             this.klasCrawler = kLasCrawler;
-        
+            this.klasCrawler.loginSuccessEvent += crawlingMessage;
         }
 
         private void loginBtn_Click(object sender, EventArgs e)
         {
-            if (status == CrawlingStatus.Status.BeforeLogin)
-            {
-                status = CrawlingStatus.Status.LoginProcess;
-
-                klasLoadingForm = new KLASLoadingForm(this,klasCrawler);
-                klasLoadingForm.Show();
-
-                crawlingAsync();
-
-            }
+            crawlingAsync();
         }
 
         private async void crawlingAsync()
@@ -67,9 +53,7 @@ namespace Client
             // login 결과에 따라 libraryUIForm을 보여줄지 login error를 띄우며 그대로 loginForm 유지할지.    
             if (status == CrawlingStatus.Status.LoginFailure)
             {
-                klasLoadingForm.Close();
                 MessageBox.Show("로그인 실패! ID와 비밀번호를 다시 확인해주세요..", "KLAS Login");
-                status = CrawlingStatus.Status.BeforeLogin;
             }
             else
             {
@@ -78,27 +62,18 @@ namespace Client
 
             if (status == CrawlingStatus.Status.AllSuccess)
             {
-                allSuccess.Invoke(this, new AllSuccessEventArgs(this.klasCrawler.getKLASSchedules()));
+                allSuccess.Invoke(this, new EventArgs());
             }
 
         }
 
 
-
-    }
-
-    public class AllSuccessEventArgs : EventArgs
-    {
-        public List<Schedule> schedules;
-        public AllSuccessEventArgs(List<Schedule> schedules)
+        private void crawlingMessage(Object sender, EventArgs e)
         {
-            this.schedules = schedules;
+            MessageBox.Show("로그인 성공! 크롤링 작업이 진행됩니다!!.. ", "KLAS Crawling Process");
         }
 
-        public List<Schedule> getSchedules()
-        {
-            return this.schedules;
-        }
+
 
     }
 }
