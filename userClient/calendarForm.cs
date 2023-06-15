@@ -33,8 +33,8 @@ namespace Client
         List<Dictionary<DateTime, string>> publicHolidays = new List<Dictionary<DateTime, string>>();
 
 
-        public List<Schedule> userSchedules; // User의 모든 스케줄을 여기에 저장.
-        public List<Schedule> requestSchedules;// category가 REQUEST인 schedules를 저장
+        public static List<Schedule> userSchedules; // User의 모든 스케줄을 여기에 저장.
+        public static List<Schedule> requestSchedules;// category가 REQUEST인 schedules를 저장
 
         public calendarForm(mainForm mForm, KLASCrawler kLasCrawler, LibraryCrawler liBraryCrawler)
 
@@ -96,7 +96,7 @@ namespace Client
 
             // mainForm에 있는 schedules 중에서 category가 Request 인 데이터를 불러옴
             this.netstrm = mainForm.netstrm;
-            this.requestSchedules = new List<Schedule>();
+            requestSchedules = new List<Schedule>();
         }
 
 
@@ -261,10 +261,6 @@ namespace Client
             displayDays(month, year);
         }
 
-        private void calendarContainer_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         private void btn_share_Click(object sender, EventArgs e)
         {
@@ -286,7 +282,21 @@ namespace Client
 
             List<Schedule> requestSchedulesInDB = packet.data as List<Schedule>;
 
-            requestSchedules.AddRange(requestSchedulesInDB);
+            // only add not in requestSchedules
+            foreach(Schedule rSchedule in requestSchedulesInDB) 
+            {
+                bool isExist = false;
+                foreach(Schedule uSchedule in requestSchedules)
+                {
+                    if(Schedule.scheduleCompare(rSchedule,uSchedule))
+                    { isExist = true; break; }
+                }
+
+                if(isExist == false)
+                    requestSchedules.Add(rSchedule);
+            }
+ 
+            //requestSchedules.AddRange(requestSchedulesInDB.Except(requestSchedules));
 
             if (requestSchedules.Count == 0)
             {

@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WindowsFormsApp1
+namespace Client
 {
     public partial class fdGroup_Form : Form
     {
@@ -62,6 +62,8 @@ namespace WindowsFormsApp1
 
                 listBoxFriends[v] = new ListBox();
                 listBoxFriends[v].Tag = v;
+                listBoxFriends[v].SelectionMode = SelectionMode.MultiSimple;
+                listBoxFriends[v].SelectedIndex = -1;
                 listBoxFriends[v].DataSource = mainForm.groups.Values.ElementAt(i).Select(user => user.name).ToList();
                 listBoxFriends[v].Size = new Size(150, 78);
                 listBoxFriends[v].Location = new Point { X = 100 + 270 * (k - 1), Y = 150 + T };
@@ -90,9 +92,6 @@ namespace WindowsFormsApp1
                 this.Controls.Add(listBoxFriends[v]);
                 this.Controls.Add(labelGroupName[v]);
                 this.Controls.Add(btn_share[v]);
-
-                listBoxFriends[v].SelectionMode = SelectionMode.MultiSimple;
-               listBoxFriends[v].SelectedIndex = -1;
 
                 btn_add[v].Click += new EventHandler(btn_add_Click);
                 btn_delete[v].Click += new EventHandler(btn_delete_Click);
@@ -127,10 +126,13 @@ namespace WindowsFormsApp1
 
                 listBoxFriends[A] = new ListBox();
                 listBoxFriends[A].Tag = A;
+
+                listBoxFriends[A].SelectionMode = SelectionMode.MultiSimple;
+                listBoxFriends[A].SelectedIndex = -1;
                 listBoxFriends[A].DataSource = ts;
                 listBoxFriends[A].Size = new Size(150, 78);
                 listBoxFriends[A].Location = new Point { X = 100 + 270 * (B - 1), Y = 150 + T };
-                
+
                 listOfLists.Add(ts);
 
                 btn_share[A] = new Button();
@@ -156,8 +158,6 @@ namespace WindowsFormsApp1
                 this.Controls.Add(listBoxFriends[A]);
                 this.Controls.Add(labelGroupName[A]);
                 this.Controls.Add(btn_share[A]);
-                listBoxFriends[A].SelectionMode = SelectionMode.MultiSimple;
-                listBoxFriends[A].SelectedIndex = -1;
 
                 btn_add[A].Click += new EventHandler(btn_add_Click);
                 btn_delete[A].Click += new EventHandler(btn_delete_Click);

@@ -150,7 +150,6 @@
             this.calendarContainer.Name = "calendarContainer";
             this.calendarContainer.Size = new System.Drawing.Size(862, 781);
             this.calendarContainer.TabIndex = 0;
-            this.calendarContainer.Paint += new System.Windows.Forms.PaintEventHandler(this.calendarContainer_Paint);
             // 
             // mainForm
             // 

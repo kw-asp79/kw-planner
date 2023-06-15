@@ -345,11 +345,6 @@ namespace Client
             netstrm.Close();
             server.Close();
         }
-
-        private void calendarContainer_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
     }
 
     public class LoginEventArgs : EventArgs

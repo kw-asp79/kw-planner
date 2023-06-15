@@ -12,7 +12,7 @@ using System.Windows.Forms;
 using PacketLibrary;
 using System.Net.Sockets;
 
-namespace WindowsFormsApp1
+namespace Client
 {
     public partial class fdGroup_Add_Form : Form
     {

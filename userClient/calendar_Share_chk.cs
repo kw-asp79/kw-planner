@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WindowsFormsApp1
+namespace Client
 {
     public partial class calendar_Share_chk : Form
     {
@@ -30,6 +30,9 @@ namespace WindowsFormsApp1
         Button Button = new Button ();
 
         List<Schedule> requestSchedules = new List<Schedule>();
+
+        public static event EventHandler<EventFormArgs> AcceptShareScheduleEvent;
+        
         public calendar_Share_chk(calendarForm form )
         {
             InitializeComponent();
@@ -119,8 +122,21 @@ namespace WindowsFormsApp1
                 if (checkBox[i].Checked)
                 {
                     var schedule = requestSchedules[i - 1];
+                    schedule.category = "CUSTOM";
+
                     selectedSchedules.Add(schedule);
-                    calendarForm.requestSchedules.RemoveAt(i - 1);
+                    //calendarForm.requestSchedules.RemoveAt(i - 1);
+
+                    foreach (Schedule rSchedule in calendarForm.requestSchedules)
+                    {
+                        if (Schedule.scheduleCompare(schedule, rSchedule) == true)
+                        {
+                            calendarForm.requestSchedules.Remove(rSchedule);
+                            break;
+                        }
+                    }
+                    
+                    
                     //string co = schedule.content;
                     //var index = mainForm.schedules.FindIndex(s => s.content == co);
                     
@@ -143,6 +159,7 @@ namespace WindowsFormsApp1
             packet = Packet.ReceivePacket(netstrm);
 
             mainForm.schedules.AddRange(selectedSchedules);
+            calendarForm.userSchedules.AddRange(selectedSchedules);
 
             //string meesage = "";
             //foreach (schedule schedule in mainform.schedules)
@@ -152,6 +169,9 @@ namespace WindowsFormsApp1
             //messagebox.show(meesage);
 
             MessageBox.Show(string.Format("선택한 일정이 내 일정으로 등록되었습니다."));
+
+            AcceptShareScheduleEvent.Invoke(this, new EventFormArgs(selectedSchedules));
+            
             this.Close();
         }
     }

@@ -40,7 +40,7 @@ namespace Client
                 statusLbl.Text = "";
 
                 crawlingLbl.Font = new Font(statusLbl.Font.FontFamily,10,FontStyle.Regular);
-                crawlingLbl.Text = "로그인 성공! 크롤링 작업이 진행 중입니다.. ";
+                crawlingLbl.Text = "로그인 성공! 도서관 크롤링 작업이 진행 중입니다.. ";
                 
             };
 
